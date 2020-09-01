@@ -1,0 +1,31 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <ApplicationIcon>ico-app.ico</ApplicationIcon>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Content\Images\SplashScreen.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MahApps.Metro" Version="2.1.1" />
+    <PackageReference Include="MahApps.Metro.IconPacks" Version="4.4.0" />
+    <PackageReference Include="MahApps.Metro.SimpleChildWindow" Version="1.5.0" />
+    <PackageReference Include="Microsoft.Maps.MapControl.WPF" Version="1.0.0.3" />
+    <PackageReference Include="System.Drawing.Common" Version="4.7.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\StructureSystem.Shared\StructureSystem.Shared.csproj" />
+    <ProjectReference Include="..\StructureSystem.ViewModel\StructureSystem.ViewModel.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Content\Images\SplashScreen.png" />
+  </ItemGroup>
+
+</Project>

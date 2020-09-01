@@ -1,0 +1,26 @@
+﻿<Window x:Class="StructureSystem.View.SplashScreenView.SplashScreenWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+        xmlns:viewModels="clr-namespace:StructureSystem.ViewModel;assembly=StructureSystem.ViewModel"
+        xmlns:core="clr-namespace:StructureSystem.ViewModel.Shared;assembly=StructureSystem.ViewModel"
+        xmlns:local="clr-namespace:StructureSystem.View.SplashScreenView"
+        mc:Ignorable="d"
+        Title="SplashScreenWindow"
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="None"
+        AllowsTransparency="True"
+        Background="Transparent"
+        Height="450" Width="800">
+    <Window.DataContext>
+        <viewModels:SplashScreenViewVM />
+    </Window.DataContext>
+    <Grid>
+        <Image HorizontalAlignment="Left" Height="386" Margin="108,0,0,0"  Source="/Content/Images/SplashScreen.png" VerticalAlignment="Center" Width="590"/>
+        <ProgressBar Background="Transparent"  Margin="151,383,182,52" Value="{Binding CurrentProgress, Mode=OneWay}" />
+        <TextBlock HorizontalAlignment="Left"
+                   VerticalAlignment="Top" Margin="358,381,0,0" Text="{Binding StatusMessage, Mode=OneWay}"></TextBlock>
+    </Grid>
+</Window>
