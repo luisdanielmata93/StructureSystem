@@ -10,13 +10,15 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using MahApps.Metro.Controls;
+using StructureSystem.ViewModel.Dialog;
 
 namespace StructureSystem.View.Views
 {
     /// <summary>
     /// Lógica de interacción para DataWall.xaml
     /// </summary>
-    public partial class DataWall : Window
+    public partial class DataWall : MetroWindow
     {
         public DataWall()
         {

@@ -41,6 +41,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Models\Enum.cs" />
+    <Compile Include="Models\Group.cs" />
+    <Compile Include="Models\Material.cs" />
+    <Compile Include="Models\OperationResult.cs" />
+    <Compile Include="Models\Regulation.cs" />
+    <Compile Include="Models\Storey.cs" />
+    <Compile Include="Models\Test.cs" />
+    <Compile Include="Models\Usage.cs" />
+    <Compile Include="Models\Wall.cs" />
+    <Compile Include="Models\XMLData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

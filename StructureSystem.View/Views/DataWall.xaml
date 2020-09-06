@@ -1,4 +1,4 @@
-﻿<Window x:Class="StructureSystem.View.Views.DataWall"
+﻿<Controls:MetroWindow x:Class="StructureSystem.View.Views.DataWall"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -6,70 +6,184 @@
              xmlns:local="clr-namespace:StructureSystem.View.Views"
              xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
              xmlns:Icons="http://metro.mahapps.com/winfx/xaml/iconpacks"
+             xmlns:viewModels="clr-namespace:StructureSystem.ViewModel;assembly=StructureSystem.ViewModel"
              mc:Ignorable="d" 
-             d:DesignHeight="50" d:DesignWidth="50"
-             Height="500" Width="460"
+             x:Name="DataWallView"
+             d:DesignHeight="1000" d:DesignWidth="1000"
+             Height="400" Width="500"
              Background="White"
+             ResizeMode="NoResize"
              >
-    <Grid HorizontalAlignment="Left" Margin="10 0 0 10">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="100" />
-            <ColumnDefinition  Width="100"/>
-            <ColumnDefinition  Width="20"/>
-            <ColumnDefinition Width="100"/>
-            <ColumnDefinition  Width="100"/>
+
+    <Controls:MetroWindow.DataContext>
+        <viewModels:DataWallVM />
+    </Controls:MetroWindow.DataContext>
+    <Grid>
+        <Grid.ColumnDefinitions >
+            <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition  />
-            <RowDefinition />
-            <RowDefinition />
-            <RowDefinition />
-            <RowDefinition />
         </Grid.RowDefinitions>
-        
-        
 
-        <Label Grid.Row="0" Grid.Column="0" Height="30" Content="Muro" HorizontalAlignment="Left" />
-        <ComboBox Grid.Row="0" Grid.Column="1"  Height="30" >
-            <ComboBoxItem>1</ComboBoxItem>
-            <ComboBoxItem>2</ComboBoxItem>
-            <ComboBoxItem>3</ComboBoxItem>
-            <ComboBoxItem>4</ComboBoxItem>
-            <ComboBoxItem>5</ComboBoxItem>
-        </ComboBox>
+        <Controls:MetroAnimatedTabControl SelectedIndex="{Binding SelectedTag}" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="5" >
+
+            <!--VISTA PARA MOSTRAR NIVEL A REGISTRAR -->
+            <Controls:MetroTabItem  Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="5">
+
+                <Grid HorizontalAlignment="Left" Margin="10 0 10 0">
+                    <Grid.ColumnDefinitions >
+                        <ColumnDefinition Width="100" />
+                        <ColumnDefinition Width="100" />
+                        <ColumnDefinition Width="200" />
+                        <ColumnDefinition Width="100" />
+                        <ColumnDefinition Width="100" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Label Style="{StaticResource BigCounterTitle}" Grid.Row="0" Grid.ColumnSpan="4" Content="NIVEL" />
+                    <TextBlock Style="{StaticResource BigCounter}" Text="{Binding Storey}"  Grid.Row="0" Grid.RowSpan="4" Grid.Column="0" Grid.ColumnSpan="4" />
+
+                    <Button Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2"  Height="40" Command="{Binding InitLevelCommand}"  Content="Iniciar registro"  />
+
+                </Grid>
+
+            </Controls:MetroTabItem>
+            <!--INICIA INSERCIÓN DE MUROS HORIZONTALES-->
+            <Controls:MetroTabItem  Header="Muros horizontales" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="5">
+
+                <Grid HorizontalAlignment="Left" Margin="10 0 10 0">
+                    <Grid.ColumnDefinitions >
+                        <ColumnDefinition Width="130" />
+                        <ColumnDefinition  Width="90"/>
+                        <ColumnDefinition  Width="20"/>
+                        <ColumnDefinition Width="130"/>
+                        <ColumnDefinition  Width="100"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="50"/>
+                        <RowDefinition Height="10"/>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="10"/>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="10"/>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="10"/>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <Label Grid.Row="0" Grid.Column="0" Height="30" Content="NIVEL" HorizontalAlignment="Left"/>
+                    <TextBlock Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" FontWeight="Bold" FontSize="15"  Height="30" Text="{Binding Storey, Mode=TwoWay}"/>
+
+                    <Label Grid.Row="0" Grid.Column="3" Height="30" Content="Muros registrados" HorizontalAlignment="Left" />
+                    <TextBlock Grid.Row="0" Grid.Column="4" FontSize="15" VerticalAlignment="Center" HorizontalAlignment="Left" FontWeight="Bold" Height="30" Text="{Binding CountH,Mode=TwoWay}" />
 
 
-        <Label Grid.Row="0" Grid.Column="3" Height="30" Content="Material"  />
-        <ComboBox Grid.Row="0" Grid.Column="4" Height="30">
-            <ComboBoxItem>Tabique</ComboBoxItem>
-            <ComboBoxItem>Block</ComboBoxItem>
-            <ComboBoxItem>Concreto</ComboBoxItem>
-            <ComboBoxItem>Acero</ComboBoxItem>
-            <ComboBoxItem>Tabimax</ComboBoxItem>
-        </ComboBox>
+                    <Label Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Height="30" Content="Material"  />
+                    <ComboBox Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="4" Height="30" Controls:TextBoxHelper.Watermark="Seleccione un material" SelectedItem="{Binding MaterialH}" DisplayMemberPath="Name" ItemsSource="{Binding Materials, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
 
 
-        <Label Grid.Row="1" Grid.Column="0" Height="30" Content="Longitud(m)" />
-        <TextBox Grid.Row="1" Grid.Column="1" Height="30"  Controls:TextBoxHelper.ClearTextButton="True" MaxLength="3" Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}"/>
+                    <Label Grid.Row="4" Grid.Column="3" Height="30" Content="Longitud(m)" />
+                    <TextBox Grid.Row="4" Grid.Column="4" Height="30"  Controls:TextBoxHelper.ClearTextButton="True" MaxLength="10" Text="{Binding Length, UpdateSourceTrigger=PropertyChanged}"/>
 
-        <Label Grid.Row="1" Grid.Column="3" Height="30" Content="Area tributaria(m2)" />
-        <TextBox Grid.Row="1" Grid.Column="4" Height="30"  Controls:TextBoxHelper.ClearTextButton="True" MaxLength="3" Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}"/>
+                    <Label Grid.Row="4" Grid.Column="0" Height="30" Content="Area tributaria(m2)"  />
+                    <TextBox Grid.Row="4" Grid.Column="1" Height="30"  Controls:TextBoxHelper.ClearTextButton="True" MaxLength="10" Text="{Binding TributaryArea, UpdateSourceTrigger=PropertyChanged}"/>
 
-        <Label Grid.Row="2" Grid.Column="0" Height="30" Content="Espesor(m)"/>
-        <TextBox Grid.Row="2" Grid.Column="1" Height="30"  Controls:TextBoxHelper.ClearTextButton="True" MaxLength="3" Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}"/>
+                    <Label Grid.Row="6" Grid.Column="3" Height="30" Content="Espesor(m)"/>
+                    <TextBox Grid.Row="6" Grid.Column="4" Height="30"  Controls:TextBoxHelper.ClearTextButton="True" MaxLength="10" Text="{Binding Thickness, UpdateSourceTrigger=PropertyChanged}"/>
 
-        <Label Grid.Row="2" Grid.Column="3" Height="30" Content="Altura(m)" Width="104"/>
-        <TextBox Grid.Row="2" Grid.Column="4"  Height="30"  Controls:TextBoxHelper.ClearTextButton="True" MaxLength="3" Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}"/>
+                    <Label Grid.Row="6" Grid.Column="0" Height="30" Content="Altura(m)" Width="104"/>
+                    <TextBox Grid.Row="6" Grid.Column="1"  Height="30"  Controls:TextBoxHelper.ClearTextButton="True" MaxLength="10" Text="{Binding Height, UpdateSourceTrigger=PropertyChanged}"/>
 
-        <Label Grid.Row="3" Grid.Column="0" Height="30" Content="Cordenadas en X (m)" />
-        <TextBox Grid.Row="3" Grid.Column="1" Height="30"  Controls:TextBoxHelper.ClearTextButton="True" MaxLength="3" Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}"/>
+                    <Label Grid.Row="8" Grid.Column="3" Height="30" Content="Cordenadas en X (m)" />
+                    <TextBox Grid.Row="8" Grid.Column="4" Height="30"  Controls:TextBoxHelper.ClearTextButton="True" MaxLength="10" Text="{Binding PositionX, UpdateSourceTrigger=PropertyChanged}"/>
 
-        <Label Grid.Row="3" Grid.Column="3" Height="30" Content="Cordenadas en Y (m)" />
-        <TextBox Grid.Row="3" Grid.Column="4" Height="30"  Controls:TextBoxHelper.ClearTextButton="True" MaxLength="3" Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}"/>
+                    <Label Grid.Row="8" Grid.Column="0" Height="30" Content="Cordenadas en Y (m)" />
+                    <TextBox Grid.Row="8" Grid.Column="1" Height="30"  Controls:TextBoxHelper.ClearTextButton="True" MaxLength="10" Text="{Binding PositionY, UpdateSourceTrigger=PropertyChanged}"/>
 
-        <Button Grid.Row="4" Grid.Column="4" Width="100" Height="40"  Content="Guardar"  />
+                    <Button Grid.Row="9" Grid.Column="3" Height="40" Command="{Binding SaveHorizontalCommand}"   Content="Guardar"  />
+                    <Button Grid.Row="9" Grid.Column="4" Height="40" Command="{Binding NextCommand}"  Content="Siguiente"  />
 
+                </Grid>
+
+            </Controls:MetroTabItem>
+            <!--finaliza tan de insercion para muros horizontales-->
+
+
+            <!--INICIA INSERCIÓN DE MUROS VERTICALES-->
+            <Controls:MetroTabItem  Header="Muros verticales" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="5">
+
+
+                <Grid HorizontalAlignment="Left" Margin="10 0 10 0">
+                    <Grid.ColumnDefinitions >
+                        <ColumnDefinition Width="130" />
+                        <ColumnDefinition  Width="90"/>
+                        <ColumnDefinition  Width="20"/>
+                        <ColumnDefinition Width="130"/>
+                        <ColumnDefinition  Width="100"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="50"/>
+                        <RowDefinition Height="10"/>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="10"/>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="10"/>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="10"/>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <Label Grid.Row="0" Grid.Column="0" Height="30" Content="NIVEL" HorizontalAlignment="Left"/>
+                    <TextBlock Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" FontWeight="Bold" FontSize="15"  Height="30" Text="{Binding Storey, Mode=TwoWay}"/>
+
+                    <Label Grid.Row="0" Grid.Column="3" Height="30" Content="Muros registrados" HorizontalAlignment="Left" />
+                    <TextBlock Grid.Row="0" Grid.Column="4" FontSize="15" VerticalAlignment="Center" HorizontalAlignment="Left" FontWeight="Bold" Height="30" Text="{Binding CountV,Mode=TwoWay}" />
+
+
+                    <Label Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Height="30" Content="Material"  />
+                    <ComboBox Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="4" Height="30" Controls:TextBoxHelper.Watermark="Seleccione un material" SelectedItem="{Binding MaterialV}" DisplayMemberPath="Name" ItemsSource="{Binding Materials, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+
+
+                    <Label Grid.Row="4" Grid.Column="3" Height="30" Content="Longitud(m)" />
+                    <TextBox Grid.Row="4" Grid.Column="4" Height="30"  Controls:TextBoxHelper.ClearTextButton="True" MaxLength="10" Text="{Binding Length, UpdateSourceTrigger=PropertyChanged}"/>
+
+                    <Label Grid.Row="4" Grid.Column="0" Height="30" Content="Area tributaria(m2)"  />
+                    <TextBox Grid.Row="4" Grid.Column="1" Height="30"  Controls:TextBoxHelper.ClearTextButton="True" MaxLength="10" Text="{Binding TributaryArea, UpdateSourceTrigger=PropertyChanged}"/>
+
+                    <Label Grid.Row="6" Grid.Column="3" Height="30" Content="Espesor(m)"/>
+                    <TextBox Grid.Row="6" Grid.Column="4" Height="30"  Controls:TextBoxHelper.ClearTextButton="True" MaxLength="10" Text="{Binding Thickness, UpdateSourceTrigger=PropertyChanged}"/>
+
+                    <Label Grid.Row="6" Grid.Column="0" Height="30" Content="Altura(m)" Width="104"/>
+                    <TextBox Grid.Row="6" Grid.Column="1"  Height="30"  Controls:TextBoxHelper.ClearTextButton="True" MaxLength="10" Text="{Binding Height, UpdateSourceTrigger=PropertyChanged}"/>
+
+                    <Label Grid.Row="8" Grid.Column="3" Height="30" Content="Cordenadas en X (m)" />
+                    <TextBox Grid.Row="8" Grid.Column="4" Height="30"  Controls:TextBoxHelper.ClearTextButton="True" MaxLength="10" Text="{Binding PositionX, UpdateSourceTrigger=PropertyChanged}"/>
+
+                    <Label Grid.Row="8" Grid.Column="0" Height="30" Content="Cordenadas en Y (m)" />
+                    <TextBox Grid.Row="8" Grid.Column="1" Height="30"  Controls:TextBoxHelper.ClearTextButton="True" MaxLength="10" Text="{Binding PositionY, UpdateSourceTrigger=PropertyChanged}"/>
+
+                    <Button Grid.Row="9" Grid.Column="0" Height="40" Command="{Binding PreviousCommand}"   Content="Regresar"  />
+
+                    <Button Grid.Row="9" Grid.Column="3" Height="40" Command="{Binding SaveVerticalCommand}"   Content="Guardar"  />
+                    <Button Grid.Row="9" Grid.Column="4" Height="40" Command="{Binding FinishCommand}"  Content="Siguiente Nivel"  />
+
+                </Grid>
+
+
+            </Controls:MetroTabItem>
+            <!--finaliza tan de insercion para muros verticales-->
+
+        </Controls:MetroAnimatedTabControl>
     </Grid>
 
 
-</Window>
+
+
+</Controls:MetroWindow>

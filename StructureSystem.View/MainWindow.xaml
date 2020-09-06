@@ -22,15 +22,32 @@
     <Window.DataContext>
         <viewModels:MainWindowVM />
     </Window.DataContext>
+   
+    <mah:MetroWindow.LeftWindowCommands>
+        <mah:WindowCommands>
+            <Button ToolTip="">
+                <iconPacks:PackIconModern Width="22"
+                                  Height="22"
+                                  Kind="VectorPolygon" />
+            </Button>
+        </mah:WindowCommands>
+    </mah:MetroWindow.LeftWindowCommands>
     <mah:MetroWindow.RightWindowCommands>
         <mah:WindowCommands>
-            <Button Content="Configuración" >
-                <Button.ContextMenu>
-                    <ContextMenu>
-                        <MenuItem Header="Usuario" />
-                        <MenuItem Header="Sair"  />
-                    </ContextMenu>
-                </Button.ContextMenu>
+            <Button Content="Configuración">
+                <Button.ContentTemplate>
+                    <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <iconPacks:PackIconModern Width="22"
+                                        Height="22"
+                                        VerticalAlignment="Center"
+                                        Kind="ClipboardPaper" />
+                                <TextBlock Margin="4 0 0 0"
+                         VerticalAlignment="Center"
+                         Text="{Binding}" />
+                            </StackPanel>
+                    </DataTemplate>
+                </Button.ContentTemplate>
             </Button>
         </mah:WindowCommands>
     </mah:MetroWindow.RightWindowCommands>

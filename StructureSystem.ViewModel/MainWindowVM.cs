@@ -7,19 +7,48 @@ using StructureSystem.ViewModel.Shared;
 using MahApps.Metro.Controls;
 using MahApps.Metro.IconPacks;
 using StructureSystem.ViewModel;
+using Microsoft.Win32;
+using System.Windows.Input;
 
 namespace StructureSystem.ViewModel
 {
     public class MainWindowVM : PropertyChangedViewModel
     {
+        #region Properties
+
         private HamburgerMenuItemCollection _menuItems;
         private HamburgerMenuItemCollection _menuOptionItems;
 
+
+        #endregion
+
+
+        #region Constructor
         public MainWindowVM()
         {
             this.CreateMenuItems();
+            SetCommands();
+
+        }
+        #endregion
+
+
+        #region Commands
+        public ICommand ImportCommand { get; private set; }
+        #endregion
+
+
+
+        #region Set Command
+
+        private void SetCommands()
+        {
         }
 
+        #endregion
+        
+
+        #region Menu Config
         public void CreateMenuItems()
         {
             MenuItems = new HamburgerMenuItemCollection
@@ -101,5 +130,8 @@ namespace StructureSystem.ViewModel
                 OnPropertyChanged();
             }
         }
+        #endregion
+
+
     }//End of class
 }

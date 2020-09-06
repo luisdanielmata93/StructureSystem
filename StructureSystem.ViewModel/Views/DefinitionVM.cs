@@ -6,27 +6,35 @@ using System.Threading.Tasks;
 using StructureSystem.ViewModel.Shared;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
-
+using StructureSystem.Model;
+using StructureSystem.Shared.BusinessRules;
+using Microsoft.Win32;
+using Notifications.Wpf.Controls;
+using Notifications.Wpf;
 
 namespace StructureSystem.ViewModel
 {
     public class DefinitionVM : PropertyChangedViewModel
     {
 
-        #region Properties
-        private readonly PropertyChangedViewModel _mainViewModel;
-
-       
-
-        #endregion
-
 
         #region Constructor
         public DefinitionVM(PropertyChangedViewModel mainViewModel)
         {
-            _mainViewModel = mainViewModel;
+            this.data = new BusinessRules();
+            this._mainViewModel = mainViewModel;
 
+            this.SetInitialTestData();
+            _defaultPath = @"C:\StructureSystem";
             this.SetCommands();
+
+
+
+            //NotificationManager notificationManager = new NotificationManager();
+
+            //notificationManager.Show(
+            //    new NotificationContent { Title = "Notification", Message = "Notification in window!" },
+            //    areaName: "WindowArea");
 
         }
         #endregion
@@ -35,10 +43,12 @@ namespace StructureSystem.ViewModel
         #region Commands
 
         public ICommand SearchCommand { get; private set; }
-        public ICommand NewProductCommand { get; private set; }
-        public ICommand SaveEditionCommand { get; private set; }
-        #endregion
+        public ICommand SaveProjectCommand { get; private set; }
+        public ICommand ExportExcelCommand { get; private set; }
+        public ICommand ExportPDFCommand { get; private set; }
+        public ICommand ImportCommand { get; private set; }
 
+        #endregion
 
 
         #region Set Command
@@ -46,42 +56,295 @@ namespace StructureSystem.ViewModel
         private void SetCommands()
         {
             SearchCommand = new RelayCommand(o => Search(), o => CanSearch());
-            NewProductCommand = new RelayCommand(o => NewProduct());
-            SaveEditionCommand = new RelayCommand(o => Save(), o => CanSave());
+            SaveProjectCommand = new RelayCommand(o => NewProject(), o => CanSave());
+            ExportExcelCommand = new RelayCommand(o => Save(), o => CanSave());
+            ExportPDFCommand = new RelayCommand(o => Save(), o => CanSave());
+            ImportCommand = new RelayCommand(o => doImportProject());
         }
 
         #endregion
 
         #region CommandMethods
+
+        public void doImportProject()
+        {
+            var dialog = new OpenFileDialog { InitialDirectory = _defaultPath };
+            dialog.ShowDialog();
+
+            SelectedPath = dialog.FileName;
+            if (string.IsNullOrEmpty(SelectedPath))
+                return;
+
+
+           var ProjectData =  data.ImportDocument(SelectedPath);
+
+            var dataImport = (Dictionary<string,object>)ProjectData.Data;
+
+            this.ClientName = dataImport["Client"].ToString();
+            this.ProjectName = dataImport["Project"].ToString();
+            this.Address = dataImport["Address"].ToString();
+            this.Storeys = Convert.ToInt32(dataImport["Storeys"]);
+            this.Surface = Convert.ToInt32(dataImport["Surface"]);
+            this.Regulation = Regulations.Find(x => x.Name == dataImport["Regulation"].ToString());
+            this.Group = Groups.Find(x => x.Name == dataImport["Group"].ToString());
+            this.Usage = Usages.Find(x => x.Name == dataImport["Usage"].ToString());
+            this.Test = Tests.Find(x => x.Name == dataImport["Test"].ToString());
+            this.StartDate = Convert.ToDateTime(dataImport["Date"]);
+
+        }
+
         private bool CanSearch()
         {
-            //return !string.IsNullOrEmpty(SearchText);
-            return false;
+            return !string.IsNullOrEmpty(Address);
         }
 
         private void Search()
         {
-          //  var th = this.SearchText;
+            //  var th = this.SearchText;
 
         }
 
-        private void NewProduct()
+        private void NewProject()
         {
-           // OpenAddProduct = true;
+            data.CreateDocument(this);
         }
 
         private bool CanSave()
         {
-            //  return !(SelectedProduct is null);
-            return false;
-        }
+
+            return FieldsValidation();
+
+         }
+       
         private void Save()
         {
-          //  this.SelectedProduct = null;
+            //  this.SelectedProduct = null;
         }
         #endregion
 
 
+        #region methods
+        private void SetInitialTestData()
+        {
+            var BaseDefinitionData = data.GetDefinitionData();
+
+            this.Groups = BaseDefinitionData["groups"].Cast<Group>().ToList();
+            this.Regulations = BaseDefinitionData["regulations"].Cast<Regulation>().ToList();
+            this.Usages = BaseDefinitionData["usages"].Cast<Usage>().ToList();
+            this.Tests = BaseDefinitionData["tests"].Cast<Test>().ToList();
+        }
+
+        private bool FieldsValidation()
+        {
+            bool result = false;
+            if(!string.IsNullOrEmpty(ClientName) && !string.IsNullOrEmpty(ProjectName) && !string.IsNullOrEmpty(Address) &&
+                (Storeys > 0) && (Surface > 0) && (Regulation != null) && (Group != null) && (Usage != null) && (Test != null) )
+            {
+                result = true;
+            }
+
+            return result;
+
+        }
+        #endregion
+
+
+        #region Properties
+        private string _selectedPath;
+        public string SelectedPath
+        {
+            get { return _selectedPath; }
+            set
+            {
+                _selectedPath = value;
+                OnPropertyChanged("SelectedPath");
+            }
+        }
+
+        private string _defaultPath;
+
+
+
+
+        private readonly PropertyChangedViewModel _mainViewModel;
+        private BusinessRules data;
+        private string _clientName;
+        public string ClientName
+        {
+            get
+            {
+                return _clientName;
+            }
+            set
+            {
+                if (value != _clientName)
+                    _clientName = value;
+                OnPropertyChanged("ClientName");
+            }
+        }
+
+        private string _projectName;
+        public string ProjectName
+        {
+            get
+            {
+                return _projectName;
+            }
+            set
+            {
+                if (value != _projectName)
+                    _projectName = value;
+                OnPropertyChanged("ProjectName");
+            }
+        }
+
+        private string _Address;
+        public string Address
+        {
+            get { return _Address; }
+            set
+            {
+                if (value != _Address)
+                    _Address = value;
+                OnPropertyChanged("Address");
+            }
+        }
+
+        private DateTime _startDate = DateTime.Now;
+        public DateTime StartDate
+        {
+            get { return _startDate; }
+            set { _startDate = value; OnPropertyChanged("StartDate"); }
+        }
+
+        private int _storeys;
+        public int Storeys
+        {
+            get { return _storeys; }
+            set
+            {
+                if (value != _storeys)
+                    _storeys = value;
+                OnPropertyChanged("Storeys");
+            }
+        }
+
+        private double _Surface;
+        public double Surface
+        {
+            get { return _Surface; }
+
+            set
+            {
+                if (value != _Surface)
+                    _Surface = value;
+                OnPropertyChanged("Surface");
+            }
+        }
+
+
+        private Regulation _Regulation;
+        public Regulation Regulation
+        {
+            get { return _Regulation; }
+            set
+            {
+                if (value != _Regulation)
+                    _Regulation = value;
+                OnPropertyChanged("Regulation");
+            }
+        }
+
+
+        private List<Regulation> _Regulations;
+        public List<Regulation> Regulations
+        {
+            get { return _Regulations; }
+            set
+            {
+                if (value != _Regulations)
+                    _Regulations = value;
+                OnPropertyChanged("Regulations");
+            }
+        }
+
+        private Group _Group;
+        public Group Group
+        {
+            get { return _Group; }
+            set
+            {
+                if (value != _Group)
+                    _Group = value;
+                OnPropertyChanged("Group");
+
+            }
+        }
+
+        private List<Group> _Groups;
+        public List<Group> Groups
+        {
+            get { return _Groups; }
+            set
+            {
+                if (value != _Groups)
+                    _Groups = value;
+                OnPropertyChanged("Groups");
+            }
+        }
+
+
+        private Usage _Usage;
+        public Usage Usage
+        {
+            get { return _Usage; }
+            set
+            {
+                if (value != _Usage)
+                    _Usage = value;
+                OnPropertyChanged("Usage");
+            }
+        }
+
+        private List<Usage> _Usages;
+        public List<Usage> Usages
+        {
+            get { return _Usages; }
+            set
+            {
+                if (value != _Usages)
+                    _Usages = value;
+                OnPropertyChanged("Usages");
+            }
+        }
+
+
+        private Test _Test;
+        public Test Test
+        {
+            get { return _Test; }
+            set
+            {
+                if (value != _Test)
+                    _Test = value;
+                OnPropertyChanged("Test");
+            }
+        }
+
+
+        private List<Test> _Tests;
+        public List<Test> Tests
+        {
+            get { return _Tests; }
+            set
+            {
+                if (value != _Tests)
+                    _Tests = value;
+                OnPropertyChanged("Tests");
+            }
+        }
+
+        #endregion
 
     }//end of class
 }//end of namespace

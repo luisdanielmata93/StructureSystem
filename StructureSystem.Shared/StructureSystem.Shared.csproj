@@ -32,6 +32,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Xml.Linq" />
@@ -42,6 +43,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BusinessRules\BusinessRules.cs" />
+    <Compile Include="Configuration\WebConfig.cs" />
+    <Compile Include="Configuration\WebConfiguration.cs" />
+    <Compile Include="DataManagment\Document.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources\ImageResources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -55,7 +60,12 @@
       <LastGenOutput>ImageResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\StructureSystem.Model\StructureSystem.Model.csproj">
+      <Project>{e4f23e85-99f5-488c-b1df-cb0d6014435d}</Project>
+      <Name>StructureSystem.Model</Name>
+    </ProjectReference>
+  </ItemGroup>
   <ItemGroup>
     <Content Include="Images\cityBuilding.png" />
   </ItemGroup>

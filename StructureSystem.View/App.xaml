@@ -10,6 +10,61 @@
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Themes/Light.Blue.xaml" />
             </ResourceDictionary.MergedDictionaries>
+
+
+            <!-- New style -->
+            <Style x:Key="StyleListViewItem" TargetType="ListViewItem">
+                <!--<Style.Triggers>
+                    <Trigger Property="IsMouseOver" Value="False">
+                        <Setter Property="Background" Value="Purple"/>
+                        <Setter Property="Opacity" Value="0.2"/>
+                    </Trigger>
+                    <Trigger Property="IsSelected" Value="False">
+                        <Setter Property="Background" Value="MediumPurple"/>
+                    </Trigger>
+                </Style.Triggers>-->
+            </Style>
+
+            <Style x:Key="BigCounterTitle" TargetType="Control">
+                <Setter Property="FontWeight" Value="DemiBold"/>
+                <Setter Property="FontSize" Value="40"/>
+                <Setter Property="VerticalAlignment" Value="top"/>
+                <Setter Property="HorizontalAlignment" Value="Center"/>
+                <Setter Property="Foreground">
+                    <Setter.Value>
+                        <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                            <LinearGradientBrush.GradientStops>
+                                <GradientStop Offset="0.0" Color="#90DDDD" />
+                                <GradientStop Offset="1.0" Color="#5BFFFF" />
+                            </LinearGradientBrush.GradientStops>
+                        </LinearGradientBrush>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <Style x:Key="BigCounter" TargetType="TextBlock">
+                <Setter Property="FontWeight" Value="DemiBold"/>
+                <Setter Property="FontSize" Value="200"/>
+                <Setter Property="VerticalAlignment" Value="top"/>
+                <Setter Property="HorizontalAlignment" Value="Center"/>
+                <Setter Property="Foreground">
+                    <Setter.Value>
+                        <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                            <LinearGradientBrush.GradientStops>
+                                <GradientStop Offset="0.0" Color="#90DDDD" />
+                                <GradientStop Offset="1.0" Color="#5BFFFF" />
+                            </LinearGradientBrush.GradientStops>
+                        </LinearGradientBrush>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <!-- Existing style -->
+            <Style x:Key="StyleListView" TargetType="ListView">
+                <Setter Property="ItemContainerStyle" Value="{StaticResource StyleListViewItem}"/>
+                <Setter Property="SnapsToDevicePixels" Value="False"/>
+                <!-- ... -->
+            </Style>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

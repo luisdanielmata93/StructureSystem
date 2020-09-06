@@ -11,6 +11,9 @@ using System.Drawing;
 using System.Threading;
 using StructureSystem.View.SplashScreenView;
 using MahApps.Metro.Controls;
+using StructureSystem.ViewModel.Dialog;
+using StructureSystem.ViewModel;
+using StructureSystem.View.Views;
 
 namespace StructureSystem.View
 {
@@ -23,13 +26,17 @@ namespace StructureSystem.View
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
-            var splashScreen = new SplashScreenWindow();
-            this.MainWindow = splashScreen;
-            splashScreen.Show();
+
+            //IDialogService dialogService = new DialogService(MainWindow);
+            //dialogService.Register<DataWallVM, DataWall>();
+
+            //var splashScreen = new SplashScreenWindow();
+           // this.MainWindow = splashScreen;
+           // splashScreen.Show();
 
             Task.Factory.StartNew(() =>
             {
-                Thread.Sleep(5000);
+                //Thread.Sleep(5000);
 
                 this.Dispatcher.Invoke(() =>
                 {
@@ -37,7 +44,7 @@ namespace StructureSystem.View
                     this.MainWindow = mainWindow;
                     mainWindow.Show();
 
-                    splashScreen.Close();
+                   // splashScreen.Close();
 
                 });
             });

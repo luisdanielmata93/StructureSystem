@@ -6,96 +6,118 @@
         xmlns:local="clr-namespace:StructureSystem.View.Views"
         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns:Icons="http://metro.mahapps.com/winfx/xaml/iconpacks"
+        xmlns:notifications="clr-namespace:Notifications.Wpf.Controls;assembly=Notifications.Wpf"
         xmlns:simpleChildWindow="clr-namespace:MahApps.Metro.SimpleChildWindow;assembly=MahApps.Metro.SimpleChildWindow"
         xmlns:m="clr-namespace:Microsoft.Maps.MapControl.WPF;assembly=Microsoft.Maps.MapControl.WPF" 
         mc:Ignorable="d"
         Height="auto" Width="auto">
 
-    <StackPanel Orientation="Vertical" VerticalAlignment="Top" FlowDirection="LeftToRight" Margin="20 20 20 0">
+    <Grid>
+        <Grid.ColumnDefinitions >
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30" />
+            <RowDefinition  />
+        </Grid.RowDefinitions>
 
-        <Controls:MetroTabControl>
-            <Controls:MetroTabItem Header="Definición general">
+        <DockPanel Grid.Row="0" Grid.ColumnSpan="9">
+            <TextBlock DockPanel.Dock="Top" Text="{Binding Title}" FontWeight="Medium" TextTrimming="CharacterEllipsis"/>
+            <DockPanel LastChildFill="False" DockPanel.Dock="Bottom" Margin="0,8,0,0">
+                <Button x:Name="Ok" Content="Ok" DockPanel.Dock="Right" notifications:Notification.CloseOnClick="True"/>
+                <Button x:Name="Cancel" Content="Cancel" DockPanel.Dock="Right" Margin="0,0,8,0" notifications:Notification.CloseOnClick="True"/>
+            </DockPanel>
+            <TextBlock Text="{Binding Message}" TextWrapping="Wrap" Opacity=".8" Margin="0,8,0,0"/>
+        </DockPanel>
 
-                <StackPanel Orientation="Vertical" VerticalAlignment="Top" Width="auto" Margin="10 10 10 20">
-                    <StackPanel Orientation="Horizontal" VerticalAlignment="Top" Margin="10 10 10 20">
-                        <Label Height="30" Content="Nombre del cliente" Margin="10 10 10 10" />
-                        <TextBox Height="30" Width="200" Margin="10 0 10 0" MaxLength="10"  Controls:TextBoxHelper.ClearTextButton="True" Controls:TextBoxHelper.Watermark="Nombre del cliente" Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}"/>
-                        <Label Height="30" Content="Nombre del proyecto" Margin="10 10 10 10"/>
-                        <TextBox Width="200" Height="30" Controls:TextBoxHelper.ClearTextButton="True" Controls:TextBoxHelper.Watermark="Nombre o descripcion" MaxLength="300" Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}"/>
-                        <Label Height="30" Content="Fecha" Margin="10 0 10 0"/>
-                        <DatePicker Width="200" Height="30"  Margin="10 10 10 10"/>
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal">
-                        <Label Height="30" Content="Ubicación" Margin="10 10 10 10"/>
-                        <Grid Width="350" Height="40">
-                            <TextBox  Padding="20 10 25 0" FontSize="15"/>
-                            <Icons:PackIconMaterial Kind="MapMarker" VerticalAlignment="Center"/>
-                            <Button HorizontalAlignment="Right">
-                                <Icons:BoxIcons Kind="RegularSearch"/>
-                            </Button>
-                        </Grid>
-                         
-                    </StackPanel>
-                    <StackPanel  Orientation="Vertical" VerticalAlignment="Top" Margin="10 10 10 20">
-                        <m:Map MinHeight="400" Mode="Road" Center="19.174862, -96.135121" ZoomLevel="10"  Width="auto" CredentialsProvider="Agasb8bfgJ3A6N66C6WexpieTv2CuATjUZ--dTacGopwlb4FOKGmdI8OzWMjCmnX">
-                            <Canvas
+        <Controls:MetroTabControl Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="5" >
+
+            <Controls:MetroTabItem Header="Definición general" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="5">
+                <Grid Margin="10 20 20 20" >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="20" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="20"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="20"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="100"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="30" />
+                        <RowDefinition Height="10" />
+                        <RowDefinition Height="30" />
+                        <RowDefinition Height="10" />
+                        <RowDefinition Height="30" />
+                        <RowDefinition Height="10" />
+                        <RowDefinition Height="30" />
+                        <RowDefinition Height="10"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+
+                    <Label Grid.Row="0" Grid.Column="0" Content="Nombre del cliente" />
+                    <TextBox Grid.Row="0" Grid.Column="1"  MaxLength="50"  Controls:TextBoxHelper.ClearTextButton="True" Controls:TextBoxHelper.Watermark="Nombre del cliente" Text="{Binding ClientName, UpdateSourceTrigger=PropertyChanged}"/>
+
+                    <Label Grid.Row="0" Grid.Column="3" Content="Nombre del proyecto" />
+                    <TextBox Grid.Row="0" Grid.Column="4" Controls:TextBoxHelper.ClearTextButton="True" Controls:TextBoxHelper.Watermark="Nombre o descripcion" MaxLength="300" Text="{Binding ProjectName, UpdateSourceTrigger=PropertyChanged}"/>
+
+                    <Label Grid.Row="0" Grid.Column="6" Content="Reglamento" />
+                    <ComboBox Grid.Row="0" Grid.Column="7" Controls:TextBoxHelper.Watermark="Seleccione una norma" SelectedItem="{Binding Regulation}" DisplayMemberPath="Name" ItemsSource="{Binding Regulations, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
+
+                    <Label Grid.Row="2" Grid.Column="0" Content="Fecha" />
+                    <DatePicker Grid.Row="2" Grid.Column="1" SelectedDate="{Binding StartDate}"  />
+
+                    <Label Grid.Row="2" Grid.Column="3" Content="Grupos"/>
+                    <ComboBox Grid.Row="2" Grid.Column="4" Controls:TextBoxHelper.Watermark="Seleccione un Grupo" SelectedItem="{Binding Group}" DisplayMemberPath="Name" ItemsSource="{Binding Groups, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
+
+                    <Label Grid.Row="2" Grid.Column="6" Content="Niveles"/>
+                    <TextBox Grid.Row="2" Grid.Column="7" Text="{Binding Storeys, Mode=TwoWay}" Controls:TextBoxHelper.ClearTextButton="True" Controls:TextBoxHelper.Watermark="Cantidad de niveles (pisos de la estructura)" MaxLength="3" />
+
+                    <Label Grid.Row="4" Grid.Column="0" Content="Superficie"/>
+                    <TextBox Grid.Row="4" Grid.Column="1" Text="{Binding Surface}" Controls:TextBoxHelper.ClearTextButton="True" Controls:TextBoxHelper.Watermark="Superficie de construcción" MaxLength="10"/>
+
+                    <Label Grid.Row="4" Grid.Column="3" Content="Uso" />
+                    <ComboBox Grid.Row="4" Grid.Column="4" Controls:TextBoxHelper.Watermark="Seleccione un uso" SelectedItem="{Binding Usage}" DisplayMemberPath="Name" ItemsSource="{Binding Usages, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+
+
+                    <Label Grid.Row="4" Grid.Column="6" Content="Tipo de analisis" />
+                    <ComboBox Grid.Row="4" Grid.Column="7" Controls:TextBoxHelper.Watermark="Seleccione un tipo de analisis" SelectedItem="{Binding Test}" DisplayMemberPath="Name" ItemsSource="{Binding Tests, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
+
+
+                    <Label Grid.Row="6" Grid.Column="0" Content="Ubicación"/>
+                    <Grid Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="7">
+                        <TextBox Text="{Binding Address, Mode=TwoWay}" Padding="20 10 25 0" FontSize="15"/>
+                        <Icons:PackIconMaterial Kind="MapMarker" VerticalAlignment="Center"/>
+                        <Button HorizontalAlignment="Right" Command="{Binding SearchCommand}">
+                            <Icons:BoxIcons Kind="RegularSearch"/>
+                        </Button>
+                    </Grid>
+
+
+                    <m:Map Grid.Row="8"  Grid.Column="0" Grid.ColumnSpan="10"  Mode="Road" Center="19.174862, -96.135121" ZoomLevel="10"  Width="auto" CredentialsProvider="Agasb8bfgJ3A6N66C6WexpieTv2CuATjUZ--dTacGopwlb4FOKGmdI8OzWMjCmnX">
+                        <Canvas
                                 m:MapLayer.Position="19.174862, -96.135121"
                                 m:MapLayer.PositionOrigin="BottomCenter" Width="30" Height="30"
                                 >
-                                <Icons:PackIconMaterial Kind="MapMarker" Width="30" Height="30" Foreground="#FF3C3C3C"/>
-                            </Canvas>
-                        </m:Map>
-                    </StackPanel>
-                    <StackPanel  Orientation="Vertical" VerticalAlignment="Top" Margin="10 10 10 20">
-                        <Button Width="100" Height="40" Margin="10 0 10 0" Content="Guardar"  />
-                    </StackPanel>
-                </StackPanel>
+                            <Icons:PackIconMaterial Kind="MapMarker" Width="30" Height="30" Foreground="#FF3C3C3C"/>
+                        </Canvas>
+                    </m:Map>
+
+                    <Button Grid.Row="0" Grid.Column="9" Command="{Binding ImportCommand}" Content="Importar proyecto"  />
+                    <Button Grid.Row="2" Grid.Column="9" Command="{Binding SaveProjectCommand}" Content="Guardar proyecto"  />
+                    <Button Grid.Row="4" Grid.Column="9" Command="{Binding ExportExcelCommand}" Content="Exportar Excel"  />
+                    <Button Grid.Row="6" Grid.Column="9" Command="{Binding ExportPDFCommand}" Content="Exportar PDF"  />
+
+                </Grid>
 
 
-            </Controls:MetroTabItem>
-            <Controls:MetroTabItem Header="Información de la estructura">
-                <StackPanel Orientation="Vertical" VerticalAlignment="Top" Margin="10 10 10 20">
-                    <StackPanel Orientation="Horizontal" Margin="10 10 10 20">
-                         <Label Content="Reglamento" Margin="10 20 0 10"/>
-                            <ComboBox Width="200" Height="20" Margin="10 10 10 10" Controls:TextBoxHelper.ClearTextButton="True" Controls:TextBoxHelper.Watermark="Reglamento">
-                                <ListBoxItem>Norma 1</ListBoxItem>
-                                <ListBoxItem>Norma 2</ListBoxItem>
-                                <ListBoxItem>Norma 3</ListBoxItem>
-                            </ComboBox>
-                            <Label Content="Grupos" Margin="10 20 0 10"/>
-                            <ComboBox Margin="10 10 10 10" Width="100" Controls:TextBoxHelper.Watermark="Grupos">
-                                <ListBoxItem>A</ListBoxItem>
-                                <ListBoxItem>B</ListBoxItem>
-                            </ComboBox>
-                        <StackPanel Orientation="Horizontal" Margin="0 10 10 20">
-                            <Label Content="Niveles" Margin="10 10 10 10"/>
-                            <TextBox Margin="10 10 10 10" Width="150" Height="20" Controls:TextBoxHelper.ClearTextButton="True" Controls:TextBoxHelper.Watermark="Cantidad de niveles" MaxLength="300" />
-                            <Label Content="Superficie" Margin="10 10 10 10"/>
-                            <TextBox Margin="10 10 10 10" Width="150" Height="20" Controls:TextBoxHelper.Watermark="Superficie de construcción"/>
-                        </StackPanel>
-                        <StackPanel Orientation="Horizontal" Margin="0 10 10 20">
-                            <Label Content="Uso" Margin="10 10 10 10"/>
-                            <ComboBox Margin="10 10 10 10" Width="150" Controls:TextBoxHelper.Watermark="Grupos">
-                                <ComboBoxItem>Habitación</ComboBoxItem>
-                                <ComboBoxItem>Servicios</ComboBoxItem>
-                                <ComboBoxItem>Industria</ComboBoxItem>
-                                <ComboBoxItem>Infraestructura o Agricola</ComboBoxItem>
-                                <ComboBoxItem>Pecuario y forestal</ComboBoxItem>
-                            </ComboBox>
-                            <Label Content="Tipo de analisis" Margin="10 10 10 10"/>
-                            <ComboBox Margin="10 10 10 10" Width="150" Controls:TextBoxHelper.Watermark="Tipo de analisis deseado">
-                                <ComboBoxItem>Estático</ComboBoxItem>
-                                <ComboBoxItem>Dinámico</ComboBoxItem>
-                                <ComboBoxItem>Estático y Dinámico</ComboBoxItem>
-                            </ComboBox>
-                        </StackPanel>
-                    </StackPanel>
 
-
-                </StackPanel>
             </Controls:MetroTabItem>
         </Controls:MetroTabControl>
-
-    </StackPanel>
-
+    </Grid>
 </UserControl>
