@@ -16,25 +16,22 @@ namespace StructureSystem.ViewModel
 {
     public class DefinitionVM : PropertyChangedViewModel
     {
-
+        private readonly INotificationManager _manager;
+        private NotificationViewModel notificationViewModel;
 
         #region Constructor
         public DefinitionVM(PropertyChangedViewModel mainViewModel)
         {
             this.data = new BusinessRules();
+            this._manager = new NotificationManager();
+
+            notificationViewModel = new NotificationViewModel(_manager);
+
             this._mainViewModel = mainViewModel;
 
-            this.SetInitialTestData();
-            _defaultPath = @"C:\StructureSystem";
+            this.SetInitialData();
+
             this.SetCommands();
-
-
-
-            //NotificationManager notificationManager = new NotificationManager();
-
-            //notificationManager.Show(
-            //    new NotificationContent { Title = "Notification", Message = "Notification in window!" },
-            //    areaName: "WindowArea");
 
         }
         #endregion
@@ -68,6 +65,7 @@ namespace StructureSystem.ViewModel
 
         public void doImportProject()
         {
+
             var dialog = new OpenFileDialog { InitialDirectory = _defaultPath };
             dialog.ShowDialog();
 
@@ -76,9 +74,12 @@ namespace StructureSystem.ViewModel
                 return;
 
 
-           var ProjectData =  data.ImportDocument(SelectedPath);
 
-            var dataImport = (Dictionary<string,object>)ProjectData.Data;
+            var ProjectData = data.ImportDocument(SelectedPath);
+
+            this.notificationViewModel.ShowNotification(ProjectData);
+
+            var dataImport = (Dictionary<string, object>)ProjectData.Data;
 
             this.ClientName = dataImport["Client"].ToString();
             this.ProjectName = dataImport["Project"].ToString();
@@ -91,6 +92,7 @@ namespace StructureSystem.ViewModel
             this.Test = Tests.Find(x => x.Name == dataImport["Test"].ToString());
             this.StartDate = Convert.ToDateTime(dataImport["Date"]);
 
+            this.IsAlert = "Hidden";
         }
 
         private bool CanSearch()
@@ -106,7 +108,12 @@ namespace StructureSystem.ViewModel
 
         private void NewProject()
         {
-            data.CreateDocument(this);
+            var resultData = data.CreateDocument(this);
+            notificationViewModel.ShowNotification(resultData);
+            if (resultData.Code == "3")
+            {
+                data.UpdateDocument(this);
+            }
         }
 
         private bool CanSave()
@@ -114,8 +121,8 @@ namespace StructureSystem.ViewModel
 
             return FieldsValidation();
 
-         }
-       
+        }
+
         private void Save()
         {
             //  this.SelectedProduct = null;
@@ -124,8 +131,9 @@ namespace StructureSystem.ViewModel
 
 
         #region methods
-        private void SetInitialTestData()
+        private void SetInitialData()
         {
+            _defaultPath = @"C:\StructureSystem";
             var BaseDefinitionData = data.GetDefinitionData();
 
             this.Groups = BaseDefinitionData["groups"].Cast<Group>().ToList();
@@ -137,8 +145,8 @@ namespace StructureSystem.ViewModel
         private bool FieldsValidation()
         {
             bool result = false;
-            if(!string.IsNullOrEmpty(ClientName) && !string.IsNullOrEmpty(ProjectName) && !string.IsNullOrEmpty(Address) &&
-                (Storeys > 0) && (Surface > 0) && (Regulation != null) && (Group != null) && (Usage != null) && (Test != null) )
+            if (!string.IsNullOrEmpty(ClientName) && !string.IsNullOrEmpty(ProjectName) && !string.IsNullOrEmpty(Address) &&
+                (Storeys > 0) && (Surface > 0) && (Regulation != null) && (Group != null) && (Usage != null) && (Test != null))
             {
                 result = true;
             }
@@ -163,6 +171,17 @@ namespace StructureSystem.ViewModel
 
         private string _defaultPath;
 
+        private string _IsAlert;
+        public string IsAlert
+        {
+            get { return _IsAlert; }
+            set
+            {
+                if (value != _IsAlert)
+                    _IsAlert = value;
+                OnPropertyChanged("IsAlert");
+            }
+        }
 
 
 

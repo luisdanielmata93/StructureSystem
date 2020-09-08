@@ -12,6 +12,7 @@ namespace StructureSystem.Model
         {
             Create,
             Update,
+            Delete,
             NonAction
            
         }

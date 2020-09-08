@@ -32,7 +32,9 @@
                     </Grid.RowDefinitions>
 
                     <Button Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="1" Height="30" Content="Insertar muros" Click="Button_Click" />
-                    <Button Grid.Row="0" Grid.Column="1" Width="100" Height="30" Content="Actualizar" Command="{Binding UpdateCommand}"/>
+                    <Button Grid.Row="0" Grid.Column="1" Width="30" Height="30" Command="{Binding UpdateCommand}">
+                        <Icons:PackIconModern Kind="Refresh" VerticalAlignment="Center"/>
+                    </Button>
 
 
 
@@ -59,35 +61,74 @@
                                 <Border BorderThickness="2,2,2,2" Background="MediumPurple" BorderBrush="Black" >
                                     <StackPanel>
                                         <TextBlock Text="INFORMACIÓN DE MUROS HORIZONTALES"/>
-                                        <ListView ItemsSource="{Binding HorizontalWalls, Mode=TwoWay}" SelectionMode="Single" IsSynchronizedWithCurrentItem="True" Style="{StaticResource StyleListView}">
-                                            <ListView.View>
-                                                <GridView>
-                                                    <GridViewColumn Header="Muro" DisplayMemberBinding="{Binding WallNumber}" />
-                                                    <GridViewColumn Header="Material"  DisplayMemberBinding="{Binding Material}" />
-                                                    <GridViewColumn Header="Longitud(m)"  DisplayMemberBinding="{Binding Length}" />
-                                                    <GridViewColumn Header="Area tributaria(m2)"  DisplayMemberBinding="{Binding TributaryArea}" />
-                                                    <GridViewColumn Header="Espesor(m)"  DisplayMemberBinding="{Binding Thickness}" />
-                                                    <GridViewColumn Header="Altura(m)"  DisplayMemberBinding="{Binding Height}" />
-                                                    <GridViewColumn Header="Cordenadas X(m)"  DisplayMemberBinding="{Binding PositionX}" />
-                                                    <GridViewColumn Header="Cordenadas Y(m)"  DisplayMemberBinding="{Binding PositionY}" />
-                                                </GridView>
-                                            </ListView.View>
-                                        </ListView>
+                                       
+                                        <DataGrid AutoGenerateColumns="False" CanUserAddRows="False" ItemsSource="{Binding HorizontalWalls, Mode=TwoWay}">
+                                            <DataGrid.Columns>
+                                                <DataGridTextColumn Header="Muro" Binding="{Binding WallNumber}" IsReadOnly="True"  />
+                                                <DataGridTextColumn Header="Material" Binding="{Binding Material}"  />
+                                                <DataGridTextColumn Header="Longitud(m)"  Binding="{Binding Length, StringFormat={}{0:n2}}" />
+                                                <DataGridTextColumn Header="Area tributaria(m2)"  Binding="{Binding TributaryArea, StringFormat={}{0:n2}}" />
+                                                <DataGridTextColumn Header="Espesor(m)"  Binding="{Binding Thickness,StringFormat={}{0:n2}}" />
+                                                <DataGridTextColumn Header="Altura(m)"  Binding="{Binding Height, StringFormat={}{0:n2}}" />
+                                                <DataGridTextColumn Header="Cordenadas X(m)"  Binding="{Binding PositionX,StringFormat={}{0:n2}}" />
+                                                <DataGridTextColumn Header="Cordenadas Y(m)"  Binding="{Binding PositionY, StringFormat={}{0:n2}}" />
+
+                                                <DataGridTemplateColumn>
+                                                    <DataGridTemplateColumn.CellTemplate>
+                                                        <DataTemplate>
+                                                            <Button ToolTip="Eliminar muro" Style="{StaticResource deleteBtn}" Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}, Path=DeleteCommand}"
+                                                                 CommandParameter="{Binding}">
+                                                                <Icons:BoxIcons Kind="RegularTrash" Width="30"/>
+                                                            </Button>
+                                                        </DataTemplate>
+                                                    </DataGridTemplateColumn.CellTemplate>
+                                                </DataGridTemplateColumn>
+
+                                                <DataGridTemplateColumn>
+                                                    <DataGridTemplateColumn.CellTemplate>
+                                                        <DataTemplate>
+                                                            <Button Style="{StaticResource deleteBtn}" ToolTip="Especificación del muro">
+                                                                <Icons:BoxIcons Kind="RegularFile" Width="30"/>
+                                                            </Button>
+                                                        </DataTemplate>
+                                                    </DataGridTemplateColumn.CellTemplate>
+                                                </DataGridTemplateColumn>
+                                            </DataGrid.Columns>
+                                        </DataGrid>
+                                        
                                         <TextBlock Text="INFORMACIÓN DE MUROS VERTICALES"/>
-                                        <ListView ItemsSource="{Binding VerticalWalls, Mode=TwoWay}" SelectionMode="Single" IsSynchronizedWithCurrentItem="True" Style="{StaticResource StyleListView}">
-                                            <ListView.View>
-                                                <GridView>
-                                                    <GridViewColumn Header="Muro" DisplayMemberBinding="{Binding WallNumber}" />
-                                                    <GridViewColumn Header="Material"  DisplayMemberBinding="{Binding Material}" />
-                                                    <GridViewColumn Header="Longitud(m)"  DisplayMemberBinding="{Binding Length}" />
-                                                    <GridViewColumn Header="Area tributaria(m2)"  DisplayMemberBinding="{Binding TributaryArea}" />
-                                                    <GridViewColumn Header="Espesor(m)"  DisplayMemberBinding="{Binding Thickness}" />
-                                                    <GridViewColumn Header="Altura(m)"  DisplayMemberBinding="{Binding Height}" />
-                                                    <GridViewColumn Header="Cordenadas X(m)"  DisplayMemberBinding="{Binding PositionX}" />
-                                                    <GridViewColumn Header="Cordenadas Y(m)"  DisplayMemberBinding="{Binding PositionY}" />
-                                                </GridView>
-                                            </ListView.View>
-                                        </ListView>
+                                        <DataGrid AutoGenerateColumns="False" CanUserAddRows="False" ItemsSource="{Binding VerticalWalls, Mode=TwoWay}" >
+                                                <DataGrid.Columns>
+                                                <DataGridTextColumn Header="Muro" Binding="{Binding WallNumber}" IsReadOnly="True" />
+                                                <DataGridTextColumn Header="Material"  Binding="{Binding Material}" />
+                                                <DataGridTextColumn Header="Longitud(m)"  Binding="{Binding Length, StringFormat={}{0:n2}}" />
+                                                <DataGridTextColumn Header="Area tributaria(m2)"  Binding="{Binding TributaryArea, StringFormat={}{0:n2}}" />
+                                                <DataGridTextColumn Header="Espesor(m)"  Binding="{Binding Thickness, StringFormat={}{0:n2}}" />
+                                                <DataGridTextColumn Header="Altura(m)"  Binding="{Binding Height, StringFormat={}{0:n2}}" />
+                                                <DataGridTextColumn Header="Cordenadas X(m)"  Binding="{Binding PositionX, StringFormat={}{0:n2}}" />
+                                                <DataGridTextColumn Header="Cordenadas Y(m)"  Binding="{Binding PositionY, StringFormat={}{0:n2}}" />
+                                                <DataGridTemplateColumn>
+                                                    <DataGridTemplateColumn.CellTemplate>
+                                                        <DataTemplate>
+                                                            <Button ToolTip="Eliminar muro" Style="{StaticResource deleteBtn}" Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}, Path=DeleteCommand}"
+                                                                 CommandParameter="{Binding}">
+                                                                <Icons:BoxIcons Kind="RegularTrash" Width="30"/>
+                                                            </Button>
+                                                        </DataTemplate>
+                                                    </DataGridTemplateColumn.CellTemplate>
+                                                </DataGridTemplateColumn>
+
+                                                <DataGridTemplateColumn>
+                                                    <DataGridTemplateColumn.CellTemplate>
+                                                        <DataTemplate>
+                                                            <Button Style="{StaticResource deleteBtn}" ToolTip="Especificación del muro">
+                                                                <Icons:BoxIcons Kind="RegularFile" Width="30"/>
+                                                            </Button>
+                                                        </DataTemplate>
+                                                    </DataGridTemplateColumn.CellTemplate>
+                                                </DataGridTemplateColumn>
+                                            </DataGrid.Columns>
+                                        </DataGrid>
                                     </StackPanel>
                                 </Border>
                             </DataTemplate>

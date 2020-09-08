@@ -60,13 +60,6 @@ namespace StructureSystem.ViewModel
                     ToolTip = "Definición general del proyecto",
                    Tag = new DefinitionVM(this)
                 },
-                //new HamburgerMenuIconItem()
-                //{
-                //    Icon = new PackIconMaterial() {Kind = PackIconMaterialKind.Store},
-                //    Label = "Catalogos",
-                //    ToolTip = "inserción y modificación de info. por catalogos",
-                //    Tag = new StructureVM(this)
-                //},
                 new HamburgerMenuIconItem()
                 {
                     Icon = new PackIconMaterial() {Kind = PackIconMaterialKind.AccountGroup},

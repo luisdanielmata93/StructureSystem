@@ -29,7 +29,7 @@ namespace StructureSystem.Shared.BusinessRules
         #endregion
 
 
-
+        #region Get Data
         public IDictionary<string, IList<object>> GetDefinitionData()
         {
             IDictionary<string, IList<object>> result = new Dictionary<string, IList<object>>();
@@ -62,10 +62,12 @@ namespace StructureSystem.Shared.BusinessRules
             return Document.GetStoreysSpecification();
         }
 
-        public OperationResult GetProjectStoreys()
+        public OperationResult GetGeneralDataNode(string node)
         {
-            return Document.Get("Storeys");
+            return Document.Get(node);
         }
+
+        #endregion
 
 
 
@@ -91,6 +93,17 @@ namespace StructureSystem.Shared.BusinessRules
 
 
         public OperationResult CreateDocument(Object Data)
+        {
+            foreach (var prop in Data.GetType().GetProperties())
+            {
+                SetPropertyValue(ref dataXml, prop.Name, prop.GetValue(Data, null));
+            }
+
+            return Document.Create(dataXml);
+        }
+
+
+        public OperationResult UpdateDocument(Object Data)
         {
             foreach (var prop in Data.GetType().GetProperties())
             {

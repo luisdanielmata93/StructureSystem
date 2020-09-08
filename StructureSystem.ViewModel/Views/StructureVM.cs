@@ -46,6 +46,9 @@ namespace StructureSystem.ViewModel
         #region Commands
         public ICommand SaveWallInfo { get; private set; }
         public ICommand UpdateCommand { get; private set; }
+        public ICommand DeleteHCommand { get; set; }
+        public ICommand DeleteVCommand { get; set; }
+
         #endregion
 
 
@@ -56,6 +59,9 @@ namespace StructureSystem.ViewModel
         {
             SaveWallInfo = new RelayCommand(o => setWallInfo());
             UpdateCommand = new RelayCommand(o => doUpdate());
+            DeleteHCommand = new RelayCommand(o => doUpdate());
+            DeleteVCommand = new RelayCommand(o => doUpdate());
+
         }
 
         #endregion

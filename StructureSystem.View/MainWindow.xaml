@@ -107,7 +107,7 @@
                            ItemsSource="{Binding MenuItems}"
                            OptionsItemTemplate="{StaticResource MenuItemTemplate}"
                            OptionsItemsSource="{Binding MenuOptionItems}"
-                           SelectedIndex="1">
+                           SelectedIndex="0">
         
             
             

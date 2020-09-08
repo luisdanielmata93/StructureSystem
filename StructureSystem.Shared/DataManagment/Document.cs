@@ -20,10 +20,6 @@ namespace StructureSystem.Shared.Data
         private static string LocalPathXML = string.Empty;
 
 
-        public static OperationResult Create(XMLData data)
-        {
-            return CreateXML(data);
-        }
 
         public static OperationResult Import(string DocumentPath)
         {
@@ -31,7 +27,7 @@ namespace StructureSystem.Shared.Data
             {
                 LocalPathXML = DocumentPath;
                 IDictionary<string, object> generalData = new Dictionary<string, object>();
-                
+
                 XDocument doc = XDocument.Load(DocumentPath);
                 foreach (XElement item in doc.Root
                                       .Elements("GeneralData"))
@@ -56,11 +52,20 @@ namespace StructureSystem.Shared.Data
                 return new OperationResult("-1", "Error al importar el documento.", true, ex);
 
             }
-          
-
         }
 
 
+        public static OperationResult Create(XMLData data)
+        {
+            return CreateXML(data);
+        }
+
+        public static OperationResult Update(XMLData data)
+        {
+            return UpdateXML(data);
+        }
+
+      
         public static OperationResult SaveHorizontalWall(XMLData data)
         {
             return SaveHorizontalWallXML(data);
@@ -170,9 +175,8 @@ namespace StructureSystem.Shared.Data
                 LocalPathXML = string.Concat(DirectoryPath,data.ProjectName.ToString().Trim(), ".xml");
                 
 
-                if (!CreationValidate())
-                    return new OperationResult("1", "Ya existe un proyecto registrado con este nombre, \n importe el proyecto o cree uno nuevo con diferente nombre", false);
-
+                if (CreationValidate()==ActionType.Update)
+                    return new OperationResult("3", "Ya existe un proyecto registrado con el mismo nombre", false);
 
                 XDocument doc = new XDocument(new XElement("body",
                                                             new XElement("GeneralData",
@@ -204,6 +208,37 @@ namespace StructureSystem.Shared.Data
             }
 
         }
+
+        private static OperationResult UpdateXML(XMLData data)
+        {
+            LocalPathXML = string.Concat(DirectoryPath, data.ProjectName.ToString().Trim(), ".xml");
+
+            try
+            {
+                XDocument mydoc = XDocument.Load(LocalPathXML);
+
+                //mydoc.Root("GeneralData");
+
+
+                //toUpdate.Element("Number", data.CountH.ToString());
+                //mydoc.Element("Material", data.MaterialH.Name.ToString());
+                //mydoc.Element("Length", data.Length.ToString());
+                //                                  new XElement("TributaryArea", data.TributaryArea.ToString()),
+                //                                  new XElement("Thickness", data.Thickness.ToString()),
+                //                                  new XElement("Height", data.Height.ToString()),
+                //                                  new XElement("PositionX", data.PositionX.ToString()),
+                //                                  new XElement("PositionY", data.PositionY.ToString())));
+
+                //mydoc.Save(LocalPathXML);
+                return new OperationResult("0", "Exito", false, data);
+            }
+            catch (Exception ex)
+            {
+                return new OperationResult("-1", "Error al actualizar documento", true, ex);
+            }
+
+        }
+
 
         private static OperationResult SaveHorizontalWallXML(XMLData data)
         {
@@ -300,17 +335,19 @@ namespace StructureSystem.Shared.Data
 
 
 
+        #region Validations
+        private static ActionType CreationValidate()
+        {
 
-        private static bool CreationValidate() { 
             if (!File.Exists(LocalPathXML))
-                return true;
+                return ActionType.Create;
             else
-                return false;
-            
-            
-              
+                return ActionType.Update;
+
         }
 
+
+        #endregion
 
     }//end of class
 }//end of namespace

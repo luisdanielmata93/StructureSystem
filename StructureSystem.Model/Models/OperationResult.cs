@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static StructureSystem.Model.Enum;
 
 namespace StructureSystem.Model
 {
@@ -10,8 +11,8 @@ namespace StructureSystem.Model
     {
         public string Code { get; private set; }
         public string Message { get; private set; }
-        public bool Error { get; private set; }
         public Object Data { get; private set; }
+        public bool Error { get; private set; }
         public Exception Exception { get; private set; }
 
         public OperationResult(string Code, string Message, bool Error)

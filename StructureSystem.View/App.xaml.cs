@@ -11,7 +11,6 @@ using System.Drawing;
 using System.Threading;
 using StructureSystem.View.SplashScreenView;
 using MahApps.Metro.Controls;
-using StructureSystem.ViewModel.Dialog;
 using StructureSystem.ViewModel;
 using StructureSystem.View.Views;
 
@@ -27,9 +26,7 @@ namespace StructureSystem.View
         {
             base.OnStartup(e);
 
-            //IDialogService dialogService = new DialogService(MainWindow);
-            //dialogService.Register<DataWallVM, DataWall>();
-
+          
             //var splashScreen = new SplashScreenWindow();
            // this.MainWindow = splashScreen;
            // splashScreen.Show();

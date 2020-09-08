@@ -10,10 +10,10 @@
         xmlns:simpleChildWindow="clr-namespace:MahApps.Metro.SimpleChildWindow;assembly=MahApps.Metro.SimpleChildWindow"
         xmlns:m="clr-namespace:Microsoft.Maps.MapControl.WPF;assembly=Microsoft.Maps.MapControl.WPF" 
         mc:Ignorable="d"
-        Height="auto" Width="auto">
+        >
 
     <Grid>
-        <Grid.ColumnDefinitions >
+        <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
@@ -21,19 +21,12 @@
             <RowDefinition  />
         </Grid.RowDefinitions>
 
-        <DockPanel Grid.Row="0" Grid.ColumnSpan="9">
-            <TextBlock DockPanel.Dock="Top" Text="{Binding Title}" FontWeight="Medium" TextTrimming="CharacterEllipsis"/>
-            <DockPanel LastChildFill="False" DockPanel.Dock="Bottom" Margin="0,8,0,0">
-                <Button x:Name="Ok" Content="Ok" DockPanel.Dock="Right" notifications:Notification.CloseOnClick="True"/>
-                <Button x:Name="Cancel" Content="Cancel" DockPanel.Dock="Right" Margin="0,0,8,0" notifications:Notification.CloseOnClick="True"/>
-            </DockPanel>
-            <TextBlock Text="{Binding Message}" TextWrapping="Wrap" Opacity=".8" Margin="0,8,0,0"/>
-        </DockPanel>
+        <notifications:NotificationArea Grid.Row="0" Grid.RowSpan="3" Panel.ZIndex="9999999" Grid.Column="0" Grid.ColumnSpan="3" x:Name="WindowArea" Position="TopRight" MaxItems="20"/>
 
-        <Controls:MetroTabControl Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="5" >
+        <Controls:MetroTabControl Grid.Row="1" Grid.Column="0">
 
-            <Controls:MetroTabItem Header="Definición general" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="5">
-                <Grid Margin="10 20 20 20" >
+            <Controls:MetroTabItem Header="Definición general" Grid.Row="0" Grid.Column="0" >
+                <Grid Margin="10 20 0 10" >
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="*"/>
@@ -45,7 +38,8 @@
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="20"/>
                         <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="100"/>
+                        <ColumnDefinition Width="10"/>
+                        <ColumnDefinition Width="50"/>
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="30" />
@@ -76,10 +70,10 @@
                     <ComboBox Grid.Row="2" Grid.Column="4" Controls:TextBoxHelper.Watermark="Seleccione un Grupo" SelectedItem="{Binding Group}" DisplayMemberPath="Name" ItemsSource="{Binding Groups, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
 
                     <Label Grid.Row="2" Grid.Column="6" Content="Niveles"/>
-                    <TextBox Grid.Row="2" Grid.Column="7" Text="{Binding Storeys, Mode=TwoWay}" Controls:TextBoxHelper.ClearTextButton="True" Controls:TextBoxHelper.Watermark="Cantidad de niveles (pisos de la estructura)" MaxLength="3" />
+                    <TextBox Grid.Row="2" Grid.Column="7" Text="{Binding Storeys ,StringFormat={}{0:#}}" Controls:TextBoxHelper.ClearTextButton="True" Controls:TextBoxHelper.Watermark="Cantidad de niveles (pisos de la estructura)" MaxLength="3" />
 
                     <Label Grid.Row="4" Grid.Column="0" Content="Superficie"/>
-                    <TextBox Grid.Row="4" Grid.Column="1" Text="{Binding Surface}" Controls:TextBoxHelper.ClearTextButton="True" Controls:TextBoxHelper.Watermark="Superficie de construcción" MaxLength="10"/>
+                    <TextBox Grid.Row="4" Grid.Column="1" Text="{Binding Surface ,StringFormat={}{0:#}}" Controls:TextBoxHelper.ClearTextButton="True" Controls:TextBoxHelper.Watermark="Superficie de construcción" MaxLength="10"/>
 
                     <Label Grid.Row="4" Grid.Column="3" Content="Uso" />
                     <ComboBox Grid.Row="4" Grid.Column="4" Controls:TextBoxHelper.Watermark="Seleccione un uso" SelectedItem="{Binding Usage}" DisplayMemberPath="Name" ItemsSource="{Binding Usages, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
@@ -91,7 +85,7 @@
 
                     <Label Grid.Row="6" Grid.Column="0" Content="Ubicación"/>
                     <Grid Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="7">
-                        <TextBox Text="{Binding Address, Mode=TwoWay}" Padding="20 10 25 0" FontSize="15"/>
+                        <TextBox Text="{Binding Address, Mode=TwoWay}" Padding="20 10 25 0" FontSize="12"/>
                         <Icons:PackIconMaterial Kind="MapMarker" VerticalAlignment="Center"/>
                         <Button HorizontalAlignment="Right" Command="{Binding SearchCommand}">
                             <Icons:BoxIcons Kind="RegularSearch"/>
@@ -99,7 +93,7 @@
                     </Grid>
 
 
-                    <m:Map Grid.Row="8"  Grid.Column="0" Grid.ColumnSpan="10"  Mode="Road" Center="19.174862, -96.135121" ZoomLevel="10"  Width="auto" CredentialsProvider="Agasb8bfgJ3A6N66C6WexpieTv2CuATjUZ--dTacGopwlb4FOKGmdI8OzWMjCmnX">
+                    <m:Map Grid.Row="8"  Grid.Column="0" Grid.ColumnSpan="11"  Mode="Road" Center="19.174862, -96.135121" ZoomLevel="10"  Width="auto" CredentialsProvider="Agasb8bfgJ3A6N66C6WexpieTv2CuATjUZ--dTacGopwlb4FOKGmdI8OzWMjCmnX">
                         <Canvas
                                 m:MapLayer.Position="19.174862, -96.135121"
                                 m:MapLayer.PositionOrigin="BottomCenter" Width="30" Height="30"
@@ -113,6 +107,20 @@
                     <Button Grid.Row="4" Grid.Column="9" Command="{Binding ExportExcelCommand}" Content="Exportar Excel"  />
                     <Button Grid.Row="6" Grid.Column="9" Command="{Binding ExportPDFCommand}" Content="Exportar PDF"  />
 
+                    <Grid Grid.Row="0" Grid.Column="11" Visibility="{Binding IsAlert, Mode=TwoWay}">
+                        <TextBlock ToolTip="No se encuentra ningun proyecto importado" VerticalAlignment="Center">
+                            <TextBlock.Resources>
+                                <Style TargetType="ToolTip" BasedOn="{StaticResource {x:Type ToolTip}}">
+                                    <Setter  Property="Background" Value="LightGoldenrodYellow"/>
+                                    <Setter Property="Foreground" Value="Black"/>
+                                    <Setter Property="FontWeight" Value="SemiBold"/>
+                                </Style>
+                            </TextBlock.Resources> 
+                            <Icons:PackIconModern Kind="Alert" VerticalAlignment="Center"/>
+                        </TextBlock>
+                    </Grid>
+                    
+                    
                 </Grid>
 
 

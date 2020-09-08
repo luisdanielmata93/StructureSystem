@@ -133,7 +133,7 @@ namespace StructureSystem.ViewModel
             {
                 var WallsData = data.GetDWallData();
                 this.Materials = WallsData["materials"].Cast<Material>().ToList();
-                this.Storeys = Convert.ToInt32(data.GetProjectStoreys().Data);
+                this.Storeys = Convert.ToInt32(data.GetGeneralDataNode("Storeys").Data);
 
             }
             catch (Exception ex)
