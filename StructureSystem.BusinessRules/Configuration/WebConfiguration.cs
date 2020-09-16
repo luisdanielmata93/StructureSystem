@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
+﻿using System.Configuration;
 
-namespace StructureSystem.Shared.Configuration
+namespace StructureSystem.BusinessRules.Configuration
 {
     public class WebConfiguration : ConfigurationSection
     {

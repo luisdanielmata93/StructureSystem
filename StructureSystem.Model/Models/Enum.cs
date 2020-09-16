@@ -6,16 +6,19 @@ using System.Threading.Tasks;
 
 namespace StructureSystem.Model
 {
-    public class Enum
+    public class Enums
     {
         public enum ActionType
         {
             Create,
             Update,
             Delete,
+            Get,
             NonAction
            
         }
+
+      
 
     }
 }

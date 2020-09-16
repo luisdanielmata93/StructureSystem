@@ -8,10 +8,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Content\Images\losa_macisa_azotea.png" />
+    <None Remove="Content\Images\losa_macisa_entrepiso.png" />
+    <None Remove="Content\Images\losa_nervada_azotea.png" />
+    <None Remove="Content\Images\losa_nervada_entrepiso.png" />
+    <None Remove="Content\Images\losa_vigueta_bovedilla_azotea.png" />
+    <None Remove="Content\Images\losa_vigueta_bovedilla_entrepiso.png" />
     <None Remove="Content\Images\SplashScreen.png" />
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Accordion" Version="1.0.0" />
     <PackageReference Include="Caliburn.Micro" Version="3.2.0" />
     <PackageReference Include="MahApps.Metro" Version="2.1.1" />
     <PackageReference Include="MahApps.Metro.IconPacks" Version="4.4.0" />
@@ -27,6 +34,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Content\Images\losa_macisa_azotea.png" />
+    <Resource Include="Content\Images\losa_macisa_entrepiso.png" />
+    <Resource Include="Content\Images\losa_nervada_azotea.png" />
+    <Resource Include="Content\Images\losa_nervada_entrepiso.png" />
+    <Resource Include="Content\Images\losa_vigueta_bovedilla_azotea.png" />
+    <Resource Include="Content\Images\losa_vigueta_bovedilla_entrepiso.png" />
     <Resource Include="Content\Images\SplashScreen.png" />
   </ItemGroup>
 

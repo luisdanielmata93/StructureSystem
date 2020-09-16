@@ -7,25 +7,24 @@ using StructureSystem.ViewModel.Shared;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 using StructureSystem.Model;
-using StructureSystem.Shared.BusinessRules;
 using Microsoft.Win32;
 using Notifications.Wpf.Controls;
 using Notifications.Wpf;
+using System.Configuration;
+using MahApps.Metro.Controls.Dialogs;
+using StructureSystem.BusinessRules.Services;
 
 namespace StructureSystem.ViewModel
 {
     public class DefinitionVM : PropertyChangedViewModel
     {
-        private readonly INotificationManager _manager;
-        private NotificationViewModel notificationViewModel;
+
 
         #region Constructor
         public DefinitionVM(PropertyChangedViewModel mainViewModel)
         {
-            this.data = new BusinessRules();
-            this._manager = new NotificationManager();
 
-            notificationViewModel = new NotificationViewModel(_manager);
+            notificationViewModel = new NotificationViewModel();
 
             this._mainViewModel = mainViewModel;
 
@@ -54,32 +53,82 @@ namespace StructureSystem.ViewModel
         {
             SearchCommand = new RelayCommand(o => Search(), o => CanSearch());
             SaveProjectCommand = new RelayCommand(o => NewProject(), o => CanSave());
-            ExportExcelCommand = new RelayCommand(o => Save(), o => CanSave());
-            ExportPDFCommand = new RelayCommand(o => Save(), o => CanSave());
-            ImportCommand = new RelayCommand(o => doImportProject());
+            ExportExcelCommand = new RelayCommand(o => ExportExcel(), o => CanSave());
+            ExportPDFCommand = new RelayCommand(o => ExportPDF(), o => CanSave());
+            ImportCommand = new RelayCommand(o => ImportProject());
         }
 
         #endregion
 
         #region CommandMethods
 
-        public void doImportProject()
+        public void ImportProject()
         {
 
-            var dialog = new OpenFileDialog { InitialDirectory = _defaultPath };
-            dialog.ShowDialog();
-
-            SelectedPath = dialog.FileName;
+            SetImportDocument();
             if (string.IsNullOrEmpty(SelectedPath))
                 return;
 
+            var InitialProjectData = DocumentData.ImportDocument(SelectedPath);
+
+            this.notificationViewModel.ShowNotification(InitialProjectData);
+
+            SetImportData(InitialProjectData);
+           
+        }
+
+        private void NewProject()
+        {
+
+                var resultData = DocumentData.CreateDocument(this);
+
+                if (resultData.Error && resultData.ActionType == Enums.ActionType.Update)
+                    UpdateProject();
+                else
+                    notificationViewModel.ShowNotification(resultData);
+
+            this.IsAlert = "Hidden";
+        }
+
+        private async void UpdateProject()
+        {
+            this.dialogCoordinator = new DialogCoordinator();
+            var result = await this.dialogCoordinator.ShowMessageAsync(this, string.Concat("Ya existe un proyecto con el nombre ",this.ProjectName," \n ¿Desea actualizar el proyecto existente?"), "Se sobreescribirá la información guardada.", MessageDialogStyle.AffirmativeAndNegative);
+            if (result == MessageDialogResult.Affirmative)
+            {
+                var updateResult = DocumentData.UpdateDocument(this);
+                notificationViewModel.ShowNotification(updateResult);
+            }
+        }
 
 
-            var ProjectData = data.ImportDocument(SelectedPath);
+        private void ExportExcel()
+        {
 
-            this.notificationViewModel.ShowNotification(ProjectData);
+        }
 
-            var dataImport = (Dictionary<string, object>)ProjectData.Data;
+        private void ExportPDF()
+        {
+
+        }
+
+
+        private void Search()
+        {
+            //  var th = this.SearchText;
+
+        }
+
+   
+
+        #endregion
+
+
+        #region methods
+
+        private void SetImportData(OperationResult InitialProjectData)
+        {
+            var dataImport = (Dictionary<string, object>)InitialProjectData.Data;
 
             this.ClientName = dataImport["Client"].ToString();
             this.ProjectName = dataImport["Project"].ToString();
@@ -95,51 +144,26 @@ namespace StructureSystem.ViewModel
             this.IsAlert = "Hidden";
         }
 
-        private bool CanSearch()
+        private void SetImportDocument()
         {
-            return !string.IsNullOrEmpty(Address);
+            var dialog = new OpenFileDialog { InitialDirectory = _defaultPath };
+            dialog.ShowDialog();
+
+            SelectedPath = dialog.FileName;
         }
 
-        private void Search()
-        {
-            //  var th = this.SearchText;
-
-        }
-
-        private void NewProject()
-        {
-            var resultData = data.CreateDocument(this);
-            notificationViewModel.ShowNotification(resultData);
-            if (resultData.Code == "3")
-            {
-                data.UpdateDocument(this);
-            }
-        }
-
-        private bool CanSave()
-        {
-
-            return FieldsValidation();
-
-        }
-
-        private void Save()
-        {
-            //  this.SelectedProduct = null;
-        }
-        #endregion
-
-
-        #region methods
         private void SetInitialData()
         {
-            _defaultPath = @"C:\StructureSystem";
-            var BaseDefinitionData = data.GetDefinitionData();
+            _defaultPath = DocumentData.GetDocumentPath();
 
-            this.Groups = BaseDefinitionData["groups"].Cast<Group>().ToList();
-            this.Regulations = BaseDefinitionData["regulations"].Cast<Regulation>().ToList();
-            this.Usages = BaseDefinitionData["usages"].Cast<Usage>().ToList();
-            this.Tests = BaseDefinitionData["tests"].Cast<Test>().ToList();
+            var BaseDefinitionData = DocumentData.GetConfigElements();
+
+            IDictionary<string, IList<object>> Data = (IDictionary<string, IList<object>>)BaseDefinitionData.Data;
+            this.Groups = Data["groups"].Cast<Group>().ToList();
+            this.Regulations = Data["regulations"].Cast<Regulation>().ToList();
+            this.Usages = Data["usages"].Cast<Usage>().ToList();
+            this.Tests = Data["tests"].Cast<Test>().ToList();
+
         }
 
         private bool FieldsValidation()
@@ -154,10 +178,30 @@ namespace StructureSystem.ViewModel
             return result;
 
         }
+
+        private bool CanSearch()
+        {
+            return !string.IsNullOrEmpty(Address);
+        }
+
+        private bool CanSave()
+        {
+
+            return FieldsValidation();
+
+        }
+
         #endregion
 
 
         #region Properties
+
+        private IDialogCoordinator dialogCoordinator;
+        private readonly INotificationManager _manager;
+        private NotificationViewModel notificationViewModel;
+        private readonly PropertyChangedViewModel _mainViewModel;
+        private readonly GeneralDataService DocumentData = new GeneralDataService();
+
         private string _selectedPath;
         public string SelectedPath
         {
@@ -183,10 +227,6 @@ namespace StructureSystem.ViewModel
             }
         }
 
-
-
-        private readonly PropertyChangedViewModel _mainViewModel;
-        private BusinessRules data;
         private string _clientName;
         public string ClientName
         {

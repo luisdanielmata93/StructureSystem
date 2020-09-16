@@ -5,8 +5,6 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
-using StructureSystem.Shared;
-using StructureSystem.Shared.Resources;
 using System.Drawing;
 using System.Threading;
 using StructureSystem.View.SplashScreenView;

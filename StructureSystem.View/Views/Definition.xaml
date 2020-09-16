@@ -6,9 +6,10 @@
         xmlns:local="clr-namespace:StructureSystem.View.Views"
         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns:Icons="http://metro.mahapps.com/winfx/xaml/iconpacks"
-        xmlns:notifications="clr-namespace:Notifications.Wpf.Controls;assembly=Notifications.Wpf"
         xmlns:simpleChildWindow="clr-namespace:MahApps.Metro.SimpleChildWindow;assembly=MahApps.Metro.SimpleChildWindow"
         xmlns:m="clr-namespace:Microsoft.Maps.MapControl.WPF;assembly=Microsoft.Maps.MapControl.WPF" 
+        xmlns:Dialog="clr-namespace:MahApps.Metro.Controls.Dialogs;assembly=MahApps.Metro"
+                 Dialog:DialogParticipation.Register="{Binding}"
         mc:Ignorable="d"
         >
 
@@ -17,11 +18,9 @@
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="30" />
+            <RowDefinition Height="50" />
             <RowDefinition  />
         </Grid.RowDefinitions>
-
-        <notifications:NotificationArea Grid.Row="0" Grid.RowSpan="3" Panel.ZIndex="9999999" Grid.Column="0" Grid.ColumnSpan="3" x:Name="WindowArea" Position="TopRight" MaxItems="20"/>
 
         <Controls:MetroTabControl Grid.Row="1" Grid.Column="0">
 

@@ -7,7 +7,6 @@ using StructureSystem.ViewModel.Shared;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 using StructureSystem.Model;
-using StructureSystem.Shared.BusinessRules;
 
 namespace StructureSystem.ViewModel
 {
@@ -16,7 +15,6 @@ namespace StructureSystem.ViewModel
 
         #region Properties
         private readonly PropertyChangedViewModel _mainViewModel;
-        private BusinessRules data;
 
 
         public ObservableCollection<Storey> _Storeys;
@@ -36,7 +34,6 @@ namespace StructureSystem.ViewModel
         public StructureVM(PropertyChangedViewModel mainViewModel)
         {
             _mainViewModel = mainViewModel;
-            data = new BusinessRules();
             SetCommands();
         }
 
@@ -85,9 +82,9 @@ namespace StructureSystem.ViewModel
         {
             try
             {
-                var dataTemp = data.GetStoreysSpecification();
+                //var dataTemp = data.GetStoreysSpecification();
 
-                this.Storeys = new ObservableCollection<Storey>((List<Storey>)dataTemp.Data);
+                //this.Storeys = new ObservableCollection<Storey>((List<Storey>)dataTemp.Data);
 
             }
             catch (Exception ex)

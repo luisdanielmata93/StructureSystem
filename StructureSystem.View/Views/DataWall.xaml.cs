@@ -11,7 +11,6 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using MahApps.Metro.Controls;
-using StructureSystem.ViewModel.Dialog;
 
 namespace StructureSystem.View.Views
 {
@@ -23,6 +22,7 @@ namespace StructureSystem.View.Views
         public DataWall()
         {
             InitializeComponent();
+
         }
     }
 }

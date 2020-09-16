@@ -149,6 +149,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MainWindowVM.cs" />
+    <Compile Include="Notifications\NotificationViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Shared\PropertyChangedViewModel.cs" />
     <Compile Include="Shared\RelayCommand.cs" />
@@ -156,13 +157,19 @@
     <Compile Include="SplashScreen\SplashScreenViewVM.cs" />
     <Compile Include="Views\DataWallVM.cs" />
     <Compile Include="Views\DefinitionVM.cs" />
+    <Compile Include="Views\LoadAnalysisVM.cs" />
     <Compile Include="Views\StructureVM.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\StructureSystem.BusinessRules\StructureSystem.BusinessRules.csproj">
+      <Project>{50a9f110-a62d-4dee-9b34-5246537e10a5}</Project>
+      <Name>StructureSystem.BusinessRules</Name>
+    </ProjectReference>
     <ProjectReference Include="..\StructureSystem.Model\StructureSystem.Model.csproj">
       <Project>{e4f23e85-99f5-488c-b1df-cb0d6014435d}</Project>
       <Name>StructureSystem.Model</Name>

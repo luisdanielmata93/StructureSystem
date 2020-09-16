@@ -9,6 +9,7 @@ using MahApps.Metro.IconPacks;
 using StructureSystem.ViewModel;
 using Microsoft.Win32;
 using System.Windows.Input;
+using StructureSystem.BusinessRules.Services;
 
 namespace StructureSystem.ViewModel
 {
@@ -28,7 +29,6 @@ namespace StructureSystem.ViewModel
         {
             this.CreateMenuItems();
             SetCommands();
-
         }
         #endregion
 
@@ -62,21 +62,21 @@ namespace StructureSystem.ViewModel
                 },
                 new HamburgerMenuIconItem()
                 {
-                    Icon = new PackIconMaterial() {Kind = PackIconMaterialKind.AccountGroup},
+                    Icon = new PackIconMaterial() {Kind = PackIconMaterialKind.City},
                     Label = "Estructura",
                     ToolTip = "Definición de estructura y datos de muro",
                     Tag = new StructureVM(this)
                 },
                 new HamburgerMenuIconItem()
                 {
-                    Icon = new PackIconMaterial() {Kind = PackIconMaterialKind.GraphOutline},
+                    Icon = new PackIconMaterial() {Kind = PackIconMaterialKind.ChartAreaspline},
                     Label = "Analisis de carga",
                     ToolTip = "Analisis de carga",
-                   // Tag = new SettingsViewModel(this)
+                    Tag = new LoadAnalysisVM(this)
                 },
                 new HamburgerMenuIconItem()
                 {
-                    Icon = new PackIconMaterial() {Kind = PackIconMaterialKind.GraphOutline},
+                    Icon = new PackIconMaterial() {Kind = PackIconMaterialKind.ChartSankey},
                     Label = "Analisis sismico",
                     ToolTip = "Analisis sismico de la estructura",
                    // Tag = new SettingsViewModel(this)

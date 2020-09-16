@@ -9,6 +9,7 @@
         xmlns:core="clr-namespace:StructureSystem.ViewModel.Shared;assembly=StructureSystem.ViewModel"
         xmlns:views="clr-namespace:StructureSystem.View.Views"
         xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+        xmlns:notifications="clr-namespace:Notifications.Wpf.Controls;assembly=Notifications.Wpf"
         mc:Ignorable="d"
         Title="Sistema de estructuras"
                       TitleAlignment="Center"
@@ -90,15 +91,18 @@
             <DataTemplate DataType="{x:Type viewModels:StructureVM}">
                 <views:Structure  DataContext="{Binding}" />
             </DataTemplate>
-            <!--<DataTemplate DataType="{x:Type viewModels:SettingsViewModel}">
-                <views:SettingsView DataContext="{Binding}" />
+            <DataTemplate DataType="{x:Type viewModels:LoadAnalysisVM}">
+                <views:LoadAnalysis DataContext="{Binding}" />
             </DataTemplate>
-            <DataTemplate DataType="{x:Type viewModels:AboutViewModel}">
+           <!-- <DataTemplate DataType="{x:Type viewModels:AboutViewModel}">
                 <views:AboutView DataContext="{Binding}" />
             </DataTemplate>-->
 
         </Grid.Resources>
-      
+
+        <Grid Grid.Row="0"  Grid.Column="0" Panel.ZIndex="10">
+            <notifications:NotificationArea x:Name="WindowArea" Position="TopRight" MaxItems="3"/>
+        </Grid>
         
         <mah:HamburgerMenu x:Name="HamburgerMenuControl"
                            DisplayMode="CompactInline"

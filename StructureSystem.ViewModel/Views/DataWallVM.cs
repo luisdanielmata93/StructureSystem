@@ -7,20 +7,17 @@ using StructureSystem.ViewModel.Shared;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 using StructureSystem.Model;
-using StructureSystem.Shared.BusinessRules;
-using StructureSystem.ViewModel.Dialog;
+using StructureSystem.BusinessRules.Services;
 
 namespace StructureSystem.ViewModel
 {
-    public class DataWallVM : PropertyChangedViewModel, IDialogRequestClose
+    public class DataWallVM : PropertyChangedViewModel
     {
 
         #region Constructor
 
         public DataWallVM()
         {
-            this.data = new BusinessRules();
-
             InitialData();
             SetCommands();
         }
@@ -28,13 +25,12 @@ namespace StructureSystem.ViewModel
 
 
         #region Commands
-
         public ICommand InitLevelCommand { get; private set; }
         public ICommand NextCommand { get; private set; }
         public ICommand PreviousCommand { get; private set; }
         public ICommand SaveHorizontalCommand { get; private set; }
         public ICommand SaveVerticalCommand { get; private set; }
-        public ICommand FinishCommand { get;private set; }
+        public ICommand FinishCommand { get; private set; }
         #endregion
 
 
@@ -51,35 +47,19 @@ namespace StructureSystem.ViewModel
             FinishCommand = new RelayCommand(o => FinishRegister(), o => CanNewRegister());
 
         }
-       
+
         #endregion
 
         #region CommandMethods
 
-        private bool CanNewRegister()
-        {
-            if (Storeys == Storey)
-                return false;
-            else
-                return true;
-        }
-
-        private void FinishRegister()
-        {
-            Storey += 1;
-            SelectedTag = 0;
-        }
-
         private void InitRegister()
         {
             SelectedTag = 1;
-
-            
         }
 
         private void OnSaveHorizontalWall()
         {
-            var result = data.SaveHorizontalWalls(this);
+            var result = horizontalWService.CreateWall(this);
             if (!result.Error)
                 CountH += 1;
 
@@ -88,7 +68,7 @@ namespace StructureSystem.ViewModel
 
         private void OnSaveVerticalWall()
         {
-            var result = data.SaveVerticalWalls(this);
+            var result = verticalWService.CreateWall(this);
             if (!result.Error)
                 CountV += 1;
 
@@ -127,33 +107,35 @@ namespace StructureSystem.ViewModel
         #region Methods
 
 
+        private bool CanNewRegister()
+        {
+            if (Storeys == Storey)
+                return false;
+            else
+                return true;
+        }
+
+        private void FinishRegister()
+        {
+            Storey += 1;
+            SelectedTag = 0;
+        }
+
         private void InitialData()
         {
-            try
-            {
-                var WallsData = data.GetDWallData();
-                this.Materials = WallsData["materials"].Cast<Material>().ToList();
-                this.Storeys = Convert.ToInt32(data.GetGeneralDataNode("Storeys").Data);
-
-            }
-            catch (Exception ex)
-            {
-
-                throw;
-            }
-           
+            var configData = horizontalWService.GetConfigElements();
+            IDictionary<string, IList<object>> DataView = (IDictionary<string, IList<object>>)configData.Data;
+            this.Materials = DataView["materials"].Cast<Material>().ToList();
+            this.Storeys = Convert.ToInt32(horizontalWService.GetStoreys().Data);
         }
         #endregion
 
-        #region Events
-        public event EventHandler<DialogRequestedCloseEventArgs> CloseRequested;
 
-        #endregion
 
         #region Properties
 
-        private BusinessRules data;
-
+        private HorizontalWallsService horizontalWService = new HorizontalWallsService();
+        private VerticalWallsService verticalWService = new VerticalWallsService();
         private int _Storeys;
         public int Storeys
         {
@@ -322,7 +304,7 @@ namespace StructureSystem.ViewModel
 
         private double _positionY;
 
-       
+
         public double PositionY
         {
             get

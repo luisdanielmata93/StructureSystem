@@ -2,14 +2,11 @@
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using StructureSystem.Model;
 
-
-namespace StructureSystem.Shared.Configuration
+namespace StructureSystem.BusinessRules.Configuration
 {
-   public class WebConfig
+    public class WebConfig
     {
         private WebConfiguration config = null;
 
@@ -23,7 +20,39 @@ namespace StructureSystem.Shared.Configuration
             catch (Exception ex) { throw ex; }
         }
 
+        public string GetElementByName(string element)
+        {
+            string result;
+            try
+            {
+                result = ConfigurationManager.AppSettings[element];
+            }
+            catch (Exception ex)
+            {
+                result = ex.Message;
+            }
+            return result;
+        }
 
+        public bool SetLastDocument(string xmlPath)
+        {
+            try
+            {
+                var config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+                config.AppSettings.Settings.Remove("LastDocument");
+                config.AppSettings.Settings.Add("LastDocument", xmlPath);
+                config.Save(ConfigurationSaveMode.Modified);
+
+                ConfigurationManager.RefreshSection("appSettings");
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
+   
         public List<Regulation> GetRegulationsCollection()
         {
             var regulations = new List<Regulation>();

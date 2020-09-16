@@ -1,14 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace StructureSystem.Model
 {
-    public class XMLData
+    public class XMLGeneralData
     {
         #region Definition Data
+
+        public string DocumentPath { get; set; }
 
         public string ClientName { get; set; }
 
