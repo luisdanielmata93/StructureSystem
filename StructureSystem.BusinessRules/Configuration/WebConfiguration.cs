@@ -43,6 +43,14 @@ namespace StructureSystem.BusinessRules.Configuration
             get { return (MaterialsCollection)base["Materials"]; }
         }
 
+
+        [ConfigurationProperty("FlooringMaterials", IsRequired = false, IsDefaultCollection = true)]
+        [ConfigurationCollection(typeof(FlooringMaterialsCollection))]
+        public FlooringMaterialsCollection FlooringMaterials
+        {
+            get { return (FlooringMaterialsCollection)base["FlooringMaterials"]; }
+        }
+        
     }//end of WebConfiguration class
 
 
@@ -309,6 +317,72 @@ namespace StructureSystem.BusinessRules.Configuration
     } //end of class
 
     public class MaterialsCollection : ConfigurationElementCollection
+    {
+
+        public ConfigurationObject this[int index]
+        {
+            get
+            {
+                return base.BaseGet(index) as ConfigurationObject;
+            }
+            set
+            {
+                if (base.BaseGet(index) != null)
+                {
+                    base.BaseRemoveAt(index);
+                }
+                this.BaseAdd(index, value);
+            }
+        }
+
+        #region Add - Remove - Clear
+        public void Add(ConfigurationObject element)
+        {
+            this.BaseAdd(element);
+        }
+
+        public void Remove(ConfigurationObject element)
+        {
+            BaseRemove(element.Id);
+        }
+
+        public void Remove(string name)
+        {
+            BaseRemove(name);
+        }
+
+        public void RemoveAt(int index)
+        {
+            BaseRemoveAt(index);
+        }
+
+        public void Clear()
+        {
+            BaseClear();
+        }
+        #endregion
+
+        #region ConfigurationElementCollection overrides
+        protected override ConfigurationElement CreateNewElement()
+        {
+            return new ConfigurationObject();
+        }
+
+        protected override object GetElementKey(ConfigurationElement element)
+        {
+            return ((ConfigurationObject)element).Id;
+        }
+
+        public override ConfigurationElementCollectionType CollectionType
+        {
+            get { return ConfigurationElementCollectionType.AddRemoveClearMap; }
+        }
+        #endregion
+
+    } //end of class
+
+
+    public class FlooringMaterialsCollection : ConfigurationElementCollection
     {
 
         public ConfigurationObject this[int index]

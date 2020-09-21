@@ -15,14 +15,13 @@
 
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" />
+            <ColumnDefinition />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="50" />
-            <RowDefinition  />
+            <RowDefinition />
         </Grid.RowDefinitions>
 
-        <Controls:MetroTabControl Grid.Row="1" Grid.Column="0">
+        <Controls:MetroTabControl Margin="10 20 10 10" Grid.Row="0" Grid.Column="0">
 
             <Controls:MetroTabItem Header="Definición general" Grid.Row="0" Grid.Column="0" >
                 <Grid Margin="10 20 0 10" >
@@ -107,7 +106,7 @@
                     <Button Grid.Row="6" Grid.Column="9" Command="{Binding ExportPDFCommand}" Content="Exportar PDF"  />
 
                     <Grid Grid.Row="0" Grid.Column="11" Visibility="{Binding IsAlert, Mode=TwoWay}">
-                        <TextBlock ToolTip="No se encuentra ningun proyecto importado" VerticalAlignment="Center">
+                        <TextBlock ToolTip="No se encuentra ningun proyecto cargado" VerticalAlignment="Center">
                             <TextBlock.Resources>
                                 <Style TargetType="ToolTip" BasedOn="{StaticResource {x:Type ToolTip}}">
                                     <Setter  Property="Background" Value="LightGoldenrodYellow"/>

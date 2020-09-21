@@ -5,7 +5,9 @@
              xmlns:micro="clr-namespace:Caliburn.Micro;assembly=Caliburn.Micro"
              xmlns:cal="http://www.caliburnproject.org"
              xmlns:controls="clr-namespace:Notifications.Wpf.Controls;assembly=Notifications.Wpf"
-              xmlns:wpf="clr-namespace:Notifications.Wpf;assembly=Notifications.Wpf"
+             xmlns:wpf="clr-namespace:Notifications.Wpf;assembly=Notifications.Wpf"
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+
              >
     <Application.Resources>
         <ResourceDictionary>
@@ -78,13 +80,38 @@
             <Style x:Key="LabelHeader" TargetType="Label">
                 <Setter Property="FontWeight" Value="Bold" />
                 <Setter Property="FontSize" Value="15" />
+                <Setter Property="HorizontalAlignment" Value="Center"/>
+            </Style>
+            <Style x:Key="LabelHeaderConcepto" TargetType="Label">
+                <Setter Property="FontWeight" Value="Bold" />
+                <Setter Property="FontSize" Value="15" />
             </Style>
 
             <Style x:Key="deleteBtn" TargetType="Button">
                 <Setter Property="Background" Value="LightCyan"/>
                 <Setter Property="Foreground" Value="Black"/>
             </Style>
-            
+
+
+            <ControlTemplate x:Key="NumericTextBox" TargetType="{x:Type TextBoxBase}">
+                <Border Background="{TemplateBinding Background}" 
+                x:Name="Bd" BorderBrush="LightSlateGray" Width="90"
+                BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="10">
+                    <ScrollViewer x:Name="PART_ContentHost"/>
+                </Border>
+                <ControlTemplate.Triggers>
+                    <Trigger Property="IsEnabled" Value="False">
+                        <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" TargetName="Bd"/>
+                        <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
+                    </Trigger>
+                    <Trigger Property="Width" Value="90">
+                        <Setter Property="MinWidth" Value="90"/>
+                    </Trigger>
+                    <Trigger Property="Height" Value="30">
+                        <Setter Property="MinHeight" Value="30"/>
+                    </Trigger>
+                </ControlTemplate.Triggers>
+            </ControlTemplate>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

@@ -12,5 +12,6 @@ namespace StructureSystem.Data.Model
         IGeneralDataRepository GeneralData { get; }
         IHorizontalWallRepository HorizontalWallsData { get; }
         IVerticalWallRepository VerticalWallsData { get; }
+        ILoadAnalysisRepository LoadAnalysisData { get; }
     }//end of interface
 }//end of namespace

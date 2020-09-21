@@ -8,32 +8,35 @@
              xmlns:Icons="http://metro.mahapps.com/winfx/xaml/iconpacks"
              xmlns:Accordion="clr-namespace:System.Windows.Controls;assembly=Accordion"
              xmlns:zoom="clr-namespace:StructureSystem.View.Behaviors.ZoomBorder"
-             mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+             xmlns:Be="clr-namespace:StructureSystem.View.Behaviors"
+    mc:Ignorable="d" 
+             >
     <Grid>
         <Grid.ColumnDefinitions >
-            <ColumnDefinition Width="*" />
+            <ColumnDefinition />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
+            <RowDefinition/>
         </Grid.RowDefinitions>
 
-        <Controls:MetroTabControl Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="5">
+        <Controls:MetroTabControl Margin="10 20 10 10" Grid.Row="1" Grid.Column="0">
             <Controls:MetroTabItem Header="Análisis de carga">
                 <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="20" />
+                        <ColumnDefinition Width="0" />
+                        <ColumnDefinition Width="50"/>
                         <ColumnDefinition Width="60"/>
-                        <ColumnDefinition Width="50"/>
+                        <ColumnDefinition Width="10"/>
+                        <ColumnDefinition Width="100"/>
+                        <ColumnDefinition Width="130"/>
                         <ColumnDefinition Width="20"/>
                         <ColumnDefinition Width="100"/>
-                        <ColumnDefinition Width="120"/>
-                        <ColumnDefinition Width="20"/>
                         <ColumnDefinition Width="100"/>
-                        <ColumnDefinition Width="100"/>
+                        <ColumnDefinition Width="90"/>
                         <ColumnDefinition Width="20"/>
-                        <ColumnDefinition Width="50"/>
-                        <ColumnDefinition Width="50"/>
+                        <ColumnDefinition Width="90"/>
+                        <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="30"/>
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
@@ -41,144 +44,249 @@
                         <RowDefinition Height="30"/>
                         <RowDefinition Height="20"/>
                         <RowDefinition Height="auto"/>
-                        <RowDefinition Height="20"/>
+                        <RowDefinition Height="10"/>
                     </Grid.RowDefinitions>
 
                     <Label Grid.Row="1" Grid.Column="1" Content="Nivel" />
-                    <ComboBox Grid.Row="1" Grid.Column="2" />
+                    <ComboBox Grid.Row="1" Grid.Column="2" SelectedItem="{Binding Storey}" DisplayMemberPath="Name" ItemsSource="{Binding Storeys, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
 
-                    <Label  Grid.Row="1" Grid.Column="4"  Content="Sistema de piso"/>
-                    <ComboBox Grid.Row="1" Grid.Column="5"  />
-                    <CheckBox Grid.Row="1" Grid.Column="7"  Content="Entrepiso" />
-                    <CheckBox Grid.Row="1" Grid.Column="8"  Content="Azotea"/>
+                    <Label  Grid.Row="1" Grid.Column="4"  Content="Sistema de piso" />
+                    <ComboBox Grid.Row="1" Grid.Column="5" SelectedItem="{Binding FlooringMaterial}" DisplayMemberPath="Name" ItemsSource="{Binding FlooringMaterials, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"   />
+                    <CheckBox Grid.Row="1" Grid.Column="7"  Content="Entrepiso" IsChecked="{Binding IsEntrepiso ,Mode=TwoWay}"/>
+                    <CheckBox Grid.Row="1" Grid.Column="8"  Content="Azotea" IsChecked="{Binding IsAzotea, Mode=TwoWay}"/>
+
+                    <TextBlock Grid.Row="1" Grid.Column="11" ToolTip="Nivel no guardado" VerticalAlignment="Center">
+                        <TextBlock.Resources>
+                            <Style TargetType="ToolTip" BasedOn="{StaticResource {x:Type ToolTip}}">
+                                <Setter  Property="Background" Value="LightGoldenrodYellow"/>
+                                <Setter Property="Foreground" Value="Black"/>
+                                <Setter Property="FontWeight" Value="SemiBold"/>
+                            </Style>
+                        </TextBlock.Resources> 
+                            <Icons:PackIconModern Kind="Alert" VerticalAlignment="Center"/>
+                    </TextBlock>
                     
-                    <Icons:PackIconModern Grid.Row="1" Grid.Column="10" Kind="Alert" VerticalAlignment="Center"/>
-                    <Icons:PackIconModern Grid.Row="1" Grid.Column="11" Kind="Alert" VerticalAlignment="Center"/>
-                    
-                    <Controls:MetroAnimatedTabControl Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="19">
+                    <Button Grid.Row="1" Grid.Column="9" VerticalAlignment="Center" Content="Guardar" />
+
+                    <Controls:MetroAnimatedTabControl Margin="0 -90 0 0" SelectedIndex="{Binding TabIndex, Mode=TwoWay}" Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="13" >
                         <!--INICIO DE LOSA MACISA DE ENTREPISO-->
-                        <Controls:MetroTabItem   Header="Losa macisa de entrepiso" Height="50" Margin="0,0,40,0">
-                            <Grid>
+                        <Controls:MetroTabItem Visibility="{Binding LosaMacisaEntrepiso, Mode=TwoWay}"   Header="Losa macisa de entrepiso"  HorizontalAlignment="Left">
+                            <Grid >
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="3*"/>
-                                    <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="5*"/>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="3*"/>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="3*"/>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="6*"/>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="5*"/>
-                                    <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="4*"/>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="4*"/>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="4*"/>
+                                    <ColumnDefinition Width="20" />
+                                    <ColumnDefinition Width="100"/>
+                                    <ColumnDefinition Width="20" />
+                                    <ColumnDefinition Width="160"/>
+                                    <ColumnDefinition Width="20"/>
+                                    <ColumnDefinition Width="90"/>
+                                    <ColumnDefinition Width="20"/>
+                                    <ColumnDefinition Width="90"/>
+                                    <ColumnDefinition Width="20"/>
+                                    <ColumnDefinition Width="160"/>
+                                    <ColumnDefinition Width="20"/>
+                                    <ColumnDefinition Width="150"/>
+                                    <ColumnDefinition Width="20" />
+                                    <ColumnDefinition Width="100"/>
+                                    <ColumnDefinition Width="20"/>
+                                    <ColumnDefinition Width="100"/>
+                                    <ColumnDefinition Width="20"/>
+                                    <ColumnDefinition Width="100"/>
                                     <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
                                 <Grid.RowDefinitions>
-                                    <RowDefinition Height="5*"/>
-                                    <RowDefinition Height="5*"/>
-                                    <RowDefinition Height="1*"/>
-                                    <RowDefinition Height="5*"/>
-                                    <RowDefinition Height="1*"/>
-                                    <RowDefinition Height="5*"/>
-                                    <RowDefinition Height="1*"/>
-                                    <RowDefinition Height="5*"/>
-                                    <RowDefinition Height="1*"/>
-                                    <RowDefinition Height="5*"/>
-                                    <RowDefinition Height="1*"/>
-                                    <RowDefinition Height="5*"/>
-                                    <RowDefinition Height="1*"/>
-                                    <RowDefinition Height="50*"/>
-                                    <RowDefinition Height="1*"/>
+                                    <RowDefinition Height="30"/>
+                                    <RowDefinition Height="30"/>
+                                    <RowDefinition Height="10"/>
+                                    <RowDefinition Height="30"/>
+                                    <RowDefinition Height="10"/>
+                                    <RowDefinition Height="30"/>
+                                    <RowDefinition Height="10"/>
+                                    <RowDefinition Height="30"/>
+                                    <RowDefinition Height="10"/>
+                                    <RowDefinition Height="30"/>
+                                    <RowDefinition Height="10"/>
+                                    <RowDefinition Height="30"/>
+                                    <RowDefinition Height="10"/>
+                                    <RowDefinition Height="auto"/>
                                 </Grid.RowDefinitions>
 
 
-                                <Label Grid.Row="0" Grid.Column="1" Content="Concepto" Style="{StaticResource LabelHeader}"/>
+                                <Label Grid.Row="0" Grid.Column="1" Content="Concepto" Style="{StaticResource LabelHeaderConcepto}"/>
                                 <Label Grid.Row="0" Grid.Column="3" Content="Peso volumetrico" Style="{StaticResource LabelHeader}"/>
                                 <Label Grid.Row="0" Grid.Column="5" Content="Espesor" Style="{StaticResource LabelHeader}"/>
                                 <Label Grid.Row="0" Grid.Column="7" Content="Peso" Style="{StaticResource LabelHeader}"/>
-                                <Label Grid.Row="0" Grid.Column="9" Content="Concepto" Style="{StaticResource LabelHeader}"/>
+                                <Label Grid.Row="0" Grid.Column="9" Content="Concepto" Style="{StaticResource LabelHeaderConcepto}"/>
                                 <Label Grid.Row="0" Grid.Column="11" Content="Peso volumetrico" Style="{StaticResource LabelHeader}"/>
                                 <Label Grid.Row="0" Grid.Column="13" Content="Espesor" Style="{StaticResource LabelHeader}"/>
                                 <Label Grid.Row="0" Grid.Column="15" Content="Peso" Style="{StaticResource LabelHeader}"/>
 
                                 <Label Grid.Row="1" Grid.Column="1" Content="Relleno adicional" />
-                                <TextBox Grid.Row="1" Grid.Column="3" Controls:TextBoxHelper.ClearTextButton="True" />
-                                <TextBox Grid.Row="1" Grid.Column="5" Controls:TextBoxHelper.ClearTextButton="True"/>
-                                <TextBox Grid.Row="1" Grid.Column="7" Controls:TextBoxHelper.ClearTextButton="True"/>
-
+                              
+                                <TextBox Grid.Row="1" Grid.Column="3" Template="{StaticResource NumericTextBox}" >
+                                    <i:Interaction.Behaviors>
+                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding RellenoAdicionalPV}" />
+                                    </i:Interaction.Behaviors>
+                                </TextBox>
+                                <TextBox Grid.Row="1" Grid.Column="5"  Template="{StaticResource NumericTextBox}">
+                                    <i:Interaction.Behaviors>
+                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding RellenoAdicionalES}"/>
+                                    </i:Interaction.Behaviors>
+                                </TextBox>
+                                <TextBox Grid.Row="1" Grid.Column="7"  Template="{StaticResource NumericTextBox}" IsEnabled="False"  Text="{Binding RellenoAdicionalPE, Mode=TwoWay}">
+                                    <i:Interaction.Behaviors>
+                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false"/>
+                                    </i:Interaction.Behaviors>
+                                </TextBox>
 
                                 <Label Grid.Row="3" Grid.Column="1" Content="Piso"/>
-                                <TextBox Grid.Row="3" Grid.Column="3" Controls:TextBoxHelper.ClearTextButton="True" />
-                                <TextBox Grid.Row="3" Grid.Column="5" Controls:TextBoxHelper.ClearTextButton="True"/>
-                                <TextBox Grid.Row="3" Grid.Column="7" Controls:TextBoxHelper.ClearTextButton="True"/>
+                                <TextBox Grid.Row="3" Grid.Column="3" Template="{StaticResource NumericTextBox}">
+                                    <i:Interaction.Behaviors>
+                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding PisoPV,Mode=TwoWay}"/>
+                                    </i:Interaction.Behaviors>
+                                </TextBox>
+                                <TextBox Grid.Row="3" Grid.Column="5" Template="{StaticResource NumericTextBox}" >
+                                    <i:Interaction.Behaviors>
+                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding PisoES, Mode=TwoWay}"/>
+                                    </i:Interaction.Behaviors>
+                                </TextBox>
+                                <TextBox Grid.Row="3" Grid.Column="7" Template="{StaticResource NumericTextBox}" IsEnabled="False" Text="{Binding PisoPE,Mode=TwoWay}">
+                                    <i:Interaction.Behaviors>
+                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false"/>
+                                    </i:Interaction.Behaviors>
+                                </TextBox>
 
 
                                 <Label Grid.Row="5" Grid.Column="1" Content="Mortero"/>
-                                <TextBox Grid.Row="5" Grid.Column="3" Controls:TextBoxHelper.ClearTextButton="True" />
-                                <TextBox Grid.Row="5" Grid.Column="5" Controls:TextBoxHelper.ClearTextButton="True"/>
-                                <TextBox Grid.Row="5" Grid.Column="7" Controls:TextBoxHelper.ClearTextButton="True"/>
+                                <TextBox Grid.Row="5" Grid.Column="3" Template="{StaticResource NumericTextBox}" >
+                                    <i:Interaction.Behaviors>
+                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding MorteroPV, Mode=TwoWay}"/>
+                                    </i:Interaction.Behaviors>
+                                </TextBox>
+                                <TextBox Grid.Row="5" Grid.Column="5" Template="{StaticResource NumericTextBox}">
+                                    <i:Interaction.Behaviors>
+                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding MorteroES, Mode=TwoWay}"/>
+                                    </i:Interaction.Behaviors>
+                                </TextBox>
+                                <TextBox Grid.Row="5" Grid.Column="7" Template="{StaticResource NumericTextBox}" IsEnabled="False" Text="{Binding MorteroPE, Mode=TwoWay}">
+                                    <i:Interaction.Behaviors>
+                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false"/>
+                                    </i:Interaction.Behaviors>
+                                </TextBox>
+
 
 
                                 <Label Grid.Row="7" Grid.Column="1" Content="Firme"/>
-                                <TextBox Grid.Row="7" Grid.Column="3" Controls:TextBoxHelper.ClearTextButton="True" />
-                                <TextBox Grid.Row="7" Grid.Column="5" Controls:TextBoxHelper.ClearTextButton="True"/>
-                                <TextBox Grid.Row="7" Grid.Column="7" Controls:TextBoxHelper.ClearTextButton="True"/>
+                                <TextBox Grid.Row="7" Grid.Column="3" Template="{StaticResource NumericTextBox}" >
+                                    <i:Interaction.Behaviors>
+                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding FirmePV,Mode=TwoWay}"/>
+                                    </i:Interaction.Behaviors>
+                                </TextBox>
+                                <TextBox Grid.Row="7" Grid.Column="5" Template="{StaticResource NumericTextBox}" >
+                                    <i:Interaction.Behaviors>
+                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding FirmeES,Mode=TwoWay}"/>
+                                    </i:Interaction.Behaviors>
+                                </TextBox>
+                                <TextBox Grid.Row="7" Grid.Column="7" Template="{StaticResource NumericTextBox}" IsEnabled="False" Text="{Binding FirmePE,Mode=TwoWay}">
+                                    <i:Interaction.Behaviors>
+                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false"/>
+                                    </i:Interaction.Behaviors>
+                                </TextBox>
 
 
                                 <Label Grid.Row="9" Grid.Column="1" Content="Losa"/>
-                                <TextBox Grid.Row="9" Grid.Column="3" Controls:TextBoxHelper.ClearTextButton="True" />
-                                <TextBox Grid.Row="9" Grid.Column="5" Controls:TextBoxHelper.ClearTextButton="True"/>
-                                <TextBox Grid.Row="9" Grid.Column="7" Controls:TextBoxHelper.ClearTextButton="True"/>
+                                <TextBox Grid.Row="9" Grid.Column="3" Template="{StaticResource NumericTextBox}" >
+                                    <i:Interaction.Behaviors>
+                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding LosaPV,Mode=TwoWay}"/>
+                                    </i:Interaction.Behaviors>
+                                </TextBox>
+                                <TextBox Grid.Row="9" Grid.Column="5" Template="{StaticResource NumericTextBox}" >
+                                    <i:Interaction.Behaviors>
+                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding LosaES,Mode=TwoWay}"/>
+                                    </i:Interaction.Behaviors>
+                                </TextBox>
+                                <TextBox Grid.Row="9" Grid.Column="7" Template="{StaticResource NumericTextBox}" IsEnabled="False" Text="{Binding LosaPE, Mode=TwoWay}">
+                                    <i:Interaction.Behaviors>
+                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false"/>
+                                    </i:Interaction.Behaviors>
+                                </TextBox>
 
 
                                 <Label Grid.Row="11" Grid.Column="1" Content="Aplanado"/>
-                                <TextBox Grid.Row="11" Grid.Column="3" Controls:TextBoxHelper.ClearTextButton="True" />
-                                <TextBox Grid.Row="11" Grid.Column="5" Controls:TextBoxHelper.ClearTextButton="True"/>
-                                <TextBox Grid.Row="11" Grid.Column="7" Controls:TextBoxHelper.ClearTextButton="True"/>
+                                <TextBox Grid.Row="11" Grid.Column="3" Template="{StaticResource NumericTextBox}" >
+                                    <i:Interaction.Behaviors>
+                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding AplanadoPV,Mode=TwoWay}"/>
+                                    </i:Interaction.Behaviors>
+                                </TextBox>
+                                <TextBox Grid.Row="11" Grid.Column="5" Template="{StaticResource NumericTextBox}" >
+                                    <i:Interaction.Behaviors>
+                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding AplanadoES, Mode=TwoWay}"/>
+                                    </i:Interaction.Behaviors>
+                                </TextBox>
+                                <TextBox Grid.Row="11" Grid.Column="7" Template="{StaticResource NumericTextBox}" IsEnabled="False" Text="{Binding AplanadoPE,Mode=TwoWay}">
+                                    <i:Interaction.Behaviors>
+                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false"/>
+                                    </i:Interaction.Behaviors>
+                                </TextBox>
 
 
                                 <Label Grid.Row="1" Grid.Column="9" Content="Instalaciones"/>
-                                <TextBox Grid.Row="1" Grid.Column="11" Controls:TextBoxHelper.ClearTextButton="True" IsEnabled="False" />
-                                <TextBox Grid.Row="1" Grid.Column="13" Controls:TextBoxHelper.ClearTextButton="True" IsEnabled="False"/>
-                                <TextBox Grid.Row="1" Grid.Column="15" Controls:TextBoxHelper.ClearTextButton="True"/>
-
+                                <TextBox Grid.Row="1" Grid.Column="11" Template="{StaticResource NumericTextBox}" IsEnabled="False" />
+                                <TextBox Grid.Row="1" Grid.Column="13" Template="{StaticResource NumericTextBox}" IsEnabled="False"/>
+                                <TextBox Grid.Row="1" Grid.Column="15" Template="{StaticResource NumericTextBox}">
+                                    <i:Interaction.Behaviors>
+                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding InstalacionesPE,Mode=TwoWay}"/>
+                                    </i:Interaction.Behaviors>
+                                </TextBox>
+                                    
 
                                 <Label Grid.Row="3" Grid.Column="9" Content="Carga adicional por colado"/>
-                                <TextBox Grid.Row="3" Grid.Column="11" Controls:TextBoxHelper.ClearTextButton="True"  IsEnabled="False"/>
-                                <TextBox Grid.Row="3" Grid.Column="13" Controls:TextBoxHelper.ClearTextButton="True"  IsEnabled="False"/>
-                                <TextBox Grid.Row="3" Grid.Column="15" Controls:TextBoxHelper.ClearTextButton="True"/>
+                                <TextBox Grid.Row="3" Grid.Column="11" Template="{StaticResource NumericTextBox}"  IsEnabled="False"/>
+                                <TextBox Grid.Row="3" Grid.Column="13" Template="{StaticResource NumericTextBox}"  IsEnabled="False"/>
+                                <TextBox Grid.Row="3" Grid.Column="15" Template="{StaticResource NumericTextBox}" >
+                                    <i:Interaction.Behaviors>
+                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding CargaAdicionalColadoPE,Mode=TwoWay}"/>
+                                    </i:Interaction.Behaviors>
+                                </TextBox>
 
 
                                 <Label Grid.Row="5" Grid.Column="9" Content="Carga adicional por mortero"/>
-                                <TextBox Grid.Row="5" Grid.Column="11" Controls:TextBoxHelper.ClearTextButton="True" IsEnabled="False"/>
-                                <TextBox Grid.Row="5" Grid.Column="13" Controls:TextBoxHelper.ClearTextButton="True" IsEnabled="False"/>
-                                <TextBox Grid.Row="5" Grid.Column="15" Controls:TextBoxHelper.ClearTextButton="True"/>
+                                <TextBox Grid.Row="5" Grid.Column="11" Template="{StaticResource NumericTextBox}" IsEnabled="False"/>
+                                <TextBox Grid.Row="5" Grid.Column="13" Template="{StaticResource NumericTextBox}" IsEnabled="False"/>
+                                <TextBox Grid.Row="5" Grid.Column="15" Template="{StaticResource NumericTextBox}" >
+                                    <i:Interaction.Behaviors>
+                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding CargaAdicionalMorteroPE,Mode=TwoWay}"/>
+                                    </i:Interaction.Behaviors>
+                                </TextBox>
 
 
                                 <Label Grid.Row="7" Grid.Column="9" Content="Carga muerta total"/>
-                                <TextBox Grid.Row="7" Grid.Column="11" Controls:TextBoxHelper.ClearTextButton="True" IsEnabled="False"/>
-                                <TextBox Grid.Row="7" Grid.Column="13" Controls:TextBoxHelper.ClearTextButton="True" IsEnabled="False"/>
-                                <TextBox Grid.Row="7" Grid.Column="15" Controls:TextBoxHelper.ClearTextButton="True"/>
+                                <TextBox Grid.Row="7" Grid.Column="11" Template="{StaticResource NumericTextBox}" IsEnabled="False"/>
+                                <TextBox Grid.Row="7" Grid.Column="13" Template="{StaticResource NumericTextBox}" IsEnabled="False"/>
+                                <TextBox Grid.Row="7" Grid.Column="15" Template="{StaticResource NumericTextBox}" IsEnabled="False" Text="{Binding CargaMuertaTotalPE,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" >
+                                    <i:Interaction.Behaviors>
+                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false"/>
+                                    </i:Interaction.Behaviors>
+                                </TextBox>
 
 
                                 <Label Grid.Row="9" Grid.Column="9" Content="Carga viva maxima"/>
-                                <TextBox Grid.Row="9" Grid.Column="11" Controls:TextBoxHelper.ClearTextButton="True" IsEnabled="False"/>
-                                <TextBox Grid.Row="9" Grid.Column="13" Controls:TextBoxHelper.ClearTextButton="True" IsEnabled="False"/>
-                                <TextBox Grid.Row="9" Grid.Column="15" Controls:TextBoxHelper.ClearTextButton="True"/>
+                                <TextBox Grid.Row="9" Grid.Column="11" Template="{StaticResource NumericTextBox}" IsEnabled="False"/>
+                                <TextBox Grid.Row="9" Grid.Column="13" Template="{StaticResource NumericTextBox}" IsEnabled="False"/>
+                                <TextBox Grid.Row="9" Grid.Column="15" Template="{StaticResource NumericTextBox}" >
+                                    <i:Interaction.Behaviors>
+                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding CargaVivaMaximaPE,Mode=TwoWay}"/>
+                                    </i:Interaction.Behaviors>
+                                </TextBox>
 
 
                                 <Label Grid.Row="11" Grid.Column="9" Content="Carga viva instantanea"/>
-                                <TextBox Grid.Row="11" Grid.Column="11" Controls:TextBoxHelper.ClearTextButton="True" IsEnabled="False"/>
-                                <TextBox Grid.Row="11" Grid.Column="13" Controls:TextBoxHelper.ClearTextButton="True" IsEnabled="False"/>
-                                <TextBox Grid.Row="11" Grid.Column="15" Controls:TextBoxHelper.ClearTextButton="True"/>
-
+                                <TextBox Grid.Row="11" Grid.Column="11" Template="{StaticResource NumericTextBox}" IsEnabled="False"/>
+                                <TextBox Grid.Row="11" Grid.Column="13" Template="{StaticResource NumericTextBox}" IsEnabled="False"/>
+                                <TextBox Grid.Row="11" Grid.Column="15" Template="{StaticResource NumericTextBox}" >
+                                    <i:Interaction.Behaviors>
+                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding CargaVivaInstantaneaPE,Mode=TwoWay}"/>
+                                    </i:Interaction.Behaviors>
+                                </TextBox>
 
                                 <zoom:ZoomBorder  Grid.Row="13" Grid.Column="1" Grid.ColumnSpan="17" ClipToBounds="True" Background="White" >
                                     <Image Height="150" Source="/Content/Images/losa_macisa_entrepiso.png" />
@@ -190,124 +298,254 @@
 
 
                         <!--INICIO DE LOSA MACISA DE AZOTEA-->
-                        <Controls:MetroTabItem Visibility="Hidden" Header="Losa macisa de azotea" Height="50">
+                        <Controls:MetroTabItem Visibility="{Binding LosaMacisaAzotea, Mode=TwoWay}" Header="Losa macisa de azotea" Height="50">
                             <Grid>
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="4*"/>
-                                    <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="5*"/>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="3*"/>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="3*"/>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="6*"/>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="5*"/>
-                                    <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="4*"/>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="4*"/>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="4*"/>
-                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="20" />
+                                    <ColumnDefinition Width="130"/>
+                                    <ColumnDefinition Width="20" />
+                                    <ColumnDefinition Width="150"/>
+                                    <ColumnDefinition Width="20"/>
+                                    <ColumnDefinition Width="100"/>
+                                    <ColumnDefinition Width="20"/>
+                                    <ColumnDefinition Width="100"/>
+                                    <ColumnDefinition Width="20"/>
+                                    <ColumnDefinition Width="200"/>
+                                    <ColumnDefinition Width="20"/>
+                                    <ColumnDefinition Width="150"/>
+                                    <ColumnDefinition Width="20" />
+                                    <ColumnDefinition Width="100"/>
+                                    <ColumnDefinition Width="20"/>
+                                    <ColumnDefinition Width="100"/>
+                                    <ColumnDefinition Width="20"/>
                                 </Grid.ColumnDefinitions>
                                 <Grid.RowDefinitions>
-                                    <RowDefinition Height="5*"/>
-                                    <RowDefinition Height="5*"/>
-                                    <RowDefinition Height="1*"/>
-                                    <RowDefinition Height="5*"/>
-                                    <RowDefinition Height="1*"/>
-                                    <RowDefinition Height="5*"/>
-                                    <RowDefinition Height="1*"/>
-                                    <RowDefinition Height="5*"/>
-                                    <RowDefinition Height="1*"/>
-                                    <RowDefinition Height="5*"/>
-                                    <RowDefinition Height="1*"/>
-                                    <RowDefinition Height="5*"/>
-                                    <RowDefinition Height="1*"/>
-                                    <RowDefinition Height="50*"/>
-                                    <RowDefinition Height="1*"/>
+                                    <RowDefinition Height="30"/>
+                                    <RowDefinition Height="30"/>
+                                    <RowDefinition Height="10"/>
+                                    <RowDefinition Height="30"/>
+                                    <RowDefinition Height="10"/>
+                                    <RowDefinition Height="30"/>
+                                    <RowDefinition Height="10"/>
+                                    <RowDefinition Height="30"/>
+                                    <RowDefinition Height="10"/>
+                                    <RowDefinition Height="30"/>
+                                    <RowDefinition Height="10"/>
+                                    <RowDefinition Height="30"/>
+                                    <RowDefinition Height="10"/>
+                                    <RowDefinition Height="auto"/>
+                                    <RowDefinition Height="10"/>
                                 </Grid.RowDefinitions>
 
 
-                                <Label Grid.Row="0" Grid.Column="1" Content="Concepto" Style="{StaticResource LabelHeader}"/>
+                                <Label Grid.Row="0" Grid.Column="1" Content="Concepto" Style="{StaticResource LabelHeaderConcepto}"/>
                                 <Label Grid.Row="0" Grid.Column="3" Content="Peso volumetrico" Style="{StaticResource LabelHeader}"/>
                                 <Label Grid.Row="0" Grid.Column="5" Content="Espesor" Style="{StaticResource LabelHeader}"/>
                                 <Label Grid.Row="0" Grid.Column="7" Content="Peso" Style="{StaticResource LabelHeader}"/>
-                                <Label Grid.Row="0" Grid.Column="9" Content="Concepto" Style="{StaticResource LabelHeader}"/>
+                                <Label Grid.Row="0" Grid.Column="9" Content="Concepto" Style="{StaticResource LabelHeaderConcepto}"/>
                                 <Label Grid.Row="0" Grid.Column="11" Content="Peso volumetrico" Style="{StaticResource LabelHeader}"/>
                                 <Label Grid.Row="0" Grid.Column="13" Content="Espesor" Style="{StaticResource LabelHeader}"/>
                                 <Label Grid.Row="0" Grid.Column="15" Content="Peso" Style="{StaticResource LabelHeader}"/>
 
                                 <Label Grid.Row="1" Grid.Column="1" Content="Impermeabilizante" />
-                                <TextBox Grid.Row="1" Grid.Column="3" Controls:TextBoxHelper.ClearTextButton="True" IsEnabled="False"/>
-                                <TextBox Grid.Row="1" Grid.Column="5" Controls:TextBoxHelper.ClearTextButton="True" IsEnabled="False"/>
-                                <TextBox Grid.Row="1" Grid.Column="7" Controls:TextBoxHelper.ClearTextButton="True"/>
-                                
-                                
+                                <TextBox Grid.Row="1" Grid.Column="3" IsEnabled="False" Template="{StaticResource NumericTextBox}">
+                                    <i:Interaction.Behaviors>
+                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" />
+                                    </i:Interaction.Behaviors>
+                                </TextBox>
+                                <TextBox Grid.Row="1" Grid.Column="5" IsEnabled="False" Template="{StaticResource NumericTextBox}">
+                                    <i:Interaction.Behaviors>
+                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false"/>
+                                    </i:Interaction.Behaviors>
+                                </TextBox>
+                                <TextBox Grid.Row="1" Grid.Column="7" Template="{StaticResource NumericTextBox}">
+                                    <i:Interaction.Behaviors>
+                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding ImpermeabilizantePE, Mode=TwoWay}"/>
+                                    </i:Interaction.Behaviors>
+                                </TextBox>
+
+
                                 <Label Grid.Row="3" Grid.Column="1" Content="Mortero"/>
-                                <TextBox Grid.Row="3" Grid.Column="3" Controls:TextBoxHelper.ClearTextButton="True" />
-                                <TextBox Grid.Row="3" Grid.Column="5" Controls:TextBoxHelper.ClearTextButton="True"/>
-                                <TextBox Grid.Row="3" Grid.Column="7" Controls:TextBoxHelper.ClearTextButton="True"/>
+                                <TextBox Grid.Row="3" Grid.Column="3" Template="{StaticResource NumericTextBox}">
+                                    <i:Interaction.Behaviors>
+                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding MorteroPV, Mode=TwoWay}"/>
+                                    </i:Interaction.Behaviors>
+                                </TextBox>
+                                <TextBox Grid.Row="3" Grid.Column="5" Template="{StaticResource NumericTextBox}">
+                                    <i:Interaction.Behaviors>
+                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding MorteroES, Mode=TwoWay}"/>
+                                    </i:Interaction.Behaviors>
+                                </TextBox>
+                                <TextBox Grid.Row="3" Grid.Column="7" IsEnabled="False" Template="{StaticResource NumericTextBox}" Text="{Binding MorteroPE,Mode=TwoWay}">
+                                    <i:Interaction.Behaviors>
+                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false"/>
+                                    </i:Interaction.Behaviors>
+                                </TextBox>
 
 
                                 <Label Grid.Row="5" Grid.Column="1" Content="Relleno"/>
-                                <TextBox Grid.Row="5" Grid.Column="3" Controls:TextBoxHelper.ClearTextButton="True" />
-                                <TextBox Grid.Row="5" Grid.Column="5" Controls:TextBoxHelper.ClearTextButton="True"/>
-                                <TextBox Grid.Row="5" Grid.Column="7" Controls:TextBoxHelper.ClearTextButton="True"/>
+                                <TextBox Grid.Row="5" Grid.Column="3" Template="{StaticResource NumericTextBox}">
+                                    <i:Interaction.Behaviors>
+                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding RellenoPV,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                                    </i:Interaction.Behaviors>
+                                </TextBox>
+                                <TextBox Grid.Row="5" Grid.Column="5" Template="{StaticResource NumericTextBox}">
+                                    <i:Interaction.Behaviors>
+                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding RellenoES,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                                    </i:Interaction.Behaviors>
+                                </TextBox>
+                                <TextBox Grid.Row="5" Grid.Column="7" IsEnabled="False" Template="{StaticResource NumericTextBox}" Text="{Binding RellenoPE,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}">
+                                    <i:Interaction.Behaviors>
+                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" />
+                                    </i:Interaction.Behaviors>
+                                </TextBox>
 
-                                
+
                                 <Label Grid.Row="7" Grid.Column="1" Content="Losa"/>
-                                <TextBox Grid.Row="7" Grid.Column="3" Controls:TextBoxHelper.ClearTextButton="True" />
-                                <TextBox Grid.Row="7" Grid.Column="5" Controls:TextBoxHelper.ClearTextButton="True"/>
-                                <TextBox Grid.Row="7" Grid.Column="7" Controls:TextBoxHelper.ClearTextButton="True"/>
+                                <TextBox Grid.Row="7" Grid.Column="3" Template="{StaticResource NumericTextBox}">
+                                    <i:Interaction.Behaviors>
+                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding LosaPV,Mode=TwoWay}"/>
+                                    </i:Interaction.Behaviors>
+                                </TextBox>
+                                <TextBox Grid.Row="7" Grid.Column="5" Template="{StaticResource NumericTextBox}">
+                                    <i:Interaction.Behaviors>
+                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding LosaES,Mode=TwoWay}"/>
+                                    </i:Interaction.Behaviors>
+                                </TextBox>
+                                <TextBox Grid.Row="7" Grid.Column="7" IsEnabled="False" Template="{StaticResource NumericTextBox}" Text="{Binding LosaPE, Mode=TwoWay}">
+                                    <i:Interaction.Behaviors>
+                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" />
+                                    </i:Interaction.Behaviors>
+                                </TextBox>
 
 
                                 <Label Grid.Row="9" Grid.Column="1" Content="Aplanado"/>
-                                <TextBox Grid.Row="9" Grid.Column="3" Controls:TextBoxHelper.ClearTextButton="True" />
-                                <TextBox Grid.Row="9" Grid.Column="5" Controls:TextBoxHelper.ClearTextButton="True"/>
-                                <TextBox Grid.Row="9" Grid.Column="7" Controls:TextBoxHelper.ClearTextButton="True"/>
+                                <TextBox Grid.Row="9" Grid.Column="3" Template="{StaticResource NumericTextBox}">
+                                    <i:Interaction.Behaviors>
+                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding AplanadoPV, Mode=TwoWay}"/>
+                                    </i:Interaction.Behaviors>
+                                </TextBox>
+                                <TextBox Grid.Row="9" Grid.Column="5" Template="{StaticResource NumericTextBox}">
+                                    <i:Interaction.Behaviors>
+                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false"  Value="{Binding AplanadoES, Mode=TwoWay}"/>
+                                    </i:Interaction.Behaviors>
+                                </TextBox>
+                                <TextBox Grid.Row="9" Grid.Column="7" IsEnabled="False" Template="{StaticResource NumericTextBox}"  Text="{Binding AplanadoPE, Mode=TwoWay}">
+                                    <i:Interaction.Behaviors>
+                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false"/>
+                                    </i:Interaction.Behaviors>
+                                </TextBox>
 
 
                                 <Label Grid.Row="11" Grid.Column="1" Content="Instalaciones"/>
-                                <TextBox Grid.Row="11" Grid.Column="3" Controls:TextBoxHelper.ClearTextButton="True" IsEnabled="False"/>
-                                <TextBox Grid.Row="11" Grid.Column="5" Controls:TextBoxHelper.ClearTextButton="True" IsEnabled="False"/>
-                                <TextBox Grid.Row="11" Grid.Column="7" Controls:TextBoxHelper.ClearTextButton="True"/>
+                                <TextBox Grid.Row="11" Grid.Column="3" IsEnabled="False" Template="{StaticResource NumericTextBox}">
+                                    <i:Interaction.Behaviors>
+                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false"/>
+                                    </i:Interaction.Behaviors>
+                                </TextBox>
+                                <TextBox Grid.Row="11" Grid.Column="5" IsEnabled="False" Template="{StaticResource NumericTextBox}">
+                                    <i:Interaction.Behaviors>
+                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false"/>
+                                    </i:Interaction.Behaviors>
+                                </TextBox>
+                                <TextBox Grid.Row="11" Grid.Column="7" Template="{StaticResource NumericTextBox}">
+                                    <i:Interaction.Behaviors>
+                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding InstalacionesPE,Mode=TwoWay}"/>
+                                    </i:Interaction.Behaviors>
+                                </TextBox>
 
 
                                 <Label Grid.Row="1" Grid.Column="9" Content="Carga adicional por colada"/>
-                                <TextBox Grid.Row="1" Grid.Column="11" Controls:TextBoxHelper.ClearTextButton="True" IsEnabled="False" />
-                                <TextBox Grid.Row="1" Grid.Column="13" Controls:TextBoxHelper.ClearTextButton="True" IsEnabled="False"/>
-                                <TextBox Grid.Row="1" Grid.Column="15" Controls:TextBoxHelper.ClearTextButton="True"/>
+                                <TextBox Grid.Row="1" Grid.Column="11" IsEnabled="False" Template="{StaticResource NumericTextBox}">
+                                    <i:Interaction.Behaviors>
+                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false"/>
+                                    </i:Interaction.Behaviors>
+                                </TextBox>
+                                <TextBox Grid.Row="1" Grid.Column="13" IsEnabled="False" Template="{StaticResource NumericTextBox}">
+                                    <i:Interaction.Behaviors>
+                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false"/>
+                                    </i:Interaction.Behaviors>
+                                </TextBox>
+                                <TextBox Grid.Row="1" Grid.Column="15" Template="{StaticResource NumericTextBox}">
+                                    <i:Interaction.Behaviors>
+                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding CargaAdicionalColadoPE,Mode=TwoWay}"/>
+                                    </i:Interaction.Behaviors>
+                                </TextBox>
 
 
                                 <Label Grid.Row="3" Grid.Column="9" Content="Carga adicional por mortero"/>
-                                <TextBox Grid.Row="3" Grid.Column="11" Controls:TextBoxHelper.ClearTextButton="True"  IsEnabled="False"/>
-                                <TextBox Grid.Row="3" Grid.Column="13" Controls:TextBoxHelper.ClearTextButton="True"  IsEnabled="False"/>
-                                <TextBox Grid.Row="3" Grid.Column="15" Controls:TextBoxHelper.ClearTextButton="True"/>
+                                <TextBox Grid.Row="3" Grid.Column="11"  IsEnabled="False" Template="{StaticResource NumericTextBox}">
+                                    <i:Interaction.Behaviors>
+                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false"/>
+                                    </i:Interaction.Behaviors>
+                                </TextBox>
+                                <TextBox Grid.Row="3" Grid.Column="13"  IsEnabled="False" Template="{StaticResource NumericTextBox}">
+                                    <i:Interaction.Behaviors>
+                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false"/>
+                                    </i:Interaction.Behaviors>
+                                </TextBox>
+                                <TextBox Grid.Row="3" Grid.Column="15" Template="{StaticResource NumericTextBox}">
+                                    <i:Interaction.Behaviors>
+                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding CargaAdicionalMorteroPE,Mode=TwoWay}"/>
+                                    </i:Interaction.Behaviors>
+                                </TextBox>
 
 
                                 <Label Grid.Row="5" Grid.Column="9" Content="Carga muerta total"/>
-                                <TextBox Grid.Row="5" Grid.Column="11" Controls:TextBoxHelper.ClearTextButton="True" IsEnabled="False"/>
-                                <TextBox Grid.Row="5" Grid.Column="13" Controls:TextBoxHelper.ClearTextButton="True" IsEnabled="False"/>
-                                <TextBox Grid.Row="5" Grid.Column="15" Controls:TextBoxHelper.ClearTextButton="True"/>
+                                <TextBox Grid.Row="5" Grid.Column="11" IsEnabled="False" Template="{StaticResource NumericTextBox}">
+                                    <i:Interaction.Behaviors>
+                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false"/>
+                                    </i:Interaction.Behaviors>
+                                </TextBox>
+                                <TextBox Grid.Row="5" Grid.Column="13" IsEnabled="False" Template="{StaticResource NumericTextBox}">
+                                    <i:Interaction.Behaviors>
+                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false"/>
+                                    </i:Interaction.Behaviors>
+                                </TextBox>
+                                <TextBox Grid.Row="5" Grid.Column="15" IsEnabled="False" Text="{Binding CargaMuertaTotalPE,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Template="{StaticResource NumericTextBox}">
+                                    <i:Interaction.Behaviors>
+                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" />
+                                    </i:Interaction.Behaviors>
+                                </TextBox>
 
 
                                 <Label Grid.Row="7" Grid.Column="9" Content="Carga viva maxima"/>
-                                <TextBox Grid.Row="7" Grid.Column="11" Controls:TextBoxHelper.ClearTextButton="True" IsEnabled="False"/>
-                                <TextBox Grid.Row="7" Grid.Column="13" Controls:TextBoxHelper.ClearTextButton="True" IsEnabled="False"/>
-                                <TextBox Grid.Row="7" Grid.Column="15" Controls:TextBoxHelper.ClearTextButton="True"/>
+                                <TextBox Grid.Row="7" Grid.Column="11" IsEnabled="False" Template="{StaticResource NumericTextBox}">
+                                    <i:Interaction.Behaviors>
+                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false"/>
+                                    </i:Interaction.Behaviors>
+                                </TextBox>
+                                <TextBox Grid.Row="7" Grid.Column="13" IsEnabled="False" Template="{StaticResource NumericTextBox}">
+                                    <i:Interaction.Behaviors>
+                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false"/>
+                                    </i:Interaction.Behaviors>
+                                </TextBox>
+                                <TextBox Grid.Row="7" Grid.Column="15" Template="{StaticResource NumericTextBox}">
+                                    <i:Interaction.Behaviors>
+                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding CargaVivaMaximaPE,Mode=TwoWay}"/>
+                                    </i:Interaction.Behaviors>
+                                </TextBox>
 
 
                                 <Label Grid.Row="9" Grid.Column="9" Content="Carga viva instantanea"/>
-                                <TextBox Grid.Row="9" Grid.Column="11" Controls:TextBoxHelper.ClearTextButton="True" IsEnabled="False"/>
-                                <TextBox Grid.Row="9" Grid.Column="13" Controls:TextBoxHelper.ClearTextButton="True" IsEnabled="False"/>
-                                <TextBox Grid.Row="9" Grid.Column="15" Controls:TextBoxHelper.ClearTextButton="True"/>
+                                <TextBox Grid.Row="9" Grid.Column="11" IsEnabled="False" Template="{StaticResource NumericTextBox}">
+                                    <i:Interaction.Behaviors>
+                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false"/>
+                                    </i:Interaction.Behaviors>
+                                </TextBox>
+                                <TextBox Grid.Row="9" Grid.Column="13" IsEnabled="False" Template="{StaticResource NumericTextBox}">
+                                    <i:Interaction.Behaviors>
+                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false"/>
+                                    </i:Interaction.Behaviors>
+                                </TextBox>
+                                <TextBox Grid.Row="9" Grid.Column="15" Template="{StaticResource NumericTextBox}">
+                                    <i:Interaction.Behaviors>
+                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding CargaVivaInstantaneaPE,Mode=TwoWay}"/>
+                                    </i:Interaction.Behaviors>
+                                </TextBox>
 
 
-                                <zoom:ZoomBorder  Grid.Row="13" Grid.Column="1" Grid.ColumnSpan="17" ClipToBounds="True" Background="White" >
+                                <zoom:ZoomBorder  Grid.Row="13" Grid.Column="2" Grid.ColumnSpan="14" ClipToBounds="True" Background="White" >
                                     <Image Height="200" Source="/Content/Images/losa_macisa_azotea.png" />
                                 </zoom:ZoomBorder>
 
@@ -317,55 +555,33 @@
 
 
                         <!--INICIO DE LOSA NERVADA DE ENTREPISO-->
-                        <Controls:MetroTabItem Visibility="Hidden"  Header="Losa nervada de entrepiso" Height="50">
+                        <Controls:MetroTabItem Visibility="{Binding LosaNervadaEntrepiso, Mode=TwoWay}"  Header="Losa nervada de entrepiso" Height="50">
 
                             <Grid Grid.Row="0" Grid.Column="3">
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="11*"/>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="5*"/>
                                     <ColumnDefinition Width="1*"/>
-
-                                    <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="6*"/>
-                                    <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="8*"/>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="4*"/>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="4*"/>
-                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="210*"/>
+                                    <ColumnDefinition Width="1*"/>
+                                    <ColumnDefinition Width="110*"/>
+                                    <ColumnDefinition Width="30*"/>
+                                    <ColumnDefinition Width="120*" />
+                                    <ColumnDefinition Width="1*"/>
+                                    <ColumnDefinition Width="160*" />
                                     <ColumnDefinition Width="10*"/>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="8*"/>
-                                    <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="4*"/>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="4*"/>
-                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="110*"/>
+                                    <ColumnDefinition Width="10*"/>
+                                    <ColumnDefinition Width="110*"/>
+                                    <ColumnDefinition Width="10*"/>
+                                    <ColumnDefinition Width="190*"/>
                                     <ColumnDefinition Width="1*"/>
-                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="160*"/>
+                                    <ColumnDefinition Width="10*"/>
+                                    <ColumnDefinition Width="110*" />
+                                    <ColumnDefinition Width="10*"/>
+                                    <ColumnDefinition Width="110*"/>
+                                    <ColumnDefinition Width="10*"/>
                                 </Grid.ColumnDefinitions>
                                 <Grid.RowDefinitions>
-                                    <RowDefinition Height="40"/>
-                                    <RowDefinition Height="10"/>
-                                    <RowDefinition Height="30"/>
-                                    <RowDefinition Height="10"/>
-                                    <RowDefinition Height="30"/>
-                                    <RowDefinition Height="10"/>
-                                    <RowDefinition Height="30"/>
-                                    <RowDefinition Height="10"/>
-                                    <RowDefinition Height="30"/>
-                                    <RowDefinition Height="10"/>
-                                    <RowDefinition Height="30"/>
-                                    <RowDefinition Height="10"/>
-                                    <RowDefinition Height="30"/>
-                                    <RowDefinition Height="10"/>
-                                    <RowDefinition Height="30"/>
-
-
-                                    <RowDefinition Height="40"/>
                                     <RowDefinition Height="30"/>
                                     <RowDefinition Height="10"/>
                                     <RowDefinition Height="30"/>
@@ -381,119 +597,266 @@
                                     <RowDefinition Height="30"/>
                                     <RowDefinition Height="10"/>
                                     <RowDefinition Height="30"/>
+                                    <RowDefinition Height="10"/>
+                                    <RowDefinition Height="auto"/>
+                                    <RowDefinition Height="10"/>
                                 </Grid.RowDefinitions>
 
 
-                                <Label Grid.Row="0" Grid.Column="1" Content="Concepto" Style="{StaticResource LabelHeader}"/>
+                                <Label Grid.Row="0" Grid.Column="1" Content="Concepto" Style="{StaticResource LabelHeaderConcepto}"/>
                                 <Label Grid.Row="0" Grid.Column="3" Content="Medida" Style="{StaticResource LabelHeader}"/>
 
                                 <Label Grid.Row="2" Grid.Column="1" Content="Espesor de capa de compresión" />
-                                <TextBox Grid.Row="2" Grid.Column="3" Controls:TextBoxHelper.ClearTextButton="True" />
+                                <TextBox Grid.Row="2" Grid.Column="3" Text="{Binding EspesorCapaCompresion, Mode=TwoWay}" Template="{StaticResource NumericTextBox}">
+                                    <i:Interaction.Behaviors>
+                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding RellenoAdicionalPV,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                    </i:Interaction.Behaviors>
+                                </TextBox>
 
                                 <Label Grid.Row="4" Grid.Column="1" Content="Peralte total de losa" />
-                                <TextBox Grid.Row="4" Grid.Column="3" Controls:TextBoxHelper.ClearTextButton="True"/>
+                                <TextBox Grid.Row="4" Grid.Column="3" Text="{Binding PeralteTotalLosa, Mode=TwoWay}" Template="{StaticResource NumericTextBox}">
+                                    <i:Interaction.Behaviors>
+                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding RellenoAdicionalPV,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                    </i:Interaction.Behaviors>
+                                </TextBox>
 
                                 <Label Grid.Row="6" Grid.Column="1" Content="Ancho de nervadura" />
-                                <TextBox Grid.Row="6" Grid.Column="3" Controls:TextBoxHelper.ClearTextButton="True"/>
+                                <TextBox Grid.Row="6" Grid.Column="3" Controls:TextBoxHelper.ClearTextButton="True" Text="{Binding AnchoNervadura, Mode=TwoWay}" Template="{StaticResource NumericTextBox}">
+                                    <i:Interaction.Behaviors>
+                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding RellenoAdicionalPV,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                    </i:Interaction.Behaviors>
+                                </TextBox>
 
                                 <Label Grid.Row="8" Grid.Column="1" Content="Ancho de caseton" />
-                                <TextBox Grid.Row="8" Grid.Column="3" Controls:TextBoxHelper.ClearTextButton="True" />
+                                <TextBox Grid.Row="8" Grid.Column="3" Controls:TextBoxHelper.ClearTextButton="True" Text="{Binding AnchoCaseton,Mode=TwoWay}" Template="{StaticResource NumericTextBox}" >
+                                    <i:Interaction.Behaviors>
+                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding RellenoAdicionalPV,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                    </i:Interaction.Behaviors>
+                                </TextBox>
 
                                 <Label Grid.Row="10" Grid.Column="1" Content="Longitud de modulo" />
-                                <TextBox Grid.Row="10" Grid.Column="3" Controls:TextBoxHelper.ClearTextButton="True"/>
+                                <TextBox Grid.Row="10" Grid.Column="3" Controls:TextBoxHelper.ClearTextButton="True" Text="{Binding LongitudModulo,Mode=TwoWay}" Template="{StaticResource NumericTextBox}">
+                                    <i:Interaction.Behaviors>
+                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding RellenoAdicionalPV,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                    </i:Interaction.Behaviors>
+                                </TextBox>
 
                                 <Label Grid.Row="12" Grid.Column="1" Content="Area de concreto" />
-                                <TextBox Grid.Row="12" Grid.Column="3" Controls:TextBoxHelper.ClearTextButton="True"/>
+                                <TextBox Grid.Row="12" Grid.Column="3" Controls:TextBoxHelper.ClearTextButton="True" Text="{Binding AreaConcreto,Mode=TwoWay}"  Template="{StaticResource NumericTextBox}">
+                                    <i:Interaction.Behaviors>
+                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding RellenoAdicionalPV,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                    </i:Interaction.Behaviors>
+                                </TextBox>
 
                                 <Label Grid.Row="14" Grid.Column="1" Content="Area de caseton" />
-                                <TextBox Grid.Row="14" Grid.Column="3" Controls:TextBoxHelper.ClearTextButton="True" />
+                                <TextBox Grid.Row="14" Grid.Column="3" Controls:TextBoxHelper.ClearTextButton="True" Text="{Binding AreaCaseton,Mode=TwoWay}" Template="{StaticResource NumericTextBox}">
+                                    <i:Interaction.Behaviors>
+                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding RellenoAdicionalPV,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                    </i:Interaction.Behaviors>
+                                </TextBox>
 
 
-                                <Label Grid.Row="0" Grid.Column="6" Content="Concepto" Style="{StaticResource LabelHeader}"/>
-                                <Label Grid.Row="0" Grid.Column="8" Grid.ColumnSpan="1" Content="Peso volumetrico" Style="{StaticResource LabelHeader}"/>
-                                <Label Grid.Row="0" Grid.Column="10" Content="Espesor" Style="{StaticResource LabelHeader}"/>
-                                <Label Grid.Row="0" Grid.Column="12" Content="Peso" Style="{StaticResource LabelHeader}"/>
-                                <Label Grid.Row="0" Grid.Column="14" Content="Concepto" Style="{StaticResource LabelHeader}"/>
-                                <Label Grid.Row="0" Grid.Column="16" Content="Peso volumetrico" Style="{StaticResource LabelHeader}"/>
-                                <Label Grid.Row="0" Grid.Column="18" Content="Espesor" Style="{StaticResource LabelHeader}"/>
-                                <Label Grid.Row="0" Grid.Column="20" Content="Peso" Style="{StaticResource LabelHeader}"/>
+                                <Label Grid.Row="0" Grid.Column="5" Content="Concepto" Style="{StaticResource LabelHeaderConcepto}"/>
+                                <Label Grid.Row="0" Grid.Column="7" Grid.ColumnSpan="1" Content="Peso volumetrico" Style="{StaticResource LabelHeader}"/>
+                                <Label Grid.Row="0" Grid.Column="9" Content="Espesor" Style="{StaticResource LabelHeader}"/>
+                                <Label Grid.Row="0" Grid.Column="11" Content="Peso" Style="{StaticResource LabelHeader}"/>
+                                <Label Grid.Row="0" Grid.Column="13" Content="Concepto" Style="{StaticResource LabelHeaderConcepto}"/>
+                                <Label Grid.Row="0" Grid.Column="15" Content="Peso volumetrico" Style="{StaticResource LabelHeader}"/>
+                                <Label Grid.Row="0" Grid.Column="17" Content="Espesor" Style="{StaticResource LabelHeader}"/>
+                                <Label Grid.Row="0" Grid.Column="19" Content="Peso" Style="{StaticResource LabelHeader}"/>
 
-                                <Label Grid.Row="2" Grid.Column="6" Content="Relleno adicional" />
-                                <TextBox Grid.Row="2" Grid.Column="8" Controls:TextBoxHelper.ClearTextButton="True"/>
-                                <TextBox Grid.Row="2" Grid.Column="10" Controls:TextBoxHelper.ClearTextButton="True"/>
-                                <TextBox Grid.Row="2" Grid.Column="12" Controls:TextBoxHelper.ClearTextButton="True" />
-
-
-                                <Label Grid.Row="4" Grid.Column="6" Content="Piso"/>
-                                <TextBox Grid.Row="4" Grid.Column="8" Controls:TextBoxHelper.ClearTextButton="True"/>
-                                <TextBox Grid.Row="4" Grid.Column="10" Controls:TextBoxHelper.ClearTextButton="True"/>
-                                <TextBox Grid.Row="4" Grid.Column="12" Controls:TextBoxHelper.ClearTextButton="True" />
-
-
-                                <Label Grid.Row="6" Grid.Column="6" Content="Mortero"/>
-                                <TextBox Grid.Row="6" Grid.Column="8" Controls:TextBoxHelper.ClearTextButton="True"/>
-                                <TextBox Grid.Row="6" Grid.Column="10" Controls:TextBoxHelper.ClearTextButton="True"/>
-                                <TextBox Grid.Row="6" Grid.Column="12" Controls:TextBoxHelper.ClearTextButton="True"/>
-
-
-                                <Label Grid.Row="8" Grid.Column="6" Content="Firme"/>
-                                <TextBox Grid.Row="8" Grid.Column="8" Controls:TextBoxHelper.ClearTextButton="True"/>
-                                <TextBox Grid.Row="8" Grid.Column="10" Controls:TextBoxHelper.ClearTextButton="True"/>
-                                <TextBox Grid.Row="8" Grid.Column="12" Controls:TextBoxHelper.ClearTextButton="True" />
-
-                                <Label Grid.Row="10" Grid.Column="6" Content="Losa"/>
-                                <TextBox Grid.Row="10" Grid.Column="8" Controls:TextBoxHelper.ClearTextButton="True"/>
-                                <TextBox Grid.Row="10" Grid.Column="10" Controls:TextBoxHelper.ClearTextButton="True" IsEnabled="False"/>
-                                <TextBox Grid.Row="10" Grid.Column="12" Controls:TextBoxHelper.ClearTextButton="True" />
-                                
-                                
-                                <Label Grid.Row="12" Grid.Column="6" Content="Casetones"/>
-                                <TextBox Grid.Row="12" Grid.Column="8" Controls:TextBoxHelper.ClearTextButton="True"/>
-                                <TextBox Grid.Row="12" Grid.Column="10" Controls:TextBoxHelper.ClearTextButton="True" IsEnabled="False"/>
-                                <TextBox Grid.Row="12" Grid.Column="12" Controls:TextBoxHelper.ClearTextButton="True"/>
-                                
-                                <Label Grid.Row="14" Grid.Column="6" Content="Aplanado"/>
-                                <TextBox Grid.Row="14" Grid.Column="8" Controls:TextBoxHelper.ClearTextButton="True"/>
-                                <TextBox Grid.Row="14" Grid.Column="10" Controls:TextBoxHelper.ClearTextButton="True"/>
-                                <TextBox Grid.Row="14" Grid.Column="12" Controls:TextBoxHelper.ClearTextButton="True"/>
-                                
-                                <Label Grid.Row="2" Grid.Column="14" Content="Instalaciones"/>
-                                <TextBox Grid.Row="2" Grid.Column="16" Controls:TextBoxHelper.ClearTextButton="True" IsEnabled="False"/>
-                                <TextBox Grid.Row="2" Grid.Column="18" Controls:TextBoxHelper.ClearTextButton="True" IsEnabled="False"/>
-                                <TextBox Grid.Row="2" Grid.Column="20" Controls:TextBoxHelper.ClearTextButton="True" />
+                                <Label Grid.Row="2" Grid.Column="5" Content="Relleno adicional" />
+                                <TextBox Grid.Row="2" Grid.Column="7" Controls:TextBoxHelper.ClearTextButton="True" Template="{StaticResource NumericTextBox}">
+                                    <i:Interaction.Behaviors>
+                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding RellenoAdicionalPV,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                    </i:Interaction.Behaviors>
+                                </TextBox>
+                                <TextBox Grid.Row="2" Grid.Column="9" Controls:TextBoxHelper.ClearTextButton="True" Template="{StaticResource NumericTextBox}">
+                                    <i:Interaction.Behaviors>
+                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding RellenoAdicionalES,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                                    </i:Interaction.Behaviors>
+                                </TextBox>
+                                <TextBox Grid.Row="2" Grid.Column="11" Controls:TextBoxHelper.ClearTextButton="True" Text="{Binding RellenoAdicionalPE,Mode=TwoWay}" Template="{StaticResource NumericTextBox}">
+                                    <i:Interaction.Behaviors>
+                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false"/>
+                                    </i:Interaction.Behaviors>
+                                </TextBox>
 
 
-                                <Label Grid.Row="4" Grid.Column="14" Content="Carga adicional por colado"/>
-                                <TextBox Grid.Row="4" Grid.Column="16" Controls:TextBoxHelper.ClearTextButton="True" IsEnabled="False"/>
-                                <TextBox Grid.Row="4" Grid.Column="18" Controls:TextBoxHelper.ClearTextButton="True" IsEnabled="False"/>
-                                <TextBox Grid.Row="4" Grid.Column="20" Controls:TextBoxHelper.ClearTextButton="True"/>
+                                <Label Grid.Row="4" Grid.Column="5" Content="Piso"/>
+                                <TextBox Grid.Row="4" Grid.Column="7" Controls:TextBoxHelper.ClearTextButton="True" Template="{StaticResource NumericTextBox}">
+                                    <i:Interaction.Behaviors>
+                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding PisoPV,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                                    </i:Interaction.Behaviors>
+                                </TextBox>
+                                <TextBox Grid.Row="4" Grid.Column="9" Controls:TextBoxHelper.ClearTextButton="True" Template="{StaticResource NumericTextBox}">
+                                    <i:Interaction.Behaviors>
+                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding PisoES,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                                    </i:Interaction.Behaviors>
+                                </TextBox>
+                                <TextBox Grid.Row="4" Grid.Column="11" Controls:TextBoxHelper.ClearTextButton="True" Text="{Binding PisoPE,Mode=TwoWay}" Template="{StaticResource NumericTextBox}">
+                                    <i:Interaction.Behaviors>
+                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false"/>
+                                    </i:Interaction.Behaviors>
+                                </TextBox>
 
 
-                                <Label Grid.Row="6" Grid.Column="14" Content="Carga adicional por mortero"/>
-                                <TextBox Grid.Row="6" Grid.Column="16" Controls:TextBoxHelper.ClearTextButton="True" IsEnabled="False"/>
-                                <TextBox Grid.Row="6" Grid.Column="18" Controls:TextBoxHelper.ClearTextButton="True" IsEnabled="False"/>
-                                <TextBox Grid.Row="6" Grid.Column="20" Controls:TextBoxHelper.ClearTextButton="True"/>
+                                <Label Grid.Row="6" Grid.Column="5" Content="Mortero"/>
+                                <TextBox Grid.Row="6" Grid.Column="7" Controls:TextBoxHelper.ClearTextButton="True" Template="{StaticResource NumericTextBox}">
+                                    <i:Interaction.Behaviors>
+                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding MorteroPV,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                                    </i:Interaction.Behaviors>
+                                </TextBox>
+                                <TextBox Grid.Row="6" Grid.Column="9" Controls:TextBoxHelper.ClearTextButton="True" Template="{StaticResource NumericTextBox}">
+                                    <i:Interaction.Behaviors>
+                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding MorteroES,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                                    </i:Interaction.Behaviors>
+                                </TextBox>
+                                <TextBox Grid.Row="6" Grid.Column="11" Controls:TextBoxHelper.ClearTextButton="True" Text="{Binding MorteroPE,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Template="{StaticResource NumericTextBox}">
+                                    <i:Interaction.Behaviors>
+                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false"/>
+                                    </i:Interaction.Behaviors>
+                                </TextBox>
 
 
-                                <Label Grid.Row="8" Grid.Column="14" Content="Carga muerta total"/>
-                                <TextBox Grid.Row="8" Grid.Column="16" Controls:TextBoxHelper.ClearTextButton="True" IsEnabled="False"/>
-                                <TextBox Grid.Row="8" Grid.Column="18" Controls:TextBoxHelper.ClearTextButton="True" IsEnabled="False"/>
-                                <TextBox Grid.Row="8" Grid.Column="20" Controls:TextBoxHelper.ClearTextButton="True" />
+                                <Label Grid.Row="8" Grid.Column="5" Content="Firme"/>
+                                <TextBox Grid.Row="8" Grid.Column="7" Controls:TextBoxHelper.ClearTextButton="True" Template="{StaticResource NumericTextBox}">
+                                    <i:Interaction.Behaviors>
+                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding FirmePV,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                                    </i:Interaction.Behaviors>
+                                </TextBox>
+                                <TextBox Grid.Row="8" Grid.Column="9" Controls:TextBoxHelper.ClearTextButton="True" Template="{StaticResource NumericTextBox}">
+                                    <i:Interaction.Behaviors>
+                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding FirmeES,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                                    </i:Interaction.Behaviors>
+                                </TextBox>
+                                <TextBox Grid.Row="8" Grid.Column="11" Controls:TextBoxHelper.ClearTextButton="True" Text="{Binding FirmePE,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Template="{StaticResource NumericTextBox}">
+                                    <i:Interaction.Behaviors>
+                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false"/>
+                                    </i:Interaction.Behaviors>
+                                </TextBox>
+
+                                <Label Grid.Row="10" Grid.Column="5" Content="Losa"/>
+                                <TextBox Grid.Row="10" Grid.Column="7" Controls:TextBoxHelper.ClearTextButton="True" Template="{StaticResource NumericTextBox}">
+                                    <i:Interaction.Behaviors>
+                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding LosaPV,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                                    </i:Interaction.Behaviors>
+                                </TextBox>
+                                <TextBox Grid.Row="10" Grid.Column="9" Controls:TextBoxHelper.ClearTextButton="True" IsEnabled="False" Template="{StaticResource NumericTextBox}">
+                                    <i:Interaction.Behaviors>
+                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding LosaES,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                                    </i:Interaction.Behaviors>
+                                </TextBox>
+                                <TextBox Grid.Row="10" Grid.Column="11" Controls:TextBoxHelper.ClearTextButton="True" Text="{Binding LosaPE,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Template="{StaticResource NumericTextBox}">
+                                    <i:Interaction.Behaviors>
+                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false"/>
+                                    </i:Interaction.Behaviors>
+                                </TextBox>
 
 
-                                <Label Grid.Row="10" Grid.Column="14" Content="Carga viva maxima"/>
-                                <TextBox Grid.Row="10" Grid.Column="16" Controls:TextBoxHelper.ClearTextButton="True" IsEnabled="False"/>
-                                <TextBox Grid.Row="10" Grid.Column="18" Controls:TextBoxHelper.ClearTextButton="True" IsEnabled="False"/>
-                                <TextBox Grid.Row="10" Grid.Column="20" Controls:TextBoxHelper.ClearTextButton="True" />
+                                <Label Grid.Row="12" Grid.Column="5" Content="Casetones"/>
+                                <TextBox Grid.Row="12" Grid.Column="7" Controls:TextBoxHelper.ClearTextButton="True" Template="{StaticResource NumericTextBox}">
+                                    <i:Interaction.Behaviors>
+                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding CasetonesPV,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                                    </i:Interaction.Behaviors>
+                                </TextBox>
+                                <TextBox Grid.Row="12" Grid.Column="9" Controls:TextBoxHelper.ClearTextButton="True" IsEnabled="False" Template="{StaticResource NumericTextBox}">
+                                    <i:Interaction.Behaviors>
+                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding CasetonesES,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                                    </i:Interaction.Behaviors>
+                                </TextBox>
+                                <TextBox Grid.Row="12" Grid.Column="11" Controls:TextBoxHelper.ClearTextButton="True" Text="{Binding CasetonesPE,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Template="{StaticResource NumericTextBox}">
+                                    <i:Interaction.Behaviors>
+                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false"/>
+                                    </i:Interaction.Behaviors>
+                                </TextBox>
+
+                                <Label Grid.Row="14" Grid.Column="5" Content="Aplanado"/>
+                                <TextBox Grid.Row="14" Grid.Column="7" Controls:TextBoxHelper.ClearTextButton="True" Template="{StaticResource NumericTextBox}">
+                                    <i:Interaction.Behaviors>
+                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding AplanadoPV,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                                    </i:Interaction.Behaviors>
+                                </TextBox>
+                                <TextBox Grid.Row="14" Grid.Column="9" Controls:TextBoxHelper.ClearTextButton="True" Template="{StaticResource NumericTextBox}">
+                                    <i:Interaction.Behaviors>
+                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding AplanadoES,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                                    </i:Interaction.Behaviors>
+                                </TextBox>
+                                <TextBox Grid.Row="14" Grid.Column="11" Controls:TextBoxHelper.ClearTextButton="True" Text="{Binding AplanadoPE,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Template="{StaticResource NumericTextBox}">
+                                    <i:Interaction.Behaviors>
+                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false"/>
+                                    </i:Interaction.Behaviors>
+                                </TextBox>
+
+                                <Label Grid.Row="2" Grid.Column="13" Content="Instalaciones"/>
+                                <TextBox Grid.Row="2" Grid.Column="15" Controls:TextBoxHelper.ClearTextButton="True" IsEnabled="False" Template="{StaticResource NumericTextBox}">
+                                    <i:Interaction.Behaviors>
+                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false"/>
+                                    </i:Interaction.Behaviors>
+                                </TextBox>
+                                <TextBox Grid.Row="2" Grid.Column="17" Controls:TextBoxHelper.ClearTextButton="True" IsEnabled="False" Template="{StaticResource NumericTextBox}">
+                                    <i:Interaction.Behaviors>
+                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false"/>
+                                    </i:Interaction.Behaviors>
+                                </TextBox>
+                                <TextBox Grid.Row="2" Grid.Column="19" Controls:TextBoxHelper.ClearTextButton="True"  Template="{StaticResource NumericTextBox}">
+                                    <i:Interaction.Behaviors>
+                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding InstalacionesPE,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                                    </i:Interaction.Behaviors>
+                                </TextBox>
 
 
-                                <Label Grid.Row="12" Grid.Column="14" Content="Carga viva instantanea"/>
-                                <TextBox Grid.Row="12" Grid.Column="16" Controls:TextBoxHelper.ClearTextButton="True" IsEnabled="False"/>
-                                <TextBox Grid.Row="12" Grid.Column="18" Controls:TextBoxHelper.ClearTextButton="True" IsEnabled="False"/>
-                                <TextBox Grid.Row="12" Grid.Column="20" Controls:TextBoxHelper.ClearTextButton="True"/>
+                                <Label Grid.Row="4" Grid.Column="13" Content="Carga adicional por colado"/>
+                                <TextBox Grid.Row="4" Grid.Column="15" Controls:TextBoxHelper.ClearTextButton="True" IsEnabled="False" Template="{StaticResource NumericTextBox}"/>
+                                <TextBox Grid.Row="4" Grid.Column="17" Controls:TextBoxHelper.ClearTextButton="True" IsEnabled="False" Template="{StaticResource NumericTextBox}"/>
+                                <TextBox Grid.Row="4" Grid.Column="19" Controls:TextBoxHelper.ClearTextButton="True" Template="{StaticResource NumericTextBox}">
+                                    <i:Interaction.Behaviors>
+                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding CargaAdicionalColadoPE,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                                    </i:Interaction.Behaviors>
+                                </TextBox>
 
 
-                                <zoom:ZoomBorder Grid.Row="13" Grid.RowSpan="10" Grid.Column="12" Grid.ColumnSpan="12" ClipToBounds="True" Background="White" >
+                                <Label Grid.Row="6" Grid.Column="13" Content="Carga adicional por mortero"/>
+                                <TextBox Grid.Row="6" Grid.Column="15" Controls:TextBoxHelper.ClearTextButton="True" IsEnabled="False" Template="{StaticResource NumericTextBox}"/>
+                                <TextBox Grid.Row="6" Grid.Column="17" Controls:TextBoxHelper.ClearTextButton="True" IsEnabled="False" Template="{StaticResource NumericTextBox}"/>
+                                <TextBox Grid.Row="6" Grid.Column="19" Controls:TextBoxHelper.ClearTextButton="True" Template="{StaticResource NumericTextBox}">
+                                    <i:Interaction.Behaviors>
+                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding CargaAdicionalMorteroPE,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                                    </i:Interaction.Behaviors>
+                                </TextBox>
+
+
+                                <Label Grid.Row="8" Grid.Column="13" Content="Carga muerta total"/>
+                                <TextBox Grid.Row="8" Grid.Column="15" Controls:TextBoxHelper.ClearTextButton="True" IsEnabled="False" Template="{StaticResource NumericTextBox}"/>
+                                <TextBox Grid.Row="8" Grid.Column="17" Controls:TextBoxHelper.ClearTextButton="True" IsEnabled="False" Template="{StaticResource NumericTextBox}"/>
+                                <TextBox Grid.Row="8" Grid.Column="19" Controls:TextBoxHelper.ClearTextButton="True"  Template="{StaticResource NumericTextBox}">
+                                    <i:Interaction.Behaviors>
+                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding CargaMuertaTotalPE,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                                    </i:Interaction.Behaviors>
+                                </TextBox>
+
+
+                                <Label Grid.Row="10" Grid.Column="13" Content="Carga viva maxima"/>
+                                <TextBox Grid.Row="10" Grid.Column="15" Controls:TextBoxHelper.ClearTextButton="True" IsEnabled="False" Template="{StaticResource NumericTextBox}"/>
+                                <TextBox Grid.Row="10" Grid.Column="17" Controls:TextBoxHelper.ClearTextButton="True" IsEnabled="False" Template="{StaticResource NumericTextBox}"/>
+                                <TextBox Grid.Row="10" Grid.Column="19" Controls:TextBoxHelper.ClearTextButton="True"  Template="{StaticResource NumericTextBox}">
+                                    <i:Interaction.Behaviors>
+                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding CargaVivaMaximaPE,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                                    </i:Interaction.Behaviors>
+                                </TextBox>
+
+
+                                <Label Grid.Row="12" Grid.Column="13" Content="Carga viva instantanea"/>
+                                <TextBox Grid.Row="12" Grid.Column="15" Controls:TextBoxHelper.ClearTextButton="True" IsEnabled="False" Template="{StaticResource NumericTextBox}"/>
+                                <TextBox Grid.Row="12" Grid.Column="17" Controls:TextBoxHelper.ClearTextButton="True" IsEnabled="False" Template="{StaticResource NumericTextBox}"/>
+                                <TextBox Grid.Row="12" Grid.Column="19" Controls:TextBoxHelper.ClearTextButton="True" Template="{StaticResource NumericTextBox}">
+                                    <i:Interaction.Behaviors>
+                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding CargaVivaInstantaneaPE,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                                    </i:Interaction.Behaviors>
+                                </TextBox>
+
+
+                                <zoom:ZoomBorder Grid.Row="15" Grid.RowSpan="10" Grid.Column="13" Grid.ColumnSpan="5" ClipToBounds="True" Background="White" >
                                     <Image  Source="/Content/Images/losa_nervada_entrepiso.png" />
                                 </zoom:ZoomBorder>
 
@@ -504,56 +867,32 @@
                         <!--FIN DE LOSA NERVADA DE ENTREPISO-->
 
                         <!--INICIO DE LOSA NERVADA DE AZOTEA-->
-                        <Controls:MetroTabItem Visibility="Hidden" Header="Losa nervada de azotea" Height="50">
-
-
+                        <Controls:MetroTabItem Visibility="{Binding LosaNervadaAzotea, Mode=TwoWay}" Header="Losa nervada de azotea" Height="50">
                             <Grid Grid.Row="0" Grid.Column="3">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="11*"/>
+                                    <ColumnDefinition Width="170*"/>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="100*"/>
                                     <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="5*"/>
+                                    <ColumnDefinition Width="110*" />
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="130*" />
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="100*"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="100*"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="150*"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="130*"/>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="90*"/>
                                     <ColumnDefinition Width="1*"/>
-
-                                    <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="6*"/>
-                                    <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="8*"/>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="4*"/>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="4*"/>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="10*"/>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="8*"/>
-                                    <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="4*"/>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="4*"/>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="1*"/>
+                                    <ColumnDefinition Width="90*"/>
                                     <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
                                 <Grid.RowDefinitions>
-                                    <RowDefinition Height="40"/>
-                                    <RowDefinition Height="10"/>
-                                    <RowDefinition Height="30"/>
-                                    <RowDefinition Height="10"/>
-                                    <RowDefinition Height="30"/>
-                                    <RowDefinition Height="10"/>
-                                    <RowDefinition Height="30"/>
-                                    <RowDefinition Height="10"/>
-                                    <RowDefinition Height="30"/>
-                                    <RowDefinition Height="10"/>
-                                    <RowDefinition Height="30"/>
-                                    <RowDefinition Height="10"/>
-                                    <RowDefinition Height="30"/>
-                                    <RowDefinition Height="10"/>
-                                    <RowDefinition Height="30"/>
-
-
-                                    <RowDefinition Height="40"/>
                                     <RowDefinition Height="30"/>
                                     <RowDefinition Height="10"/>
                                     <RowDefinition Height="30"/>
@@ -568,151 +907,149 @@
                                     <RowDefinition Height="10"/>
                                     <RowDefinition Height="30"/>
                                     <RowDefinition Height="10"/>
+                                    <RowDefinition Height="30"/>
+                                    <RowDefinition Height="10"/>
+                                    <RowDefinition Height="auto"/>
                                     <RowDefinition Height="30"/>
                                 </Grid.RowDefinitions>
 
 
-                                <Label Grid.Row="0" Grid.Column="1" Content="Concepto" Style="{StaticResource LabelHeader}"/>
+                                <Label Grid.Row="0" Grid.Column="1" Content="Concepto" Style="{StaticResource LabelHeaderConcepto}"/>
                                 <Label Grid.Row="0" Grid.Column="3" Content="Medida" Style="{StaticResource LabelHeader}"/>
 
                                 <Label Grid.Row="2" Grid.Column="1" Content="Espesor de capa de compresión" />
-                                <TextBox Grid.Row="2" Grid.Column="3" Controls:TextBoxHelper.ClearTextButton="True" />
+                                <TextBox Grid.Row="2" Grid.Column="3" Controls:TextBoxHelper.ClearTextButton="True" Template="{StaticResource NumericTextBox}"/>
 
                                 <Label Grid.Row="4" Grid.Column="1" Content="Peralte total de losa" />
-                                <TextBox Grid.Row="4" Grid.Column="3" Controls:TextBoxHelper.ClearTextButton="True"/>
+                                <TextBox Grid.Row="4" Grid.Column="3" Controls:TextBoxHelper.ClearTextButton="True" Template="{StaticResource NumericTextBox}"/>
 
                                 <Label Grid.Row="6" Grid.Column="1" Content="Ancho de nervadura" />
-                                <TextBox Grid.Row="6" Grid.Column="3" Controls:TextBoxHelper.ClearTextButton="True"/>
+                                <TextBox Grid.Row="6" Grid.Column="3" Controls:TextBoxHelper.ClearTextButton="True" Template="{StaticResource NumericTextBox}"/>
 
                                 <Label Grid.Row="8" Grid.Column="1" Content="Ancho de caseton" />
-                                <TextBox Grid.Row="8" Grid.Column="3" Controls:TextBoxHelper.ClearTextButton="True" />
+                                <TextBox Grid.Row="8" Grid.Column="3" Controls:TextBoxHelper.ClearTextButton="True" Template="{StaticResource NumericTextBox}" />
 
                                 <Label Grid.Row="10" Grid.Column="1" Content="Longitud de modulo" />
-                                <TextBox Grid.Row="10" Grid.Column="3" Controls:TextBoxHelper.ClearTextButton="True"/>
+                                <TextBox Grid.Row="10" Grid.Column="3" Controls:TextBoxHelper.ClearTextButton="True" Template="{StaticResource NumericTextBox}"/>
 
                                 <Label Grid.Row="12" Grid.Column="1" Content="Area de concreto" />
-                                <TextBox Grid.Row="12" Grid.Column="3" Controls:TextBoxHelper.ClearTextButton="True"/>
+                                <TextBox Grid.Row="12" Grid.Column="3" Controls:TextBoxHelper.ClearTextButton="True" Template="{StaticResource NumericTextBox}"/>
 
                                 <Label Grid.Row="14" Grid.Column="1" Content="Area de caseton" />
-                                <TextBox Grid.Row="14" Grid.Column="3" Controls:TextBoxHelper.ClearTextButton="True" />
+                                <TextBox Grid.Row="14" Grid.Column="3" Controls:TextBoxHelper.ClearTextButton="True" Template="{StaticResource NumericTextBox}"/>
 
 
-                                <Label Grid.Row="0" Grid.Column="6" Content="Concepto" Style="{StaticResource LabelHeader}"/>
-                                <Label Grid.Row="0" Grid.Column="8" Grid.ColumnSpan="1" Content="Peso volumetrico" Style="{StaticResource LabelHeader}"/>
-                                <Label Grid.Row="0" Grid.Column="10" Content="Espesor" Style="{StaticResource LabelHeader}"/>
-                                <Label Grid.Row="0" Grid.Column="12" Content="Peso" Style="{StaticResource LabelHeader}"/>
-                                <Label Grid.Row="0" Grid.Column="14" Content="Concepto" Style="{StaticResource LabelHeader}"/>
-                                <Label Grid.Row="0" Grid.Column="16" Content="Peso volumetrico" Style="{StaticResource LabelHeader}"/>
-                                <Label Grid.Row="0" Grid.Column="18" Content="Espesor" Style="{StaticResource LabelHeader}"/>
-                                <Label Grid.Row="0" Grid.Column="20" Content="Peso" Style="{StaticResource LabelHeader}"/>
+                                <Label Grid.Row="0" Grid.Column="5" Content="Concepto" Style="{StaticResource LabelHeaderConcepto}"/>
+                                <Label Grid.Row="0" Grid.Column="7" Grid.ColumnSpan="1" Content="Peso volumetrico" Style="{StaticResource LabelHeader}"/>
+                                <Label Grid.Row="0" Grid.Column="9" Content="Espesor" Style="{StaticResource LabelHeader}"/>
+                                <Label Grid.Row="0" Grid.Column="11" Content="Peso" Style="{StaticResource LabelHeader}"/>
+                                <Label Grid.Row="0" Grid.Column="13" Content="Concepto" Style="{StaticResource LabelHeaderConcepto}"/>
+                                <Label Grid.Row="0" Grid.Column="15" Content="Peso volumetrico" Style="{StaticResource LabelHeader}"/>
+                                <Label Grid.Row="0" Grid.Column="17" Content="Espesor" Style="{StaticResource LabelHeader}"/>
+                                <Label Grid.Row="0" Grid.Column="19" Content="Peso" Style="{StaticResource LabelHeader}"/>
 
-                                <Label Grid.Row="2" Grid.Column="6" Content="Impermeabilizante" />
-                                <TextBox Grid.Row="2" Grid.Column="8" Controls:TextBoxHelper.ClearTextButton="True"/>
-                                <TextBox Grid.Row="2" Grid.Column="10" Controls:TextBoxHelper.ClearTextButton="True"/>
-                                <TextBox Grid.Row="2" Grid.Column="12" Controls:TextBoxHelper.ClearTextButton="True" />
-
-
-                                <Label Grid.Row="4" Grid.Column="6" Content="Mortero"/>
-                                <TextBox Grid.Row="4" Grid.Column="8" Controls:TextBoxHelper.ClearTextButton="True"/>
-                                <TextBox Grid.Row="4" Grid.Column="10" Controls:TextBoxHelper.ClearTextButton="True"/>
-                                <TextBox Grid.Row="4" Grid.Column="12" Controls:TextBoxHelper.ClearTextButton="True" />
+                                <Label Grid.Row="2" Grid.Column="5" Content="Impermeabilizante" />
+                                <TextBox Grid.Row="2" Grid.Column="7" Controls:TextBoxHelper.ClearTextButton="True"  Template="{StaticResource NumericTextBox}"/>
+                                <TextBox Grid.Row="2" Grid.Column="9" Controls:TextBoxHelper.ClearTextButton="True" Template="{StaticResource NumericTextBox}"/>
+                                <TextBox Grid.Row="2" Grid.Column="11" Controls:TextBoxHelper.ClearTextButton="True" Template="{StaticResource NumericTextBox}" />
 
 
-                                <Label Grid.Row="6" Grid.Column="6" Content="Relleno"/>
-                                <TextBox Grid.Row="6" Grid.Column="8" Controls:TextBoxHelper.ClearTextButton="True"/>
-                                <TextBox Grid.Row="6" Grid.Column="10" Controls:TextBoxHelper.ClearTextButton="True"/>
-                                <TextBox Grid.Row="6" Grid.Column="12" Controls:TextBoxHelper.ClearTextButton="True"/>
+                                <Label Grid.Row="4" Grid.Column="5" Content="Mortero"/>
+                                <TextBox Grid.Row="4" Grid.Column="7" Controls:TextBoxHelper.ClearTextButton="True"  Template="{StaticResource NumericTextBox}"/>
+                                <TextBox Grid.Row="4" Grid.Column="9" Controls:TextBoxHelper.ClearTextButton="True" Template="{StaticResource NumericTextBox}"/>
+                                <TextBox Grid.Row="4" Grid.Column="11" Controls:TextBoxHelper.ClearTextButton="True" Template="{StaticResource NumericTextBox}" />
 
 
-                                <Label Grid.Row="8" Grid.Column="6" Content="Losa"/>
-                                <TextBox Grid.Row="8" Grid.Column="8" Controls:TextBoxHelper.ClearTextButton="True"/>
-                                <TextBox Grid.Row="8" Grid.Column="10" Controls:TextBoxHelper.ClearTextButton="True"/>
-                                <TextBox Grid.Row="8" Grid.Column="12" Controls:TextBoxHelper.ClearTextButton="True" />
-
-                                <Label Grid.Row="10" Grid.Column="6" Content="Casetones"/>
-                                <TextBox Grid.Row="10" Grid.Column="8" Controls:TextBoxHelper.ClearTextButton="True"/>
-                                <TextBox Grid.Row="10" Grid.Column="10" Controls:TextBoxHelper.ClearTextButton="True" IsEnabled="False"/>
-                                <TextBox Grid.Row="10" Grid.Column="12" Controls:TextBoxHelper.ClearTextButton="True" />
+                                <Label Grid.Row="6" Grid.Column="5" Content="Relleno"/>
+                                <TextBox Grid.Row="6" Grid.Column="7" Controls:TextBoxHelper.ClearTextButton="True" Template="{StaticResource NumericTextBox}"/>
+                                <TextBox Grid.Row="6" Grid.Column="9" Controls:TextBoxHelper.ClearTextButton="True" Template="{StaticResource NumericTextBox}"/>
+                                <TextBox Grid.Row="6" Grid.Column="11" Controls:TextBoxHelper.ClearTextButton="True" Template="{StaticResource NumericTextBox}"/>
 
 
-                                <Label Grid.Row="12" Grid.Column="6" Content="Aplanado"/>
-                                <TextBox Grid.Row="12" Grid.Column="8" Controls:TextBoxHelper.ClearTextButton="True"/>
-                                <TextBox Grid.Row="12" Grid.Column="10" Controls:TextBoxHelper.ClearTextButton="True" IsEnabled="False"/>
-                                <TextBox Grid.Row="12" Grid.Column="12" Controls:TextBoxHelper.ClearTextButton="True"/>
+                                <Label Grid.Row="8" Grid.Column="5" Content="Losa"/>
+                                <TextBox Grid.Row="8" Grid.Column="7" Controls:TextBoxHelper.ClearTextButton="True" Template="{StaticResource NumericTextBox}"/>
+                                <TextBox Grid.Row="8" Grid.Column="9" Controls:TextBoxHelper.ClearTextButton="True" Template="{StaticResource NumericTextBox}"/>
+                                <TextBox Grid.Row="8" Grid.Column="11" Controls:TextBoxHelper.ClearTextButton="True" Template="{StaticResource NumericTextBox}"/>
 
-                                <Label Grid.Row="14" Grid.Column="6" Content="Instalaciones"/>
-                                <TextBox Grid.Row="14" Grid.Column="8" Controls:TextBoxHelper.ClearTextButton="True"/>
-                                <TextBox Grid.Row="14" Grid.Column="10" Controls:TextBoxHelper.ClearTextButton="True"/>
-                                <TextBox Grid.Row="14" Grid.Column="12" Controls:TextBoxHelper.ClearTextButton="True"/>
-
-                                <Label Grid.Row="2" Grid.Column="14" Content="Carga adicional por colado"/>
-                                <TextBox Grid.Row="2" Grid.Column="16" Controls:TextBoxHelper.ClearTextButton="True" IsEnabled="False"/>
-                                <TextBox Grid.Row="2" Grid.Column="18" Controls:TextBoxHelper.ClearTextButton="True" IsEnabled="False"/>
-                                <TextBox Grid.Row="2" Grid.Column="20" Controls:TextBoxHelper.ClearTextButton="True" />
+                                <Label Grid.Row="10" Grid.Column="5" Content="Casetones"/>
+                                <TextBox Grid.Row="10" Grid.Column="7" Controls:TextBoxHelper.ClearTextButton="True" Template="{StaticResource NumericTextBox}"/>
+                                <TextBox Grid.Row="10" Grid.Column="9" Controls:TextBoxHelper.ClearTextButton="True" IsEnabled="False" Template="{StaticResource NumericTextBox}"/>
+                                <TextBox Grid.Row="10" Grid.Column="11" Controls:TextBoxHelper.ClearTextButton="True"  Template="{StaticResource NumericTextBox}"/>
 
 
-                                <Label Grid.Row="4" Grid.Column="14" Content="Carga adicional por mortero"/>
-                                <TextBox Grid.Row="4" Grid.Column="16" Controls:TextBoxHelper.ClearTextButton="True" IsEnabled="False"/>
-                                <TextBox Grid.Row="4" Grid.Column="18" Controls:TextBoxHelper.ClearTextButton="True" IsEnabled="False"/>
-                                <TextBox Grid.Row="4" Grid.Column="20" Controls:TextBoxHelper.ClearTextButton="True"/>
+                                <Label Grid.Row="12" Grid.Column="5" Content="Aplanado"/>
+                                <TextBox Grid.Row="12" Grid.Column="7" Controls:TextBoxHelper.ClearTextButton="True" Template="{StaticResource NumericTextBox}"/>
+                                <TextBox Grid.Row="12" Grid.Column="9" Controls:TextBoxHelper.ClearTextButton="True" IsEnabled="False" Template="{StaticResource NumericTextBox}"/>
+                                <TextBox Grid.Row="12" Grid.Column="11" Controls:TextBoxHelper.ClearTextButton="True" Template="{StaticResource NumericTextBox}"/>
+
+                                <Label Grid.Row="14" Grid.Column="5" Content="Instalaciones"/>
+                                <TextBox Grid.Row="14" Grid.Column="7" Controls:TextBoxHelper.ClearTextButton="True" Template="{StaticResource NumericTextBox}"/>
+                                <TextBox Grid.Row="14" Grid.Column="9" Controls:TextBoxHelper.ClearTextButton="True" Template="{StaticResource NumericTextBox}"/>
+                                <TextBox Grid.Row="14" Grid.Column="11" Controls:TextBoxHelper.ClearTextButton="True" Template="{StaticResource NumericTextBox}"/>
+
+                                <Label Grid.Row="2" Grid.Column="13" Content="Carga adicional por colado"/>
+                                <TextBox Grid.Row="2" Grid.Column="15" Controls:TextBoxHelper.ClearTextButton="True" IsEnabled="False" Template="{StaticResource NumericTextBox}"/>
+                                <TextBox Grid.Row="2" Grid.Column="17" Controls:TextBoxHelper.ClearTextButton="True" IsEnabled="False" Template="{StaticResource NumericTextBox}"/>
+                                <TextBox Grid.Row="2" Grid.Column="19" Controls:TextBoxHelper.ClearTextButton="True"  Template="{StaticResource NumericTextBox}"/>
 
 
-                                <Label Grid.Row="6" Grid.Column="14" Content="Carga muerta total"/>
-                                <TextBox Grid.Row="6" Grid.Column="16" Controls:TextBoxHelper.ClearTextButton="True" IsEnabled="False"/>
-                                <TextBox Grid.Row="6" Grid.Column="18" Controls:TextBoxHelper.ClearTextButton="True" IsEnabled="False"/>
-                                <TextBox Grid.Row="6" Grid.Column="20" Controls:TextBoxHelper.ClearTextButton="True"/>
+                                <Label Grid.Row="4" Grid.Column="13" Content="Carga adicional por mortero"/>
+                                <TextBox Grid.Row="4" Grid.Column="15" Controls:TextBoxHelper.ClearTextButton="True" IsEnabled="False" Template="{StaticResource NumericTextBox}"/>
+                                <TextBox Grid.Row="4" Grid.Column="17" Controls:TextBoxHelper.ClearTextButton="True" IsEnabled="False" Template="{StaticResource NumericTextBox}"/>
+                                <TextBox Grid.Row="4" Grid.Column="19" Controls:TextBoxHelper.ClearTextButton="True" Template="{StaticResource NumericTextBox}"/>
 
 
-                                <Label Grid.Row="8" Grid.Column="14" Content="Carga viva maxima"/>
-                                <TextBox Grid.Row="8" Grid.Column="16" Controls:TextBoxHelper.ClearTextButton="True" IsEnabled="False"/>
-                                <TextBox Grid.Row="8" Grid.Column="18" Controls:TextBoxHelper.ClearTextButton="True" IsEnabled="False"/>
-                                <TextBox Grid.Row="8" Grid.Column="20" Controls:TextBoxHelper.ClearTextButton="True" />
+                                <Label Grid.Row="6" Grid.Column="13" Content="Carga muerta total"/>
+                                <TextBox Grid.Row="6" Grid.Column="15" Controls:TextBoxHelper.ClearTextButton="True" IsEnabled="False" Template="{StaticResource NumericTextBox}"/>
+                                <TextBox Grid.Row="6" Grid.Column="17" Controls:TextBoxHelper.ClearTextButton="True" IsEnabled="False" Template="{StaticResource NumericTextBox}"/>
+                                <TextBox Grid.Row="6" Grid.Column="19" Controls:TextBoxHelper.ClearTextButton="True" Template="{StaticResource NumericTextBox}"/>
 
 
-                                <Label Grid.Row="10" Grid.Column="14" Content="Carga instantanea"/>
-                                <TextBox Grid.Row="10" Grid.Column="16" Controls:TextBoxHelper.ClearTextButton="True" IsEnabled="False"/>
-                                <TextBox Grid.Row="10" Grid.Column="18" Controls:TextBoxHelper.ClearTextButton="True" IsEnabled="False"/>
-                                <TextBox Grid.Row="10" Grid.Column="20" Controls:TextBoxHelper.ClearTextButton="True" />
+                                <Label Grid.Row="8" Grid.Column="13" Content="Carga viva maxima"/>
+                                <TextBox Grid.Row="8" Grid.Column="15" Controls:TextBoxHelper.ClearTextButton="True" IsEnabled="False" Template="{StaticResource NumericTextBox}"/>
+                                <TextBox Grid.Row="8" Grid.Column="17" Controls:TextBoxHelper.ClearTextButton="True" IsEnabled="False" Template="{StaticResource NumericTextBox}"/>
+                                <TextBox Grid.Row="8" Grid.Column="19" Controls:TextBoxHelper.ClearTextButton="True"  Template="{StaticResource NumericTextBox}"/>
 
 
-                                <zoom:ZoomBorder Grid.Row="12" Grid.RowSpan="10" Grid.Column="12" Grid.ColumnSpan="12" ClipToBounds="True" Background="White" >
+                                <Label Grid.Row="10" Grid.Column="13" Content="Carga instantanea"/>
+                                <TextBox Grid.Row="10" Grid.Column="15" Controls:TextBoxHelper.ClearTextButton="True" IsEnabled="False" Template="{StaticResource NumericTextBox}"/>
+                                <TextBox Grid.Row="10" Grid.Column="17" Controls:TextBoxHelper.ClearTextButton="True" IsEnabled="False" Template="{StaticResource NumericTextBox}"/>
+                                <TextBox Grid.Row="10" Grid.Column="19" Controls:TextBoxHelper.ClearTextButton="True"  Template="{StaticResource NumericTextBox}"/>
+
+
+                                <zoom:ZoomBorder Grid.Row="15" Grid.RowSpan="3"  Grid.Column="12" Grid.ColumnSpan="7" ClipToBounds="True" Background="White" >
                                     <Image Source="/Content/Images/losa_nervada_azotea.png" />
                                 </zoom:ZoomBorder>
 
                             </Grid>
-
-
                         </Controls:MetroTabItem>
                         <!--FIN DE LOSA NERVADA DE AZOTEA-->
 
 
                         <!--INICIO DE LOSA NERVADA DE VIGUETA Y BOVEDILLA DE ENTREPISO-->
-                        <Controls:MetroTabItem Visibility="Hidden"  Header="Losa de vigueta y bovedilla de entrepiso" Height="50">
+                        <Controls:MetroTabItem Visibility="{Binding ViguetaBovedillaEntrepiso,Mode=TwoWay}"  Header="Losa de vigueta y bovedilla de entrepiso" Height="50">
                             <Grid Grid.Row="0" Grid.Column="3">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="11*"/>
+                                    <ColumnDefinition Width="150*"/>
                                     <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="5*"/>
-                                    <ColumnDefinition Width="1*"/>
+                                    <ColumnDefinition Width="90*" />
                                     <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="6*"/>
+                                    <ColumnDefinition Width="90*"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="100*"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="70*"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="70*"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="125*"/>
                                     <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="8*"/>
+                                    <ColumnDefinition Width="110*"/>
                                     <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="4*"/>
+                                    <ColumnDefinition Width="70*"/>
                                     <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="4*"/>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="10*"/>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="8*"/>
-                                    <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="4*"/>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="4*"/>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="1*"/>
+                                    <ColumnDefinition Width="70*"/>
                                     <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
                                 <Grid.RowDefinitions>
@@ -738,141 +1075,126 @@
                                     <RowDefinition Height="10"/>
                                     <RowDefinition Height="30"/>
                                     <RowDefinition Height="10"/>
-                                    <RowDefinition Height="30"/>
-                                    <RowDefinition Height="10"/>
-                                    <RowDefinition Height="30"/>
-                                    <RowDefinition Height="10"/>
-                                    <RowDefinition Height="30"/>
-                                    <RowDefinition Height="10"/>
-                                    <RowDefinition Height="30"/>
-                                    <RowDefinition Height="10"/>
-                                    <RowDefinition Height="30"/>
-                                    <RowDefinition Height="10"/>
-                                    <RowDefinition Height="30"/>
-                                    <RowDefinition Height="10"/>
-                                    <RowDefinition Height="30"/>
-                                    <RowDefinition Height="10"/>
-                                    <RowDefinition Height="30"/>
                                 </Grid.RowDefinitions>
 
 
-                                <Label Grid.Row="0" Grid.Column="1" Content="Concepto" Style="{StaticResource LabelHeader}"/>
+                                <Label Grid.Row="0" Grid.Column="1" Content="Concepto" Style="{StaticResource LabelHeaderConcepto}"/>
                                 <Label Grid.Row="0" Grid.Column="3" Content="Medida" Style="{StaticResource LabelHeader}"/>
 
                                 <Label Grid.Row="2" Grid.Column="1" Content="Espesor de capa de compresión" />
-                                <TextBox Grid.Row="2" Grid.Column="3" Controls:TextBoxHelper.ClearTextButton="True" />
+                                <TextBox Grid.Row="2" Grid.Column="3" Template="{StaticResource NumericTextBox}" />
 
                                 <Label Grid.Row="4" Grid.Column="1" Content="Peralte total de losa" />
-                                <TextBox Grid.Row="4" Grid.Column="3" Controls:TextBoxHelper.ClearTextButton="True"/>
+                                <TextBox Grid.Row="4" Grid.Column="3" Template="{StaticResource NumericTextBox}"/>
 
                                 <Label Grid.Row="6" Grid.Column="1" Content="Ancho de patin" />
-                                <TextBox Grid.Row="6" Grid.Column="3" Controls:TextBoxHelper.ClearTextButton="True"/>
+                                <TextBox Grid.Row="6" Grid.Column="3" Template="{StaticResource NumericTextBox}"/>
 
                                 <Label Grid.Row="8" Grid.Column="1" Content="Peralte de patin" />
-                                <TextBox Grid.Row="8" Grid.Column="3" Controls:TextBoxHelper.ClearTextButton="True" />
+                                <TextBox Grid.Row="8" Grid.Column="3" Template="{StaticResource NumericTextBox}"/>
 
                                 <Label Grid.Row="10" Grid.Column="1" Content="Ancho de bovedilla" />
-                                <TextBox Grid.Row="10" Grid.Column="3" Controls:TextBoxHelper.ClearTextButton="True"/>
+                                <TextBox Grid.Row="10" Grid.Column="3" Template="{StaticResource NumericTextBox}"/>
 
                                 <Label Grid.Row="12" Grid.Column="1" Content="Ancho de vigueta" />
-                                <TextBox Grid.Row="12" Grid.Column="3" Controls:TextBoxHelper.ClearTextButton="True"/>
+                                <TextBox Grid.Row="12" Grid.Column="3" Template="{StaticResource NumericTextBox}"/>
 
                                 <Label Grid.Row="14" Grid.Column="1" Content="Longitud de modulo" />
-                                <TextBox Grid.Row="14" Grid.Column="3" Controls:TextBoxHelper.ClearTextButton="True" />
+                                <TextBox Grid.Row="14" Grid.Column="3" Template="{StaticResource NumericTextBox}"/>
 
                                 <Label Grid.Row="16" Grid.Column="1" Content="Area de concreto" />
-                                <TextBox Grid.Row="16" Grid.Column="3" Controls:TextBoxHelper.ClearTextButton="True" />
+                                <TextBox Grid.Row="16" Grid.Column="3" Template="{StaticResource NumericTextBox}"/>
 
                                 <Label Grid.Row="18" Grid.Column="1" Content="Area de bovedilla" />
-                                <TextBox Grid.Row="18" Grid.Column="3" Controls:TextBoxHelper.ClearTextButton="True" />
-                                
-                                
-                                <Label Grid.Row="0" Grid.Column="6" Content="Concepto" Style="{StaticResource LabelHeader}"/>
-                                <Label Grid.Row="0" Grid.Column="8" Grid.ColumnSpan="1" Content="Peso volumetrico" Style="{StaticResource LabelHeader}"/>
-                                <Label Grid.Row="0" Grid.Column="10" Content="Espesor" Style="{StaticResource LabelHeader}"/>
-                                <Label Grid.Row="0" Grid.Column="12" Content="Peso" Style="{StaticResource LabelHeader}"/>
-                                <Label Grid.Row="0" Grid.Column="14" Content="Concepto" Style="{StaticResource LabelHeader}"/>
-                                <Label Grid.Row="0" Grid.Column="16" Content="Peso volumetrico" Style="{StaticResource LabelHeader}"/>
-                                <Label Grid.Row="0" Grid.Column="18" Content="Espesor" Style="{StaticResource LabelHeader}"/>
-                                <Label Grid.Row="0" Grid.Column="20" Content="Peso" Style="{StaticResource LabelHeader}"/>
-
-                                <Label Grid.Row="2" Grid.Column="6" Content="Relleno adicional" />
-                                <TextBox Grid.Row="2" Grid.Column="8" Controls:TextBoxHelper.ClearTextButton="True"/>
-                                <TextBox Grid.Row="2" Grid.Column="10" Controls:TextBoxHelper.ClearTextButton="True"/>
-                                <TextBox Grid.Row="2" Grid.Column="12" Controls:TextBoxHelper.ClearTextButton="True" />
+                                <TextBox Grid.Row="18" Grid.Column="3" Template="{StaticResource NumericTextBox}"/>
 
 
-                                <Label Grid.Row="4" Grid.Column="6" Content="Piso"/>
-                                <TextBox Grid.Row="4" Grid.Column="8" Controls:TextBoxHelper.ClearTextButton="True"/>
-                                <TextBox Grid.Row="4" Grid.Column="10" Controls:TextBoxHelper.ClearTextButton="True"/>
-                                <TextBox Grid.Row="4" Grid.Column="12" Controls:TextBoxHelper.ClearTextButton="True" />
+                                <Label Grid.Row="0" Grid.Column="5" Content="Concepto" Style="{StaticResource LabelHeaderConcepto}"/>
+                                <Label Grid.Row="0" Grid.Column="7" Grid.ColumnSpan="1" Content="Peso volumetrico" Style="{StaticResource LabelHeader}"/>
+                                <Label Grid.Row="0" Grid.Column="9" Content="Espesor" Style="{StaticResource LabelHeader}"/>
+                                <Label Grid.Row="0" Grid.Column="11" Content="Peso" Style="{StaticResource LabelHeader}"/>
+                                <Label Grid.Row="0" Grid.Column="13" Content="Concepto" Style="{StaticResource LabelHeaderConcepto}"/>
+                                <Label Grid.Row="0" Grid.Column="15" Content="Peso volumetrico" Style="{StaticResource LabelHeader}"/>
+                                <Label Grid.Row="0" Grid.Column="17" Content="Espesor" Style="{StaticResource LabelHeader}"/>
+                                <Label Grid.Row="0" Grid.Column="19" Content="Peso" Style="{StaticResource LabelHeader}"/>
+
+                                <Label Grid.Row="2" Grid.Column="5" Content="Relleno adicional" />
+                                <TextBox Grid.Row="2" Grid.Column="7"  Template="{StaticResource NumericTextBox}"/>
+                                <TextBox Grid.Row="2" Grid.Column="9" Template="{StaticResource NumericTextBox}"/>
+                                <TextBox Grid.Row="2" Grid.Column="11" Template="{StaticResource NumericTextBox}"/>
 
 
-                                <Label Grid.Row="6" Grid.Column="6" Content="Mortero"/>
-                                <TextBox Grid.Row="6" Grid.Column="8" Controls:TextBoxHelper.ClearTextButton="True"/>
-                                <TextBox Grid.Row="6" Grid.Column="10" Controls:TextBoxHelper.ClearTextButton="True"/>
-                                <TextBox Grid.Row="6" Grid.Column="12" Controls:TextBoxHelper.ClearTextButton="True"/>
+                                <Label Grid.Row="4" Grid.Column="5" Content="Piso"/>
+                                <TextBox Grid.Row="4" Grid.Column="7"  Template="{StaticResource NumericTextBox}"/>
+                                <TextBox Grid.Row="4" Grid.Column="9" Template="{StaticResource NumericTextBox}"/>
+                                <TextBox Grid.Row="4" Grid.Column="11" Template="{StaticResource NumericTextBox}"/>
 
 
-                                <Label Grid.Row="8" Grid.Column="6" Content="Firme"/>
-                                <TextBox Grid.Row="8" Grid.Column="8" Controls:TextBoxHelper.ClearTextButton="True"/>
-                                <TextBox Grid.Row="8" Grid.Column="10" Controls:TextBoxHelper.ClearTextButton="True"/>
-                                <TextBox Grid.Row="8" Grid.Column="12" Controls:TextBoxHelper.ClearTextButton="True" />
-
-                                <Label Grid.Row="10" Grid.Column="6" Content="Losa"/>
-                                <TextBox Grid.Row="10" Grid.Column="8" Controls:TextBoxHelper.ClearTextButton="True"/>
-                                <TextBox Grid.Row="10" Grid.Column="10" Controls:TextBoxHelper.ClearTextButton="True" IsEnabled="False"/>
-                                <TextBox Grid.Row="10" Grid.Column="12" Controls:TextBoxHelper.ClearTextButton="True" />
+                                <Label Grid.Row="6" Grid.Column="5" Content="Mortero"/>
+                                <TextBox Grid.Row="6" Grid.Column="7"  Template="{StaticResource NumericTextBox}"/>
+                                <TextBox Grid.Row="6" Grid.Column="9" Template="{StaticResource NumericTextBox}"/>
+                                <TextBox Grid.Row="6" Grid.Column="11" Template="{StaticResource NumericTextBox}"/>
 
 
-                                <Label Grid.Row="12" Grid.Column="6" Content="Bovedillas"/>
-                                <TextBox Grid.Row="12" Grid.Column="8" Controls:TextBoxHelper.ClearTextButton="True"/>
-                                <TextBox Grid.Row="12" Grid.Column="10" Controls:TextBoxHelper.ClearTextButton="True" IsEnabled="False"/>
-                                <TextBox Grid.Row="12" Grid.Column="12" Controls:TextBoxHelper.ClearTextButton="True"/>
+                                <Label Grid.Row="8" Grid.Column="5" Content="Firme"/>
+                                <TextBox Grid.Row="8" Grid.Column="7"  Template="{StaticResource NumericTextBox}"/>
+                                <TextBox Grid.Row="8" Grid.Column="9" Template="{StaticResource NumericTextBox}"/>
+                                <TextBox Grid.Row="8" Grid.Column="11" Template="{StaticResource NumericTextBox}"/>
 
-                                <Label Grid.Row="14" Grid.Column="6" Content="Aplanado"/>
-                                <TextBox Grid.Row="14" Grid.Column="8" Controls:TextBoxHelper.ClearTextButton="True"/>
-                                <TextBox Grid.Row="14" Grid.Column="10" Controls:TextBoxHelper.ClearTextButton="True"/>
-                                <TextBox Grid.Row="14" Grid.Column="12" Controls:TextBoxHelper.ClearTextButton="True"/>
-
-                                <Label Grid.Row="2" Grid.Column="14" Content="Instalaciones"/>
-                                <TextBox Grid.Row="2" Grid.Column="16" Controls:TextBoxHelper.ClearTextButton="True" IsEnabled="False"/>
-                                <TextBox Grid.Row="2" Grid.Column="18" Controls:TextBoxHelper.ClearTextButton="True" IsEnabled="False"/>
-                                <TextBox Grid.Row="2" Grid.Column="20" Controls:TextBoxHelper.ClearTextButton="True" />
+                                <Label Grid.Row="10" Grid.Column="5" Content="Losa"/>
+                                <TextBox Grid.Row="10" Grid.Column="7"  Template="{StaticResource NumericTextBox}"/>
+                                <TextBox Grid.Row="10" Grid.Column="9" Template="{StaticResource NumericTextBox}" IsEnabled="False"/>
+                                <TextBox Grid.Row="10" Grid.Column="11" Template="{StaticResource NumericTextBox}" />
 
 
-                                <Label Grid.Row="4" Grid.Column="14" Content="Carga adicional por colado"/>
-                                <TextBox Grid.Row="4" Grid.Column="16" Controls:TextBoxHelper.ClearTextButton="True" IsEnabled="False"/>
-                                <TextBox Grid.Row="4" Grid.Column="18" Controls:TextBoxHelper.ClearTextButton="True" IsEnabled="False"/>
-                                <TextBox Grid.Row="4" Grid.Column="20" Controls:TextBoxHelper.ClearTextButton="True"/>
+                                <Label Grid.Row="12" Grid.Column="5" Content="Bovedillas"/>
+                                <TextBox Grid.Row="12" Grid.Column="7"  Template="{StaticResource NumericTextBox}"/>
+                                <TextBox Grid.Row="12" Grid.Column="9" Template="{StaticResource NumericTextBox}" IsEnabled="False"/>
+                                <TextBox Grid.Row="12" Grid.Column="11" Template="{StaticResource NumericTextBox}"/>
+
+                                <Label Grid.Row="14" Grid.Column="5" Content="Aplanado"/>
+                                <TextBox Grid.Row="14" Grid.Column="7"  Template="{StaticResource NumericTextBox}"/>
+                                <TextBox Grid.Row="14" Grid.Column="9" Template="{StaticResource NumericTextBox}"/>
+                                <TextBox Grid.Row="14" Grid.Column="11" Template="{StaticResource NumericTextBox}"/>
+
+                                <Label Grid.Row="2" Grid.Column="13" Content="Instalaciones"/>
+                                <TextBox Grid.Row="2" Grid.Column="15" Template="{StaticResource NumericTextBox}" IsEnabled="False"/>
+                                <TextBox Grid.Row="2" Grid.Column="17" Template="{StaticResource NumericTextBox}" IsEnabled="False"/>
+                                <TextBox Grid.Row="2" Grid.Column="19" Template="{StaticResource NumericTextBox}" />
 
 
-                                <Label Grid.Row="6" Grid.Column="14" Content="Carga adicional por mortero"/>
-                                <TextBox Grid.Row="6" Grid.Column="16" Controls:TextBoxHelper.ClearTextButton="True" IsEnabled="False"/>
-                                <TextBox Grid.Row="6" Grid.Column="18" Controls:TextBoxHelper.ClearTextButton="True" IsEnabled="False"/>
-                                <TextBox Grid.Row="6" Grid.Column="20" Controls:TextBoxHelper.ClearTextButton="True"/>
+                                <Label Grid.Row="4" Grid.Column="13" Content="Carga adicional por colado"/>
+                                <TextBox Grid.Row="4" Grid.Column="15" Template="{StaticResource NumericTextBox}" IsEnabled="False"/>
+                                <TextBox Grid.Row="4" Grid.Column="17" Template="{StaticResource NumericTextBox}" IsEnabled="False"/>
+                                <TextBox Grid.Row="4" Grid.Column="19" Template="{StaticResource NumericTextBox}"/>
 
 
-                                <Label Grid.Row="8" Grid.Column="14" Content="Carga muerta total"/>
-                                <TextBox Grid.Row="8" Grid.Column="16" Controls:TextBoxHelper.ClearTextButton="True" IsEnabled="False"/>
-                                <TextBox Grid.Row="8" Grid.Column="18" Controls:TextBoxHelper.ClearTextButton="True" IsEnabled="False"/>
-                                <TextBox Grid.Row="8" Grid.Column="20" Controls:TextBoxHelper.ClearTextButton="True" />
+                                <Label Grid.Row="6" Grid.Column="13" Content="Carga adicional por mortero"/>
+                                <TextBox Grid.Row="6" Grid.Column="15" Template="{StaticResource NumericTextBox}" IsEnabled="False"/>
+                                <TextBox Grid.Row="6" Grid.Column="17" Template="{StaticResource NumericTextBox}" IsEnabled="False"/>
+                                <TextBox Grid.Row="6" Grid.Column="19" Template="{StaticResource NumericTextBox}"/>
 
 
-                                <Label Grid.Row="10" Grid.Column="14" Content="Carga viva maxima"/>
-                                <TextBox Grid.Row="10" Grid.Column="16" Controls:TextBoxHelper.ClearTextButton="True" IsEnabled="False"/>
-                                <TextBox Grid.Row="10" Grid.Column="18" Controls:TextBoxHelper.ClearTextButton="True" IsEnabled="False"/>
-                                <TextBox Grid.Row="10" Grid.Column="20" Controls:TextBoxHelper.ClearTextButton="True" />
+                                <Label Grid.Row="8" Grid.Column="13" Content="Carga muerta total"/>
+                                <TextBox Grid.Row="8" Grid.Column="15" Template="{StaticResource NumericTextBox}" IsEnabled="False"/>
+                                <TextBox Grid.Row="8" Grid.Column="17" Template="{StaticResource NumericTextBox}" IsEnabled="False"/>
+                                <TextBox Grid.Row="8" Grid.Column="19" Template="{StaticResource NumericTextBox}" />
 
-                                <Label Grid.Row="12" Grid.Column="14" Content="Carga viva instantanea"/>
-                                <TextBox Grid.Row="12" Grid.Column="16" Controls:TextBoxHelper.ClearTextButton="True" IsEnabled="False"/>
-                                <TextBox Grid.Row="12" Grid.Column="18" Controls:TextBoxHelper.ClearTextButton="True" IsEnabled="False"/>
-                                <TextBox Grid.Row="12" Grid.Column="20" Controls:TextBoxHelper.ClearTextButton="True" />
 
-                                <zoom:ZoomBorder Grid.Row="14" Grid.RowSpan="10" Grid.Column="14" Grid.ColumnSpan="8" x:Name="border" ClipToBounds="True" Background="White" >
+                                <Label Grid.Row="10" Grid.Column="13" Content="Carga viva maxima"/>
+                                <TextBox Grid.Row="10" Grid.Column="15" Template="{StaticResource NumericTextBox}" IsEnabled="False"/>
+                                <TextBox Grid.Row="10" Grid.Column="17" Template="{StaticResource NumericTextBox}" IsEnabled="False"/>
+                                <TextBox Grid.Row="10" Grid.Column="19" Template="{StaticResource NumericTextBox}" />
+
+                                <Label Grid.Row="12" Grid.Column="13" Content="Carga viva instantanea"/>
+                                <TextBox Grid.Row="12" Grid.Column="15" Template="{StaticResource NumericTextBox}" IsEnabled="False"/>
+                                <TextBox Grid.Row="12" Grid.Column="17" Template="{StaticResource NumericTextBox}" IsEnabled="False"/>
+                                <TextBox Grid.Row="12" Grid.Column="19" Template="{StaticResource NumericTextBox}" />
+
+                                <zoom:ZoomBorder Grid.Row="14" Grid.RowSpan="10" Grid.Column="12" Grid.ColumnSpan="8" x:Name="border" ClipToBounds="True" Background="White" >
                                     <Image Source="/Content/Images/losa_vigueta_bovedilla_entrepiso.png" />
                                 </zoom:ZoomBorder>
-                              
+
                             </Grid>
 
                         </Controls:MetroTabItem>
@@ -880,32 +1202,29 @@
 
 
                         <!--INICIO DE LOSA NERVADA DE VIGUETA Y BOVEDILLA DE AZOTEA-->
-                        <Controls:MetroTabItem Visibility="Hidden" Header="Losa de vigueta y bovedilla de azotea" Height="50">
+                        <Controls:MetroTabItem Visibility="{Binding ViguetaBovedillaAzotea, Mode=TwoWay}" Header="Losa de vigueta y bovedilla de azotea" Height="50">
                             <Grid Grid.Row="0" Grid.Column="3">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="11*"/>
+                                    <ColumnDefinition Width="190*"/>
                                     <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="5*"/>
-                                    <ColumnDefinition Width="1*"/>
+                                    <ColumnDefinition Width="100*"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="110*"/>
                                     <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="6*"/>
+                                    <ColumnDefinition Width="150*"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="100*"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="100*"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="180*"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="150*"/>
                                     <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="8*"/>
+                                    <ColumnDefinition Width="100*"/>
                                     <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="4*"/>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="4*"/>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="10*"/>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="8*"/>
-                                    <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="4*"/>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="4*"/>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="1*"/>
+                                    <ColumnDefinition Width="100*"/>
                                     <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
                                 <Grid.RowDefinitions>
@@ -929,135 +1248,120 @@
                                     <RowDefinition Height="10"/>
                                     <RowDefinition Height="30"/>
                                     <RowDefinition Height="10"/>
-                                    <RowDefinition Height="30"/>
+                                    <RowDefinition Height="auto"/>
                                     <RowDefinition Height="10"/>
-                                    <RowDefinition Height="30"/>
-                                    <RowDefinition Height="10"/>
-                                    <RowDefinition Height="30"/>
-                                    <RowDefinition Height="10"/>
-                                    <RowDefinition Height="30"/>
-                                    <RowDefinition Height="10"/>
-                                    <RowDefinition Height="30"/>
-                                    <RowDefinition Height="10"/>
-                                    <RowDefinition Height="30"/>
-                                    <RowDefinition Height="10"/>
-                                    <RowDefinition Height="30"/>
-                                    <RowDefinition Height="10"/>
-                                    <RowDefinition Height="30"/>
-                                    <RowDefinition Height="10"/>
-                                    <RowDefinition Height="30"/>
                                 </Grid.RowDefinitions>
 
 
-                                <Label Grid.Row="0" Grid.Column="1" Content="Concepto" Style="{StaticResource LabelHeader}"/>
+                                <Label Grid.Row="0" Grid.Column="1" Content="Concepto" Style="{StaticResource LabelHeaderConcepto}"/>
                                 <Label Grid.Row="0" Grid.Column="3" Content="Medida" Style="{StaticResource LabelHeader}"/>
 
                                 <Label Grid.Row="2" Grid.Column="1" Content="Espesor de capa de compresión" />
-                                <TextBox Grid.Row="2" Grid.Column="3" Controls:TextBoxHelper.ClearTextButton="True" />
+                                <TextBox Grid.Row="2" Grid.Column="3" Template="{StaticResource NumericTextBox}" />
 
                                 <Label Grid.Row="4" Grid.Column="1" Content="Peralte total de losa" />
-                                <TextBox Grid.Row="4" Grid.Column="3" Controls:TextBoxHelper.ClearTextButton="True"/>
+                                <TextBox Grid.Row="4" Grid.Column="3" Template="{StaticResource NumericTextBox}"/>
 
                                 <Label Grid.Row="6" Grid.Column="1" Content="Ancho de patin" />
-                                <TextBox Grid.Row="6" Grid.Column="3" Controls:TextBoxHelper.ClearTextButton="True"/>
+                                <TextBox Grid.Row="6" Grid.Column="3" Template="{StaticResource NumericTextBox}"/>
 
                                 <Label Grid.Row="8" Grid.Column="1" Content="Peralte de patin" />
-                                <TextBox Grid.Row="8" Grid.Column="3" Controls:TextBoxHelper.ClearTextButton="True" />
+                                <TextBox Grid.Row="8" Grid.Column="3" Template="{StaticResource NumericTextBox}"/>
 
                                 <Label Grid.Row="10" Grid.Column="1" Content="Ancho de bovedilla" />
-                                <TextBox Grid.Row="10" Grid.Column="3" Controls:TextBoxHelper.ClearTextButton="True"/>
+                                <TextBox Grid.Row="10" Grid.Column="3" Template="{StaticResource NumericTextBox}"/>
 
                                 <Label Grid.Row="12" Grid.Column="1" Content="Ancho de vigueta" />
-                                <TextBox Grid.Row="12" Grid.Column="3" Controls:TextBoxHelper.ClearTextButton="True"/>
+                                <TextBox Grid.Row="12" Grid.Column="3" Template="{StaticResource NumericTextBox}"/>
 
                                 <Label Grid.Row="14" Grid.Column="1" Content="Longitud de modulo" />
-                                <TextBox Grid.Row="14" Grid.Column="3" Controls:TextBoxHelper.ClearTextButton="True" />
+                                <TextBox Grid.Row="14" Grid.Column="3" Template="{StaticResource NumericTextBox}"/>
 
                                 <Label Grid.Row="16" Grid.Column="1" Content="Area de concreto" />
-                                <TextBox Grid.Row="16" Grid.Column="3" Controls:TextBoxHelper.ClearTextButton="True" />
+                                <TextBox Grid.Row="16" Grid.Column="3" Template="{StaticResource NumericTextBox}"/>
 
                                 <Label Grid.Row="18" Grid.Column="1" Content="Area de bovedilla" />
-                                <TextBox Grid.Row="18" Grid.Column="3" Controls:TextBoxHelper.ClearTextButton="True" />
+                                <TextBox Grid.Row="18" Grid.Column="3" Template="{StaticResource NumericTextBox}"/>
 
 
-                                <Label Grid.Row="0" Grid.Column="6" Content="Concepto" Style="{StaticResource LabelHeader}"/>
-                                <Label Grid.Row="0" Grid.Column="8" Grid.ColumnSpan="1" Content="Peso volumetrico" Style="{StaticResource LabelHeader}"/>
-                                <Label Grid.Row="0" Grid.Column="10" Content="Espesor" Style="{StaticResource LabelHeader}"/>
-                                <Label Grid.Row="0" Grid.Column="12" Content="Peso" Style="{StaticResource LabelHeader}"/>
-                                <Label Grid.Row="0" Grid.Column="14" Content="Concepto" Style="{StaticResource LabelHeader}"/>
-                                <Label Grid.Row="0" Grid.Column="16" Content="Peso volumetrico" Style="{StaticResource LabelHeader}"/>
-                                <Label Grid.Row="0" Grid.Column="18" Content="Espesor" Style="{StaticResource LabelHeader}"/>
-                                <Label Grid.Row="0" Grid.Column="20" Content="Peso" Style="{StaticResource LabelHeader}"/>
+                                <Label Grid.Row="0" Grid.Column="5" Content="Concepto" Style="{StaticResource LabelHeaderConcepto}"/>
+                                <Label Grid.Row="0" Grid.Column="7" Grid.ColumnSpan="1" Content="Peso volumetrico" Style="{StaticResource LabelHeader}"/>
+                                <Label Grid.Row="0" Grid.Column="9" Content="Espesor" Style="{StaticResource LabelHeader}"/>
+                                <Label Grid.Row="0" Grid.Column="11" Content="Peso" Style="{StaticResource LabelHeader}"/>
+                                <Label Grid.Row="0" Grid.Column="13" Content="Concepto" Style="{StaticResource LabelHeaderConcepto}"/>
+                                <Label Grid.Row="0" Grid.Column="15" Content="Peso volumetrico" Style="{StaticResource LabelHeader}"/>
+                                <Label Grid.Row="0" Grid.Column="17" Content="Espesor" Style="{StaticResource LabelHeader}"/>
+                                <Label Grid.Row="0" Grid.Column="19" Content="Peso" Style="{StaticResource LabelHeader}"/>
 
-                                <Label Grid.Row="2" Grid.Column="6" Content="Impermeabilizante" />
-                                <TextBox Grid.Row="2" Grid.Column="8" Controls:TextBoxHelper.ClearTextButton="True"/>
-                                <TextBox Grid.Row="2" Grid.Column="10" Controls:TextBoxHelper.ClearTextButton="True"/>
-                                <TextBox Grid.Row="2" Grid.Column="12" Controls:TextBoxHelper.ClearTextButton="True" />
-
-
-                                <Label Grid.Row="4" Grid.Column="6" Content="Mortero"/>
-                                <TextBox Grid.Row="4" Grid.Column="8" Controls:TextBoxHelper.ClearTextButton="True"/>
-                                <TextBox Grid.Row="4" Grid.Column="10" Controls:TextBoxHelper.ClearTextButton="True"/>
-                                <TextBox Grid.Row="4" Grid.Column="12" Controls:TextBoxHelper.ClearTextButton="True" />
+                                <Label Grid.Row="2" Grid.Column="5" Content="Impermeabilizante" />
+                                <TextBox Grid.Row="2" Grid.Column="7"  Template="{StaticResource NumericTextBox}"/>
+                                <TextBox Grid.Row="2" Grid.Column="9" Template="{StaticResource NumericTextBox}"/>
+                                <TextBox Grid.Row="2" Grid.Column="11" Template="{StaticResource NumericTextBox}"/>
 
 
-                                <Label Grid.Row="6" Grid.Column="6" Content="Firme"/>
-                                <TextBox Grid.Row="6" Grid.Column="8" Controls:TextBoxHelper.ClearTextButton="True"/>
-                                <TextBox Grid.Row="6" Grid.Column="10" Controls:TextBoxHelper.ClearTextButton="True"/>
-                                <TextBox Grid.Row="6" Grid.Column="12" Controls:TextBoxHelper.ClearTextButton="True"/>
+                                <Label Grid.Row="4" Grid.Column="5" Content="Mortero"/>
+                                <TextBox Grid.Row="4" Grid.Column="7"  Template="{StaticResource NumericTextBox}"/>
+                                <TextBox Grid.Row="4" Grid.Column="9" Template="{StaticResource NumericTextBox}"/>
+                                <TextBox Grid.Row="4" Grid.Column="11" Template="{StaticResource NumericTextBox}"/>
 
 
-                                <Label Grid.Row="8" Grid.Column="6" Content="Losa"/>
-                                <TextBox Grid.Row="8" Grid.Column="8" Controls:TextBoxHelper.ClearTextButton="True"/>
-                                <TextBox Grid.Row="8" Grid.Column="10" Controls:TextBoxHelper.ClearTextButton="True"/>
-                                <TextBox Grid.Row="8" Grid.Column="12" Controls:TextBoxHelper.ClearTextButton="True" />
-
-                                <Label Grid.Row="10" Grid.Column="6" Content="Bovedillas"/>
-                                <TextBox Grid.Row="10" Grid.Column="8" Controls:TextBoxHelper.ClearTextButton="True"/>
-                                <TextBox Grid.Row="10" Grid.Column="10" Controls:TextBoxHelper.ClearTextButton="True" IsEnabled="False"/>
-                                <TextBox Grid.Row="10" Grid.Column="12" Controls:TextBoxHelper.ClearTextButton="True" />
+                                <Label Grid.Row="6" Grid.Column="5" Content="Firme"/>
+                                <TextBox Grid.Row="6" Grid.Column="7"  Template="{StaticResource NumericTextBox}"/>
+                                <TextBox Grid.Row="6" Grid.Column="9" Template="{StaticResource NumericTextBox}"/>
+                                <TextBox Grid.Row="6" Grid.Column="11" Template="{StaticResource NumericTextBox}"/>
 
 
-                                <Label Grid.Row="12" Grid.Column="6" Content="Aplanado"/>
-                                <TextBox Grid.Row="12" Grid.Column="8" Controls:TextBoxHelper.ClearTextButton="True"/>
-                                <TextBox Grid.Row="12" Grid.Column="10" Controls:TextBoxHelper.ClearTextButton="True" IsEnabled="False"/>
-                                <TextBox Grid.Row="12" Grid.Column="12" Controls:TextBoxHelper.ClearTextButton="True"/>
+                                <Label Grid.Row="8" Grid.Column="5" Content="Losa"/>
+                                <TextBox Grid.Row="8" Grid.Column="7"  Template="{StaticResource NumericTextBox}"/>
+                                <TextBox Grid.Row="8" Grid.Column="9" Template="{StaticResource NumericTextBox}"/>
+                                <TextBox Grid.Row="8" Grid.Column="11" Template="{StaticResource NumericTextBox}"/>
 
-                                <Label Grid.Row="14" Grid.Column="6" Content="Instalaciones"/>
-                                <TextBox Grid.Row="14" Grid.Column="8" Controls:TextBoxHelper.ClearTextButton="True"/>
-                                <TextBox Grid.Row="14" Grid.Column="10" Controls:TextBoxHelper.ClearTextButton="True"/>
-                                <TextBox Grid.Row="14" Grid.Column="12" Controls:TextBoxHelper.ClearTextButton="True"/>
-
-                                <Label Grid.Row="2" Grid.Column="14" Content="Carga adicional por colado"/>
-                                <TextBox Grid.Row="2" Grid.Column="16" Controls:TextBoxHelper.ClearTextButton="True" IsEnabled="False"/>
-                                <TextBox Grid.Row="2" Grid.Column="18" Controls:TextBoxHelper.ClearTextButton="True" IsEnabled="False"/>
-                                <TextBox Grid.Row="2" Grid.Column="20" Controls:TextBoxHelper.ClearTextButton="True" />
+                                <Label Grid.Row="10" Grid.Column="5" Content="Bovedillas"/>
+                                <TextBox Grid.Row="10" Grid.Column="7"  Template="{StaticResource NumericTextBox}"/>
+                                <TextBox Grid.Row="10" Grid.Column="9" Template="{StaticResource NumericTextBox}" IsEnabled="False"/>
+                                <TextBox Grid.Row="10" Grid.Column="11" Template="{StaticResource NumericTextBox}" />
 
 
-                                <Label Grid.Row="4" Grid.Column="14" Content="Carga adicional por mortero"/>
-                                <TextBox Grid.Row="4" Grid.Column="16" Controls:TextBoxHelper.ClearTextButton="True" IsEnabled="False"/>
-                                <TextBox Grid.Row="4" Grid.Column="18" Controls:TextBoxHelper.ClearTextButton="True" IsEnabled="False"/>
-                                <TextBox Grid.Row="4" Grid.Column="20" Controls:TextBoxHelper.ClearTextButton="True"/>
+                                <Label Grid.Row="12" Grid.Column="5" Content="Aplanado"/>
+                                <TextBox Grid.Row="12" Grid.Column="7"  Template="{StaticResource NumericTextBox}"/>
+                                <TextBox Grid.Row="12" Grid.Column="9" Template="{StaticResource NumericTextBox}" IsEnabled="False"/>
+                                <TextBox Grid.Row="12" Grid.Column="11" Template="{StaticResource NumericTextBox}"/>
+
+                                <Label Grid.Row="14" Grid.Column="5" Content="Instalaciones"/>
+                                <TextBox Grid.Row="14" Grid.Column="7"  Template="{StaticResource NumericTextBox}"/>
+                                <TextBox Grid.Row="14" Grid.Column="9" Template="{StaticResource NumericTextBox}"/>
+                                <TextBox Grid.Row="14" Grid.Column="11" Template="{StaticResource NumericTextBox}"/>
+
+                                <Label Grid.Row="2" Grid.Column="13" Content="Carga adicional por colado"/>
+                                <TextBox Grid.Row="2" Grid.Column="15" Template="{StaticResource NumericTextBox}" IsEnabled="False"/>
+                                <TextBox Grid.Row="2" Grid.Column="17" Template="{StaticResource NumericTextBox}" IsEnabled="False"/>
+                                <TextBox Grid.Row="2" Grid.Column="19" Template="{StaticResource NumericTextBox}" />
 
 
-                                <Label Grid.Row="6" Grid.Column="14" Content="Carga muerta total"/>
-                                <TextBox Grid.Row="6" Grid.Column="16" Controls:TextBoxHelper.ClearTextButton="True" IsEnabled="False"/>
-                                <TextBox Grid.Row="6" Grid.Column="18" Controls:TextBoxHelper.ClearTextButton="True" IsEnabled="False"/>
-                                <TextBox Grid.Row="6" Grid.Column="20" Controls:TextBoxHelper.ClearTextButton="True"/>
+                                <Label Grid.Row="4" Grid.Column="13" Content="Carga adicional por mortero"/>
+                                <TextBox Grid.Row="4" Grid.Column="15" Template="{StaticResource NumericTextBox}" IsEnabled="False"/>
+                                <TextBox Grid.Row="4" Grid.Column="17" Template="{StaticResource NumericTextBox}" IsEnabled="False"/>
+                                <TextBox Grid.Row="4" Grid.Column="19" Template="{StaticResource NumericTextBox}"/>
 
 
-                                <Label Grid.Row="8" Grid.Column="14" Content="Carga viva maxima"/>
-                                <TextBox Grid.Row="8" Grid.Column="16" Controls:TextBoxHelper.ClearTextButton="True" IsEnabled="False"/>
-                                <TextBox Grid.Row="8" Grid.Column="18" Controls:TextBoxHelper.ClearTextButton="True" IsEnabled="False"/>
-                                <TextBox Grid.Row="8" Grid.Column="20" Controls:TextBoxHelper.ClearTextButton="True" />
+                                <Label Grid.Row="6" Grid.Column="13" Content="Carga muerta total"/>
+                                <TextBox Grid.Row="6" Grid.Column="15" Template="{StaticResource NumericTextBox}" IsEnabled="False"/>
+                                <TextBox Grid.Row="6" Grid.Column="17" Template="{StaticResource NumericTextBox}" IsEnabled="False"/>
+                                <TextBox Grid.Row="6" Grid.Column="19" Template="{StaticResource NumericTextBox}"/>
 
 
-                                <Label Grid.Row="10" Grid.Column="14" Content="Carga viva instantanea"/>
-                                <TextBox Grid.Row="10" Grid.Column="16" Controls:TextBoxHelper.ClearTextButton="True" IsEnabled="False"/>
-                                <TextBox Grid.Row="10" Grid.Column="18" Controls:TextBoxHelper.ClearTextButton="True" IsEnabled="False"/>
-                                <TextBox Grid.Row="10" Grid.Column="20" Controls:TextBoxHelper.ClearTextButton="True" />
+                                <Label Grid.Row="8" Grid.Column="13" Content="Carga viva maxima"/>
+                                <TextBox Grid.Row="8" Grid.Column="15" Template="{StaticResource NumericTextBox}" IsEnabled="False"/>
+                                <TextBox Grid.Row="8" Grid.Column="17" Template="{StaticResource NumericTextBox}" IsEnabled="False"/>
+                                <TextBox Grid.Row="8" Grid.Column="19" Template="{StaticResource NumericTextBox}" />
 
-                                <zoom:ZoomBorder Grid.Row="12" Grid.RowSpan="10" Grid.Column="14" Grid.ColumnSpan="8"  ClipToBounds="True" Background="White" >
+
+                                <Label Grid.Row="10" Grid.Column="13" Content="Carga viva instantanea"/>
+                                <TextBox Grid.Row="10" Grid.Column="15" Template="{StaticResource NumericTextBox}" IsEnabled="False"/>
+                                <TextBox Grid.Row="10" Grid.Column="17" Template="{StaticResource NumericTextBox}" IsEnabled="False"/>
+                                <TextBox Grid.Row="10" Grid.Column="19" Template="{StaticResource NumericTextBox}" />
+
+                                <zoom:ZoomBorder Grid.Row="12" Grid.RowSpan="8" Grid.Column="13" Grid.ColumnSpan="8"  ClipToBounds="True" Background="White" >
                                     <Image Source="/Content/Images/losa_vigueta_bovedilla_azotea.png" />
                                 </zoom:ZoomBorder>
 
@@ -1068,8 +1372,40 @@
 
 
                         <!--INICIO DE OTRO TIPO-->
-                        <Controls:MetroTabItem Visibility="Hidden" Header="Otra" Height="50">
+                        <Controls:MetroTabItem Visibility="{Binding Otra, Mode=TwoWay}" Header="Otra" Height="50">
+                            <Grid Grid.Row="0" Grid.Column="3">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="10"/>
+                                    <ColumnDefinition Width="150"/>
+                                    <ColumnDefinition Width="10"/>
+                                    <ColumnDefinition Width="100"/>
+                                    <ColumnDefinition Width="10"/>
+                                    <ColumnDefinition Width="150"/>
+                                    <ColumnDefinition Width="10" />
+                                    <ColumnDefinition Width="100"/>
+                                    <ColumnDefinition Width="10"/>
+                                    <ColumnDefinition Width="150"/>
+                                    <ColumnDefinition Width="10"/>
+                                    <ColumnDefinition Width="100"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="30"/>
+                                    <RowDefinition Height="10"/>
+                                    <RowDefinition Height="30"/>
+                                    <RowDefinition Height="10"/>
+                                </Grid.RowDefinitions>
+                                <Label Grid.Row="0" Grid.Column="1" Content="Carga muerta total"/>
+                               <TextBox Grid.Row="0" Grid.Column="3" Template="{StaticResource NumericTextBox}"/>
 
+
+                                <Label Grid.Row="0" Grid.Column="5" Content="Carga viva maxima"/>
+                                <TextBox Grid.Row="0" Grid.Column="7" Template="{StaticResource NumericTextBox}" />
+
+
+                                <Label Grid.Row="0" Grid.Column="9" Content="Carga viva instantanea"/>
+                                <TextBox Grid.Row="0" Grid.Column="11" Template="{StaticResource NumericTextBox}" />
+                            </Grid>
                         </Controls:MetroTabItem>
                         <!--FIN DE OTRO TIPO-->
                     </Controls:MetroAnimatedTabControl>

@@ -12,11 +12,13 @@ namespace StructureSystem.Data
         public IGeneralDataRepository GeneralData { get; private set; }
         public IHorizontalWallRepository HorizontalWallsData { get; private set; }
         public IVerticalWallRepository VerticalWallsData { get; private set; }
+        public ILoadAnalysisRepository LoadAnalysisData { get; private set; }
         public  DocumentDataContext()
         {
             GeneralData = new GeneralData();
             HorizontalWallsData = new HorizontalWallsData();
             VerticalWallsData = new VerticalWallsData();
+            LoadAnalysisData = new LoadAnalysisData();
         }
     }//end of class
 }//end of namespace

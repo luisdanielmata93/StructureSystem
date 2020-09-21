@@ -49,6 +49,7 @@
     <Compile Include="Model\Actions\IUpdatable.cs" />
     <Compile Include="Model\DataContext\IDocumentDataContext.cs" />
     <Compile Include="Model\IHorizontalWallRepository.cs" />
+    <Compile Include="Model\ILoadAnalysisRepository.cs" />
     <Compile Include="Model\UnitOfWork\IUnitOfWork.cs" />
     <Compile Include="Model\UnitOfWork\IUnitOfWorkAdapter.cs" />
     <Compile Include="Model\UnitOfWork\IUnitOfWorkRepository.cs" />
@@ -57,6 +58,7 @@
     <Compile Include="Model\IGeneralDataRepository.cs" />
     <Compile Include="Repository\GeneralData.cs" />
     <Compile Include="Repository\HorizontalWallsData.cs" />
+    <Compile Include="Repository\LoadAnalysisData.cs" />
     <Compile Include="Repository\VerticalWallsData.cs" />
     <Compile Include="UnitOfWork\UnitOfWork.cs" />
     <Compile Include="UnitOfWork\UnitOfWorkAdapter.cs" />

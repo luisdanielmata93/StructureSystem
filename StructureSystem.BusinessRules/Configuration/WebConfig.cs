@@ -133,5 +133,20 @@ namespace StructureSystem.BusinessRules.Configuration
             return materials;
         }
 
+        public List<FlooringMaterials> GetFlooringMaterialsCollection()
+        {
+            var flooringMaterials = new List<FlooringMaterials>();
+
+            try
+            {
+                config.FlooringMaterials.Cast<ConfigurationObject>().ToList().ForEach(x =>
+                {
+                    flooringMaterials.Add(new FlooringMaterials { Id = Convert.ToInt32(x.Id), Name = x.Name });
+                });
+            }
+            catch (Exception ex) { throw; }
+
+            return flooringMaterials;
+        }
     }//end of class
 }//end of namespace

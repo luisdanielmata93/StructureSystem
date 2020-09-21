@@ -18,6 +18,17 @@ namespace StructureSystem.Model
            
         }
 
+
+        public enum MaterialType
+        {
+            MacisaEntrepiso,
+            MacisaAzotea,
+            NervadaEntrepiso,
+            NervadaAzotea,
+            ViguetaBovedillaEntrepiso,
+            ViguetaBovedillaAzotea,
+            Otra
+        }
       
 
     }

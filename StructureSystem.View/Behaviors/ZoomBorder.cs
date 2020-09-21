@@ -6,7 +6,7 @@ using System.Windows.Media;
 
 namespace StructureSystem.View.Behaviors.ZoomBorder
 {
-    class ZoomBorder : Border
+    internal class ZoomBorder : Border
     {
         private UIElement child = null;
         private Point origin;
