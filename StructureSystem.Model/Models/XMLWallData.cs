@@ -1,12 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using StructureSystem.Model;
 
 namespace StructureSystem.Model
 {
-   public class XMLVerticalWallData
+   public class XMLWallData
     {
         public string DocumentPath { get; set; }
 
@@ -14,7 +11,7 @@ namespace StructureSystem.Model
 
         public int Count { get; set; } = 1;
 
-        public Material MaterialV { get; set; }
+        public Material Material { get; set; }
 
         public double Length { get; set; }
 
@@ -28,7 +25,6 @@ namespace StructureSystem.Model
 
         public double PositionY { get; set; }
 
-
-
+        public Enums.SideType Side { get; set; }
     }//end of class
 }//end of namespace

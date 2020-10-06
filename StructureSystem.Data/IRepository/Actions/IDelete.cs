@@ -8,7 +8,7 @@ namespace StructureSystem.Data.Actions
 {
     public interface IDelete<TEntity> where TEntity : class
     {
-        void Delete(TEntity entity);
+        bool Delete(TEntity entity);
    
     }//end of interface
 }//end of namespace

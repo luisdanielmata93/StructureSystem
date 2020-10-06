@@ -29,7 +29,8 @@ namespace StructureSystem.Model
             ViguetaBovedillaAzotea,
             Otra
         }
-      
+
+        public enum SideType { Vertical, Horizontal }
 
     }
 }

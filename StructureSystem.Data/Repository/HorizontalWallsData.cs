@@ -12,7 +12,7 @@ namespace StructureSystem.Data
 {
     public class HorizontalWallsData : IHorizontalWallRepository
     {
-        public bool Create(XMLHorizontalWallData model)
+        public bool Create(XMLWallData model)
         {
             try
             {
@@ -29,7 +29,7 @@ namespace StructureSystem.Data
                 mydoc.Descendants("HorizontalWalls").Descendants("Storey").LastOrDefault().Add(
                     new XElement("Wall",
                                          new XElement("Number", model.Count.ToString()),
-                                         new XElement("Material", model.MaterialH.Name.ToString()),
+                                         new XElement("Material", model.Material.Name.ToString()),
                                          new XElement("Length", model.Length.ToString()),
                                          new XElement("TributaryArea", model.TributaryArea.ToString()),
                                          new XElement("Thickness", model.Thickness.ToString()),
@@ -47,12 +47,42 @@ namespace StructureSystem.Data
             }
         }
 
+        public bool Delete(XMLWallData model)
+        {
+            try
+            {
+                XDocument mydoc = XDocument.Load(model.DocumentPath);
+
+                mydoc.Element("HorizontalWalls")
+                 .Elements("Storey").Where(x => Convert.ToInt32((string)x.Attribute("level")) == model.Storey)
+                 .Elements("Wall")
+                 .Where(x => (string)x.Element("Number") == model.Count.ToString() &&
+                             (string)x.Element("Material")==model.Material.ToString()&&
+                             (string)x.Element("Length")==model.Length.ToString() &&
+                             (string)x.Element("TributaryArea")==model.TributaryArea.ToString() &&
+                             (string)x.Element("Thickness")==model.Thickness.ToString() &&
+                             (string)x.Element("Height")==model.Height.ToString() &&
+                             (string)x.Element("PositionX")==model.PositionX.ToString()&&
+                             (string)x.Element("PositionY")==model.PositionY.ToString())
+                 .Remove();
+
+                mydoc.Save(model.DocumentPath);
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+
+        }
+
         public IDictionary<string, object> Get(string documentPath)
         {
             throw new NotImplementedException();
         }
 
-        public bool Update(XMLHorizontalWallData entity)
+        public bool Update(XMLWallData entity)
         {
             throw new NotImplementedException();
         }

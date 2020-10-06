@@ -54,7 +54,7 @@
 
             </Controls:MetroTabItem>
             <!--INICIA INSERCIÓN DE MUROS HORIZONTALES-->
-            <Controls:MetroTabItem  Header="Muros horizontales" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="5">
+            <Controls:MetroTabItem Visibility="{Binding HorizontalTab}"  Header="Muros horizontales" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="5">
 
                 <Grid HorizontalAlignment="Left" Margin="10 0 10 0">
                     <Grid.ColumnDefinitions >
@@ -76,7 +76,6 @@
                         <RowDefinition Height="30"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
-
                     <Label Grid.Row="0" Grid.Column="0" Height="30" Content="NIVEL" HorizontalAlignment="Left"/>
                     <TextBlock Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" FontWeight="Bold" FontSize="15"  Height="30" Text="{Binding Storey, Mode=TwoWay}"/>
 
@@ -85,7 +84,7 @@
 
 
                     <Label Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Height="30" Content="Material"  />
-                    <ComboBox Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="4" Height="30" Controls:TextBoxHelper.Watermark="Seleccione un material" SelectedItem="{Binding MaterialH}" DisplayMemberPath="Name" ItemsSource="{Binding Materials, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                    <ComboBox Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="4" Height="30" Controls:TextBoxHelper.Watermark="Seleccione un material" SelectedItem="{Binding Material}" DisplayMemberPath="Name" ItemsSource="{Binding Materials, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
 
 
                     <Label Grid.Row="4" Grid.Column="3" Height="30" Content="Longitud(m)" />
@@ -108,17 +107,13 @@
 
                     <Button Grid.Row="9" Grid.Column="3" Height="40" Command="{Binding SaveHorizontalCommand}"   Content="Guardar"  />
                     <Button Grid.Row="9" Grid.Column="4" Height="40" Command="{Binding NextCommand}"  Content="Siguiente"  />
-
                 </Grid>
-
             </Controls:MetroTabItem>
             <!--finaliza tan de insercion para muros horizontales-->
 
 
             <!--INICIA INSERCIÓN DE MUROS VERTICALES-->
-            <Controls:MetroTabItem  Header="Muros verticales" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="5">
-
-
+            <Controls:MetroTabItem Visibility="{Binding VerticalTab}" Header="Muros verticales" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="5">
                 <Grid HorizontalAlignment="Left" Margin="10 0 10 0">
                     <Grid.ColumnDefinitions >
                         <ColumnDefinition Width="130" />
@@ -172,11 +167,10 @@
                     <Button Grid.Row="9" Grid.Column="0" Height="40" Command="{Binding PreviousCommand}"   Content="Regresar"  />
 
                     <Button Grid.Row="9" Grid.Column="3" Height="40" Command="{Binding SaveVerticalCommand}"   Content="Guardar"  />
-                    <Button Grid.Row="9" Grid.Column="4" Height="40" Command="{Binding FinishCommand}"  Content="Siguiente Nivel"  />
+                    <Button Grid.Row="9" Grid.Column="4" Height="40" Command="{Binding NextStoreyCommand}"  Content="Siguiente Nivel"  />
+                    <Button Grid.Row="9" Grid.Column="4" Height="40" Command="{Binding FinishCommand}" CommandParameter="{Binding ElementName=DataWallView}"  Content="Finalizar" Visibility="{Binding FinishBtnVisibility}" />
 
                 </Grid>
-
-
             </Controls:MetroTabItem>
             <!--finaliza tan de insercion para muros verticales-->
 

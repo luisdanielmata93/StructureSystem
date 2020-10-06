@@ -34,6 +34,7 @@
     <Reference Include="Notifications.Wpf, Version=0.1.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Notifications.Wpf.0.1.1\lib\net45\Notifications.Wpf.dll</HintPath>
     </Reference>
+    <Reference Include="PresentationCore" />
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
@@ -51,7 +52,9 @@
     <Compile Include="Services\GeneralDataService.cs" />
     <Compile Include="Services\HorizontalWallsService.cs" />
     <Compile Include="Services\LoadAnalysisService.cs" />
+    <Compile Include="Services\StructureDataService.cs" />
     <Compile Include="Services\VerticalWallsService.cs" />
+    <Compile Include="Services\WindowService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\StructureSystem.Data\StructureSystem.Data.csproj">

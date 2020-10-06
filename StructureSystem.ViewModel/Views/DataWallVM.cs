@@ -8,6 +8,7 @@ using System.Collections.ObjectModel;
 using System.Windows.Input;
 using StructureSystem.Model;
 using StructureSystem.BusinessRules.Services;
+using Caliburn.Micro;
 
 namespace StructureSystem.ViewModel
 {
@@ -27,10 +28,13 @@ namespace StructureSystem.ViewModel
         #region Commands
         public ICommand InitLevelCommand { get; private set; }
         public ICommand NextCommand { get; private set; }
-        public ICommand PreviousCommand { get; private set; }
+        public ICommand NextStoreyCommand { get; private set; }
         public ICommand SaveHorizontalCommand { get; private set; }
         public ICommand SaveVerticalCommand { get; private set; }
-        public ICommand FinishCommand { get; private set; }
+
+        ICommand finishCommand;
+        public ICommand FinishCommand => finishCommand ?? (finishCommand = new RelayCommand(FinishRegister));
+
         #endregion
 
 
@@ -40,12 +44,10 @@ namespace StructureSystem.ViewModel
         private void SetCommands()
         {
             NextCommand = new RelayCommand(o => OnNextTab());
-            PreviousCommand = new RelayCommand(o => OnPreviousTab());
+            NextStoreyCommand = new RelayCommand(o => OnNextStorey(), o => CanNewRegister());
             SaveHorizontalCommand = new RelayCommand(o => OnSaveHorizontalWall());
             SaveVerticalCommand = new RelayCommand(o => OnSaveVerticalWall());
             InitLevelCommand = new RelayCommand(o => InitRegister());
-            FinishCommand = new RelayCommand(o => FinishRegister(), o => CanNewRegister());
-
         }
 
         #endregion
@@ -55,6 +57,8 @@ namespace StructureSystem.ViewModel
         private void InitRegister()
         {
             SelectedTag = 1;
+            VerticalTab = "Visible";
+            HorizontalTab = "Visible";
         }
 
         private void OnSaveHorizontalWall()
@@ -83,11 +87,12 @@ namespace StructureSystem.ViewModel
             this.Refresh();
         }
 
-        private void OnPreviousTab()
+        private void OnNextStorey()
         {
-            if (this.SelectedTag == 2)
-                this.SelectedTag -= 1;
-
+            Storey += 1;
+            SelectedTag = 0;
+            VerticalTab = "Hidden";
+            HorizontalTab = "Hidden";
             this.Refresh();
         }
 
@@ -110,15 +115,23 @@ namespace StructureSystem.ViewModel
         private bool CanNewRegister()
         {
             if (Storeys == Storey)
+            {
+                FinishBtnVisibility = "Visible";
                 return false;
+            }
             else
+            {
+                FinishBtnVisibility = "Hidden";
                 return true;
+            }
         }
 
-        private void FinishRegister()
+        private void FinishRegister(object obj)
         {
-            Storey += 1;
-            SelectedTag = 0;
+          
+            var myWindow = (IClosable)obj;
+            myWindow.Close();
+
         }
 
         private void InitialData()
@@ -204,31 +217,56 @@ namespace StructureSystem.ViewModel
             }
         }
 
-        private Material _materialH;
-        public Material MaterialH
+        private Material _material;
+        public Material Material
         {
-            get { return _materialH; }
+            get { return _material; }
             set
             {
-                if (value != _materialH)
-                    _materialH = value;
-                OnPropertyChanged("MaterialH");
+                if (value != _material)
+                    _material = value;
+                OnPropertyChanged("Material");
             }
         }
 
-        private Material _materialV;
-        public Material MaterialV
+        private string _HorizontalTab = "Hidden";
+        public string HorizontalTab
         {
-            get { return _materialV; }
+            get { return _HorizontalTab; }
             set
             {
-                if (value != _materialV)
-                    _materialV = value;
-                OnPropertyChanged("MaterialV");
+                if (value != _HorizontalTab)
+                    _HorizontalTab = value;
+                OnPropertyChanged("HorizontalTab");
             }
         }
 
+        private string _VerticalTab = "Hidden";
+        public string VerticalTab
+        {
+            get { return _VerticalTab; }
+            set
+            {
+                if (value != _VerticalTab)
+                    _VerticalTab = value;
+                OnPropertyChanged("VerticalTab");
+            }
+        }
 
+        private string _FinishBtnVisibility = "Hidden";
+        public string FinishBtnVisibility
+        {
+            get
+            {
+                return _FinishBtnVisibility;
+            }
+            set
+            {
+                if (value != _FinishBtnVisibility)
+                    _FinishBtnVisibility = value;
+                OnPropertyChanged("FinishBtnVisibility");
+            }
+        }
         private List<Material> _Materials;
         public List<Material> Materials
         {

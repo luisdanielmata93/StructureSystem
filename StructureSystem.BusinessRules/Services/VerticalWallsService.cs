@@ -23,14 +23,15 @@ namespace StructureSystem.BusinessRules.Services
             OperationResult result = new OperationResult();
             try
             {
-                dataXml = new XMLVerticalWallData();
+                dataXml = new XMLWallData();
                 dataXml.DocumentPath = GetDocumentPath();
+                dataXml.Side = Enums.SideType.Vertical;
                 Object dataRef = dataXml;
                 foreach (var prop in Data.GetType().GetProperties())
                 {
                     Helper.SetPropertyValue(ref dataRef, prop.Name, prop.GetValue(Data, null));
                 }
-                dataXml = (XMLVerticalWallData)dataRef;
+                dataXml = (XMLWallData)dataRef;
 
 
                 using (var data = UnitOfWork.Create())
@@ -100,7 +101,7 @@ namespace StructureSystem.BusinessRules.Services
 
         #region Properties
         private WebConfig configData;
-        private XMLVerticalWallData dataXml;
+        private XMLWallData dataXml;
         #endregion
     }//end of class
 }//end of namespace

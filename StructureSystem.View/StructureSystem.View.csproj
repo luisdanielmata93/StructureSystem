@@ -4,16 +4,24 @@
     <OutputType>WinExe</OutputType>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <UseWPF>true</UseWPF>
-    <ApplicationIcon>buildingLogo.ico</ApplicationIcon>
+    <ApplicationIcon>Content\Images\logoapp_K7P_icon.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Content\Images\edif.png" />
+    <None Remove="Content\Images\edif2.png" />
+    <None Remove="Content\Images\edif3.png" />
+    <None Remove="Content\Images\edificios.png" />
+    <None Remove="Content\Images\edificios2.png" />
+    <None Remove="Content\Images\edificios3.png" />
+    <None Remove="Content\Images\estructura33.jpg" />
     <None Remove="Content\Images\losa_macisa_azotea.png" />
     <None Remove="Content\Images\losa_macisa_entrepiso.png" />
     <None Remove="Content\Images\losa_nervada_azotea.png" />
     <None Remove="Content\Images\losa_nervada_entrepiso.png" />
     <None Remove="Content\Images\losa_vigueta_bovedilla_azotea.png" />
     <None Remove="Content\Images\losa_vigueta_bovedilla_entrepiso.png" />
+    <None Remove="Content\Images\pisa.png" />
     <None Remove="Content\Images\SplashScreen.png" />
   </ItemGroup>
 
@@ -30,17 +38,24 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\StructureSystem.Shared\StructureSystem.Shared.csproj" />
     <ProjectReference Include="..\StructureSystem.ViewModel\StructureSystem.ViewModel.csproj" />
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Content\Images\edif.png" />
+    <Resource Include="Content\Images\edif2.png" />
+    <Resource Include="Content\Images\edif3.png" />
+    <Resource Include="Content\Images\edificios.png" />
+    <Resource Include="Content\Images\edificios2.png" />
+    <Resource Include="Content\Images\edificios3.png" />
+    <Resource Include="Content\Images\estructura33.jpg" />
     <Resource Include="Content\Images\losa_macisa_azotea.png" />
     <Resource Include="Content\Images\losa_macisa_entrepiso.png" />
     <Resource Include="Content\Images\losa_nervada_azotea.png" />
     <Resource Include="Content\Images\losa_nervada_entrepiso.png" />
     <Resource Include="Content\Images\losa_vigueta_bovedilla_azotea.png" />
     <Resource Include="Content\Images\losa_vigueta_bovedilla_entrepiso.png" />
+    <Resource Include="Content\Images\pisa.png" />
     <Resource Include="Content\Images\SplashScreen.png" />
   </ItemGroup>
 

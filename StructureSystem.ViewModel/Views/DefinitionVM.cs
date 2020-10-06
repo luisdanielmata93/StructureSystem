@@ -25,14 +25,13 @@ namespace StructureSystem.ViewModel
         {
 
             notificationViewModel = new NotificationViewModel();
-
             this._mainViewModel = mainViewModel;
-
             this.SetInitialData();
 
             this.SetCommands();
 
         }
+
         #endregion
 
 
@@ -104,7 +103,7 @@ namespace StructureSystem.ViewModel
 
         private void ExportExcel()
         {
-
+            OnPropertyChanged();
         }
 
         private void ExportPDF()

@@ -5,7 +5,7 @@ using StructureSystem.Model;
 namespace StructureSystem.Data.Model
 {
     public interface IHorizontalWallRepository : IReadable<IDictionary<string, object>, string>,
-                                  ICreatable<XMLHorizontalWallData>, IUpdatable<XMLHorizontalWallData>
+                                  ICreatable<XMLWallData>, IUpdatable<XMLWallData>, IDelete<XMLWallData>
     {
 
 

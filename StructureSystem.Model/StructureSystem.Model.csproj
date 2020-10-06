@@ -68,8 +68,8 @@
     <Compile Include="Models\Usage.cs" />
     <Compile Include="Models\Wall.cs" />
     <Compile Include="Models\XMLGeneralData.cs" />
-    <Compile Include="Models\XMLHorizontalWallData.cs" />
-    <Compile Include="Models\XMLVerticalWallData.cs" />
+    <Compile Include="Models\XMLStructureData.cs" />
+    <Compile Include="Models\XMLWallData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

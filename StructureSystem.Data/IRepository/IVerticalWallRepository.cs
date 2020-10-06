@@ -6,7 +6,7 @@ using StructureSystem.Model;
 namespace StructureSystem.Data.Model
 {
     public interface IVerticalWallRepository : IReadable<IDictionary<string, object>, string>,
-                                  ICreatable<XMLVerticalWallData>, IUpdatable<XMLVerticalWallData>
+                                  ICreatable<XMLWallData>, IUpdatable<XMLWallData>
     {
 
 

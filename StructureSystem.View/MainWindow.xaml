@@ -11,8 +11,8 @@
         xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
         xmlns:notifications="clr-namespace:Notifications.Wpf.Controls;assembly=Notifications.Wpf"
         mc:Ignorable="d"
-        Title="Sistema de estructuras"
-                      TitleAlignment="Center"
+                 Title="sistema de estructuras"
+                      TitleAlignment="Left"
                     BorderThickness="0" 
                       GlowBrush="Black"
                       ResizeMode="CanResizeWithGrip"
@@ -89,7 +89,7 @@
                 <views:Definition DataContext="{Binding}" />
             </DataTemplate>
             <DataTemplate DataType="{x:Type viewModels:StructureVM}">
-                <views:Structure  DataContext="{Binding}" />
+                <views:Structure DataContext="{Binding}" />
             </DataTemplate>
             <DataTemplate DataType="{x:Type viewModels:LoadAnalysisVM}">
                 <views:LoadAnalysis DataContext="{Binding}" />
@@ -111,8 +111,8 @@
                            ItemsSource="{Binding MenuItems}"
                            OptionsItemTemplate="{StaticResource MenuItemTemplate}"
                            OptionsItemsSource="{Binding MenuOptionItems}"
-                           SelectedIndex="0">
-        
+                           SelectedIndex="0"
+                           >
             
             
             <!--  select the tag (ViewModel) of the selected item (options item)  -->

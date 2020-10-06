@@ -7,7 +7,8 @@
               xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
             xmlns:Icons="http://metro.mahapps.com/winfx/xaml/iconpacks"
             xmlns:simpleChildWindow="clr-namespace:MahApps.Metro.SimpleChildWindow;assembly=MahApps.Metro.SimpleChildWindow"
-             mc:Ignorable="d" 
+             mc:Ignorable="d"
+            
              >
     <Grid>
         <Grid.ColumnDefinitions >
@@ -22,28 +23,48 @@
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="200" />
-                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="10"/>
+                        <ColumnDefinition Width="130"/>
+                        <ColumnDefinition Width="10"/>
+                        <ColumnDefinition Width="50"/>
+                        <ColumnDefinition Width="10"/>
+                        <ColumnDefinition Width="50"/>
                         <ColumnDefinition Width="100"/>
-                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="200"/>
                         <ColumnDefinition Width="30*"/>
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="30"/>
-                        <RowDefinition Height="30" />
-                        <RowDefinition Height="30" />
-                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="auto"/>
                         <RowDefinition />
                     </Grid.RowDefinitions>
 
                     <Label Grid.Row="1" Grid.Column="0" Content="Registrar muros por nivel" Style="{StaticResource LabelHeader}" />
-                    <Button Grid.Row="1" Grid.Column="2"  Content="Iniciar registro" Click="Button_Click" />
-                    <Button Grid.Row="1" Grid.Column="3" Width="30" Height="30" Command="{Binding UpdateCommand}">
-                        <Icons:PackIconModern Kind="Refresh" VerticalAlignment="Center"/>
+                    <Button Grid.Row="1" Grid.Column="2" Command="{Binding RegisterWallsCommand}">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Margin="0 0 3 0">INICIAR REGISTRO</TextBlock>
+                            <Icons:PackIconModern Kind="AppPlus" VerticalAlignment="Center"/>
+                        </StackPanel>
                     </Button>
+                    <Button Grid.Row="1" Grid.Column="4"  Command="{Binding SaveChangeCommand}">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Margin="0 0 5 0"></TextBlock>
+                            <Icons:PackIconModern Kind="Save" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Button>
+                    <Button Grid.Row="1" Grid.Column="6"  Command="{Binding UpdateCommand}">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock></TextBlock>
+                            <Icons:PackIconModern Kind="Refresh" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Button>
+                    <Image  Grid.Row="0" Grid.RowSpan="3" Grid.Column="7" Stretch="Uniform" VerticalAlignment="Bottom" HorizontalAlignment="Center" Source="/Content/Images/edif3.png" />
 
 
-
-                    <DataGrid CanUserAddRows="False" FontSize="17" Grid.Row="3" Grid.ColumnSpan="5" x:Name="WallData" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" ItemsSource="{Binding Path=Storeys ,Mode=TwoWay}"  AutoGenerateColumns="False" CanUserResizeColumns="True">
+                    <DataGrid CanUserAddRows="False" FontSize="17" Grid.Row="4" Grid.ColumnSpan="10" x:Name="WallData" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" ItemsSource="{Binding Path=Storeys ,Mode=TwoWay}"  AutoGenerateColumns="False" CanUserResizeColumns="True">
                         <DataGrid.Columns>
                             <DataGridTemplateColumn Width="250" IsReadOnly="True" Header="NIVELES DE LA ESTRUCTURA">
                                 <DataGridTemplateColumn.CellTemplate>
@@ -66,22 +87,21 @@
                                 <Border BorderThickness="2,2,2,2" Background="MediumPurple" BorderBrush="Black" >
                                     <StackPanel>
                                         <TextBlock Text="INFORMACIÓN DE MUROS HORIZONTALES"/>
-                                       
-                                        <DataGrid AutoGenerateColumns="False" CanUserAddRows="False" ItemsSource="{Binding HorizontalWalls, Mode=TwoWay}">
+
+                                        <DataGrid AutoGenerateColumns="False" CanUserAddRows="False" SelectedItem="{Binding SelectedWall,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding HorizontalWalls, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                                             <DataGrid.Columns>
                                                 <DataGridTextColumn Header="Muro" Binding="{Binding WallNumber}" IsReadOnly="True"  />
                                                 <DataGridTextColumn Header="Material" Binding="{Binding Material}"  />
-                                                <DataGridTextColumn Header="Longitud(m)"  Binding="{Binding Length, StringFormat={}{0:n2}}" />
+                                                <DataGridTextColumn Header="Longitud(m)"  Binding="{Binding Length, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat={}{0:n2}}" />
                                                 <DataGridTextColumn Header="Area tributaria(m2)"  Binding="{Binding TributaryArea, StringFormat={}{0:n2}}" />
                                                 <DataGridTextColumn Header="Espesor(m)"  Binding="{Binding Thickness,StringFormat={}{0:n2}}" />
                                                 <DataGridTextColumn Header="Altura(m)"  Binding="{Binding Height, StringFormat={}{0:n2}}" />
-                                                <DataGridTextColumn Header="Cordenadas X(m)"  Binding="{Binding PositionX,StringFormat={}{0:n2}}" />
-                                                <DataGridTextColumn Header="Cordenadas Y(m)"  Binding="{Binding PositionY, StringFormat={}{0:n2}}" />
-
+                                                <DataGridTextColumn Header="Coordenadas X(m)"  Binding="{Binding PositionX,StringFormat={}{0:n2}}" />
+                                                <DataGridTextColumn Header="Coordenadas Y(m)"  Binding="{Binding PositionY, StringFormat={}{0:n2}}" />
                                                 <DataGridTemplateColumn>
                                                     <DataGridTemplateColumn.CellTemplate>
                                                         <DataTemplate>
-                                                            <Button ToolTip="Eliminar muro" Style="{StaticResource deleteBtn}" Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}, Path=DeleteCommand}"
+                                                            <Button ToolTip="Eliminar muro" Style="{StaticResource deleteBtn}" Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}, Path=DeleteCommand,UpdateSourceTrigger=PropertyChanged}"
                                                                  CommandParameter="{Binding}">
                                                                 <Icons:BoxIcons Kind="RegularTrash" Width="30"/>
                                                             </Button>
@@ -100,22 +120,22 @@
                                                 </DataGridTemplateColumn>
                                             </DataGrid.Columns>
                                         </DataGrid>
-                                        
+
                                         <TextBlock Text="INFORMACIÓN DE MUROS VERTICALES"/>
-                                        <DataGrid AutoGenerateColumns="False" CanUserAddRows="False" ItemsSource="{Binding VerticalWalls, Mode=TwoWay}" >
-                                                <DataGrid.Columns>
+                                        <DataGrid AutoGenerateColumns="False" CanUserAddRows="False" SelectedItem="{Binding SelectedWall,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"  ItemsSource="{Binding VerticalWalls, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" >
+                                            <DataGrid.Columns>
                                                 <DataGridTextColumn Header="Muro" Binding="{Binding WallNumber}" IsReadOnly="True" />
                                                 <DataGridTextColumn Header="Material"  Binding="{Binding Material}" />
                                                 <DataGridTextColumn Header="Longitud(m)"  Binding="{Binding Length, StringFormat={}{0:n2}}" />
                                                 <DataGridTextColumn Header="Area tributaria(m2)"  Binding="{Binding TributaryArea, StringFormat={}{0:n2}}" />
                                                 <DataGridTextColumn Header="Espesor(m)"  Binding="{Binding Thickness, StringFormat={}{0:n2}}" />
                                                 <DataGridTextColumn Header="Altura(m)"  Binding="{Binding Height, StringFormat={}{0:n2}}" />
-                                                <DataGridTextColumn Header="Cordenadas X(m)"  Binding="{Binding PositionX, StringFormat={}{0:n2}}" />
-                                                <DataGridTextColumn Header="Cordenadas Y(m)"  Binding="{Binding PositionY, StringFormat={}{0:n2}}" />
+                                                <DataGridTextColumn Header="Coordenadas X(m)"  Binding="{Binding PositionX, StringFormat={}{0:n2}}" />
+                                                <DataGridTextColumn Header="Coordenadas Y(m)"  Binding="{Binding PositionY, StringFormat={}{0:n2}}" />
                                                 <DataGridTemplateColumn>
                                                     <DataGridTemplateColumn.CellTemplate>
                                                         <DataTemplate>
-                                                            <Button ToolTip="Eliminar muro" Style="{StaticResource deleteBtn}" Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}, Path=DeleteCommand}"
+                                                            <Button ToolTip="Eliminar muro" Style="{StaticResource deleteBtn}" Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}, Path=DeleteCommand,UpdateSourceTrigger=PropertyChanged}"
                                                                  CommandParameter="{Binding}">
                                                                 <Icons:BoxIcons Kind="RegularTrash" Width="30"/>
                                                             </Button>

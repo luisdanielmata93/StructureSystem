@@ -9,7 +9,7 @@
         xmlns:simpleChildWindow="clr-namespace:MahApps.Metro.SimpleChildWindow;assembly=MahApps.Metro.SimpleChildWindow"
         xmlns:m="clr-namespace:Microsoft.Maps.MapControl.WPF;assembly=Microsoft.Maps.MapControl.WPF" 
         xmlns:Dialog="clr-namespace:MahApps.Metro.Controls.Dialogs;assembly=MahApps.Metro"
-                 Dialog:DialogParticipation.Register="{Binding}"
+        Dialog:DialogParticipation.Register="{Binding}"
         mc:Ignorable="d"
         >
 
@@ -48,7 +48,7 @@
                         <RowDefinition Height="10" />
                         <RowDefinition Height="30" />
                         <RowDefinition Height="10"/>
-                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="auto"/>
                     </Grid.RowDefinitions>
 
 
@@ -82,23 +82,27 @@
 
 
                     <Label Grid.Row="6" Grid.Column="0" Content="Ubicación"/>
-                    <Grid Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="7">
+
+                    <TextBox Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="7" Text="{Binding Address, Mode=TwoWay}" Padding="20 10 25 0" FontSize="12"/>
+                    <!--<Grid Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="7">
                         <TextBox Text="{Binding Address, Mode=TwoWay}" Padding="20 10 25 0" FontSize="12"/>
                         <Icons:PackIconMaterial Kind="MapMarker" VerticalAlignment="Center"/>
                         <Button HorizontalAlignment="Right" Command="{Binding SearchCommand}">
                             <Icons:BoxIcons Kind="RegularSearch"/>
                         </Button>
+                    </Grid>-->
+
+                    <Grid Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="10">
+                        <Image Height="330" Source="/Content/Images/edificios3.png" VerticalAlignment="Center" HorizontalAlignment="Center" Stretch="Uniform"/>
                     </Grid>
-
-
-                    <m:Map Grid.Row="8"  Grid.Column="0" Grid.ColumnSpan="11"  Mode="Road" Center="19.174862, -96.135121" ZoomLevel="10"  Width="auto" CredentialsProvider="Agasb8bfgJ3A6N66C6WexpieTv2CuATjUZ--dTacGopwlb4FOKGmdI8OzWMjCmnX">
+                    <!--<m:Map Grid.Row="8"  Grid.Column="0" Grid.ColumnSpan="11"  Mode="Road" Center="19.174862, -96.135121" ZoomLevel="10"  Width="auto" CredentialsProvider="Agasb8bfgJ3A6N66C6WexpieTv2CuATjUZ(guion)(guion)dTacGopwlb4FOKGmdI8OzWMjCmnX">
                         <Canvas
                                 m:MapLayer.Position="19.174862, -96.135121"
                                 m:MapLayer.PositionOrigin="BottomCenter" Width="30" Height="30"
                                 >
                             <Icons:PackIconMaterial Kind="MapMarker" Width="30" Height="30" Foreground="#FF3C3C3C"/>
                         </Canvas>
-                    </m:Map>
+                    </m:Map>-->
 
                     <Button Grid.Row="0" Grid.Column="9" Command="{Binding ImportCommand}" Content="Importar proyecto"  />
                     <Button Grid.Row="2" Grid.Column="9" Command="{Binding SaveProjectCommand}" Content="Guardar proyecto"  />
