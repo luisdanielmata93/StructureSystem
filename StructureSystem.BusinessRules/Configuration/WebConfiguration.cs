@@ -476,6 +476,43 @@ namespace StructureSystem.BusinessRules.Configuration
         {
             get { return (string)base["name"]; }
         }
+
+        [ConfigurationProperty("Dfm", IsRequired = false)]
+        public string Dfm
+        {
+            get { return (string)base["Dfm"]; }
+        } 
+
+        [ConfigurationProperty("Dvm", IsRequired = false)]
+        public string Dvm
+        {
+            get { return (string)base["Dvm"]; }
+        }
+
+        [ConfigurationProperty("Em", IsRequired = false)]
+        public string Em
+        {
+            get { return (string)base["Em"]; }
+        }
+
+        [ConfigurationProperty("Gm", IsRequired = false)]
+        public string Gm
+        {
+            get { return (string)base["Gm"]; }
+        }
+
+        [ConfigurationProperty("vm", IsRequired = false)]
+        public string vm
+        {
+            get { return (string)base["vm"]; }
+        }
+
+        [ConfigurationProperty("PV", IsRequired = false)]
+        public string PV
+        {
+            get { return (string)base["PV"]; }
+        }
+
     } //end of ConfigurationObject class
 
     #endregion

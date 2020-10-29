@@ -28,6 +28,7 @@ namespace StructureSystem.ViewModel
         #region Commands
         public ICommand InitLevelCommand { get; private set; }
         public ICommand NextCommand { get; private set; }
+        public ICommand PreviousCommand { get; private set; }
         public ICommand NextStoreyCommand { get; private set; }
         public ICommand SaveHorizontalCommand { get; private set; }
         public ICommand SaveVerticalCommand { get; private set; }
@@ -43,6 +44,7 @@ namespace StructureSystem.ViewModel
 
         private void SetCommands()
         {
+            PreviousCommand = new RelayCommand(o => OnPrevious());
             NextCommand = new RelayCommand(o => OnNextTab());
             NextStoreyCommand = new RelayCommand(o => OnNextStorey(), o => CanNewRegister());
             SaveHorizontalCommand = new RelayCommand(o => OnSaveHorizontalWall());
@@ -54,6 +56,12 @@ namespace StructureSystem.ViewModel
 
         #region CommandMethods
 
+        private void OnPrevious()
+        {
+            if (this.SelectedTag == 2)
+                this.SelectedTag--;
+        }
+
         private void InitRegister()
         {
             SelectedTag = 1;
@@ -63,18 +71,14 @@ namespace StructureSystem.ViewModel
 
         private void OnSaveHorizontalWall()
         {
-            var result = horizontalWService.CreateWall(this);
-            if (!result.Error)
-                CountH += 1;
+            Data.CreateHorizontalWall(this);
 
             Refresh();
         }
 
         private void OnSaveVerticalWall()
         {
-            var result = verticalWService.CreateWall(this);
-            if (!result.Error)
-                CountV += 1;
+            Data.CreateVerticalWall(this);
 
             Refresh();
         }
@@ -82,14 +86,14 @@ namespace StructureSystem.ViewModel
         private void OnNextTab()
         {
             if (this.SelectedTag == 1)
-                this.SelectedTag += 1;
+                this.SelectedTag++;
 
             this.Refresh();
         }
 
         private void OnNextStorey()
         {
-            Storey += 1;
+            Storey++;
             SelectedTag = 0;
             VerticalTab = "Hidden";
             HorizontalTab = "Hidden";
@@ -105,6 +109,8 @@ namespace StructureSystem.ViewModel
             this.Height = 0;
             this.PositionX = 0;
             this.PositionY = 0;
+            OnPropertyChanged("CountH");
+            OnPropertyChanged("CountV");
         }
         #endregion
 
@@ -128,7 +134,7 @@ namespace StructureSystem.ViewModel
 
         private void FinishRegister(object obj)
         {
-          
+
             var myWindow = (IClosable)obj;
             myWindow.Close();
 
@@ -136,19 +142,17 @@ namespace StructureSystem.ViewModel
 
         private void InitialData()
         {
-            var configData = horizontalWService.GetConfigElements();
+            var configData = Data.GetConfigElements();
             IDictionary<string, IList<object>> DataView = (IDictionary<string, IList<object>>)configData.Data;
             this.Materials = DataView["materials"].Cast<Material>().ToList();
-            this.Storeys = Convert.ToInt32(horizontalWService.GetStoreys().Data);
+            this.Storeys = Convert.ToInt32(Data.GetStoreys().Data);
         }
         #endregion
 
 
 
         #region Properties
-
-        private HorizontalWallsService horizontalWService = new HorizontalWallsService();
-        private VerticalWallsService verticalWService = new VerticalWallsService();
+        private WallDataService Data = new WallDataService();
         private int _Storeys;
         public int Storeys
         {
@@ -195,7 +199,7 @@ namespace StructureSystem.ViewModel
         private int _countH;
         public int CountH
         {
-            get { return _countH; }
+            get { return Convert.ToInt32(Data.GetHorizontalWalls(Storey).Data); }
             set
             {
                 if (value != _countH)
@@ -208,7 +212,7 @@ namespace StructureSystem.ViewModel
         private int _countV;
         public int CountV
         {
-            get { return _countV; }
+            get { return Convert.ToInt32(Data.GetVerticalWalls(Storey).Data); }
             set
             {
                 if (value != _countV)

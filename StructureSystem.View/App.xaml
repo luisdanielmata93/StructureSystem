@@ -8,7 +8,6 @@
              xmlns:controls="clr-namespace:Notifications.Wpf.Controls;assembly=Notifications.Wpf"
              xmlns:wpf="clr-namespace:Notifications.Wpf;assembly=Notifications.Wpf"
              xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
-                
              >
     <Application.Resources>
         <ResourceDictionary>
@@ -35,6 +34,15 @@
                 <Setter Property="MaxItems" Value="20" />
             </Style>
 
+            <Style x:Key="tinyText" TargetType="TextBlock">
+                <Setter Property="FontSize" Value="11"/>
+                <Setter Property="VerticalAlignment" Value="Center"/>
+            </Style>
+            <Style x:Key="tinyTextBold" TargetType="TextBlock">
+                <Setter Property="FontSize" Value="11"/>
+                <Setter Property="FontWeight" Value="Bold"/>
+                <Setter Property="VerticalAlignment" Value="Center"/>
+            </Style>
             <!-- New style -->
             <Style x:Key="StyleListViewItem" TargetType="ListViewItem">
                 <Style.Triggers>

@@ -9,7 +9,9 @@ namespace StructureSystem.Model
 
         public int Storey { get; set; }
 
-        public int Count { get; set; } = 1;
+        public int CountH { get; set; }
+
+        public int CountV { get; set; }
 
         public Material Material { get; set; }
 

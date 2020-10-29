@@ -24,14 +24,14 @@ namespace StructureSystem.View
         {
             base.OnStartup(e);
 
-          
-            //var splashScreen = new SplashScreenWindow();
-           // this.MainWindow = splashScreen;
-           // splashScreen.Show();
+
+            var splashScreen = new SplashScreenWindow();
+            this.MainWindow = splashScreen;
+            splashScreen.Show();
 
             Task.Factory.StartNew(() =>
             {
-                //Thread.Sleep(5000);
+                Thread.Sleep(5000);
 
                 this.Dispatcher.Invoke(() =>
                 {
@@ -39,7 +39,7 @@ namespace StructureSystem.View
                     this.MainWindow = mainWindow;
                     mainWindow.Show();
 
-                   // splashScreen.Close();
+                    splashScreen.Close();
 
                 });
             });

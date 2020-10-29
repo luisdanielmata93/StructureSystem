@@ -79,7 +79,7 @@ namespace StructureSystem.ViewModel
                     Icon = new PackIconMaterial() {Kind = PackIconMaterialKind.ChartSankey},
                     Label = "Analisis sismico",
                     ToolTip = "Analisis sismico de la estructura",
-                   // Tag = new SettingsViewModel(this)
+                    Tag = new SeismicAnalysisVM(this)
                 },
                  new HamburgerMenuIconItem()
                 {

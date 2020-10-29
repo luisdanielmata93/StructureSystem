@@ -9,6 +9,7 @@
         xmlns:simpleChildWindow="clr-namespace:MahApps.Metro.SimpleChildWindow;assembly=MahApps.Metro.SimpleChildWindow"
         xmlns:m="clr-namespace:Microsoft.Maps.MapControl.WPF;assembly=Microsoft.Maps.MapControl.WPF" 
         xmlns:Dialog="clr-namespace:MahApps.Metro.Controls.Dialogs;assembly=MahApps.Metro"
+        xmlns:mbar="clr-namespace:AlertBarWpf;assembly=AlertBarWpf"
         Dialog:DialogParticipation.Register="{Binding}"
         mc:Ignorable="d"
         >
@@ -18,10 +19,10 @@
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition />
+            <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
 
-        <Controls:MetroTabControl Margin="10 20 10 10" Grid.Row="0" Grid.Column="0">
+        <Controls:MetroTabControl Margin="10 20 10 0"  Grid.Row="0" Grid.Column="0">
 
             <Controls:MetroTabItem Header="Definición general" Grid.Row="0" Grid.Column="0" >
                 <Grid Margin="10 20 0 10" >
@@ -83,7 +84,7 @@
 
                     <Label Grid.Row="6" Grid.Column="0" Content="Ubicación"/>
 
-                    <TextBox Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="7" Text="{Binding Address, Mode=TwoWay}" Padding="20 10 25 0" FontSize="12"/>
+                    <TextBox Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="7" Text="{Binding Address, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Padding="20 10 25 0" FontSize="12"/>
                     <!--<Grid Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="7">
                         <TextBox Text="{Binding Address, Mode=TwoWay}" Padding="20 10 25 0" FontSize="12"/>
                         <Icons:PackIconMaterial Kind="MapMarker" VerticalAlignment="Center"/>

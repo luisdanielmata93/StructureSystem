@@ -36,11 +36,7 @@ namespace StructureSystem.ViewModel
 
         #region Commands
 
-        public ICommand SearchCommand { get; private set; }
-        public ICommand SaveProjectCommand { get; private set; }
-        public ICommand ExportExcelCommand { get; private set; }
-        public ICommand ExportPDFCommand { get; private set; }
-        public ICommand ImportCommand { get; private set; }
+        public ICommand SaveLevelCommand { get; private set; }
 
         #endregion
 
@@ -49,17 +45,51 @@ namespace StructureSystem.ViewModel
 
         private void SetCommands()
         {
+            SaveLevelCommand = new RelayCommand(o => OnSaveLevel());
 
         }
+
+        private async void OnSaveLevel()
+        {
+           
+            if (IsSaved())
+            {
+                this.dialogCoordinator = new DialogCoordinator();
+                var result = await this.dialogCoordinator.ShowMessageAsync(this, string.Concat("Este nivel ya se encuentra registrado. \n ¿Desea actualizar la información?"), "Se sobreescribirá la información guardada.", MessageDialogStyle.AffirmativeAndNegative);
+                if (result != MessageDialogResult.Affirmative)
+                {
+                    return;
+                }
+            }
+
+            DataService.Save();
+            notificationViewModel.ShowMessage("Inserción exitosa.");
+
+        }
+
+
 
         #endregion
 
         #region Methods
+
+        private bool IsSaved()
+        {
+            bool result = (bool)DataService.IsSaved(Storey).Data;
+            if (result)
+                IsAlert = "Hidden";
+            else
+                IsAlert = "Visible";
+
+            return result;
+
+        }
+
         private void SetInitialData()
         {
             this.HiddenTabs();
-            this.Storeys = Convert.ToInt32(DataService.GetStoreys().Data);
             this.FlooringMaterials = (List<FlooringMaterials>)DataService.GetFlooringMaterials().Data;
+            this.StoreyList = new ObservableCollection<int>();
         }
 
         private double CalculateDeadLoad()
@@ -103,6 +133,7 @@ namespace StructureSystem.ViewModel
 
             }
         }
+
         private double CalculateWeight(double PesoVolumetrico, double Espesor)
         {
             double result = 0;
@@ -212,10 +243,38 @@ namespace StructureSystem.ViewModel
             this.ViguetaBovedillaAzotea = "Hidden";
             this.Otra = "Hidden";
         }
+
+
+        private ObservableCollection<int> GetStoreys()
+        {
+            ObservableCollection<int> result = new ObservableCollection<int>((List<int>)DataService.GetStoreyList().Data);
+
+            return result;
+        }
         #endregion
 
         #region Properties
+        private IDialogCoordinator dialogCoordinator;
+        private NotificationViewModel notificationViewModel;
         private Enums.MaterialType MaterialType { get; set; }
+
+        private string _IsAlert = "Visible";
+        public string IsAlert
+        {
+            get
+            {
+                return _IsAlert;
+            }
+            set
+            {
+                if (value != _IsAlert)
+                    _IsAlert = value;
+
+                OnPropertyChanged("IsAlert");
+            }
+        }
+
+
         private int _TabIndex = -1;
         public int TabIndex
         {
@@ -260,17 +319,28 @@ namespace StructureSystem.ViewModel
             }
         }
 
-        private int _Storeys;
-        public int Storeys
+        private int _Storey;
+        public int Storey
         {
             get
-            { return _Storeys; }
+            { return _Storey; }
             set
             {
-                if (value != _Storeys)
-                    _Storeys = value;
-                OnPropertyChanged("Storeys");
+                _Storey = value;
+                IsSaved();
+                OnPropertyChanged("Storey");
             }
+        }
+
+
+        private ObservableCollection<int> _storeyList;
+        public ObservableCollection<int> StoreyList
+        {
+            get
+            {
+                return GetStoreys();
+            }
+            set { if (value != _storeyList) _storeyList = value; OnPropertyChanged("StoreyList"); }
         }
 
 
@@ -308,7 +378,6 @@ namespace StructureSystem.ViewModel
         }
 
         private readonly LoadAnalysisService DataService = new LoadAnalysisService();
-        private NotificationViewModel notificationViewModel;
         private readonly PropertyChangedViewModel _mainViewModel;
         #endregion
 

@@ -123,9 +123,10 @@ namespace StructureSystem.BusinessRules.Configuration
 
             try
             {
+
                 config.Materials.Cast<ConfigurationObject>().ToList().ForEach(x =>
                 {
-                    materials.Add(new Material { Id = Convert.ToInt32(x.Id), Name = x.Name });
+                    materials.Add(new Material { Id = Convert.ToInt32(x.Id), Name = x.Name ,Dfm = x.Dfm, Dvm = x.Dvm, Em = x.Em, Gm = x.Gm, vm=x.vm, PV=x.PV });
                 });
             }
             catch (Exception ex) { throw; }

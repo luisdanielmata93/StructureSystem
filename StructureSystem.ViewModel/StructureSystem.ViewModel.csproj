@@ -159,6 +159,7 @@
     <Compile Include="Views\DataWallVM.cs" />
     <Compile Include="Views\DefinitionVM.cs" />
     <Compile Include="Views\LoadAnalysisVM.cs" />
+    <Compile Include="Views\SeismicAnalysisVM.cs" />
     <Compile Include="Views\StructureVM.cs" />
   </ItemGroup>
   <ItemGroup />

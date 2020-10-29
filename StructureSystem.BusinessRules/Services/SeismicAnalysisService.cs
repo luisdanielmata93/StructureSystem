@@ -8,14 +8,13 @@ using System.IO;
 
 namespace StructureSystem.BusinessRules.Services
 {
-    public class StructureDataService
+    public class SeismicAnalysisService
     {
-        public StructureDataService()
+
+        public SeismicAnalysisService()
         {
             this.configData = new WebConfig();
-
         }
-
         public OperationResult GetStoreys()
         {
             OperationResult result = new OperationResult();
@@ -26,7 +25,7 @@ namespace StructureSystem.BusinessRules.Services
 
                 using (var data = UnitOfWork.Create())
                 {
-                    var info = data.Repositories.DocumentDataContext.StructureData.Get(document);
+                    var info = data.Repositories.DocumentDataContext.SeismicAnalysisData.Get(document);
                     result.OperationSuccess(info, Enums.ActionType.Create);
                 }
             }
@@ -38,43 +37,30 @@ namespace StructureSystem.BusinessRules.Services
 
         }
 
-        public OperationResult SaveStoreys(List<Storey> Storeys)
+        public void Test()
         {
-            OperationResult result = new OperationResult();
             try
             {
-                dataXml = new XMLStructureData();
-                dataXml.DocumentPath = GetDocumentPath();
-                dataXml.Storeys = Storeys;
-
-
-                using (var data = UnitOfWork.Create())
-                {
-                    data.Repositories.DocumentDataContext.StructureData.Update(dataXml);
-                    result.OperationSuccess(result, Enums.ActionType.Update);
-                }
+                var materiales = configData.GetMaterialsCollection();
 
             }
             catch (Exception ex)
             {
-                result.OperationError("Error al actualizar pisos", Enums.ActionType.Update, ex);
+
+                throw;
             }
-            return result;
-
+        
+            
         }
-
-
-
         private string GetDocumentPath()
         {
             return configData.GetElementByName("LastDocument");
         }
 
-
-
         #region Properties
         private WebConfig configData;
         private XMLStructureData dataXml;
         #endregion
+
     }//end of class
 }//end of namespace

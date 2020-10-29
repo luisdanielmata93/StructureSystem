@@ -23,7 +23,50 @@ namespace StructureSystem.BusinessRules.Services
 
         #region Methods
 
-        public OperationResult GetStoreys()
+        public OperationResult Save()
+        {
+            OperationResult result = new OperationResult();
+            try
+            {
+                using (var data = UnitOfWork.Create())
+                {
+                    string document = GetDocumentPath();
+                   // var documentInfo = data.Repositories.DocumentDataContext.LoadAnalysisData.IsSaved(document);
+
+                    result.OperationSuccess(true, Enums.ActionType.Get);
+                }
+            }
+            catch (Exception ex)
+            {
+                result.OperationError("Error al validar piso guardado", Enums.ActionType.Get, ex);
+            }
+
+            return result;
+        }
+
+        public OperationResult IsSaved(int Level)
+        {
+            OperationResult result = new OperationResult();
+            try
+            {
+                using (var data = UnitOfWork.Create())
+                {
+                    string document = GetDocumentPath();
+                    var documentInfo = data.Repositories.DocumentDataContext.LoadAnalysisData.IsSaved(document,Level);
+
+                    result.OperationSuccess(documentInfo, Enums.ActionType.Get);
+                }
+            }
+            catch (Exception ex)
+            {
+                result.OperationError("Error al validar piso guardado", Enums.ActionType.Get, ex);
+            }
+
+            return result;
+        } 
+
+
+        public OperationResult GetStoreyList()
         {
             OperationResult result = new OperationResult();
             try
@@ -33,7 +76,15 @@ namespace StructureSystem.BusinessRules.Services
                     string document = GetDocumentPath();
                     var documentInfo = data.Repositories.DocumentDataContext.GeneralData.Get(document);
 
-                    result.OperationSuccess(documentInfo["Storeys"], Enums.ActionType.Get);
+                    List<int> storeysList = new List<int>();
+
+                    int temp = Convert.ToInt32(documentInfo["Storeys"]);
+                    for (int i = 0; i < temp; i++)
+                    {
+                        storeysList.Add(i + 1);
+                    }
+
+                    result.OperationSuccess(storeysList, Enums.ActionType.Get);
                 }
             }
             catch (Exception ex)

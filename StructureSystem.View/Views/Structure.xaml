@@ -4,11 +4,12 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:StructureSystem.View.Views"
-              xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
-            xmlns:Icons="http://metro.mahapps.com/winfx/xaml/iconpacks"
-            xmlns:simpleChildWindow="clr-namespace:MahApps.Metro.SimpleChildWindow;assembly=MahApps.Metro.SimpleChildWindow"
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:Icons="http://metro.mahapps.com/winfx/xaml/iconpacks"
+             xmlns:Dialog="clr-namespace:MahApps.Metro.Controls.Dialogs;assembly=MahApps.Metro"
+             xmlns:simpleChildWindow="clr-namespace:MahApps.Metro.SimpleChildWindow;assembly=MahApps.Metro.SimpleChildWindow"
              mc:Ignorable="d"
-            
+             Dialog:DialogParticipation.Register="{Binding}"
              >
     <Grid>
         <Grid.ColumnDefinitions >
@@ -43,7 +44,7 @@
                     </Grid.RowDefinitions>
 
                     <Label Grid.Row="1" Grid.Column="0" Content="Registrar muros por nivel" Style="{StaticResource LabelHeader}" />
-                    <Button Grid.Row="1" Grid.Column="2" Command="{Binding RegisterWallsCommand}">
+                    <Button Grid.Row="1" Grid.Column="2" Click="Button_Click" Command="{Binding RegisterWallsCommand}">
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Margin="0 0 3 0">INICIAR REGISTRO</TextBlock>
                             <Icons:PackIconModern Kind="AppPlus" VerticalAlignment="Center"/>

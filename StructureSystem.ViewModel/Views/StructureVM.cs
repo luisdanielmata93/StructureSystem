@@ -8,6 +8,7 @@ using System.Collections.ObjectModel;
 using System.Windows.Input;
 using StructureSystem.Model;
 using StructureSystem.BusinessRules.Services;
+using MahApps.Metro.Controls.Dialogs;
 
 namespace StructureSystem.ViewModel
 {
@@ -18,6 +19,7 @@ namespace StructureSystem.ViewModel
         public StructureVM(PropertyChangedViewModel mainViewModel)
         {
             _mainViewModel = mainViewModel;
+            notificationViewModel = new NotificationViewModel();
             SetCommands();
         }
 
@@ -54,10 +56,36 @@ namespace StructureSystem.ViewModel
 
         #region CommandMethods
 
-
-        private void doSaveChanges()
+        private async Task<bool> CanUpdateStoreys()
         {
-            structureData.SaveStoreys(Storeys.ToList());
+            bool result = true;
+            bool hasWalls = true;
+            foreach (var storey in Storeys)
+            {
+                if (storey.HorizontalWalls.Count <= 0 || storey.VerticalWalls.Count <= 0)
+                    hasWalls = false;
+            }
+
+            if (!hasWalls)
+            {
+                this.dialogCoordinator = new DialogCoordinator();
+                var resultMsg = await this.dialogCoordinator.ShowMessageAsync(this, "Se eliminaran los niveles sin pisos asignados. \n ¿Desea continuar?", "Se sobreescribirá la información guardada.", MessageDialogStyle.AffirmativeAndNegative);
+                if (resultMsg == MessageDialogResult.Affirmative)
+                {
+                    result = true;
+                }
+                else
+                    result = false;
+            }
+          
+            return result;
+        }
+        private async void doSaveChanges()
+        {
+            if (!await CanUpdateStoreys())
+                return;
+
+            notificationViewModel.ShowNotification(structureData.SaveStoreys(Storeys.ToList()));
         }
 
         private void doUpdate()
@@ -90,7 +118,8 @@ namespace StructureSystem.ViewModel
        // private readonly WindowService window = new WindowService();
         private readonly PropertyChangedViewModel _mainViewModel;
         private readonly StructureDataService structureData = new StructureDataService();
-       
+        private NotificationViewModel notificationViewModel;
+
         private Wall _SelectedWall;
         public Wall SelectedWall
         {
@@ -116,8 +145,9 @@ namespace StructureSystem.ViewModel
                 OnPropertyChanged("Storeys");
             }
         }
-     
-        
+        private IDialogCoordinator dialogCoordinator;
+
+
         #endregion
 
 

@@ -10,6 +10,8 @@
              xmlns:zoom="clr-namespace:StructureSystem.View.Behaviors.ZoomBorder"
              xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              xmlns:Be="clr-namespace:StructureSystem.View.Behaviors"
+             xmlns:Dialog="clr-namespace:MahApps.Metro.Controls.Dialogs;assembly=MahApps.Metro"
+             Dialog:DialogParticipation.Register="{Binding}"
     mc:Ignorable="d" 
              >
     <Grid>
@@ -48,7 +50,7 @@
                     </Grid.RowDefinitions>
 
                     <Label Grid.Row="1" Grid.Column="1" Content="Nivel" />
-                    <ComboBox Grid.Row="1" Grid.Column="2" SelectedItem="{Binding Storey}" DisplayMemberPath="Name" ItemsSource="{Binding Storeys, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
+                    <ComboBox Grid.Row="1" Grid.Column="2" SelectedValue="{Binding Storey,Mode=TwoWay}" ItemsSource="{Binding StoreyList, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
 
                     <Label  Grid.Row="1" Grid.Column="4"  Content="Sistema de piso" />
                     <ComboBox Grid.Row="1" Grid.Column="5" SelectedItem="{Binding FlooringMaterial}" DisplayMemberPath="Name" ItemsSource="{Binding FlooringMaterials, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"   />
@@ -63,10 +65,10 @@
                                 <Setter Property="FontWeight" Value="SemiBold"/>
                             </Style>
                         </TextBlock.Resources> 
-                            <Icons:PackIconModern Kind="Alert" VerticalAlignment="Center"/>
+                            <Icons:PackIconModern Kind="Alert" VerticalAlignment="Center" Visibility="{Binding IsAlert}"/>
                     </TextBlock>
-                    
-                    <Button Grid.Row="1" Grid.Column="9" VerticalAlignment="Center" Content="Guardar" />
+
+                    <Button Grid.Row="1" Grid.Column="9" VerticalAlignment="Center" Command="{Binding SaveLevelCommand}" Content="Guardar" />
 
                     <Image  Grid.Row="0" Grid.RowSpan="2" Grid.Column="11" Stretch="Uniform" VerticalAlignment="Bottom" HorizontalAlignment="Center" Source="/Content/Images/pisa.png" />
 

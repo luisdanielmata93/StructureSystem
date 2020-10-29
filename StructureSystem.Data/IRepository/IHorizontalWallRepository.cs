@@ -8,7 +8,7 @@ namespace StructureSystem.Data.Model
                                   ICreatable<XMLWallData>, IUpdatable<XMLWallData>, IDelete<XMLWallData>
     {
 
-
+        int Count(string documentPath,int storey);
 
     }//end of interface
 }//end of namespace

@@ -8,17 +8,17 @@ using System.IO;
 
 namespace StructureSystem.BusinessRules.Services
 {
-    public class VerticalWallsService
+   public class WallDataService
     {
+
         #region Constructor
-        public VerticalWallsService()
+        public WallDataService()
         {
             this.configData = new WebConfig();
         }
         #endregion
 
-
-        public OperationResult CreateWall(Object Data)
+        public OperationResult CreateVerticalWall(Object Data)
         {
             OperationResult result = new OperationResult();
             try
@@ -37,6 +37,57 @@ namespace StructureSystem.BusinessRules.Services
                 using (var data = UnitOfWork.Create())
                 {
                     data.Repositories.DocumentDataContext.VerticalWallsData.Create(dataXml);
+                    result.OperationSuccess(result, Enums.ActionType.Create);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                result.OperationError("Error al crear muros verticales", Enums.ActionType.Create, ex);
+            }
+            return result;
+        }
+
+        public OperationResult GetVerticalWalls(int storey)
+        {
+            OperationResult result = new OperationResult();
+            try
+            {
+                using (var data = UnitOfWork.Create())
+                {
+                    string documentPath = GetDocumentPath();
+
+                    int countV = data.Repositories.DocumentDataContext.VerticalWallsData.Count(documentPath, storey);
+                    result.OperationSuccess(countV, Enums.ActionType.Create);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                result.OperationError("Error al crear muros verticales", Enums.ActionType.Create, ex);
+            }
+            return result;
+        }
+
+        public OperationResult CreateHorizontalWall(Object Data)
+        {
+            OperationResult result = new OperationResult();
+            try
+            {
+                dataXml = new XMLWallData();
+                dataXml.DocumentPath = GetDocumentPath();
+                dataXml.Side = Enums.SideType.Horizontal;
+                Object dataRef = dataXml;
+                foreach (var prop in Data.GetType().GetProperties())
+                {
+                    Helper.SetPropertyValue(ref dataRef, prop.Name, prop.GetValue(Data, null));
+                }
+                dataXml = (XMLWallData)dataRef;
+
+
+                using (var data = UnitOfWork.Create())
+                {
+                    data.Repositories.DocumentDataContext.HorizontalWallsData.Create(dataXml);
                     result.OperationSuccess(result, Enums.ActionType.Create);
                 }
 
@@ -69,6 +120,27 @@ namespace StructureSystem.BusinessRules.Services
             return result;
         }
 
+        public OperationResult GetHorizontalWalls(int storey)
+        {
+            OperationResult result = new OperationResult();
+            try
+            {
+                using (var data = UnitOfWork.Create())
+                {
+                    string documentPath = GetDocumentPath();
+
+                    int countH = data.Repositories.DocumentDataContext.HorizontalWallsData.Count(documentPath, storey);
+                    result.OperationSuccess(countH, Enums.ActionType.Create);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                result.OperationError("Error al obtener muros horizontales", Enums.ActionType.Create, ex);
+            }
+            return result;
+        }
+       
         public OperationResult GetStoreys()
         {
             OperationResult result = new OperationResult();
@@ -90,18 +162,19 @@ namespace StructureSystem.BusinessRules.Services
             return result;
         }
 
-
+        #region Private methods
         private string GetDocumentPath()
         {
             return configData.GetElementByName("LastDocument");
         }
 
 
-
-
+        #endregion
+       
         #region Properties
         private WebConfig configData;
         private XMLWallData dataXml;
         #endregion
+
     }//end of class
-}//end of namespace
+}//end of service

@@ -63,11 +63,13 @@
     <Compile Include="Models\Material.cs" />
     <Compile Include="Models\OperationResult.cs" />
     <Compile Include="Models\Regulation.cs" />
+    <Compile Include="Models\SeismicAnalysisData.cs" />
     <Compile Include="Models\Storey.cs" />
     <Compile Include="Models\Test.cs" />
     <Compile Include="Models\Usage.cs" />
     <Compile Include="Models\Wall.cs" />
     <Compile Include="Models\XMLGeneralData.cs" />
+    <Compile Include="Models\XMLLoadAnalysisData.cs" />
     <Compile Include="Models\XMLStructureData.cs" />
     <Compile Include="Models\XMLWallData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

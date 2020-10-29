@@ -50,10 +50,10 @@
     <Compile Include="Configuration\WebConfiguration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\GeneralDataService.cs" />
-    <Compile Include="Services\HorizontalWallsService.cs" />
     <Compile Include="Services\LoadAnalysisService.cs" />
+    <Compile Include="Services\SeismicAnalysisService.cs" />
     <Compile Include="Services\StructureDataService.cs" />
-    <Compile Include="Services\VerticalWallsService.cs" />
+    <Compile Include="Services\WallDataService.cs" />
     <Compile Include="Services\WindowService.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -33,7 +33,8 @@ namespace StructureSystem.Data
                                                                 new XElement("Test", model.Test.Name)
                                                                         ),
                                                             new XElement("HorizontalWalls", ""),
-                                                            new XElement("VerticalWalls", "")
+                                                            new XElement("VerticalWalls", ""),
+                                                            new XElement("LoadAnalysis", "")
                                                                     )
                                                         );
 

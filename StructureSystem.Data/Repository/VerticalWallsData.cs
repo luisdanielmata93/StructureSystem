@@ -18,24 +18,45 @@ namespace StructureSystem.Data
             {
                 XDocument mydoc = XDocument.Load(model.DocumentPath);
 
-                int StoreysInDoc = mydoc.Descendants("VerticalWalls").Descendants("Storey").Count();
 
-                if (StoreysInDoc < model.Storey)
+                var storeys = mydoc.Root.Elements("VerticalWalls")
+                    .SelectMany(x => x.Elements("Storey"))
+                    .ToList();
+
+                var st = storeys.Find(x => x.Attribute("level").Value == model.Storey.ToString());
+
+
+                if (st != null)
                 {
-                    mydoc.Descendants("VerticalWalls").LastOrDefault().Add(
-                        new XElement("Storey", new XAttribute("level", model.Storey.ToString())));
+                    int registeredWalls = st.Descendants("Wall").Count() + 1;
 
-                }
-                mydoc.Descendants("VerticalWalls").Descendants("Storey").LastOrDefault().Add(
-                    new XElement("Wall",
-                                         new XElement("Number", model.Count.ToString()),
+                    st.Add(
+                        new XElement("Wall",
+                                         new XElement("Number", registeredWalls.ToString()),
                                          new XElement("Material", model.Material.Name.ToString()),
                                          new XElement("Length", model.Length.ToString()),
                                          new XElement("TributaryArea", model.TributaryArea.ToString()),
                                          new XElement("Thickness", model.Thickness.ToString()),
                                          new XElement("Height", model.Height.ToString()),
                                          new XElement("PositionX", model.PositionX.ToString()),
-                                         new XElement("PositionY", model.PositionY.ToString())));
+                                         new XElement("PositionY", model.PositionY.ToString()))
+                        );
+                    mydoc.Save(model.DocumentPath);
+                    return true;
+                }
+
+                mydoc.Descendants("VerticalWalls").LastOrDefault().Add(
+                        new XElement("Storey", new XAttribute("level", model.Storey.ToString()),
+                             new XElement("Wall",
+                                                  new XElement("Number", "1"),
+                                                  new XElement("Material", model.Material.Name.ToString()),
+                                                  new XElement("Length", model.Length.ToString()),
+                                                  new XElement("TributaryArea", model.TributaryArea.ToString()),
+                                                  new XElement("Thickness", model.Thickness.ToString()),
+                                                  new XElement("Height", model.Height.ToString()),
+                                                  new XElement("PositionX", model.PositionX.ToString()),
+                                                  new XElement("PositionY", model.PositionY.ToString())
+                        )));
 
                 mydoc.Save(model.DocumentPath);
 
@@ -50,6 +71,30 @@ namespace StructureSystem.Data
         public IDictionary<string, object> Get(string elementName)
         {
             throw new NotImplementedException();
+        }
+       
+        public int Count(string documentPath, int storey)
+        {
+            try
+            {
+                XDocument mydoc = XDocument.Load(documentPath);
+
+                int StoreysInDoc = mydoc.Descendants("VerticalWalls").Descendants("Storey").Count();
+                if (StoreysInDoc == 0)
+                    return 0;
+
+
+                int registeredWalls = (from el in mydoc.Descendants("VerticalWalls").Descendants("Storey")
+                                       where (string)el.Attribute("level") == storey.ToString()
+                                       select el.Descendants("Wall").Count()).FirstOrDefault();
+
+
+                return registeredWalls;
+            }
+            catch (Exception ex)
+            {
+                return 0;
+            }
         }
 
         public bool Update(XMLWallData entity)

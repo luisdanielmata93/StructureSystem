@@ -196,7 +196,6 @@ namespace StructureSystem.ViewModel
         #region Properties
 
         private IDialogCoordinator dialogCoordinator;
-        private readonly INotificationManager _manager;
         private NotificationViewModel notificationViewModel;
         private readonly PropertyChangedViewModel _mainViewModel;
         private readonly GeneralDataService DocumentData = new GeneralDataService();

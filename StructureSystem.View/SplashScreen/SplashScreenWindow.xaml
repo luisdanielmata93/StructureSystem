@@ -19,8 +19,8 @@
     </Window.DataContext>
     <Grid>
         <Image HorizontalAlignment="Left" Height="386" Margin="108,0,0,0"  Source="/Content/Images/SplashScreen.png" VerticalAlignment="Center" Width="590"/>
-        <ProgressBar Background="Transparent"  Margin="151,383,182,52" Value="{Binding CurrentProgress, Mode=OneWay}" />
-        <TextBlock HorizontalAlignment="Left"
-                   VerticalAlignment="Top" Margin="358,381,0,0" Text="{Binding StatusMessage, Mode=OneWay}"></TextBlock>
+        <mah:MetroProgressBar Background="Transparent"  Margin="151,383,182,52" Value="{Binding CurrentProgress, Mode=OneWay}" />
+        <!--<TextBlock HorizontalAlignment="Left"
+                   VerticalAlignment="Top" Margin="358,381,0,0" Text="{Binding StatusMessage, Mode=OneWay}"></TextBlock>-->
     </Grid>
 </Window>

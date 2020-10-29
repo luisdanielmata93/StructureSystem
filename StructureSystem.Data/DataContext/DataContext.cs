@@ -14,6 +14,7 @@ namespace StructureSystem.Data
         public IVerticalWallRepository VerticalWallsData { get; private set; }
         public ILoadAnalysisRepository LoadAnalysisData { get; private set; }
         public IStructureRepository StructureData { get; private set; }
+        public ISeismicAnalysisRepository SeismicAnalysisData { get; private set; }
         public  DocumentDataContext()
         {
             GeneralData = new GeneralData();
@@ -21,6 +22,7 @@ namespace StructureSystem.Data
             VerticalWallsData = new VerticalWallsData();
             LoadAnalysisData = new LoadAnalysisData();
             StructureData = new StructureData();
+            SeismicAnalysisData = new SeismicAnalysisData();
         }
     }//end of class
 }//end of namespace
