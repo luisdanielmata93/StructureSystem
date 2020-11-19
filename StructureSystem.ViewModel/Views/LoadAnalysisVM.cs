@@ -64,7 +64,7 @@ namespace StructureSystem.ViewModel
 
             DataService.Save();
             notificationViewModel.ShowMessage("Inserción exitosa.");
-
+            //BORRAR CAMPOOOSSS
         }
 
 
@@ -88,7 +88,7 @@ namespace StructureSystem.ViewModel
         private void SetInitialData()
         {
             this.HiddenTabs();
-            this.FlooringMaterials = (List<FlooringMaterials>)DataService.GetFlooringMaterials().Data;
+            this.FlooringMaterials = (List<FlooringMaterial>)DataService.GetFlooringMaterials().Data;
             this.StoreyList = new ObservableCollection<int>();
         }
 
@@ -170,6 +170,7 @@ namespace StructureSystem.ViewModel
 
         private void SelectTabItem()
         {
+            //BORRAR CAMPOOOSSSS
             switch (FlooringMaterial.Id)
             {
                 case 1:
@@ -274,7 +275,6 @@ namespace StructureSystem.ViewModel
             }
         }
 
-
         private int _TabIndex = -1;
         public int TabIndex
         {
@@ -344,8 +344,8 @@ namespace StructureSystem.ViewModel
         }
 
 
-        private FlooringMaterials _flooringMaterial;
-        public FlooringMaterials FlooringMaterial
+        private FlooringMaterial _flooringMaterial;
+        public FlooringMaterial FlooringMaterial
         {
             get
             {
@@ -365,8 +365,8 @@ namespace StructureSystem.ViewModel
             }
         }
 
-        private List<FlooringMaterials> _flooringMaterials;
-        public List<FlooringMaterials> FlooringMaterials
+        private List<FlooringMaterial> _flooringMaterials;
+        public List<FlooringMaterial> FlooringMaterials
         {
             get { return _flooringMaterials; }
             set

@@ -8,6 +8,5 @@ namespace StructureSystem.Data.Model
                                   ICreatable<XMLGeneralData>, IUpdatable<XMLGeneralData>
     {
 
-
     }//end of interface
 }//end of namespace

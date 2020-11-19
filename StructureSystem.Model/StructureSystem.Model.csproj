@@ -57,7 +57,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Models\Enum.cs" />
-    <Compile Include="Models\FlooringMaterials.cs" />
+    <Compile Include="Models\FlooringMaterial.cs" />
     <Compile Include="Models\Group.cs" />
     <Compile Include="Models\Helper.cs" />
     <Compile Include="Models\Material.cs" />

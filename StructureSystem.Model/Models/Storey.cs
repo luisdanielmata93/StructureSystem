@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace StructureSystem.Model
 {
-    public class Storey
+    public class Storey //NIVEL o PISO
     {
         #region Constructor
         public Storey()

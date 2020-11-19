@@ -134,15 +134,15 @@ namespace StructureSystem.BusinessRules.Configuration
             return materials;
         }
 
-        public List<FlooringMaterials> GetFlooringMaterialsCollection()
+        public List<FlooringMaterial> GetFlooringMaterialsCollection()
         {
-            var flooringMaterials = new List<FlooringMaterials>();
+            var flooringMaterials = new List<FlooringMaterial>();
 
             try
             {
                 config.FlooringMaterials.Cast<ConfigurationObject>().ToList().ForEach(x =>
                 {
-                    flooringMaterials.Add(new FlooringMaterials { Id = Convert.ToInt32(x.Id), Name = x.Name });
+                    flooringMaterials.Add(new FlooringMaterial { Id = Convert.ToInt32(x.Id), Name = x.Name });
                 });
             }
             catch (Exception ex) { throw; }

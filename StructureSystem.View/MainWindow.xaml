@@ -97,7 +97,13 @@
             <DataTemplate DataType="{x:Type viewModels:SeismicAnalysisVM}">
                 <views:SeismicAnalysis DataContext="{Binding}" />
             </DataTemplate>
-
+            <DataTemplate DataType="{x:Type viewModels:SeismicDistributionVM}">
+                <views:SeismicDistribution DataContext="{Binding}" />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewModels:StructuralDesignVM}">
+                <views:StructuralDesign DataContext="{Binding}" />
+            </DataTemplate>
+            
         </Grid.Resources>
 
         <Grid Grid.Row="0"  Grid.Column="0" Panel.ZIndex="10">

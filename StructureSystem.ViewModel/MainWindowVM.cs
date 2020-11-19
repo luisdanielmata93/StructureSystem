@@ -46,7 +46,7 @@ namespace StructureSystem.ViewModel
         }
 
         #endregion
-        
+
 
         #region Menu Config
         public void CreateMenuItems()
@@ -84,9 +84,16 @@ namespace StructureSystem.ViewModel
                  new HamburgerMenuIconItem()
                 {
                     Icon = new PackIconMaterial() {Kind = PackIconMaterialKind.GraphOutline},
-                    Label = "Graficación",
-                    ToolTip = "Graficación de estructuras",
-                   // Tag = new SettingsViewModel(this)
+                    Label = " Repartición de fuerzas sísmicas",
+                    ToolTip = " Repartición de fuerzas sísmicas en elementos resistentes",
+                    Tag = new SeismicDistributionVM(this)
+                },
+                 new HamburgerMenuIconItem()
+                {
+                    Icon = new PackIconMaterial() {Kind = PackIconMaterialKind.GraphOutline},
+                    Label = "Diseño estructural",
+                    ToolTip = "Diseño estructural",
+                    Tag = new StructuralDesignVM(this)
                 }
             };
 

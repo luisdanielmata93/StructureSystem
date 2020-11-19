@@ -45,8 +45,8 @@ namespace StructureSystem.Model
             }
         }
 
-        private FlooringMaterials _flooringMaterial;
-        public FlooringMaterials FlooringMaterial
+        private FlooringMaterial _flooringMaterial;
+        public FlooringMaterial FlooringMaterial
         {
             get
             {
