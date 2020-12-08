@@ -18,19 +18,19 @@ namespace StructureSystem.BusinessRules.Services
         {
             this.configData = new WebConfig();
             this.MaterialCollection = this.configData.GetMaterialsCollection();
+            Structure = new Structure();
         }
 
 
         public Structure GetStructure()
         {
-            Structure structure = new Structure();
             try
             {
                 var document = GetDocumentPath();
 
                 using (var data = UnitOfWork.Create())
                 {
-                    structure.Storeys = (List<Storey>)data.Repositories.DocumentDataContext.SeismicAnalysisData.Get(document);
+                    Structure.Storeys = (List<Storey>)data.Repositories.DocumentDataContext.SeismicAnalysisData.Get(document);
 
                 }
                 CalculateInitialData();
@@ -38,7 +38,7 @@ namespace StructureSystem.BusinessRules.Services
             catch (Exception ex)
             {
             }
-            return structure;
+            return Structure;
 
         }
 
@@ -46,8 +46,6 @@ namespace StructureSystem.BusinessRules.Services
         {
             try
             {
-                Structure = null;
-
                 for (int i = 0; i < Structure.Storeys.Count; i++)
                 {
                     foreach (var wall in Structure.Storeys[i].HorizontalWalls)

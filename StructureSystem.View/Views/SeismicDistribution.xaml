@@ -111,9 +111,9 @@
                                             <DataGrid AutoGenerateColumns="False" CanUserAddRows="False" SelectedItem="{Binding SelectedWall,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding HorizontalWalls, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                                                 <DataGrid.Columns>
                                                     <DataGridTextColumn Header="Muro" Binding="{Binding WallNumber}" IsReadOnly="True"  />
-                                                    <DataGridTextColumn Header="Inercia" Binding="{Binding Material}"  />
-                                                    <DataGridTextColumn Header="Area longitudinal"  Binding="{Binding Length, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat={}{0:n2}}" />
-                                                    <DataGridTextColumn Header="Rigidez lateral"  Binding="{Binding TributaryArea, StringFormat={}{0:n2}}" />
+                                                    <DataGridTextColumn Header="Inercia" Binding="{Binding Inercia,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat={}{0:n2}}"  />
+                                                    <DataGridTextColumn Header="Area longitudinal"  Binding="{Binding AreaLongitudinal, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat={}{0:n2}}" />
+                                                    <DataGridTextColumn Header="Rigidez lateral"  Binding="{Binding RigidezLateral, StringFormat={}{0:n2}}" />
                                                     <DataGridTextColumn Header="Cortante directo"  Binding="{Binding Thickness,StringFormat={}{0:n2}}" />
                                                     <DataGridTextColumn Header="Clasificación"  Binding="{Binding Height, StringFormat={}{0:n2}}" />
                                                     <DataGridTextColumn Header="Excentricidad de diseño"  Binding="{Binding PositionX,StringFormat={}{0:n2}}" />
@@ -129,9 +129,9 @@
                                             <DataGrid AutoGenerateColumns="False" CanUserAddRows="False" SelectedItem="{Binding SelectedWall,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"  ItemsSource="{Binding VerticalWalls, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" >
                                                 <DataGrid.Columns>
                                                     <DataGridTextColumn Header="Muro" Binding="{Binding WallNumber}" IsReadOnly="True"  />
-                                                    <DataGridTextColumn Header="Inercia" Binding="{Binding Material}"  />
-                                                    <DataGridTextColumn Header="Area longitudinal"  Binding="{Binding Length, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat={}{0:n2}}" />
-                                                    <DataGridTextColumn Header="Rigidez lateral"  Binding="{Binding TributaryArea, StringFormat={}{0:n2}}" />
+                                                    <DataGridTextColumn Header="Inercia" Binding="{Binding Inercia,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat={}{0:n2}}"  />
+                                                    <DataGridTextColumn Header="Area longitudinal"  Binding="{Binding AreaLongitudinal, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat={}{0:n2}}" />
+                                                    <DataGridTextColumn Header="Rigidez lateral"  Binding="{Binding RigidezLateral, StringFormat={}{0:n2}}" />
                                                     <DataGridTextColumn Header="Cortante directo"  Binding="{Binding Thickness,StringFormat={}{0:n2}}" />
                                                     <DataGridTextColumn Header="Clasificación"  Binding="{Binding Height, StringFormat={}{0:n2}}" />
                                                     <DataGridTextColumn Header="Excentricidad de diseño"  Binding="{Binding PositionX,StringFormat={}{0:n2}}" />
