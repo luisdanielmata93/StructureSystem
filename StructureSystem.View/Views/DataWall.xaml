@@ -86,48 +86,48 @@
 
 
                     <Label Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Height="30" Content="Material"  />
-                    <ComboBox Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="4" Height="30"  SelectedItem="{Binding Material}" DisplayMemberPath="Name" ItemsSource="{Binding Materials, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                    <ComboBox Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="4" Height="30"  SelectedItem="{Binding Material, Mode=TwoWay}" DisplayMemberPath="Name" ItemsSource="{Binding Materials, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
 
 
                     <Label Grid.Row="4" Grid.Column="3" Height="30" Content="Longitud(m)" />
                     <TextBox Grid.Row="4" Grid.Column="4" Height="30"   MaxLength="10" Controls:TextBoxHelper.ClearTextButton="True" >
                         <i:Interaction.Behaviors>
-                            <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding Length, UpdateSourceTrigger=PropertyChanged}"/>
+                            <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding Length,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                         </i:Interaction.Behaviors>
                     </TextBox>
 
                     <Label Grid.Row="4" Grid.Column="0" Height="30" Content="Area tributaria(m2)"  />
                     <TextBox Grid.Row="4" Grid.Column="1" Height="30"  MaxLength="10" Controls:TextBoxHelper.ClearTextButton="True" >
                         <i:Interaction.Behaviors>
-                            <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding TributaryArea, UpdateSourceTrigger=PropertyChanged}"/>
+                            <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding TributaryArea,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                         </i:Interaction.Behaviors>
                     </TextBox>
 
                     <Label Grid.Row="6" Grid.Column="3" Height="30" Content="Espesor(m)"/>
                     <TextBox Grid.Row="6" Grid.Column="4" Height="30" MaxLength="10" Controls:TextBoxHelper.ClearTextButton="True" >
                         <i:Interaction.Behaviors>
-                            <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding Thickness, UpdateSourceTrigger=PropertyChanged}"/>
+                            <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding Thickness,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                         </i:Interaction.Behaviors>
                     </TextBox>
 
                     <Label Grid.Row="6" Grid.Column="0" Height="30" Content="Altura(m)" Width="104"/>
                     <TextBox Grid.Row="6" Grid.Column="1"  Height="30"  MaxLength="10" Controls:TextBoxHelper.ClearTextButton="True" >
                         <i:Interaction.Behaviors>
-                            <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding Height, UpdateSourceTrigger=PropertyChanged}"/>
+                            <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding Height, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                         </i:Interaction.Behaviors>
                     </TextBox>
 
                     <Label Grid.Row="8" Grid.Column="3" Height="30" Content="Cordenadas en X (m)" />
                     <TextBox Grid.Row="8" Grid.Column="4" Height="30"  MaxLength="10" Controls:TextBoxHelper.ClearTextButton="True" >
                         <i:Interaction.Behaviors>
-                            <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false"  Value="{Binding PositionX, UpdateSourceTrigger=PropertyChanged}"/>
+                            <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false"  Value="{Binding PositionX,  Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                         </i:Interaction.Behaviors>
                     </TextBox>
 
                     <Label Grid.Row="8" Grid.Column="0" Height="30" Content="Cordenadas en Y (m)" />
                     <TextBox Grid.Row="8" Grid.Column="1" Height="30" MaxLength="10" Controls:TextBoxHelper.ClearTextButton="True"  >
                         <i:Interaction.Behaviors>
-                            <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false"  Value="{Binding PositionY, UpdateSourceTrigger=PropertyChanged}"/>
+                            <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false"  Value="{Binding PositionY, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                         </i:Interaction.Behaviors>
                     </TextBox>
 
@@ -169,48 +169,48 @@
 
 
                     <Label Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Height="30" Content="Material"  />
-                    <ComboBox Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="4" Height="30" Controls:TextBoxHelper.Watermark="Seleccione un material" SelectedItem="{Binding Material}" DisplayMemberPath="Name" ItemsSource="{Binding Materials, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                    <ComboBox Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="4" Height="30" Controls:TextBoxHelper.Watermark="Seleccione un material" SelectedItem="{Binding Material, Mode=TwoWay}" DisplayMemberPath="Name" ItemsSource="{Binding Materials, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
 
 
                     <Label Grid.Row="4" Grid.Column="3" Height="30" Content="Longitud(m)" />
                     <TextBox Grid.Row="4" Grid.Column="4" Height="30"  Controls:TextBoxHelper.ClearTextButton="True" MaxLength="10" >
                         <i:Interaction.Behaviors>
-                            <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false"  Value="{Binding Length, UpdateSourceTrigger=PropertyChanged}"/>
+                            <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false"  Value="{Binding Length, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                         </i:Interaction.Behaviors>
                     </TextBox>
 
                     <Label Grid.Row="4" Grid.Column="0" Height="30" Content="Area tributaria(m2)"  />
                     <TextBox Grid.Row="4" Grid.Column="1" Height="30"  Controls:TextBoxHelper.ClearTextButton="True" MaxLength="10" >
                         <i:Interaction.Behaviors>
-                            <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false"  Value="{Binding TributaryArea, UpdateSourceTrigger=PropertyChanged}"/>
+                            <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false"  Value="{Binding TributaryArea,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                         </i:Interaction.Behaviors>
                     </TextBox>
 
                     <Label Grid.Row="6" Grid.Column="3" Height="30" Content="Espesor(m)"/>
                     <TextBox Grid.Row="6" Grid.Column="4" Height="30"  Controls:TextBoxHelper.ClearTextButton="True" MaxLength="10" >
                         <i:Interaction.Behaviors>
-                            <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false"  Value="{Binding Thickness, UpdateSourceTrigger=PropertyChanged}"/>
+                            <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false"  Value="{Binding Thickness,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                         </i:Interaction.Behaviors>
                     </TextBox>
 
                     <Label Grid.Row="6" Grid.Column="0" Height="30" Content="Altura(m)" Width="104"/>
                     <TextBox Grid.Row="6" Grid.Column="1"  Height="30"  Controls:TextBoxHelper.ClearTextButton="True" MaxLength="10" >
                         <i:Interaction.Behaviors>
-                            <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false"  Value="{Binding Height, UpdateSourceTrigger=PropertyChanged}"/>
+                            <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false"  Value="{Binding Height,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                         </i:Interaction.Behaviors>
                     </TextBox>
 
                     <Label Grid.Row="8" Grid.Column="3" Height="30" Content="Cordenadas en X (m)" />
                     <TextBox Grid.Row="8" Grid.Column="4" Height="30"  Controls:TextBoxHelper.ClearTextButton="True" MaxLength="10">
                         <i:Interaction.Behaviors>
-                            <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false"  Value="{Binding PositionX, UpdateSourceTrigger=PropertyChanged}"/>
+                            <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false"  Value="{Binding PositionX,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                         </i:Interaction.Behaviors>
                     </TextBox>
 
                     <Label Grid.Row="8" Grid.Column="0" Height="30" Content="Cordenadas en Y (m)" />
                     <TextBox Grid.Row="8" Grid.Column="1" Height="30"  Controls:TextBoxHelper.ClearTextButton="True" MaxLength="10" >
                         <i:Interaction.Behaviors>
-                            <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false"  Value="{Binding PositionY, UpdateSourceTrigger=PropertyChanged}"/>
+                            <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false"  Value="{Binding PositionY,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                         </i:Interaction.Behaviors>
                     </TextBox>
 

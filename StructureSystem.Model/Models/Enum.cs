@@ -21,6 +21,7 @@ namespace StructureSystem.Model
 
         public enum MaterialType
         {
+            None,
             MacisaEntrepiso,
             MacisaAzotea,
             NervadaEntrepiso,

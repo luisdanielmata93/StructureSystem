@@ -13,7 +13,7 @@ using Notifications.Wpf;
 using System.Configuration;
 using MahApps.Metro.Controls.Dialogs;
 using StructureSystem.BusinessRules.Services;
-
+using System.Data;
 
 namespace StructureSystem.ViewModel
 {
@@ -25,9 +25,19 @@ namespace StructureSystem.ViewModel
 
             notificationViewModel = new NotificationViewModel();
 
+
             this._mainViewModel = mainViewModel;
 
-            this.SetInitialData();
+
+            ContentDT = new DataTable("table");
+            //this.ContentDT.Columns.Add("col0");
+            //this.ContentDT.Columns.Add("col1");
+            //this.ContentDT.Columns.Add("col2");
+
+            //this.ContentDT.Rows.Add("data00", "data01", "data02");
+            //this.ContentDT.Rows.Add("data10", "data11", "data22");
+            //this.ContentDT.Rows.Add("data20", "data21", "data22");
+
 
             this.SetCommands();
 
@@ -35,11 +45,30 @@ namespace StructureSystem.ViewModel
         #endregion
         #region Commands
 
-        public ICommand SearchCommand { get; private set; }
-        public ICommand SaveProjectCommand { get; private set; }
-        public ICommand ExportExcelCommand { get; private set; }
-        public ICommand ExportPDFCommand { get; private set; }
-        public ICommand ImportCommand { get; private set; }
+        public ICommand VectorRigidecesXCommand { get; private set; }
+        public ICommand VectorMasasXCommand { get; private set; }
+        public ICommand MatrizMasasXCommand { get; private set; }
+        public ICommand MatrizRigidecesXCommand { get; private set; }
+        public ICommand VectorPeriodosCircXCommand { get; private set; }
+        public ICommand VectorPeriodosNaturalesXCommand { get; private set; }
+        public ICommand VectorFrecuenciasXCommand { get; private set; }
+        public ICommand EigenVectoresXCommand { get; private set; }
+        public ICommand MatrizEspectralXCommand { get; private set; }
+        public ICommand MatrizMasasGeneralizadaXCommand { get; private set; }
+        public ICommand MatrizRigidecesGeneralizadaXCommand { get; private set; }
+        public ICommand VectorUnosXCommand { get; private set; }
+        public ICommand ParticipacionModalXCommand { get; private set; }
+        public ICommand MatrizModalNormalizadoXCommand { get; private set; }
+        public ICommand VectorMasasEfectivasXCommand { get; private set; }
+        public ICommand MatrizFactPartMasasModalesXCommand { get; private set; }
+        public ICommand ParticipacionMasasXCommand { get; private set; }
+        public ICommand EspectroDisenioXCommand { get; private set; }
+        public ICommand VectorAceleracionesXCommand { get; private set; }
+        public ICommand VectorFuerzasFicticiasEquivXCommand { get; private set; }
+        public ICommand VectorFuerzasCortantsDisenioXCommand { get; private set; }
+        public ICommand DetermFuerzasCortantesDisenioXCommand { get; private set; }
+        public ICommand DesplazamientosLateralesXCommand { get; private set; }
+        public ICommand EstimPeriodoFundamentalEstructXCommand { get; private set; }
 
         #endregion
 
@@ -48,18 +77,69 @@ namespace StructureSystem.ViewModel
 
         private void SetCommands()
         {
-
+            VectorRigidecesXCommand = new RelayCommand(o => ShowVectorRigideces(Enums.SideType.Horizontal));
+            VectorMasasXCommand = new RelayCommand(o => ShowVectorMasas());
+            MatrizMasasXCommand = new RelayCommand(o => ShowMatrizMasas(Enums.SideType.Horizontal));
+            MatrizRigidecesXCommand = new RelayCommand(o => ShowMatrizRigideces(Enums.SideType.Horizontal));
+            VectorPeriodosCircXCommand = new RelayCommand(o => ShowVectorPeriodosCirculares(Enums.SideType.Horizontal));
+            VectorPeriodosNaturalesXCommand = new RelayCommand(o => ShowVectorPeriodosNaturales(Enums.SideType.Horizontal));
+            VectorFrecuenciasXCommand = new RelayCommand(o => ShowVectorFrecuencias(Enums.SideType.Horizontal));
+            EigenVectoresXCommand = new RelayCommand(o => ShowMatrizEigenVectores(Enums.SideType.Horizontal));
         }
 
         #endregion
 
-        private void SetInitialData()
+        #region Matrices
+        private void ShowMatrizRigideces(Enums.SideType side)
         {
-            
-            DataService.Test();
-            //this.Storeys = new ObservableCollection<Storey>((List<Storey>)response.Data);
+
+            this.ContentDT = DataService.GetMatrizRigideces(side);
 
         }
+
+        private void ShowMatrizMasas(Enums.SideType side)
+        {
+            this.ContentDT = DataService.GetMatrizMasas(side);
+        }
+
+        #endregion
+
+
+        #region Vectores
+        private void ShowVectorMasas()
+        {
+            this.ContentDT = DataService.GetVectorMasas();
+
+        }
+
+        private void ShowVectorRigideces(Enums.SideType side)
+        {
+
+            this.ContentDT = DataService.GetVectorRigidez(side);
+
+        }
+
+        private void ShowVectorPeriodosCirculares(Enums.SideType side)
+        {
+            this.ContentDT = DataService.GetVectorPeriodosCirculares(side);
+        }
+
+        private void ShowVectorPeriodosNaturales(Enums.SideType side)
+        {
+            this.ContentDT = DataService.GetVectorPeriodosNaturales(side);
+        }
+
+        private void ShowVectorFrecuencias(Enums.SideType side)
+        {
+            this.ContentDT = DataService.GetVectorFrecuencias(side);
+        }
+
+        private void ShowMatrizEigenVectores(Enums.SideType side)
+        {
+            this.ContentDT = DataService.GetMatrizEigenVectoresNormalizados(side);
+        }
+        #endregion
+
 
 
         #region Properties
@@ -79,6 +159,81 @@ namespace StructureSystem.ViewModel
             }
         }
 
+        private Structure Structure_;
+        public Structure StructureP
+        {
+            get
+            {
+                return Structure_;
+            }
+            set
+            {
+                if (value != Structure_)
+                    Structure_ = value;
+
+                OnPropertyChanged("StructureP");
+            }
+        }
+
+        private int SelectedIndex_ = 0;
+        public int SelectedIndex
+        {
+            get
+            {
+                DataService.GetInitialData();
+                return SelectedIndex_;
+            }
+            set
+            {
+                SelectedIndex_ = value;
+
+                OnPropertyChanged("SelectedIndex");
+            }
+        }
+
+        private string Content_;
+        public string Content
+        {
+            get
+            {
+                return Content_;
+            }
+            set
+            {
+                if (value != Content_)
+                    Content_ = value;
+                OnPropertyChanged("Content");
+            }
+        }
+
+        private DataTable ContentDT_;
+        public DataTable ContentDT
+        {
+            get
+            {
+                return ContentDT_;
+            }
+            set
+            {
+                ContentDT_ = value;
+                OnPropertyChanged("ContentDT");
+            }
+        }
+
+        public bool IsStatic_;
+        public bool IsStatic
+        {
+            get
+            {
+                return DataService.ValidateMethod();
+            }
+            set
+            {
+                IsStatic_ = value;
+                OnPropertyChanged("IsStatic");
+            }
+        }
+
         public ObservableCollection<Storey> _Storeys;
         public ObservableCollection<Storey> Storeys
         {
@@ -88,29 +243,6 @@ namespace StructureSystem.ViewModel
                 if (value != _Storeys)
                     _Storeys = value;
                 OnPropertyChanged("Storeys");
-            }
-        }
-
-        private double _CcX;
-        public double CcX
-        {
-            get { return _CcX; }
-            set
-            {
-                if (value != _CcX)
-                    _CcX = value;
-                OnPropertyChanged("CcX");
-            }
-        }
-        private double _CcY;
-        public double CcY
-        {
-            get { return _CcY; }
-            set
-            {
-                if (value != _CcY)
-                    _CcY = value;
-                OnPropertyChanged("CcY");
             }
         }
 

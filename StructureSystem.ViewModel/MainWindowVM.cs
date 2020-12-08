@@ -83,7 +83,7 @@ namespace StructureSystem.ViewModel
                 },
                  new HamburgerMenuIconItem()
                 {
-                    Icon = new PackIconMaterial() {Kind = PackIconMaterialKind.GraphOutline},
+                    Icon = new PackIconMaterial() {Kind = PackIconMaterialKind.ChartBar},
                     Label = " Repartición de fuerzas sísmicas",
                     ToolTip = " Repartición de fuerzas sísmicas en elementos resistentes",
                     Tag = new SeismicDistributionVM(this)

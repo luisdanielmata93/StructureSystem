@@ -107,8 +107,8 @@
 
                     <Button Grid.Row="0" Grid.Column="9" Command="{Binding ImportCommand}" Content="Importar proyecto"  />
                     <Button Grid.Row="2" Grid.Column="9" Command="{Binding SaveProjectCommand}" Content="Guardar proyecto"  />
-                    <Button Grid.Row="4" Grid.Column="9" Command="{Binding ExportExcelCommand}" Content="Exportar Excel"  />
-                    <Button Grid.Row="6" Grid.Column="9" Command="{Binding ExportPDFCommand}" Content="Exportar PDF"  />
+                    <!--<Button Grid.Row="4" Grid.Column="9" Command="{Binding ExportExcelCommand}" Content="Exportar Excel"  />
+                    <Button Grid.Row="6" Grid.Column="9" Command="{Binding ExportPDFCommand}" Content="Exportar PDF"  />-->
 
                     <Grid Grid.Row="0" Grid.Column="11" Visibility="{Binding IsAlert, Mode=TwoWay}">
                         <TextBlock ToolTip="No se encuentra ningun proyecto cargado" VerticalAlignment="Center">

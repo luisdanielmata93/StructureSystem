@@ -83,6 +83,7 @@ namespace StructureSystem.Data
             return StoreysResult;
         }
 
+      
 
         public bool Update(XMLStructureData entity)
         {

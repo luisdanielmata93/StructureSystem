@@ -23,44 +23,106 @@ namespace StructureSystem.Model
             }
         }
 
-        private bool _IsEntrepiso;
-        public bool IsEntrepiso
-        {
-            get { return _IsEntrepiso; }
-            set
-            {
-                _IsEntrepiso = true;
-                _IsAzotea = false;             
-            }
-        }
-        private bool _IsAzotea;
-        public bool IsAzotea
-        {
-            get { return _IsAzotea; }
-            set
-            {
-                _IsAzotea = true;
-                _IsEntrepiso = false;
-             
-            }
-        }
-
-        private FlooringMaterial _flooringMaterial;
-        public FlooringMaterial FlooringMaterial
+        private LosaMacizaEntrepiso LosaMacizaEntrepisoP_;
+        public LosaMacizaEntrepiso LosaMacizaEntrepisoP
         {
             get
             {
-                return _flooringMaterial;
+                return LosaMacizaEntrepisoP_;
             }
             set
             {
-                if (value != _flooringMaterial)
-                {
-                    _flooringMaterial = value;
-                }
-
+                if (value != LosaMacizaEntrepisoP_)
+                    LosaMacizaEntrepisoP_ = value;
             }
         }
+
+        private LosaMacizaAzotea LosaMacizaAzoteaP_;
+        public LosaMacizaAzotea LosaMacizaAzoteaP
+        {
+            get
+            {
+                return LosaMacizaAzoteaP_;
+            }
+            set
+            {
+                if (value != LosaMacizaAzoteaP_)
+                    LosaMacizaAzoteaP_ = value;
+            }
+        }
+
+        private LosaNervadaEntrepiso LosaNervadaEntrepisoP_;
+        public LosaNervadaEntrepiso LosaNervadaEntrepisoP
+        {
+            get
+            {
+                return LosaNervadaEntrepisoP_;
+            }
+            set
+            {
+                if (value != LosaNervadaEntrepisoP_)
+                    LosaNervadaEntrepisoP_ = value;
+            }
+        }
+
+        private LosaNervadaAzotea LosaNervadaAzoteaP_;
+        public LosaNervadaAzotea LosaNervadaAzoteaP
+        {
+            get
+            {
+                return LosaNervadaAzoteaP_;
+            }
+            set
+            {
+                if (value != LosaNervadaAzoteaP_)
+                    LosaNervadaAzoteaP_ = value;
+            }
+        }
+
+        private LosaViguetaBovedillaEntrepiso LosaViguetaBovedillaEntrepisoP_;
+        public LosaViguetaBovedillaEntrepiso LosaViguetaBovedillaEntrepisoP
+        {
+            get
+            {
+                return LosaViguetaBovedillaEntrepisoP_;
+            }
+            set
+            {
+                if (value != LosaViguetaBovedillaEntrepisoP_)
+                    LosaViguetaBovedillaEntrepisoP_ = value;
+            }
+        }
+
+        private LosaViguetaBovedillaAzotea LosaViguetaBovedillaAzoteaP_;
+        public LosaViguetaBovedillaAzotea LosaViguetaBovedillaAzoteaP
+        {
+            get
+            {
+                return LosaViguetaBovedillaAzoteaP_;
+            }
+            set
+            {
+                if (value != LosaViguetaBovedillaAzoteaP_)
+                    LosaViguetaBovedillaAzoteaP_ = value;
+            }
+        }
+
+        private LosaOtroTipo LosaOtroTipoP_;
+        public LosaOtroTipo LosaOtroTipoP
+        {
+            get
+            {
+                return LosaOtroTipoP_;
+            }
+            set
+            {
+                if (value != LosaOtroTipoP_)
+                    LosaOtroTipoP_ = value;
+            }
+        }
+
+
+
 
     }//end of class
 }//end of namespace

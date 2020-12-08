@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace StructureSystem.Data.Model
 {
-    public interface ILoadAnalysisRepository : IReadable<IDictionary<string, object>, string>,
+    public interface ILoadAnalysisRepository : IReadable<XMLLoadAnalysisData, XMLLoadAnalysisData>,
                                   ICreatable<XMLLoadAnalysisData>, IUpdatable<XMLLoadAnalysisData>
     {
         bool IsSaved(string documentPath, int Level);

@@ -26,7 +26,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Accordion" Version="1.0.0" />
     <PackageReference Include="AlertBarWpf" Version="1.0.4" />
     <PackageReference Include="Caliburn.Micro" Version="3.2.0" />
     <PackageReference Include="MahApps.Metro" Version="2.1.1" />
@@ -35,6 +34,8 @@
     <PackageReference Include="Microsoft.Maps.MapControl.WPF" Version="1.0.0.3" />
     <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.19" />
     <PackageReference Include="Notifications.Wpf" Version="0.1.1" />
+    <PackageReference Include="Prism.Core" Version="7.2.0.1422" />
+    <PackageReference Include="Prism.Wpf" Version="7.2.0.1422" />
     <PackageReference Include="System.Drawing.Common" Version="4.7.0" />
   </ItemGroup>
 

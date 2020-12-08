@@ -65,12 +65,12 @@
                                 <Setter Property="FontWeight" Value="SemiBold"/>
                             </Style>
                         </TextBlock.Resources> 
-                            <Icons:PackIconModern Kind="Alert" VerticalAlignment="Center" Visibility="{Binding IsAlert}"/>
+                            <Icons:PackIconModern Kind="Alert" VerticalAlignment="Center" Visibility="{Binding IsAlert,Mode=TwoWay}"/>
                     </TextBlock>
 
                     <Button Grid.Row="1" Grid.Column="9" VerticalAlignment="Center" Command="{Binding SaveLevelCommand}" Content="Guardar" />
 
-                    <Image  Grid.Row="0" Grid.RowSpan="2" Grid.Column="11" Stretch="Uniform" VerticalAlignment="Bottom" HorizontalAlignment="Center" Source="/Content/Images/pisa.png" />
+                    <!--<Image  Grid.Row="0" Grid.RowSpan="2" Grid.Column="11" Stretch="Uniform" VerticalAlignment="Bottom" HorizontalAlignment="Center" Source="/Content/Images/pisa.png" />-->
 
                     <Controls:MetroAnimatedTabControl Margin="0 -90 0 0" SelectedIndex="{Binding TabIndex, Mode=TwoWay}" Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="13" >
                         <!--INICIO DE LOSA MACISA DE ENTREPISO-->
@@ -125,112 +125,88 @@
                                 <Label Grid.Row="0" Grid.Column="15" Content="Peso" Style="{StaticResource LabelHeader}"/>
 
                                 <Label Grid.Row="1" Grid.Column="1" Content="Relleno adicional" />
-                              
+
                                 <TextBox Grid.Row="1" Grid.Column="3" Template="{StaticResource NumericTextBox}" >
                                     <i:Interaction.Behaviors>
-                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding RellenoAdicionalPV}" />
+                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding LosaMacizaEntrepisoP.RellenoAdicionalPV, UpdateSourceTrigger=PropertyChanged}" />
                                     </i:Interaction.Behaviors>
                                 </TextBox>
                                 <TextBox Grid.Row="1" Grid.Column="5"  Template="{StaticResource NumericTextBox}">
                                     <i:Interaction.Behaviors>
-                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding RellenoAdicionalES}"/>
+                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding LosaMacizaEntrepisoP.RellenoAdicionalES, UpdateSourceTrigger=PropertyChanged}"/>
                                     </i:Interaction.Behaviors>
                                 </TextBox>
-                                <TextBox Grid.Row="1" Grid.Column="7"  Template="{StaticResource NumericTextBox}" IsEnabled="False"  Text="{Binding RellenoAdicionalPE, Mode=TwoWay}">
-                                    <i:Interaction.Behaviors>
-                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false"/>
-                                    </i:Interaction.Behaviors>
-                                </TextBox>
+                                <TextBox Grid.Row="1" Grid.Column="7"  Template="{StaticResource NumericTextBox}" IsEnabled="False"  Text="{Binding LosaMacizaEntrepisoP.RellenoAdicionalPE, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
                                 <Label Grid.Row="3" Grid.Column="1" Content="Piso"/>
                                 <TextBox Grid.Row="3" Grid.Column="3" Template="{StaticResource NumericTextBox}">
                                     <i:Interaction.Behaviors>
-                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding PisoPV,Mode=TwoWay}"/>
+                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding LosaMacizaEntrepisoP.PisoPV,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                                     </i:Interaction.Behaviors>
                                 </TextBox>
                                 <TextBox Grid.Row="3" Grid.Column="5" Template="{StaticResource NumericTextBox}" >
                                     <i:Interaction.Behaviors>
-                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding PisoES, Mode=TwoWay}"/>
+                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding LosaMacizaEntrepisoP.PisoES, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                                     </i:Interaction.Behaviors>
                                 </TextBox>
-                                <TextBox Grid.Row="3" Grid.Column="7" Template="{StaticResource NumericTextBox}" IsEnabled="False" Text="{Binding PisoPE,Mode=TwoWay}">
-                                    <i:Interaction.Behaviors>
-                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false"/>
-                                    </i:Interaction.Behaviors>
-                                </TextBox>
+                                <TextBox Grid.Row="3" Grid.Column="7" Template="{StaticResource NumericTextBox}" IsEnabled="False" Text="{Binding LosaMacizaEntrepisoP.PisoPE,Mode=TwoWay}"/>
 
 
                                 <Label Grid.Row="5" Grid.Column="1" Content="Mortero"/>
                                 <TextBox Grid.Row="5" Grid.Column="3" Template="{StaticResource NumericTextBox}" >
                                     <i:Interaction.Behaviors>
-                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding MorteroPV, Mode=TwoWay}"/>
+                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding LosaMacizaEntrepisoP.MorteroPV, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                                     </i:Interaction.Behaviors>
                                 </TextBox>
                                 <TextBox Grid.Row="5" Grid.Column="5" Template="{StaticResource NumericTextBox}">
                                     <i:Interaction.Behaviors>
-                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding MorteroES, Mode=TwoWay}"/>
+                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding LosaMacizaEntrepisoP.MorteroES, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                                     </i:Interaction.Behaviors>
                                 </TextBox>
-                                <TextBox Grid.Row="5" Grid.Column="7" Template="{StaticResource NumericTextBox}" IsEnabled="False" Text="{Binding MorteroPE, Mode=TwoWay}">
-                                    <i:Interaction.Behaviors>
-                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false"/>
-                                    </i:Interaction.Behaviors>
-                                </TextBox>
+                                <TextBox Grid.Row="5" Grid.Column="7" Template="{StaticResource NumericTextBox}" IsEnabled="False" Text="{Binding LosaMacizaEntrepisoP.MorteroPE, Mode=TwoWay}"/>
 
 
 
                                 <Label Grid.Row="7" Grid.Column="1" Content="Firme"/>
                                 <TextBox Grid.Row="7" Grid.Column="3" Template="{StaticResource NumericTextBox}" >
                                     <i:Interaction.Behaviors>
-                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding FirmePV,Mode=TwoWay}"/>
+                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding LosaMacizaEntrepisoP.FirmePV,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                                     </i:Interaction.Behaviors>
                                 </TextBox>
                                 <TextBox Grid.Row="7" Grid.Column="5" Template="{StaticResource NumericTextBox}" >
                                     <i:Interaction.Behaviors>
-                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding FirmeES,Mode=TwoWay}"/>
+                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding LosaMacizaEntrepisoP.FirmeES,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
                                     </i:Interaction.Behaviors>
                                 </TextBox>
-                                <TextBox Grid.Row="7" Grid.Column="7" Template="{StaticResource NumericTextBox}" IsEnabled="False" Text="{Binding FirmePE,Mode=TwoWay}">
-                                    <i:Interaction.Behaviors>
-                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false"/>
-                                    </i:Interaction.Behaviors>
-                                </TextBox>
+                                <TextBox Grid.Row="7" Grid.Column="7" Template="{StaticResource NumericTextBox}" IsEnabled="False" Text="{Binding LosaMacizaEntrepisoP.FirmePE,Mode=TwoWay}"/>
 
 
                                 <Label Grid.Row="9" Grid.Column="1" Content="Losa"/>
                                 <TextBox Grid.Row="9" Grid.Column="3" Template="{StaticResource NumericTextBox}" >
                                     <i:Interaction.Behaviors>
-                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding LosaPV,Mode=TwoWay}"/>
+                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding LosaMacizaEntrepisoP.LosaPV,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
                                     </i:Interaction.Behaviors>
                                 </TextBox>
                                 <TextBox Grid.Row="9" Grid.Column="5" Template="{StaticResource NumericTextBox}" >
                                     <i:Interaction.Behaviors>
-                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding LosaES,Mode=TwoWay}"/>
+                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding LosaMacizaEntrepisoP.LosaES,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                                     </i:Interaction.Behaviors>
                                 </TextBox>
-                                <TextBox Grid.Row="9" Grid.Column="7" Template="{StaticResource NumericTextBox}" IsEnabled="False" Text="{Binding LosaPE, Mode=TwoWay}">
-                                    <i:Interaction.Behaviors>
-                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false"/>
-                                    </i:Interaction.Behaviors>
-                                </TextBox>
+                                <TextBox Grid.Row="9" Grid.Column="7" Template="{StaticResource NumericTextBox}" IsEnabled="False" Text="{Binding LosaMacizaEntrepisoP.LosaPE, Mode=TwoWay}"/>
 
 
                                 <Label Grid.Row="11" Grid.Column="1" Content="Aplanado"/>
                                 <TextBox Grid.Row="11" Grid.Column="3" Template="{StaticResource NumericTextBox}" >
                                     <i:Interaction.Behaviors>
-                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding AplanadoPV,Mode=TwoWay}"/>
+                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding LosaMacizaEntrepisoP.AplanadoPV,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
                                     </i:Interaction.Behaviors>
                                 </TextBox>
                                 <TextBox Grid.Row="11" Grid.Column="5" Template="{StaticResource NumericTextBox}" >
                                     <i:Interaction.Behaviors>
-                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding AplanadoES, Mode=TwoWay}"/>
+                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding LosaMacizaEntrepisoP.AplanadoES, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
                                     </i:Interaction.Behaviors>
                                 </TextBox>
-                                <TextBox Grid.Row="11" Grid.Column="7" Template="{StaticResource NumericTextBox}" IsEnabled="False" Text="{Binding AplanadoPE,Mode=TwoWay}">
-                                    <i:Interaction.Behaviors>
-                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false"/>
-                                    </i:Interaction.Behaviors>
-                                </TextBox>
+                                <TextBox Grid.Row="11" Grid.Column="7" Template="{StaticResource NumericTextBox}" IsEnabled="False" Text="{Binding LosaMacizaEntrepisoP.AplanadoPE,Mode=TwoWay}"/>
 
 
                                 <Label Grid.Row="1" Grid.Column="9" Content="Instalaciones"/>
@@ -238,35 +214,27 @@
                                 <TextBox Grid.Row="1" Grid.Column="13" Template="{StaticResource NumericTextBox}" IsEnabled="False"/>
                                 <TextBox Grid.Row="1" Grid.Column="15" Template="{StaticResource NumericTextBox}">
                                     <i:Interaction.Behaviors>
-                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding InstalacionesPE,Mode=TwoWay}"/>
+                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding LosaMacizaEntrepisoP.Instalaciones,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                                     </i:Interaction.Behaviors>
                                 </TextBox>
-                                    
+
 
                                 <Label Grid.Row="3" Grid.Column="9" Content="Carga adicional por colado"/>
                                 <TextBox Grid.Row="3" Grid.Column="11" Template="{StaticResource NumericTextBox}"  IsEnabled="False"/>
                                 <TextBox Grid.Row="3" Grid.Column="13" Template="{StaticResource NumericTextBox}"  IsEnabled="False"/>
-                                <TextBox Grid.Row="3" Grid.Column="15" Template="{StaticResource NumericTextBox}" >
-                                    <i:Interaction.Behaviors>
-                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding CargaAdicionalColadoPE,Mode=TwoWay}"/>
-                                    </i:Interaction.Behaviors>
-                                </TextBox>
+                                <TextBox Grid.Row="3" Grid.Column="15" Template="{StaticResource NumericTextBox}" IsEnabled="False" Text="{Binding LosaMacizaEntrepisoP.CargaAdicionalPorColado,Mode=TwoWay}"/>
 
 
                                 <Label Grid.Row="5" Grid.Column="9" Content="Carga adicional por mortero"/>
                                 <TextBox Grid.Row="5" Grid.Column="11" Template="{StaticResource NumericTextBox}" IsEnabled="False"/>
                                 <TextBox Grid.Row="5" Grid.Column="13" Template="{StaticResource NumericTextBox}" IsEnabled="False"/>
-                                <TextBox Grid.Row="5" Grid.Column="15" Template="{StaticResource NumericTextBox}" >
-                                    <i:Interaction.Behaviors>
-                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding CargaAdicionalMorteroPE,Mode=TwoWay}"/>
-                                    </i:Interaction.Behaviors>
-                                </TextBox>
+                                <TextBox Grid.Row="5" Grid.Column="15" Template="{StaticResource NumericTextBox}" IsEnabled="False" Text="{Binding LosaMacizaEntrepisoP.CargaAdicionalPorMortero,Mode=TwoWay}"/>
 
 
                                 <Label Grid.Row="7" Grid.Column="9" Content="Carga muerta total"/>
                                 <TextBox Grid.Row="7" Grid.Column="11" Template="{StaticResource NumericTextBox}" IsEnabled="False"/>
                                 <TextBox Grid.Row="7" Grid.Column="13" Template="{StaticResource NumericTextBox}" IsEnabled="False"/>
-                                <TextBox Grid.Row="7" Grid.Column="15" Template="{StaticResource NumericTextBox}" IsEnabled="False" Text="{Binding CargaMuertaTotalPE,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" >
+                                <TextBox Grid.Row="7" Grid.Column="15" Template="{StaticResource NumericTextBox}" IsEnabled="False" Text="{Binding LosaMacizaEntrepisoP.CargaMuerta,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" >
                                     <i:Interaction.Behaviors>
                                         <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false"/>
                                     </i:Interaction.Behaviors>
@@ -278,7 +246,7 @@
                                 <TextBox Grid.Row="9" Grid.Column="13" Template="{StaticResource NumericTextBox}" IsEnabled="False"/>
                                 <TextBox Grid.Row="9" Grid.Column="15" Template="{StaticResource NumericTextBox}" >
                                     <i:Interaction.Behaviors>
-                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding CargaVivaMaximaPE,Mode=TwoWay}"/>
+                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding LosaMacizaEntrepisoP.CargaVivaMaxima,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
                                     </i:Interaction.Behaviors>
                                 </TextBox>
 
@@ -288,7 +256,7 @@
                                 <TextBox Grid.Row="11" Grid.Column="13" Template="{StaticResource NumericTextBox}" IsEnabled="False"/>
                                 <TextBox Grid.Row="11" Grid.Column="15" Template="{StaticResource NumericTextBox}" >
                                     <i:Interaction.Behaviors>
-                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding CargaVivaInstantaneaPE,Mode=TwoWay}"/>
+                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding LosaMacizaEntrepisoP.CargaVivaInstantanea,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
                                     </i:Interaction.Behaviors>
                                 </TextBox>
 
@@ -352,19 +320,11 @@
                                 <Label Grid.Row="0" Grid.Column="15" Content="Peso" Style="{StaticResource LabelHeader}"/>
 
                                 <Label Grid.Row="1" Grid.Column="1" Content="Impermeabilizante" />
-                                <TextBox Grid.Row="1" Grid.Column="3" IsEnabled="False" Template="{StaticResource NumericTextBox}">
-                                    <i:Interaction.Behaviors>
-                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" />
-                                    </i:Interaction.Behaviors>
-                                </TextBox>
-                                <TextBox Grid.Row="1" Grid.Column="5" IsEnabled="False" Template="{StaticResource NumericTextBox}">
-                                    <i:Interaction.Behaviors>
-                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false"/>
-                                    </i:Interaction.Behaviors>
-                                </TextBox>
+                                <TextBox Grid.Row="1" Grid.Column="3" IsEnabled="False" Template="{StaticResource NumericTextBox}"/>
+                                <TextBox Grid.Row="1" Grid.Column="5" IsEnabled="False" Template="{StaticResource NumericTextBox}"/>
                                 <TextBox Grid.Row="1" Grid.Column="7" Template="{StaticResource NumericTextBox}">
                                     <i:Interaction.Behaviors>
-                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding ImpermeabilizantePE, Mode=TwoWay}"/>
+                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding LosaMacizaAzoteaP.Impermeabilizante, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
                                     </i:Interaction.Behaviors>
                                 </TextBox>
 
@@ -372,179 +332,101 @@
                                 <Label Grid.Row="3" Grid.Column="1" Content="Mortero"/>
                                 <TextBox Grid.Row="3" Grid.Column="3" Template="{StaticResource NumericTextBox}">
                                     <i:Interaction.Behaviors>
-                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding MorteroPV, Mode=TwoWay}"/>
+                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding LosaMacizaAzoteaP.MorteroPV, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
                                     </i:Interaction.Behaviors>
                                 </TextBox>
                                 <TextBox Grid.Row="3" Grid.Column="5" Template="{StaticResource NumericTextBox}">
                                     <i:Interaction.Behaviors>
-                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding MorteroES, Mode=TwoWay}"/>
+                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding LosaMacizaAzoteaP.MorteroES, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
                                     </i:Interaction.Behaviors>
                                 </TextBox>
-                                <TextBox Grid.Row="3" Grid.Column="7" IsEnabled="False" Template="{StaticResource NumericTextBox}" Text="{Binding MorteroPE,Mode=TwoWay}">
-                                    <i:Interaction.Behaviors>
-                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false"/>
-                                    </i:Interaction.Behaviors>
-                                </TextBox>
+                                <TextBox Grid.Row="3" Grid.Column="7" IsEnabled="False" Template="{StaticResource NumericTextBox}" Text="{Binding LosaMacizaAzoteaP.MorteroPE,Mode=TwoWay}"/>
 
 
                                 <Label Grid.Row="5" Grid.Column="1" Content="Relleno"/>
                                 <TextBox Grid.Row="5" Grid.Column="3" Template="{StaticResource NumericTextBox}">
                                     <i:Interaction.Behaviors>
-                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding RellenoPV,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding LosaMacizaAzoteaP.RellenoPV,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
                                     </i:Interaction.Behaviors>
                                 </TextBox>
                                 <TextBox Grid.Row="5" Grid.Column="5" Template="{StaticResource NumericTextBox}">
                                     <i:Interaction.Behaviors>
-                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding RellenoES,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding LosaMacizaAzoteaP.RellenoES,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
                                     </i:Interaction.Behaviors>
                                 </TextBox>
-                                <TextBox Grid.Row="5" Grid.Column="7" IsEnabled="False" Template="{StaticResource NumericTextBox}" Text="{Binding RellenoPE,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}">
-                                    <i:Interaction.Behaviors>
-                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" />
-                                    </i:Interaction.Behaviors>
-                                </TextBox>
+                                <TextBox Grid.Row="5" Grid.Column="7" IsEnabled="False" Template="{StaticResource NumericTextBox}" Text="{Binding LosaMacizaAzoteaP.RellenoPE,Mode=TwoWay}"/>
 
 
                                 <Label Grid.Row="7" Grid.Column="1" Content="Losa"/>
                                 <TextBox Grid.Row="7" Grid.Column="3" Template="{StaticResource NumericTextBox}">
                                     <i:Interaction.Behaviors>
-                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding LosaPV,Mode=TwoWay}"/>
+                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding LosaMacizaAzoteaP.LosaPV,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
                                     </i:Interaction.Behaviors>
                                 </TextBox>
                                 <TextBox Grid.Row="7" Grid.Column="5" Template="{StaticResource NumericTextBox}">
                                     <i:Interaction.Behaviors>
-                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding LosaES,Mode=TwoWay}"/>
+                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding LosaMacizaAzoteaP.LosaES,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
                                     </i:Interaction.Behaviors>
                                 </TextBox>
-                                <TextBox Grid.Row="7" Grid.Column="7" IsEnabled="False" Template="{StaticResource NumericTextBox}" Text="{Binding LosaPE, Mode=TwoWay}">
-                                    <i:Interaction.Behaviors>
-                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" />
-                                    </i:Interaction.Behaviors>
-                                </TextBox>
-
+                                <TextBox Grid.Row="7" Grid.Column="7" IsEnabled="False" Template="{StaticResource NumericTextBox}" Text="{Binding LosaMacizaAzoteaP.LosaPE, Mode=TwoWay}"/>
 
                                 <Label Grid.Row="9" Grid.Column="1" Content="Aplanado"/>
                                 <TextBox Grid.Row="9" Grid.Column="3" Template="{StaticResource NumericTextBox}">
                                     <i:Interaction.Behaviors>
-                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding AplanadoPV, Mode=TwoWay}"/>
+                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding LosaMacizaAzoteaP.AplanadoPV, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
                                     </i:Interaction.Behaviors>
                                 </TextBox>
                                 <TextBox Grid.Row="9" Grid.Column="5" Template="{StaticResource NumericTextBox}">
                                     <i:Interaction.Behaviors>
-                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false"  Value="{Binding AplanadoES, Mode=TwoWay}"/>
+                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false"  Value="{Binding LosaMacizaAzoteaP.AplanadoES, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
                                     </i:Interaction.Behaviors>
                                 </TextBox>
-                                <TextBox Grid.Row="9" Grid.Column="7" IsEnabled="False" Template="{StaticResource NumericTextBox}"  Text="{Binding AplanadoPE, Mode=TwoWay}">
-                                    <i:Interaction.Behaviors>
-                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false"/>
-                                    </i:Interaction.Behaviors>
-                                </TextBox>
+                                <TextBox Grid.Row="9" Grid.Column="7" IsEnabled="False" Template="{StaticResource NumericTextBox}"  Text="{Binding LosaMacizaAzoteaP.AplanadoPE, Mode=TwoWay}"/>
 
 
                                 <Label Grid.Row="11" Grid.Column="1" Content="Instalaciones"/>
-                                <TextBox Grid.Row="11" Grid.Column="3" IsEnabled="False" Template="{StaticResource NumericTextBox}">
-                                    <i:Interaction.Behaviors>
-                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false"/>
-                                    </i:Interaction.Behaviors>
-                                </TextBox>
-                                <TextBox Grid.Row="11" Grid.Column="5" IsEnabled="False" Template="{StaticResource NumericTextBox}">
-                                    <i:Interaction.Behaviors>
-                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false"/>
-                                    </i:Interaction.Behaviors>
-                                </TextBox>
+                                <TextBox Grid.Row="11" Grid.Column="3" IsEnabled="False" Template="{StaticResource NumericTextBox}"/>
+                                <TextBox Grid.Row="11" Grid.Column="5" IsEnabled="False" Template="{StaticResource NumericTextBox}"/>
                                 <TextBox Grid.Row="11" Grid.Column="7" Template="{StaticResource NumericTextBox}">
                                     <i:Interaction.Behaviors>
-                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding InstalacionesPE,Mode=TwoWay}"/>
+                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding LosaMacizaAzoteaP.Instalaciones,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
                                     </i:Interaction.Behaviors>
                                 </TextBox>
 
 
                                 <Label Grid.Row="1" Grid.Column="9" Content="Carga adicional por colada"/>
-                                <TextBox Grid.Row="1" Grid.Column="11" IsEnabled="False" Template="{StaticResource NumericTextBox}">
-                                    <i:Interaction.Behaviors>
-                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false"/>
-                                    </i:Interaction.Behaviors>
-                                </TextBox>
-                                <TextBox Grid.Row="1" Grid.Column="13" IsEnabled="False" Template="{StaticResource NumericTextBox}">
-                                    <i:Interaction.Behaviors>
-                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false"/>
-                                    </i:Interaction.Behaviors>
-                                </TextBox>
-                                <TextBox Grid.Row="1" Grid.Column="15" Template="{StaticResource NumericTextBox}">
-                                    <i:Interaction.Behaviors>
-                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding CargaAdicionalColadoPE,Mode=TwoWay}"/>
-                                    </i:Interaction.Behaviors>
-                                </TextBox>
+                                <TextBox Grid.Row="1" Grid.Column="11" IsEnabled="False" Template="{StaticResource NumericTextBox}"/>
+                                <TextBox Grid.Row="1" Grid.Column="13" IsEnabled="False" Template="{StaticResource NumericTextBox}"/>
+                                <TextBox Grid.Row="1" Grid.Column="15" Template="{StaticResource NumericTextBox}" IsEnabled="False" Text="{Binding LosaMacizaAzoteaP.CargaAdicionalPorColado,Mode=TwoWay}"/>
 
 
                                 <Label Grid.Row="3" Grid.Column="9" Content="Carga adicional por mortero"/>
-                                <TextBox Grid.Row="3" Grid.Column="11"  IsEnabled="False" Template="{StaticResource NumericTextBox}">
-                                    <i:Interaction.Behaviors>
-                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false"/>
-                                    </i:Interaction.Behaviors>
-                                </TextBox>
-                                <TextBox Grid.Row="3" Grid.Column="13"  IsEnabled="False" Template="{StaticResource NumericTextBox}">
-                                    <i:Interaction.Behaviors>
-                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false"/>
-                                    </i:Interaction.Behaviors>
-                                </TextBox>
-                                <TextBox Grid.Row="3" Grid.Column="15" Template="{StaticResource NumericTextBox}">
-                                    <i:Interaction.Behaviors>
-                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding CargaAdicionalMorteroPE,Mode=TwoWay}"/>
-                                    </i:Interaction.Behaviors>
-                                </TextBox>
+                                <TextBox Grid.Row="3" Grid.Column="11"  IsEnabled="False" Template="{StaticResource NumericTextBox}"/>
+                                <TextBox Grid.Row="3" Grid.Column="13"  IsEnabled="False" Template="{StaticResource NumericTextBox}"/>
+                                <TextBox Grid.Row="3" Grid.Column="15" Template="{StaticResource NumericTextBox}" IsEnabled="False" Text="{Binding LosaMacizaAzoteaP.CargaAdicionalPorMortero,Mode=TwoWay}"/>
 
 
                                 <Label Grid.Row="5" Grid.Column="9" Content="Carga muerta total"/>
-                                <TextBox Grid.Row="5" Grid.Column="11" IsEnabled="False" Template="{StaticResource NumericTextBox}">
-                                    <i:Interaction.Behaviors>
-                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false"/>
-                                    </i:Interaction.Behaviors>
-                                </TextBox>
-                                <TextBox Grid.Row="5" Grid.Column="13" IsEnabled="False" Template="{StaticResource NumericTextBox}">
-                                    <i:Interaction.Behaviors>
-                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false"/>
-                                    </i:Interaction.Behaviors>
-                                </TextBox>
-                                <TextBox Grid.Row="5" Grid.Column="15" IsEnabled="False" Text="{Binding CargaMuertaTotalPE,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Template="{StaticResource NumericTextBox}">
-                                    <i:Interaction.Behaviors>
-                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" />
-                                    </i:Interaction.Behaviors>
-                                </TextBox>
-
+                                <TextBox Grid.Row="5" Grid.Column="11" IsEnabled="False" Template="{StaticResource NumericTextBox}"/>
+                                <TextBox Grid.Row="5" Grid.Column="13" IsEnabled="False" Template="{StaticResource NumericTextBox}"/>
+                                <TextBox Grid.Row="5" Grid.Column="15" IsEnabled="False" Template="{StaticResource NumericTextBox}" Text="{Binding LosaMacizaAzoteaP.CargaMuerta,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
 
                                 <Label Grid.Row="7" Grid.Column="9" Content="Carga viva maxima"/>
-                                <TextBox Grid.Row="7" Grid.Column="11" IsEnabled="False" Template="{StaticResource NumericTextBox}">
-                                    <i:Interaction.Behaviors>
-                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false"/>
-                                    </i:Interaction.Behaviors>
-                                </TextBox>
-                                <TextBox Grid.Row="7" Grid.Column="13" IsEnabled="False" Template="{StaticResource NumericTextBox}">
-                                    <i:Interaction.Behaviors>
-                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false"/>
-                                    </i:Interaction.Behaviors>
-                                </TextBox>
+                                <TextBox Grid.Row="7" Grid.Column="11" IsEnabled="False" Template="{StaticResource NumericTextBox}"/>
+                                <TextBox Grid.Row="7" Grid.Column="13" IsEnabled="False" Template="{StaticResource NumericTextBox}"/>
                                 <TextBox Grid.Row="7" Grid.Column="15" Template="{StaticResource NumericTextBox}">
                                     <i:Interaction.Behaviors>
-                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding CargaVivaMaximaPE,Mode=TwoWay}"/>
+                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding LosaMacizaAzoteaP.CargaVivaMaxima,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
                                     </i:Interaction.Behaviors>
                                 </TextBox>
 
 
                                 <Label Grid.Row="9" Grid.Column="9" Content="Carga viva instantanea"/>
-                                <TextBox Grid.Row="9" Grid.Column="11" IsEnabled="False" Template="{StaticResource NumericTextBox}">
-                                    <i:Interaction.Behaviors>
-                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false"/>
-                                    </i:Interaction.Behaviors>
-                                </TextBox>
-                                <TextBox Grid.Row="9" Grid.Column="13" IsEnabled="False" Template="{StaticResource NumericTextBox}">
-                                    <i:Interaction.Behaviors>
-                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false"/>
-                                    </i:Interaction.Behaviors>
-                                </TextBox>
+                                <TextBox Grid.Row="9" Grid.Column="11" IsEnabled="False" Template="{StaticResource NumericTextBox}"/>
+                                <TextBox Grid.Row="9" Grid.Column="13" IsEnabled="False" Template="{StaticResource NumericTextBox}"/>
                                 <TextBox Grid.Row="9" Grid.Column="15" Template="{StaticResource NumericTextBox}">
                                     <i:Interaction.Behaviors>
-                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding CargaVivaInstantaneaPE,Mode=TwoWay}"/>
+                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding LosaMacizaAzoteaP.CargaVivaInstantanea,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
                                     </i:Interaction.Behaviors>
                                 </TextBox>
 
@@ -611,54 +493,41 @@
                                 <Label Grid.Row="0" Grid.Column="3" Content="Medida" Style="{StaticResource LabelHeader}"/>
 
                                 <Label Grid.Row="2" Grid.Column="1" Content="Espesor de capa de compresión" />
-                                <TextBox Grid.Row="2" Grid.Column="3" Text="{Binding EspesorCapaCompresion, Mode=TwoWay}" Template="{StaticResource NumericTextBox}">
+                                <TextBox Grid.Row="2" Grid.Column="3" Template="{StaticResource NumericTextBox}">
                                     <i:Interaction.Behaviors>
-                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding RellenoAdicionalPV,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding LosaNervadaEntrepisoP.EspesorCapaCompresion,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                                     </i:Interaction.Behaviors>
                                 </TextBox>
 
                                 <Label Grid.Row="4" Grid.Column="1" Content="Peralte total de losa" />
-                                <TextBox Grid.Row="4" Grid.Column="3" Text="{Binding PeralteTotalLosa, Mode=TwoWay}" Template="{StaticResource NumericTextBox}">
+                                <TextBox Grid.Row="4" Grid.Column="3" Template="{StaticResource NumericTextBox}">
                                     <i:Interaction.Behaviors>
-                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding RellenoAdicionalPV,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding LosaNervadaEntrepisoP.PeralteTotalDeLosa,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                                     </i:Interaction.Behaviors>
                                 </TextBox>
 
                                 <Label Grid.Row="6" Grid.Column="1" Content="Ancho de nervadura" />
-                                <TextBox Grid.Row="6" Grid.Column="3" Controls:TextBoxHelper.ClearTextButton="True" Text="{Binding AnchoNervadura, Mode=TwoWay}" Template="{StaticResource NumericTextBox}">
+                                <TextBox Grid.Row="6" Grid.Column="3" Controls:TextBoxHelper.ClearTextButton="True" Template="{StaticResource NumericTextBox}">
                                     <i:Interaction.Behaviors>
-                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding RellenoAdicionalPV,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding LosaNervadaEntrepisoP.AnchoNervadura,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                                     </i:Interaction.Behaviors>
                                 </TextBox>
 
                                 <Label Grid.Row="8" Grid.Column="1" Content="Ancho de caseton" />
-                                <TextBox Grid.Row="8" Grid.Column="3" Controls:TextBoxHelper.ClearTextButton="True" Text="{Binding AnchoCaseton,Mode=TwoWay}" Template="{StaticResource NumericTextBox}" >
+                                <TextBox Grid.Row="8" Grid.Column="3" Controls:TextBoxHelper.ClearTextButton="True" Template="{StaticResource NumericTextBox}" >
                                     <i:Interaction.Behaviors>
-                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding RellenoAdicionalPV,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding LosaNervadaEntrepisoP.AnchoCaseton,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                                     </i:Interaction.Behaviors>
                                 </TextBox>
 
                                 <Label Grid.Row="10" Grid.Column="1" Content="Longitud de modulo" />
-                                <TextBox Grid.Row="10" Grid.Column="3" Controls:TextBoxHelper.ClearTextButton="True" Text="{Binding LongitudModulo,Mode=TwoWay}" Template="{StaticResource NumericTextBox}">
-                                    <i:Interaction.Behaviors>
-                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding RellenoAdicionalPV,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-                                    </i:Interaction.Behaviors>
-                                </TextBox>
+                                <TextBox Grid.Row="10" Grid.Column="3" Controls:TextBoxHelper.ClearTextButton="True" Text="{Binding LosaNervadaEntrepisoP.LongitudModulo,Mode=TwoWay}" Template="{StaticResource NumericTextBox}" IsEnabled="False"/>
 
                                 <Label Grid.Row="12" Grid.Column="1" Content="Area de concreto" />
-                                <TextBox Grid.Row="12" Grid.Column="3" Controls:TextBoxHelper.ClearTextButton="True" Text="{Binding AreaConcreto,Mode=TwoWay}"  Template="{StaticResource NumericTextBox}">
-                                    <i:Interaction.Behaviors>
-                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding RellenoAdicionalPV,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-                                    </i:Interaction.Behaviors>
-                                </TextBox>
+                                <TextBox Grid.Row="12" Grid.Column="3" Controls:TextBoxHelper.ClearTextButton="True" IsEnabled="False" Text="{Binding LosaNervadaEntrepisoP.AreaConcreto,Mode=TwoWay}"  Template="{StaticResource NumericTextBox}"/>
 
                                 <Label Grid.Row="14" Grid.Column="1" Content="Area de caseton" />
-                                <TextBox Grid.Row="14" Grid.Column="3" Controls:TextBoxHelper.ClearTextButton="True" Text="{Binding AreaCaseton,Mode=TwoWay}" Template="{StaticResource NumericTextBox}">
-                                    <i:Interaction.Behaviors>
-                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding RellenoAdicionalPV,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-                                    </i:Interaction.Behaviors>
-                                </TextBox>
-
+                                <TextBox Grid.Row="14" Grid.Column="3" Controls:TextBoxHelper.ClearTextButton="True" IsEnabled="False" Text="{Binding LosaNervadaEntrepisoP.AreaCaseton,Mode=TwoWay}" Template="{StaticResource NumericTextBox}"/>
 
                                 <Label Grid.Row="0" Grid.Column="5" Content="Concepto" Style="{StaticResource LabelHeaderConcepto}"/>
                                 <Label Grid.Row="0" Grid.Column="7" Grid.ColumnSpan="1" Content="Peso volumetrico" Style="{StaticResource LabelHeader}"/>
@@ -672,140 +541,99 @@
                                 <Label Grid.Row="2" Grid.Column="5" Content="Relleno adicional" />
                                 <TextBox Grid.Row="2" Grid.Column="7" Controls:TextBoxHelper.ClearTextButton="True" Template="{StaticResource NumericTextBox}">
                                     <i:Interaction.Behaviors>
-                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding RellenoAdicionalPV,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding LosaNervadaEntrepisoP.RellenoAdicionalPV,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                                     </i:Interaction.Behaviors>
                                 </TextBox>
                                 <TextBox Grid.Row="2" Grid.Column="9" Controls:TextBoxHelper.ClearTextButton="True" Template="{StaticResource NumericTextBox}">
                                     <i:Interaction.Behaviors>
-                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding RellenoAdicionalES,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding LosaNervadaEntrepisoP.RellenoAdicionalES,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
                                     </i:Interaction.Behaviors>
                                 </TextBox>
-                                <TextBox Grid.Row="2" Grid.Column="11" Controls:TextBoxHelper.ClearTextButton="True" Text="{Binding RellenoAdicionalPE,Mode=TwoWay}" Template="{StaticResource NumericTextBox}">
-                                    <i:Interaction.Behaviors>
-                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false"/>
-                                    </i:Interaction.Behaviors>
-                                </TextBox>
+                                <TextBox Grid.Row="2" Grid.Column="11" Controls:TextBoxHelper.ClearTextButton="True" IsEnabled="False" Text="{Binding LosaNervadaEntrepisoP.RellenoAdicionalPE,Mode=TwoWay}" Template="{StaticResource NumericTextBox}"/>
 
 
                                 <Label Grid.Row="4" Grid.Column="5" Content="Piso"/>
                                 <TextBox Grid.Row="4" Grid.Column="7" Controls:TextBoxHelper.ClearTextButton="True" Template="{StaticResource NumericTextBox}">
                                     <i:Interaction.Behaviors>
-                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding PisoPV,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding LosaNervadaEntrepisoP.PisoPV,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
                                     </i:Interaction.Behaviors>
                                 </TextBox>
                                 <TextBox Grid.Row="4" Grid.Column="9" Controls:TextBoxHelper.ClearTextButton="True" Template="{StaticResource NumericTextBox}">
                                     <i:Interaction.Behaviors>
-                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding PisoES,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding LosaNervadaEntrepisoP.PisoES,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
                                     </i:Interaction.Behaviors>
                                 </TextBox>
-                                <TextBox Grid.Row="4" Grid.Column="11" Controls:TextBoxHelper.ClearTextButton="True" Text="{Binding PisoPE,Mode=TwoWay}" Template="{StaticResource NumericTextBox}">
-                                    <i:Interaction.Behaviors>
-                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false"/>
-                                    </i:Interaction.Behaviors>
-                                </TextBox>
-
+                                <TextBox Grid.Row="4" Grid.Column="11" Controls:TextBoxHelper.ClearTextButton="True" IsEnabled="False" Text="{Binding LosaNervadaEntrepisoP.PisoPE,Mode=TwoWay}" Template="{StaticResource NumericTextBox}"/>
 
                                 <Label Grid.Row="6" Grid.Column="5" Content="Mortero"/>
                                 <TextBox Grid.Row="6" Grid.Column="7" Controls:TextBoxHelper.ClearTextButton="True" Template="{StaticResource NumericTextBox}">
                                     <i:Interaction.Behaviors>
-                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding MorteroPV,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding LosaNervadaEntrepisoP.MorteroPV,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
                                     </i:Interaction.Behaviors>
                                 </TextBox>
                                 <TextBox Grid.Row="6" Grid.Column="9" Controls:TextBoxHelper.ClearTextButton="True" Template="{StaticResource NumericTextBox}">
                                     <i:Interaction.Behaviors>
-                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding MorteroES,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding LosaNervadaEntrepisoP.MorteroES,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
                                     </i:Interaction.Behaviors>
                                 </TextBox>
-                                <TextBox Grid.Row="6" Grid.Column="11" Controls:TextBoxHelper.ClearTextButton="True" Text="{Binding MorteroPE,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Template="{StaticResource NumericTextBox}">
-                                    <i:Interaction.Behaviors>
-                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false"/>
-                                    </i:Interaction.Behaviors>
-                                </TextBox>
+                                <TextBox Grid.Row="6" Grid.Column="11" Controls:TextBoxHelper.ClearTextButton="True" IsEnabled="False" Text="{Binding LosaNervadaEntrepisoP.MorteroPE,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Template="{StaticResource NumericTextBox}"/>
 
 
                                 <Label Grid.Row="8" Grid.Column="5" Content="Firme"/>
                                 <TextBox Grid.Row="8" Grid.Column="7" Controls:TextBoxHelper.ClearTextButton="True" Template="{StaticResource NumericTextBox}">
                                     <i:Interaction.Behaviors>
-                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding FirmePV,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding LosaNervadaEntrepisoP.FirmePV,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
                                     </i:Interaction.Behaviors>
                                 </TextBox>
                                 <TextBox Grid.Row="8" Grid.Column="9" Controls:TextBoxHelper.ClearTextButton="True" Template="{StaticResource NumericTextBox}">
                                     <i:Interaction.Behaviors>
-                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding FirmeES,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding LosaNervadaEntrepisoP.FirmeES,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
                                     </i:Interaction.Behaviors>
                                 </TextBox>
-                                <TextBox Grid.Row="8" Grid.Column="11" Controls:TextBoxHelper.ClearTextButton="True" Text="{Binding FirmePE,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Template="{StaticResource NumericTextBox}">
-                                    <i:Interaction.Behaviors>
-                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false"/>
-                                    </i:Interaction.Behaviors>
-                                </TextBox>
+                                <TextBox Grid.Row="8" Grid.Column="11" Controls:TextBoxHelper.ClearTextButton="True" IsEnabled="False" Text="{Binding LosaNervadaEntrepisoP.FirmePE,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Template="{StaticResource NumericTextBox}"/>
 
                                 <Label Grid.Row="10" Grid.Column="5" Content="Losa"/>
                                 <TextBox Grid.Row="10" Grid.Column="7" Controls:TextBoxHelper.ClearTextButton="True" Template="{StaticResource NumericTextBox}">
                                     <i:Interaction.Behaviors>
-                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding LosaPV,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding LosaNervadaEntrepisoP.LosaPV,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
                                     </i:Interaction.Behaviors>
                                 </TextBox>
-                                <TextBox Grid.Row="10" Grid.Column="9" Controls:TextBoxHelper.ClearTextButton="True" IsEnabled="False" Template="{StaticResource NumericTextBox}">
-                                    <i:Interaction.Behaviors>
-                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding LosaES,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
-                                    </i:Interaction.Behaviors>
-                                </TextBox>
-                                <TextBox Grid.Row="10" Grid.Column="11" Controls:TextBoxHelper.ClearTextButton="True" Text="{Binding LosaPE,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Template="{StaticResource NumericTextBox}">
-                                    <i:Interaction.Behaviors>
-                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false"/>
-                                    </i:Interaction.Behaviors>
-                                </TextBox>
+                                <TextBox Grid.Row="10" Grid.Column="9" Controls:TextBoxHelper.ClearTextButton="True" IsEnabled="False" Template="{StaticResource NumericTextBox}"/>
+
+                                <TextBox Grid.Row="10" Grid.Column="11" Controls:TextBoxHelper.ClearTextButton="True" IsEnabled="False" Text="{Binding LosaNervadaEntrepisoP.LosaPE,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Template="{StaticResource NumericTextBox}"/>
 
 
                                 <Label Grid.Row="12" Grid.Column="5" Content="Casetones"/>
                                 <TextBox Grid.Row="12" Grid.Column="7" Controls:TextBoxHelper.ClearTextButton="True" Template="{StaticResource NumericTextBox}">
                                     <i:Interaction.Behaviors>
-                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding CasetonesPV,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding LosaNervadaEntrepisoP.CasetonesPV,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
                                     </i:Interaction.Behaviors>
                                 </TextBox>
-                                <TextBox Grid.Row="12" Grid.Column="9" Controls:TextBoxHelper.ClearTextButton="True" IsEnabled="False" Template="{StaticResource NumericTextBox}">
-                                    <i:Interaction.Behaviors>
-                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding CasetonesES,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
-                                    </i:Interaction.Behaviors>
-                                </TextBox>
-                                <TextBox Grid.Row="12" Grid.Column="11" Controls:TextBoxHelper.ClearTextButton="True" Text="{Binding CasetonesPE,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Template="{StaticResource NumericTextBox}">
-                                    <i:Interaction.Behaviors>
-                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false"/>
-                                    </i:Interaction.Behaviors>
-                                </TextBox>
+
+                                <TextBox Grid.Row="12" Grid.Column="9" Controls:TextBoxHelper.ClearTextButton="True" IsEnabled="False" Template="{StaticResource NumericTextBox}"/>
+
+                                <TextBox Grid.Row="12" Grid.Column="11" Controls:TextBoxHelper.ClearTextButton="True" IsEnabled="False" Text="{Binding LosaNervadaEntrepisoP.CasetonesPE,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Template="{StaticResource NumericTextBox}"/>
 
                                 <Label Grid.Row="14" Grid.Column="5" Content="Aplanado"/>
                                 <TextBox Grid.Row="14" Grid.Column="7" Controls:TextBoxHelper.ClearTextButton="True" Template="{StaticResource NumericTextBox}">
                                     <i:Interaction.Behaviors>
-                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding AplanadoPV,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding LosaNervadaEntrepisoP.AplanadoPV,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
                                     </i:Interaction.Behaviors>
                                 </TextBox>
                                 <TextBox Grid.Row="14" Grid.Column="9" Controls:TextBoxHelper.ClearTextButton="True" Template="{StaticResource NumericTextBox}">
                                     <i:Interaction.Behaviors>
-                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding AplanadoES,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding LosaNervadaEntrepisoP.AplanadoES,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
                                     </i:Interaction.Behaviors>
                                 </TextBox>
-                                <TextBox Grid.Row="14" Grid.Column="11" Controls:TextBoxHelper.ClearTextButton="True" Text="{Binding AplanadoPE,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Template="{StaticResource NumericTextBox}">
-                                    <i:Interaction.Behaviors>
-                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false"/>
-                                    </i:Interaction.Behaviors>
-                                </TextBox>
+                                <TextBox Grid.Row="14" Grid.Column="11" Controls:TextBoxHelper.ClearTextButton="True" Text="{Binding LosaNervadaEntrepisoP.AplanadoPE,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Template="{StaticResource NumericTextBox}"/>
 
                                 <Label Grid.Row="2" Grid.Column="13" Content="Instalaciones"/>
-                                <TextBox Grid.Row="2" Grid.Column="15" Controls:TextBoxHelper.ClearTextButton="True" IsEnabled="False" Template="{StaticResource NumericTextBox}">
-                                    <i:Interaction.Behaviors>
-                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false"/>
-                                    </i:Interaction.Behaviors>
-                                </TextBox>
-                                <TextBox Grid.Row="2" Grid.Column="17" Controls:TextBoxHelper.ClearTextButton="True" IsEnabled="False" Template="{StaticResource NumericTextBox}">
-                                    <i:Interaction.Behaviors>
-                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false"/>
-                                    </i:Interaction.Behaviors>
-                                </TextBox>
+                                <TextBox Grid.Row="2" Grid.Column="15" Controls:TextBoxHelper.ClearTextButton="True" IsEnabled="False" Template="{StaticResource NumericTextBox}"/>
+                                <TextBox Grid.Row="2" Grid.Column="17" Controls:TextBoxHelper.ClearTextButton="True" IsEnabled="False" Template="{StaticResource NumericTextBox}"/>
+                                
                                 <TextBox Grid.Row="2" Grid.Column="19" Controls:TextBoxHelper.ClearTextButton="True"  Template="{StaticResource NumericTextBox}">
                                     <i:Interaction.Behaviors>
-                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding InstalacionesPE,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding LosaNervadaEntrepisoP.Instalaciones,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
                                     </i:Interaction.Behaviors>
                                 </TextBox>
 
@@ -813,31 +641,18 @@
                                 <Label Grid.Row="4" Grid.Column="13" Content="Carga adicional por colado"/>
                                 <TextBox Grid.Row="4" Grid.Column="15" Controls:TextBoxHelper.ClearTextButton="True" IsEnabled="False" Template="{StaticResource NumericTextBox}"/>
                                 <TextBox Grid.Row="4" Grid.Column="17" Controls:TextBoxHelper.ClearTextButton="True" IsEnabled="False" Template="{StaticResource NumericTextBox}"/>
-                                <TextBox Grid.Row="4" Grid.Column="19" Controls:TextBoxHelper.ClearTextButton="True" Template="{StaticResource NumericTextBox}">
-                                    <i:Interaction.Behaviors>
-                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding CargaAdicionalColadoPE,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
-                                    </i:Interaction.Behaviors>
-                                </TextBox>
+                                <TextBox Grid.Row="4" Grid.Column="19" Controls:TextBoxHelper.ClearTextButton="True" IsEnabled="False" Template="{StaticResource NumericTextBox}" Text="{Binding LosaNervadaEntrepisoP.CargaAdicionalPorColado,Mode=TwoWay}"/>
 
 
                                 <Label Grid.Row="6" Grid.Column="13" Content="Carga adicional por mortero"/>
                                 <TextBox Grid.Row="6" Grid.Column="15" Controls:TextBoxHelper.ClearTextButton="True" IsEnabled="False" Template="{StaticResource NumericTextBox}"/>
                                 <TextBox Grid.Row="6" Grid.Column="17" Controls:TextBoxHelper.ClearTextButton="True" IsEnabled="False" Template="{StaticResource NumericTextBox}"/>
-                                <TextBox Grid.Row="6" Grid.Column="19" Controls:TextBoxHelper.ClearTextButton="True" Template="{StaticResource NumericTextBox}">
-                                    <i:Interaction.Behaviors>
-                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding CargaAdicionalMorteroPE,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
-                                    </i:Interaction.Behaviors>
-                                </TextBox>
-
+                                <TextBox Grid.Row="6" Grid.Column="19" Controls:TextBoxHelper.ClearTextButton="True" IsEnabled="False" Template="{StaticResource NumericTextBox}" Text="{Binding LosaNervadaEntrepisoP.CargaAdicionalPorMortero}"/>
 
                                 <Label Grid.Row="8" Grid.Column="13" Content="Carga muerta total"/>
                                 <TextBox Grid.Row="8" Grid.Column="15" Controls:TextBoxHelper.ClearTextButton="True" IsEnabled="False" Template="{StaticResource NumericTextBox}"/>
                                 <TextBox Grid.Row="8" Grid.Column="17" Controls:TextBoxHelper.ClearTextButton="True" IsEnabled="False" Template="{StaticResource NumericTextBox}"/>
-                                <TextBox Grid.Row="8" Grid.Column="19" Controls:TextBoxHelper.ClearTextButton="True"  Template="{StaticResource NumericTextBox}">
-                                    <i:Interaction.Behaviors>
-                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding CargaMuertaTotalPE,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
-                                    </i:Interaction.Behaviors>
-                                </TextBox>
+                                <TextBox Grid.Row="8" Grid.Column="19" Controls:TextBoxHelper.ClearTextButton="True" IsEnabled="False" Template="{StaticResource NumericTextBox}" Text="{Binding LosaNervadaEntrepisoP.CargaMuerta,Mode=TwoWay}"/>
 
 
                                 <Label Grid.Row="10" Grid.Column="13" Content="Carga viva maxima"/>
@@ -845,7 +660,7 @@
                                 <TextBox Grid.Row="10" Grid.Column="17" Controls:TextBoxHelper.ClearTextButton="True" IsEnabled="False" Template="{StaticResource NumericTextBox}"/>
                                 <TextBox Grid.Row="10" Grid.Column="19" Controls:TextBoxHelper.ClearTextButton="True"  Template="{StaticResource NumericTextBox}">
                                     <i:Interaction.Behaviors>
-                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding CargaVivaMaximaPE,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding LosaNervadaEntrepisoP.CargaVivaMaxima,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
                                     </i:Interaction.Behaviors>
                                 </TextBox>
 
@@ -855,7 +670,7 @@
                                 <TextBox Grid.Row="12" Grid.Column="17" Controls:TextBoxHelper.ClearTextButton="True" IsEnabled="False" Template="{StaticResource NumericTextBox}"/>
                                 <TextBox Grid.Row="12" Grid.Column="19" Controls:TextBoxHelper.ClearTextButton="True" Template="{StaticResource NumericTextBox}">
                                     <i:Interaction.Behaviors>
-                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding CargaVivaInstantaneaPE,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding LosaNervadaEntrepisoP.CargaVivaInstantanea,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
                                     </i:Interaction.Behaviors>
                                 </TextBox>
 
@@ -922,25 +737,53 @@
                                 <Label Grid.Row="0" Grid.Column="3" Content="Medida" Style="{StaticResource LabelHeader}"/>
 
                                 <Label Grid.Row="2" Grid.Column="1" Content="Espesor de capa de compresión" />
-                                <TextBox Grid.Row="2" Grid.Column="3" Controls:TextBoxHelper.ClearTextButton="True" Template="{StaticResource NumericTextBox}"/>
+                                <TextBox Grid.Row="2" Grid.Column="3" Controls:TextBoxHelper.ClearTextButton="True" Template="{StaticResource NumericTextBox}">
+                                    <i:Interaction.Behaviors>
+                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding LosaNervadaAzoteaP.EspesorCapaCompresion,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                    </i:Interaction.Behaviors>
+                                </TextBox>
 
                                 <Label Grid.Row="4" Grid.Column="1" Content="Peralte total de losa" />
-                                <TextBox Grid.Row="4" Grid.Column="3" Controls:TextBoxHelper.ClearTextButton="True" Template="{StaticResource NumericTextBox}"/>
+                                <TextBox Grid.Row="4" Grid.Column="3" Controls:TextBoxHelper.ClearTextButton="True" Template="{StaticResource NumericTextBox}">
+                                    <i:Interaction.Behaviors>
+                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding LosaNervadaAzoteaP.PeralteTotalDeLosa,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                    </i:Interaction.Behaviors>
+                                </TextBox>
 
                                 <Label Grid.Row="6" Grid.Column="1" Content="Ancho de nervadura" />
-                                <TextBox Grid.Row="6" Grid.Column="3" Controls:TextBoxHelper.ClearTextButton="True" Template="{StaticResource NumericTextBox}"/>
+                                <TextBox Grid.Row="6" Grid.Column="3" Controls:TextBoxHelper.ClearTextButton="True" Template="{StaticResource NumericTextBox}">
+                                    <i:Interaction.Behaviors>
+                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding LosaNervadaAzoteaP.AnchoNervadura,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                    </i:Interaction.Behaviors>
+                                </TextBox>
 
                                 <Label Grid.Row="8" Grid.Column="1" Content="Ancho de caseton" />
-                                <TextBox Grid.Row="8" Grid.Column="3" Controls:TextBoxHelper.ClearTextButton="True" Template="{StaticResource NumericTextBox}" />
+                                <TextBox Grid.Row="8" Grid.Column="3" Controls:TextBoxHelper.ClearTextButton="True" Template="{StaticResource NumericTextBox}" >
+                                    <i:Interaction.Behaviors>
+                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding LosaNervadaAzoteaP.AnchoCaseton,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                    </i:Interaction.Behaviors>
+                                </TextBox>
 
                                 <Label Grid.Row="10" Grid.Column="1" Content="Longitud de modulo" />
-                                <TextBox Grid.Row="10" Grid.Column="3" Controls:TextBoxHelper.ClearTextButton="True" Template="{StaticResource NumericTextBox}"/>
+                                <TextBox Grid.Row="10" Grid.Column="3" Controls:TextBoxHelper.ClearTextButton="True" IsEnabled="False" Template="{StaticResource NumericTextBox}">
+                                    <i:Interaction.Behaviors>
+                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding LosaNervadaAzoteaP.LongitudModulo,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                    </i:Interaction.Behaviors>
+                                </TextBox>
 
                                 <Label Grid.Row="12" Grid.Column="1" Content="Area de concreto" />
-                                <TextBox Grid.Row="12" Grid.Column="3" Controls:TextBoxHelper.ClearTextButton="True" Template="{StaticResource NumericTextBox}"/>
+                                <TextBox Grid.Row="12" Grid.Column="3" Controls:TextBoxHelper.ClearTextButton="True" IsEnabled="False" Template="{StaticResource NumericTextBox}">
+                                    <i:Interaction.Behaviors>
+                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding LosaNervadaAzoteaP.AreaConcreto,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                    </i:Interaction.Behaviors>
+                                </TextBox>
 
                                 <Label Grid.Row="14" Grid.Column="1" Content="Area de caseton" />
-                                <TextBox Grid.Row="14" Grid.Column="3" Controls:TextBoxHelper.ClearTextButton="True" Template="{StaticResource NumericTextBox}"/>
+                                <TextBox Grid.Row="14" Grid.Column="3" Controls:TextBoxHelper.ClearTextButton="True" IsEnabled="False" Template="{StaticResource NumericTextBox}">
+                                    <i:Interaction.Behaviors>
+                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding LosaNervadaAzoteaP.AreaCaseton,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                    </i:Interaction.Behaviors>
+                                </TextBox>
 
 
                                 <Label Grid.Row="0" Grid.Column="5" Content="Concepto" Style="{StaticResource LabelHeaderConcepto}"/>
@@ -953,72 +796,122 @@
                                 <Label Grid.Row="0" Grid.Column="19" Content="Peso" Style="{StaticResource LabelHeader}"/>
 
                                 <Label Grid.Row="2" Grid.Column="5" Content="Impermeabilizante" />
-                                <TextBox Grid.Row="2" Grid.Column="7" Controls:TextBoxHelper.ClearTextButton="True"  Template="{StaticResource NumericTextBox}"/>
-                                <TextBox Grid.Row="2" Grid.Column="9" Controls:TextBoxHelper.ClearTextButton="True" Template="{StaticResource NumericTextBox}"/>
-                                <TextBox Grid.Row="2" Grid.Column="11" Controls:TextBoxHelper.ClearTextButton="True" Template="{StaticResource NumericTextBox}" />
+                                <TextBox Grid.Row="2" Grid.Column="7" Controls:TextBoxHelper.ClearTextButton="True"  IsEnabled="False" Template="{StaticResource NumericTextBox}"/>
+                                <TextBox Grid.Row="2" Grid.Column="9" Controls:TextBoxHelper.ClearTextButton="True"  IsEnabled="False" Template="{StaticResource NumericTextBox}"/>
+                                <TextBox Grid.Row="2" Grid.Column="11" Controls:TextBoxHelper.ClearTextButton="True" Template="{StaticResource NumericTextBox}">
+                                    <i:Interaction.Behaviors>
+                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding LosaNervadaAzoteaP.Impermeabilizante, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                    </i:Interaction.Behaviors>
+                                </TextBox>
 
 
                                 <Label Grid.Row="4" Grid.Column="5" Content="Mortero"/>
-                                <TextBox Grid.Row="4" Grid.Column="7" Controls:TextBoxHelper.ClearTextButton="True"  Template="{StaticResource NumericTextBox}"/>
-                                <TextBox Grid.Row="4" Grid.Column="9" Controls:TextBoxHelper.ClearTextButton="True" Template="{StaticResource NumericTextBox}"/>
-                                <TextBox Grid.Row="4" Grid.Column="11" Controls:TextBoxHelper.ClearTextButton="True" Template="{StaticResource NumericTextBox}" />
+                                <TextBox Grid.Row="4" Grid.Column="7" Controls:TextBoxHelper.ClearTextButton="True"  Template="{StaticResource NumericTextBox}">
+                                    <i:Interaction.Behaviors>
+                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding LosaNervadaAzoteaP.MorteroPV,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                    </i:Interaction.Behaviors>
+                                </TextBox>
+                                <TextBox Grid.Row="4" Grid.Column="9" Controls:TextBoxHelper.ClearTextButton="True" Template="{StaticResource NumericTextBox}">
+                                    <i:Interaction.Behaviors>
+                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding LosaNervadaAzoteaP.MorteroES,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                    </i:Interaction.Behaviors>
+                                </TextBox>
+                                <TextBox Grid.Row="4" Grid.Column="11" Controls:TextBoxHelper.ClearTextButton="True" IsEnabled="False" Text="{Binding LosaNervadaAzoteaP.MorteroPE, Mode=TwoWay}" Template="{StaticResource NumericTextBox}" />
 
 
                                 <Label Grid.Row="6" Grid.Column="5" Content="Relleno"/>
-                                <TextBox Grid.Row="6" Grid.Column="7" Controls:TextBoxHelper.ClearTextButton="True" Template="{StaticResource NumericTextBox}"/>
-                                <TextBox Grid.Row="6" Grid.Column="9" Controls:TextBoxHelper.ClearTextButton="True" Template="{StaticResource NumericTextBox}"/>
-                                <TextBox Grid.Row="6" Grid.Column="11" Controls:TextBoxHelper.ClearTextButton="True" Template="{StaticResource NumericTextBox}"/>
+                                <TextBox Grid.Row="6" Grid.Column="7" Controls:TextBoxHelper.ClearTextButton="True" Template="{StaticResource NumericTextBox}">
+                                    <i:Interaction.Behaviors>
+                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding LosaNervadaAzoteaP.RellenoPV,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                    </i:Interaction.Behaviors>
+                                </TextBox>
+                                <TextBox Grid.Row="6" Grid.Column="9" Controls:TextBoxHelper.ClearTextButton="True" Template="{StaticResource NumericTextBox}">
+                                    <i:Interaction.Behaviors>
+                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding LosaNervadaAzoteaP.RellenoES,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                    </i:Interaction.Behaviors>
+                                </TextBox>
+                                <TextBox Grid.Row="6" Grid.Column="11" Controls:TextBoxHelper.ClearTextButton="True" Text="{Binding LosaNervadaAzoteaP.RellenoPE, Mode=TwoWay}" IsEnabled="False" Template="{StaticResource NumericTextBox}"/>
 
 
                                 <Label Grid.Row="8" Grid.Column="5" Content="Losa"/>
-                                <TextBox Grid.Row="8" Grid.Column="7" Controls:TextBoxHelper.ClearTextButton="True" Template="{StaticResource NumericTextBox}"/>
-                                <TextBox Grid.Row="8" Grid.Column="9" Controls:TextBoxHelper.ClearTextButton="True" Template="{StaticResource NumericTextBox}"/>
-                                <TextBox Grid.Row="8" Grid.Column="11" Controls:TextBoxHelper.ClearTextButton="True" Template="{StaticResource NumericTextBox}"/>
+                                <TextBox Grid.Row="8" Grid.Column="7" Controls:TextBoxHelper.ClearTextButton="True" Template="{StaticResource NumericTextBox}">
+                                    <i:Interaction.Behaviors>
+                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding LosaNervadaAzoteaP.LosaPV,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                    </i:Interaction.Behaviors>
+                                </TextBox>
+                                <TextBox Grid.Row="8" Grid.Column="9" Controls:TextBoxHelper.ClearTextButton="True" IsEnabled="False" Template="{StaticResource NumericTextBox}"/>
+
+                                <TextBox Grid.Row="8" Grid.Column="11" Controls:TextBoxHelper.ClearTextButton="True" IsEnabled="False" Text="{Binding LosaNervadaAzoteaP.LosaPE,Mode=TwoWay}" Template="{StaticResource NumericTextBox}"/>
 
                                 <Label Grid.Row="10" Grid.Column="5" Content="Casetones"/>
-                                <TextBox Grid.Row="10" Grid.Column="7" Controls:TextBoxHelper.ClearTextButton="True" Template="{StaticResource NumericTextBox}"/>
+                                <TextBox Grid.Row="10" Grid.Column="7" Controls:TextBoxHelper.ClearTextButton="True" Template="{StaticResource NumericTextBox}">
+                                    <i:Interaction.Behaviors>
+                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding LosaNervadaAzoteaP.CasetonesPV,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                    </i:Interaction.Behaviors>
+                                </TextBox>
                                 <TextBox Grid.Row="10" Grid.Column="9" Controls:TextBoxHelper.ClearTextButton="True" IsEnabled="False" Template="{StaticResource NumericTextBox}"/>
-                                <TextBox Grid.Row="10" Grid.Column="11" Controls:TextBoxHelper.ClearTextButton="True"  Template="{StaticResource NumericTextBox}"/>
+
+                                <TextBox Grid.Row="10" Grid.Column="11" Controls:TextBoxHelper.ClearTextButton="True" IsEnabled="False" Text="{Binding LosaNervadaAzoteaP.CasetonesPE}"  Template="{StaticResource NumericTextBox}"/>
 
 
                                 <Label Grid.Row="12" Grid.Column="5" Content="Aplanado"/>
-                                <TextBox Grid.Row="12" Grid.Column="7" Controls:TextBoxHelper.ClearTextButton="True" Template="{StaticResource NumericTextBox}"/>
-                                <TextBox Grid.Row="12" Grid.Column="9" Controls:TextBoxHelper.ClearTextButton="True" IsEnabled="False" Template="{StaticResource NumericTextBox}"/>
-                                <TextBox Grid.Row="12" Grid.Column="11" Controls:TextBoxHelper.ClearTextButton="True" Template="{StaticResource NumericTextBox}"/>
+                                <TextBox Grid.Row="12" Grid.Column="7" Controls:TextBoxHelper.ClearTextButton="True" Template="{StaticResource NumericTextBox}">
+                                    <i:Interaction.Behaviors>
+                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding LosaNervadaAzoteaP.AplanadoPV,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                    </i:Interaction.Behaviors>
+                                </TextBox>
+                                <TextBox Grid.Row="12" Grid.Column="9" Controls:TextBoxHelper.ClearTextButton="True" Template="{StaticResource NumericTextBox}">
+                                    <i:Interaction.Behaviors>
+                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding LosaNervadaAzoteaP.AplanadoES,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                    </i:Interaction.Behaviors>
+                                </TextBox>
+                                <TextBox Grid.Row="12" Grid.Column="11" Controls:TextBoxHelper.ClearTextButton="True" IsEnabled="False" Text="{Binding LosaNervadaAzoteaP.AplanadoPE,Mode=TwoWay}" Template="{StaticResource NumericTextBox}"/>
 
                                 <Label Grid.Row="14" Grid.Column="5" Content="Instalaciones"/>
-                                <TextBox Grid.Row="14" Grid.Column="7" Controls:TextBoxHelper.ClearTextButton="True" Template="{StaticResource NumericTextBox}"/>
-                                <TextBox Grid.Row="14" Grid.Column="9" Controls:TextBoxHelper.ClearTextButton="True" Template="{StaticResource NumericTextBox}"/>
-                                <TextBox Grid.Row="14" Grid.Column="11" Controls:TextBoxHelper.ClearTextButton="True" Template="{StaticResource NumericTextBox}"/>
+                                <TextBox Grid.Row="14" Grid.Column="7" Controls:TextBoxHelper.ClearTextButton="True" IsEnabled="False" Template="{StaticResource NumericTextBox}"/>
+                                <TextBox Grid.Row="14" Grid.Column="9" Controls:TextBoxHelper.ClearTextButton="True" IsEnabled="False" Template="{StaticResource NumericTextBox}"/>
+                                <TextBox Grid.Row="14" Grid.Column="11" Controls:TextBoxHelper.ClearTextButton="True" Template="{StaticResource NumericTextBox}">
+                                    <i:Interaction.Behaviors>
+                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding LosaNervadaAzoteaP.Instalaciones,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                    </i:Interaction.Behaviors>
+                                </TextBox>
 
                                 <Label Grid.Row="2" Grid.Column="13" Content="Carga adicional por colado"/>
                                 <TextBox Grid.Row="2" Grid.Column="15" Controls:TextBoxHelper.ClearTextButton="True" IsEnabled="False" Template="{StaticResource NumericTextBox}"/>
                                 <TextBox Grid.Row="2" Grid.Column="17" Controls:TextBoxHelper.ClearTextButton="True" IsEnabled="False" Template="{StaticResource NumericTextBox}"/>
-                                <TextBox Grid.Row="2" Grid.Column="19" Controls:TextBoxHelper.ClearTextButton="True"  Template="{StaticResource NumericTextBox}"/>
+                                <TextBox Grid.Row="2" Grid.Column="19" Controls:TextBoxHelper.ClearTextButton="True" IsEnabled="False"  Text="{Binding LosaNervadaAzoteaP.CargaAdicionalPorColado,Mode=TwoWay}" Template="{StaticResource NumericTextBox}"/>
 
 
                                 <Label Grid.Row="4" Grid.Column="13" Content="Carga adicional por mortero"/>
                                 <TextBox Grid.Row="4" Grid.Column="15" Controls:TextBoxHelper.ClearTextButton="True" IsEnabled="False" Template="{StaticResource NumericTextBox}"/>
                                 <TextBox Grid.Row="4" Grid.Column="17" Controls:TextBoxHelper.ClearTextButton="True" IsEnabled="False" Template="{StaticResource NumericTextBox}"/>
-                                <TextBox Grid.Row="4" Grid.Column="19" Controls:TextBoxHelper.ClearTextButton="True" Template="{StaticResource NumericTextBox}"/>
+                                <TextBox Grid.Row="4" Grid.Column="19" Controls:TextBoxHelper.ClearTextButton="True" IsEnabled="False" Text="{Binding LosaNervadaAzoteaP.CargaAdicionalPorMortero,Mode=TwoWay}" Template="{StaticResource NumericTextBox}"/>
 
 
                                 <Label Grid.Row="6" Grid.Column="13" Content="Carga muerta total"/>
                                 <TextBox Grid.Row="6" Grid.Column="15" Controls:TextBoxHelper.ClearTextButton="True" IsEnabled="False" Template="{StaticResource NumericTextBox}"/>
                                 <TextBox Grid.Row="6" Grid.Column="17" Controls:TextBoxHelper.ClearTextButton="True" IsEnabled="False" Template="{StaticResource NumericTextBox}"/>
-                                <TextBox Grid.Row="6" Grid.Column="19" Controls:TextBoxHelper.ClearTextButton="True" Template="{StaticResource NumericTextBox}"/>
+                                <TextBox Grid.Row="6" Grid.Column="19" Controls:TextBoxHelper.ClearTextButton="True" IsEnabled="False" Text="{Binding LosaNervadaAzoteaP.CargaMuerta,Mode=TwoWay}" Template="{StaticResource NumericTextBox}"/>
 
 
                                 <Label Grid.Row="8" Grid.Column="13" Content="Carga viva maxima"/>
                                 <TextBox Grid.Row="8" Grid.Column="15" Controls:TextBoxHelper.ClearTextButton="True" IsEnabled="False" Template="{StaticResource NumericTextBox}"/>
                                 <TextBox Grid.Row="8" Grid.Column="17" Controls:TextBoxHelper.ClearTextButton="True" IsEnabled="False" Template="{StaticResource NumericTextBox}"/>
-                                <TextBox Grid.Row="8" Grid.Column="19" Controls:TextBoxHelper.ClearTextButton="True"  Template="{StaticResource NumericTextBox}"/>
+                                <TextBox Grid.Row="8" Grid.Column="19" Controls:TextBoxHelper.ClearTextButton="True"  Template="{StaticResource NumericTextBox}">
+                                    <i:Interaction.Behaviors>
+                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding LosaNervadaAzoteaP.CargaVivaMaxima,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                    </i:Interaction.Behaviors>
+                                </TextBox>
 
 
                                 <Label Grid.Row="10" Grid.Column="13" Content="Carga instantanea"/>
                                 <TextBox Grid.Row="10" Grid.Column="15" Controls:TextBoxHelper.ClearTextButton="True" IsEnabled="False" Template="{StaticResource NumericTextBox}"/>
                                 <TextBox Grid.Row="10" Grid.Column="17" Controls:TextBoxHelper.ClearTextButton="True" IsEnabled="False" Template="{StaticResource NumericTextBox}"/>
-                                <TextBox Grid.Row="10" Grid.Column="19" Controls:TextBoxHelper.ClearTextButton="True"  Template="{StaticResource NumericTextBox}"/>
+                                <TextBox Grid.Row="10" Grid.Column="19" Controls:TextBoxHelper.ClearTextButton="True"  Template="{StaticResource NumericTextBox}">
+                                    <i:Interaction.Behaviors>
+                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding LosaNervadaAzoteaP.CargaVivaInstantanea,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                    </i:Interaction.Behaviors>
+                                </TextBox>
 
 
                                 <zoom:ZoomBorder Grid.Row="15" Grid.RowSpan="3"  Grid.Column="12" Grid.ColumnSpan="7" ClipToBounds="True" Background="White" >
@@ -1086,31 +979,55 @@
                                 <Label Grid.Row="0" Grid.Column="3" Content="Medida" Style="{StaticResource LabelHeader}"/>
 
                                 <Label Grid.Row="2" Grid.Column="1" Content="Espesor de capa de compresión" />
-                                <TextBox Grid.Row="2" Grid.Column="3" Template="{StaticResource NumericTextBox}" />
+                                <TextBox Grid.Row="2" Grid.Column="3" Template="{StaticResource NumericTextBox}">
+                                    <i:Interaction.Behaviors>
+                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding LosaViguetaBovedillaEntrepisoP.EspesorCapaCompresion,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                    </i:Interaction.Behaviors>
+                                </TextBox>
 
                                 <Label Grid.Row="4" Grid.Column="1" Content="Peralte total de losa" />
-                                <TextBox Grid.Row="4" Grid.Column="3" Template="{StaticResource NumericTextBox}"/>
+                                <TextBox Grid.Row="4" Grid.Column="3" Template="{StaticResource NumericTextBox}">
+                                    <i:Interaction.Behaviors>
+                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding LosaViguetaBovedillaEntrepisoP.PeralteTotalDeLosa,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                    </i:Interaction.Behaviors>
+                                </TextBox>
 
                                 <Label Grid.Row="6" Grid.Column="1" Content="Ancho de patin" />
-                                <TextBox Grid.Row="6" Grid.Column="3" Template="{StaticResource NumericTextBox}"/>
+                                <TextBox Grid.Row="6" Grid.Column="3" Template="{StaticResource NumericTextBox}">
+                                    <i:Interaction.Behaviors>
+                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding LosaViguetaBovedillaEntrepisoP.AnchoPatin,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                    </i:Interaction.Behaviors>
+                                </TextBox>
 
                                 <Label Grid.Row="8" Grid.Column="1" Content="Peralte de patin" />
-                                <TextBox Grid.Row="8" Grid.Column="3" Template="{StaticResource NumericTextBox}"/>
+                                <TextBox Grid.Row="8" Grid.Column="3" Template="{StaticResource NumericTextBox}">
+                                    <i:Interaction.Behaviors>
+                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding LosaViguetaBovedillaEntrepisoP.PeraltePatin,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                    </i:Interaction.Behaviors>
+                                </TextBox>
 
                                 <Label Grid.Row="10" Grid.Column="1" Content="Ancho de bovedilla" />
-                                <TextBox Grid.Row="10" Grid.Column="3" Template="{StaticResource NumericTextBox}"/>
+                                <TextBox Grid.Row="10" Grid.Column="3" Template="{StaticResource NumericTextBox}">
+                                    <i:Interaction.Behaviors>
+                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding LosaViguetaBovedillaEntrepisoP.AnchoBovedilla,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                    </i:Interaction.Behaviors>
+                                </TextBox>
 
                                 <Label Grid.Row="12" Grid.Column="1" Content="Ancho de vigueta" />
-                                <TextBox Grid.Row="12" Grid.Column="3" Template="{StaticResource NumericTextBox}"/>
+                                <TextBox Grid.Row="12" Grid.Column="3" Template="{StaticResource NumericTextBox}">
+                                    <i:Interaction.Behaviors>
+                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding LosaViguetaBovedillaEntrepisoP.AnchoVigueta,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                    </i:Interaction.Behaviors>
+                                </TextBox>
 
                                 <Label Grid.Row="14" Grid.Column="1" Content="Longitud de modulo" />
-                                <TextBox Grid.Row="14" Grid.Column="3" Template="{StaticResource NumericTextBox}"/>
+                                <TextBox Grid.Row="14" Grid.Column="3" IsEnabled="False" Template="{StaticResource NumericTextBox}" Text="{Binding LosaViguetaBovedillaEntrepisoP.LongitudModulo, Mode=TwoWay}"/>
 
                                 <Label Grid.Row="16" Grid.Column="1" Content="Area de concreto" />
-                                <TextBox Grid.Row="16" Grid.Column="3" Template="{StaticResource NumericTextBox}"/>
+                                <TextBox Grid.Row="16" Grid.Column="3" IsEnabled="False" Template="{StaticResource NumericTextBox}" Text="{Binding LosaViguetaBovedillaEntrepisoP.AreaConcreto, Mode=TwoWay}"/>
 
                                 <Label Grid.Row="18" Grid.Column="1" Content="Area de bovedilla" />
-                                <TextBox Grid.Row="18" Grid.Column="3" Template="{StaticResource NumericTextBox}"/>
+                                <TextBox Grid.Row="18" Grid.Column="3" IsEnabled="False" Template="{StaticResource NumericTextBox}" Text="{Binding LosaViguetaBovedillaEntrepisoP.AreaBovedilla, Mode=TwoWay}"/>
 
 
                                 <Label Grid.Row="0" Grid.Column="5" Content="Concepto" Style="{StaticResource LabelHeaderConcepto}"/>
@@ -1123,77 +1040,139 @@
                                 <Label Grid.Row="0" Grid.Column="19" Content="Peso" Style="{StaticResource LabelHeader}"/>
 
                                 <Label Grid.Row="2" Grid.Column="5" Content="Relleno adicional" />
-                                <TextBox Grid.Row="2" Grid.Column="7"  Template="{StaticResource NumericTextBox}"/>
-                                <TextBox Grid.Row="2" Grid.Column="9" Template="{StaticResource NumericTextBox}"/>
-                                <TextBox Grid.Row="2" Grid.Column="11" Template="{StaticResource NumericTextBox}"/>
+                                <TextBox Grid.Row="2" Grid.Column="7"  Template="{StaticResource NumericTextBox}">
+                                    <i:Interaction.Behaviors>
+                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding LosaViguetaBovedillaEntrepisoP.RellenoAdicionalPV,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                    </i:Interaction.Behaviors>
+                                </TextBox>
+
+                                <TextBox Grid.Row="2" Grid.Column="9" Template="{StaticResource NumericTextBox}">
+                                    <i:Interaction.Behaviors>
+                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding LosaViguetaBovedillaEntrepisoP.RellenoAdicionalES,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                    </i:Interaction.Behaviors>
+                                </TextBox>
+
+                                <TextBox Grid.Row="2" Grid.Column="11" IsEnabled="False" Template="{StaticResource NumericTextBox}" Text="{Binding LosaViguetaBovedillaEntrepisoP.RellenoAdicionalPE , Mode=TwoWay}"/>
 
 
                                 <Label Grid.Row="4" Grid.Column="5" Content="Piso"/>
-                                <TextBox Grid.Row="4" Grid.Column="7"  Template="{StaticResource NumericTextBox}"/>
-                                <TextBox Grid.Row="4" Grid.Column="9" Template="{StaticResource NumericTextBox}"/>
-                                <TextBox Grid.Row="4" Grid.Column="11" Template="{StaticResource NumericTextBox}"/>
+                                <TextBox Grid.Row="4" Grid.Column="7"  Template="{StaticResource NumericTextBox}">
+                                    <i:Interaction.Behaviors>
+                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding LosaViguetaBovedillaEntrepisoP.PisoPV,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                    </i:Interaction.Behaviors>
+                                </TextBox>
+                                <TextBox Grid.Row="4" Grid.Column="9" Template="{StaticResource NumericTextBox}">
+                                    <i:Interaction.Behaviors>
+                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding LosaViguetaBovedillaEntrepisoP.PisoES,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                    </i:Interaction.Behaviors>
+                                </TextBox>
+                                <TextBox Grid.Row="4" Grid.Column="11" Template="{StaticResource NumericTextBox}" IsEnabled="False" Text="{Binding LosaViguetaBovedillaEntrepisoP.PisoPE,Mode=TwoWay}"/>
 
 
                                 <Label Grid.Row="6" Grid.Column="5" Content="Mortero"/>
-                                <TextBox Grid.Row="6" Grid.Column="7"  Template="{StaticResource NumericTextBox}"/>
-                                <TextBox Grid.Row="6" Grid.Column="9" Template="{StaticResource NumericTextBox}"/>
-                                <TextBox Grid.Row="6" Grid.Column="11" Template="{StaticResource NumericTextBox}"/>
+                                <TextBox Grid.Row="6" Grid.Column="7"  Template="{StaticResource NumericTextBox}">
+                                    <i:Interaction.Behaviors>
+                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding LosaViguetaBovedillaEntrepisoP.MorteroPV,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                    </i:Interaction.Behaviors>
+                                </TextBox>
+                                <TextBox Grid.Row="6" Grid.Column="9" Template="{StaticResource NumericTextBox}">
+                                    <i:Interaction.Behaviors>
+                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding LosaViguetaBovedillaEntrepisoP.MorteroES,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                    </i:Interaction.Behaviors>
+                                </TextBox>
+                                <TextBox Grid.Row="6" Grid.Column="11" Template="{StaticResource NumericTextBox}" IsEnabled="False" Text="{Binding LosaViguetaBovedillaEntrepisoP.MorteroPE,Mode=TwoWay}"/>
 
 
                                 <Label Grid.Row="8" Grid.Column="5" Content="Firme"/>
-                                <TextBox Grid.Row="8" Grid.Column="7"  Template="{StaticResource NumericTextBox}"/>
-                                <TextBox Grid.Row="8" Grid.Column="9" Template="{StaticResource NumericTextBox}"/>
-                                <TextBox Grid.Row="8" Grid.Column="11" Template="{StaticResource NumericTextBox}"/>
+                                <TextBox Grid.Row="8" Grid.Column="7"  Template="{StaticResource NumericTextBox}">
+                                    <i:Interaction.Behaviors>
+                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding LosaViguetaBovedillaEntrepisoP.FirmePV,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                    </i:Interaction.Behaviors>
+                                </TextBox>
+                                <TextBox Grid.Row="8" Grid.Column="9" Template="{StaticResource NumericTextBox}">
+                                    <i:Interaction.Behaviors>
+                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding LosaViguetaBovedillaEntrepisoP.FirmeES,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                    </i:Interaction.Behaviors>
+                                </TextBox>
+                                <TextBox Grid.Row="8" Grid.Column="11" Template="{StaticResource NumericTextBox}" IsEnabled="False" Text="{Binding LosaViguetaBovedillaEntrepisoP.FirmePE, Mode=TwoWay}"/>
 
                                 <Label Grid.Row="10" Grid.Column="5" Content="Losa"/>
-                                <TextBox Grid.Row="10" Grid.Column="7"  Template="{StaticResource NumericTextBox}"/>
+                                <TextBox Grid.Row="10" Grid.Column="7"  Template="{StaticResource NumericTextBox}">
+                                    <i:Interaction.Behaviors>
+                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding LosaViguetaBovedillaEntrepisoP.LosaPV,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                    </i:Interaction.Behaviors>
+                                </TextBox>
                                 <TextBox Grid.Row="10" Grid.Column="9" Template="{StaticResource NumericTextBox}" IsEnabled="False"/>
-                                <TextBox Grid.Row="10" Grid.Column="11" Template="{StaticResource NumericTextBox}" />
+                                <TextBox Grid.Row="10" Grid.Column="11" Template="{StaticResource NumericTextBox}" IsEnabled="False" Text="{Binding LosaViguetaBovedillaEntrepisoP.LosaPE,Mode=TwoWay}" />
 
 
                                 <Label Grid.Row="12" Grid.Column="5" Content="Bovedillas"/>
-                                <TextBox Grid.Row="12" Grid.Column="7"  Template="{StaticResource NumericTextBox}"/>
+                                <TextBox Grid.Row="12" Grid.Column="7"  Template="{StaticResource NumericTextBox}">
+                                    <i:Interaction.Behaviors>
+                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding LosaViguetaBovedillaEntrepisoP.BovedillasPV,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                    </i:Interaction.Behaviors>
+                                </TextBox>
                                 <TextBox Grid.Row="12" Grid.Column="9" Template="{StaticResource NumericTextBox}" IsEnabled="False"/>
-                                <TextBox Grid.Row="12" Grid.Column="11" Template="{StaticResource NumericTextBox}"/>
+                                <TextBox Grid.Row="12" Grid.Column="11" Template="{StaticResource NumericTextBox}" IsEnabled="False" Text="{Binding LosaViguetaBovedillaEntrepisoP.BovedillasPE,Mode=TwoWay}"/>
 
                                 <Label Grid.Row="14" Grid.Column="5" Content="Aplanado"/>
-                                <TextBox Grid.Row="14" Grid.Column="7"  Template="{StaticResource NumericTextBox}"/>
-                                <TextBox Grid.Row="14" Grid.Column="9" Template="{StaticResource NumericTextBox}"/>
-                                <TextBox Grid.Row="14" Grid.Column="11" Template="{StaticResource NumericTextBox}"/>
+                                <TextBox Grid.Row="14" Grid.Column="7"  Template="{StaticResource NumericTextBox}">
+                                    <i:Interaction.Behaviors>
+                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding LosaViguetaBovedillaEntrepisoP.AplanadoPV,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                    </i:Interaction.Behaviors>
+                                </TextBox>
+                                <TextBox Grid.Row="14" Grid.Column="9" Template="{StaticResource NumericTextBox}">
+                                    <i:Interaction.Behaviors>
+                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding LosaViguetaBovedillaEntrepisoP.AplanadoES,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                    </i:Interaction.Behaviors>
+                                </TextBox>
+                                <TextBox Grid.Row="14" Grid.Column="11" Template="{StaticResource NumericTextBox}" IsEnabled="False" Text="{Binding LosaViguetaBovedillaEntrepisoP.AplanadoPE,Mode=TwoWay}"/>
 
                                 <Label Grid.Row="2" Grid.Column="13" Content="Instalaciones"/>
                                 <TextBox Grid.Row="2" Grid.Column="15" Template="{StaticResource NumericTextBox}" IsEnabled="False"/>
                                 <TextBox Grid.Row="2" Grid.Column="17" Template="{StaticResource NumericTextBox}" IsEnabled="False"/>
-                                <TextBox Grid.Row="2" Grid.Column="19" Template="{StaticResource NumericTextBox}" />
+                                <TextBox Grid.Row="2" Grid.Column="19" Template="{StaticResource NumericTextBox}">
+                                    <i:Interaction.Behaviors>
+                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding LosaViguetaBovedillaEntrepisoP.Instalaciones,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                    </i:Interaction.Behaviors>
+                                </TextBox>
 
 
                                 <Label Grid.Row="4" Grid.Column="13" Content="Carga adicional por colado"/>
                                 <TextBox Grid.Row="4" Grid.Column="15" Template="{StaticResource NumericTextBox}" IsEnabled="False"/>
                                 <TextBox Grid.Row="4" Grid.Column="17" Template="{StaticResource NumericTextBox}" IsEnabled="False"/>
-                                <TextBox Grid.Row="4" Grid.Column="19" Template="{StaticResource NumericTextBox}"/>
+                                <TextBox Grid.Row="4" Grid.Column="19" Template="{StaticResource NumericTextBox}" IsEnabled="False" Text="{Binding LosaViguetaBovedillaEntrepisoP.CargaAdicionalPorColado, Mode=TwoWay}"/>
 
 
                                 <Label Grid.Row="6" Grid.Column="13" Content="Carga adicional por mortero"/>
                                 <TextBox Grid.Row="6" Grid.Column="15" Template="{StaticResource NumericTextBox}" IsEnabled="False"/>
                                 <TextBox Grid.Row="6" Grid.Column="17" Template="{StaticResource NumericTextBox}" IsEnabled="False"/>
-                                <TextBox Grid.Row="6" Grid.Column="19" Template="{StaticResource NumericTextBox}"/>
+                                <TextBox Grid.Row="6" Grid.Column="19" Template="{StaticResource NumericTextBox}" IsEnabled="False" Text="{Binding LosaViguetaBovedillaEntrepisoP.CargaAdicionalPorMortero ,Mode=TwoWay}"/>
 
 
                                 <Label Grid.Row="8" Grid.Column="13" Content="Carga muerta total"/>
                                 <TextBox Grid.Row="8" Grid.Column="15" Template="{StaticResource NumericTextBox}" IsEnabled="False"/>
                                 <TextBox Grid.Row="8" Grid.Column="17" Template="{StaticResource NumericTextBox}" IsEnabled="False"/>
-                                <TextBox Grid.Row="8" Grid.Column="19" Template="{StaticResource NumericTextBox}" />
+                                <TextBox Grid.Row="8" Grid.Column="19" Template="{StaticResource NumericTextBox}" IsEnabled="False"  Text="{Binding LosaViguetaBovedillaEntrepisoP.CargaMuerta, Mode=TwoWay}"/>
 
 
                                 <Label Grid.Row="10" Grid.Column="13" Content="Carga viva maxima"/>
                                 <TextBox Grid.Row="10" Grid.Column="15" Template="{StaticResource NumericTextBox}" IsEnabled="False"/>
                                 <TextBox Grid.Row="10" Grid.Column="17" Template="{StaticResource NumericTextBox}" IsEnabled="False"/>
-                                <TextBox Grid.Row="10" Grid.Column="19" Template="{StaticResource NumericTextBox}" />
+                                <TextBox Grid.Row="10" Grid.Column="19" Template="{StaticResource NumericTextBox}">
+                                    <i:Interaction.Behaviors>
+                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding LosaViguetaBovedillaEntrepisoP.CargaVivaMaxima,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                    </i:Interaction.Behaviors>
+                                </TextBox>
 
                                 <Label Grid.Row="12" Grid.Column="13" Content="Carga viva instantanea"/>
                                 <TextBox Grid.Row="12" Grid.Column="15" Template="{StaticResource NumericTextBox}" IsEnabled="False"/>
                                 <TextBox Grid.Row="12" Grid.Column="17" Template="{StaticResource NumericTextBox}" IsEnabled="False"/>
-                                <TextBox Grid.Row="12" Grid.Column="19" Template="{StaticResource NumericTextBox}" />
+                                <TextBox Grid.Row="12" Grid.Column="19" Template="{StaticResource NumericTextBox}">
+                                    <i:Interaction.Behaviors>
+                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding LosaViguetaBovedillaEntrepisoP.CargaVivaInstantanea,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                    </i:Interaction.Behaviors>
+                                </TextBox>
 
                                 <zoom:ZoomBorder Grid.Row="14" Grid.RowSpan="10" Grid.Column="12" Grid.ColumnSpan="8" x:Name="border" ClipToBounds="True" Background="White" >
                                     <Image Source="/Content/Images/losa_vigueta_bovedilla_entrepiso.png" />
@@ -1261,31 +1240,55 @@
                                 <Label Grid.Row="0" Grid.Column="3" Content="Medida" Style="{StaticResource LabelHeader}"/>
 
                                 <Label Grid.Row="2" Grid.Column="1" Content="Espesor de capa de compresión" />
-                                <TextBox Grid.Row="2" Grid.Column="3" Template="{StaticResource NumericTextBox}" />
+                                <TextBox Grid.Row="2" Grid.Column="3" Template="{StaticResource NumericTextBox}">
+                                    <i:Interaction.Behaviors>
+                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding LosaViguetaBovedillaAzoteaP.EspesorCapaCompresion,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                    </i:Interaction.Behaviors>
+                                </TextBox>
 
                                 <Label Grid.Row="4" Grid.Column="1" Content="Peralte total de losa" />
-                                <TextBox Grid.Row="4" Grid.Column="3" Template="{StaticResource NumericTextBox}"/>
+                                <TextBox Grid.Row="4" Grid.Column="3" Template="{StaticResource NumericTextBox}">
+                                    <i:Interaction.Behaviors>
+                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding LosaViguetaBovedillaAzoteaP.PeralteTotalDeLosa,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                    </i:Interaction.Behaviors>
+                                </TextBox>
 
                                 <Label Grid.Row="6" Grid.Column="1" Content="Ancho de patin" />
-                                <TextBox Grid.Row="6" Grid.Column="3" Template="{StaticResource NumericTextBox}"/>
+                                <TextBox Grid.Row="6" Grid.Column="3" Template="{StaticResource NumericTextBox}">
+                                    <i:Interaction.Behaviors>
+                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding LosaViguetaBovedillaAzoteaP.AnchoPatin,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                    </i:Interaction.Behaviors>
+                                </TextBox>
 
                                 <Label Grid.Row="8" Grid.Column="1" Content="Peralte de patin" />
-                                <TextBox Grid.Row="8" Grid.Column="3" Template="{StaticResource NumericTextBox}"/>
+                                <TextBox Grid.Row="8" Grid.Column="3" Template="{StaticResource NumericTextBox}">
+                                    <i:Interaction.Behaviors>
+                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding LosaViguetaBovedillaAzoteaP.PeraltePatin,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                    </i:Interaction.Behaviors>
+                                </TextBox>
 
                                 <Label Grid.Row="10" Grid.Column="1" Content="Ancho de bovedilla" />
-                                <TextBox Grid.Row="10" Grid.Column="3" Template="{StaticResource NumericTextBox}"/>
+                                <TextBox Grid.Row="10" Grid.Column="3" Template="{StaticResource NumericTextBox}">
+                                    <i:Interaction.Behaviors>
+                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding LosaViguetaBovedillaAzoteaP.AnchoBovedilla,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                    </i:Interaction.Behaviors>
+                                </TextBox>
 
                                 <Label Grid.Row="12" Grid.Column="1" Content="Ancho de vigueta" />
-                                <TextBox Grid.Row="12" Grid.Column="3" Template="{StaticResource NumericTextBox}"/>
+                                <TextBox Grid.Row="12" Grid.Column="3" Template="{StaticResource NumericTextBox}">
+                                    <i:Interaction.Behaviors>
+                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding LosaViguetaBovedillaAzoteaP.AnchoVigueta,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                    </i:Interaction.Behaviors>
+                                </TextBox>
 
                                 <Label Grid.Row="14" Grid.Column="1" Content="Longitud de modulo" />
-                                <TextBox Grid.Row="14" Grid.Column="3" Template="{StaticResource NumericTextBox}"/>
+                                <TextBox Grid.Row="14" Grid.Column="3" Template="{StaticResource NumericTextBox}" IsEnabled="False" Text="{Binding LosaViguetaBovedillaAzoteaP.LongitudModulo,Mode=TwoWay}"/>
 
                                 <Label Grid.Row="16" Grid.Column="1" Content="Area de concreto" />
-                                <TextBox Grid.Row="16" Grid.Column="3" Template="{StaticResource NumericTextBox}"/>
+                                <TextBox Grid.Row="16" Grid.Column="3" Template="{StaticResource NumericTextBox}" IsEnabled="False" Text="{Binding LosaViguetaBovedillaAzoteaP.AreaConcreto ,Mode=TwoWay}"/>
 
                                 <Label Grid.Row="18" Grid.Column="1" Content="Area de bovedilla" />
-                                <TextBox Grid.Row="18" Grid.Column="3" Template="{StaticResource NumericTextBox}"/>
+                                <TextBox Grid.Row="18" Grid.Column="3" Template="{StaticResource NumericTextBox}" IsEnabled="False" Text="{Binding LosaViguetaBovedillaAzoteaP.AreaBovedilla ,Mode=TwoWay}"/>
 
 
                                 <Label Grid.Row="0" Grid.Column="5" Content="Concepto" Style="{StaticResource LabelHeaderConcepto}"/>
@@ -1298,72 +1301,120 @@
                                 <Label Grid.Row="0" Grid.Column="19" Content="Peso" Style="{StaticResource LabelHeader}"/>
 
                                 <Label Grid.Row="2" Grid.Column="5" Content="Impermeabilizante" />
-                                <TextBox Grid.Row="2" Grid.Column="7"  Template="{StaticResource NumericTextBox}"/>
-                                <TextBox Grid.Row="2" Grid.Column="9" Template="{StaticResource NumericTextBox}"/>
-                                <TextBox Grid.Row="2" Grid.Column="11" Template="{StaticResource NumericTextBox}"/>
+                                <TextBox Grid.Row="2" Grid.Column="7"  Template="{StaticResource NumericTextBox}" IsEnabled="False" />
+                                <TextBox Grid.Row="2" Grid.Column="9" Template="{StaticResource NumericTextBox}" IsEnabled="False"/>
+                                <TextBox Grid.Row="2" Grid.Column="11" Template="{StaticResource NumericTextBox}">
+                                    <i:Interaction.Behaviors>
+                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding LosaViguetaBovedillaAzoteaP.Impermeabilizante,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                    </i:Interaction.Behaviors>
+                                </TextBox>
 
 
                                 <Label Grid.Row="4" Grid.Column="5" Content="Mortero"/>
-                                <TextBox Grid.Row="4" Grid.Column="7"  Template="{StaticResource NumericTextBox}"/>
-                                <TextBox Grid.Row="4" Grid.Column="9" Template="{StaticResource NumericTextBox}"/>
-                                <TextBox Grid.Row="4" Grid.Column="11" Template="{StaticResource NumericTextBox}"/>
+                                <TextBox Grid.Row="4" Grid.Column="7"  Template="{StaticResource NumericTextBox}">
+                                    <i:Interaction.Behaviors>
+                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding LosaViguetaBovedillaAzoteaP.MorteroPV,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                    </i:Interaction.Behaviors>
+                                </TextBox>
+                                <TextBox Grid.Row="4" Grid.Column="9" Template="{StaticResource NumericTextBox}">
+                                    <i:Interaction.Behaviors>
+                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding LosaViguetaBovedillaAzoteaP.MorteroES,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                    </i:Interaction.Behaviors>
+                                </TextBox>
+                                <TextBox Grid.Row="4" Grid.Column="11" Template="{StaticResource NumericTextBox}" IsEnabled="False" Text="{Binding LosaViguetaBovedillaAzoteaP.MorteroPE , Mode=TwoWay}"/>
 
 
                                 <Label Grid.Row="6" Grid.Column="5" Content="Firme"/>
-                                <TextBox Grid.Row="6" Grid.Column="7"  Template="{StaticResource NumericTextBox}"/>
-                                <TextBox Grid.Row="6" Grid.Column="9" Template="{StaticResource NumericTextBox}"/>
-                                <TextBox Grid.Row="6" Grid.Column="11" Template="{StaticResource NumericTextBox}"/>
+                                <TextBox Grid.Row="6" Grid.Column="7"  Template="{StaticResource NumericTextBox}">
+                                    <i:Interaction.Behaviors>
+                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding LosaViguetaBovedillaAzoteaP.FirmePV,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                    </i:Interaction.Behaviors>
+                                </TextBox>
+                                <TextBox Grid.Row="6" Grid.Column="9" Template="{StaticResource NumericTextBox}">
+                                    <i:Interaction.Behaviors>
+                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding LosaViguetaBovedillaAzoteaP.FirmeES,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                    </i:Interaction.Behaviors>
+                                </TextBox>
+                                <TextBox Grid.Row="6" Grid.Column="11" Template="{StaticResource NumericTextBox}" IsEnabled="False" Text="{Binding LosaViguetaBovedillaAzoteaP.FirmePE,Mode=TwoWay}"/>
 
 
                                 <Label Grid.Row="8" Grid.Column="5" Content="Losa"/>
-                                <TextBox Grid.Row="8" Grid.Column="7"  Template="{StaticResource NumericTextBox}"/>
-                                <TextBox Grid.Row="8" Grid.Column="9" Template="{StaticResource NumericTextBox}"/>
-                                <TextBox Grid.Row="8" Grid.Column="11" Template="{StaticResource NumericTextBox}"/>
+                                <TextBox Grid.Row="8" Grid.Column="7"  Template="{StaticResource NumericTextBox}">
+                                    <i:Interaction.Behaviors>
+                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding LosaViguetaBovedillaAzoteaP.LosaPV,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                    </i:Interaction.Behaviors>
+                                </TextBox>
+                                <TextBox Grid.Row="8" Grid.Column="9" Template="{StaticResource NumericTextBox}" IsEnabled="False"/>
+                                <TextBox Grid.Row="8" Grid.Column="11" Template="{StaticResource NumericTextBox}" IsEnabled="False" Text="{Binding LosaViguetaBovedillaAzoteaP.LosaPE,Mode=TwoWay}"/>
 
                                 <Label Grid.Row="10" Grid.Column="5" Content="Bovedillas"/>
-                                <TextBox Grid.Row="10" Grid.Column="7"  Template="{StaticResource NumericTextBox}"/>
+                                <TextBox Grid.Row="10" Grid.Column="7"  Template="{StaticResource NumericTextBox}">
+                                    <i:Interaction.Behaviors>
+                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding LosaViguetaBovedillaAzoteaP.BovedillasPV,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                    </i:Interaction.Behaviors>
+                                </TextBox>
                                 <TextBox Grid.Row="10" Grid.Column="9" Template="{StaticResource NumericTextBox}" IsEnabled="False"/>
-                                <TextBox Grid.Row="10" Grid.Column="11" Template="{StaticResource NumericTextBox}" />
+                                <TextBox Grid.Row="10" Grid.Column="11" Template="{StaticResource NumericTextBox}" IsEnabled="False" Text="{Binding LosaViguetaBovedillaAzoteaP.BovedillasPE,Mode=TwoWay}" />
 
 
                                 <Label Grid.Row="12" Grid.Column="5" Content="Aplanado"/>
-                                <TextBox Grid.Row="12" Grid.Column="7"  Template="{StaticResource NumericTextBox}"/>
-                                <TextBox Grid.Row="12" Grid.Column="9" Template="{StaticResource NumericTextBox}" IsEnabled="False"/>
-                                <TextBox Grid.Row="12" Grid.Column="11" Template="{StaticResource NumericTextBox}"/>
+                                <TextBox Grid.Row="12" Grid.Column="7"  Template="{StaticResource NumericTextBox}">
+                                    <i:Interaction.Behaviors>
+                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding LosaViguetaBovedillaAzoteaP.AplanadoPV,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                    </i:Interaction.Behaviors>
+                                </TextBox>
+                                <TextBox Grid.Row="12" Grid.Column="9" Template="{StaticResource NumericTextBox}">
+                                    <i:Interaction.Behaviors>
+                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding LosaViguetaBovedillaAzoteaP.AplanadoES,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                    </i:Interaction.Behaviors>
+                                </TextBox>
+                                <TextBox Grid.Row="12" Grid.Column="11" Template="{StaticResource NumericTextBox}" IsEnabled="False" Text="{Binding LosaViguetaBovedillaAzoteaP.AplanadoPE,Mode=TwoWay}" />
 
                                 <Label Grid.Row="14" Grid.Column="5" Content="Instalaciones"/>
-                                <TextBox Grid.Row="14" Grid.Column="7"  Template="{StaticResource NumericTextBox}"/>
-                                <TextBox Grid.Row="14" Grid.Column="9" Template="{StaticResource NumericTextBox}"/>
-                                <TextBox Grid.Row="14" Grid.Column="11" Template="{StaticResource NumericTextBox}"/>
+                                <TextBox Grid.Row="14" Grid.Column="7"  Template="{StaticResource NumericTextBox}" IsEnabled="False"/>
+                                <TextBox Grid.Row="14" Grid.Column="9" Template="{StaticResource NumericTextBox}" IsEnabled="False"/>
+                                <TextBox Grid.Row="14" Grid.Column="11" Template="{StaticResource NumericTextBox}">
+                                    <i:Interaction.Behaviors>
+                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding LosaViguetaBovedillaAzoteaP.Instalaciones,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                    </i:Interaction.Behaviors>
+                                </TextBox>
 
                                 <Label Grid.Row="2" Grid.Column="13" Content="Carga adicional por colado"/>
                                 <TextBox Grid.Row="2" Grid.Column="15" Template="{StaticResource NumericTextBox}" IsEnabled="False"/>
                                 <TextBox Grid.Row="2" Grid.Column="17" Template="{StaticResource NumericTextBox}" IsEnabled="False"/>
-                                <TextBox Grid.Row="2" Grid.Column="19" Template="{StaticResource NumericTextBox}" />
+                                <TextBox Grid.Row="2" Grid.Column="19" Template="{StaticResource NumericTextBox}" IsEnabled="False" Text="{Binding LosaViguetaBovedillaAzoteaP.CargaAdicionalPorColado, Mode=TwoWay}"/>
 
 
                                 <Label Grid.Row="4" Grid.Column="13" Content="Carga adicional por mortero"/>
                                 <TextBox Grid.Row="4" Grid.Column="15" Template="{StaticResource NumericTextBox}" IsEnabled="False"/>
                                 <TextBox Grid.Row="4" Grid.Column="17" Template="{StaticResource NumericTextBox}" IsEnabled="False"/>
-                                <TextBox Grid.Row="4" Grid.Column="19" Template="{StaticResource NumericTextBox}"/>
+                                <TextBox Grid.Row="4" Grid.Column="19" Template="{StaticResource NumericTextBox}" IsEnabled="False" Text="{Binding LosaViguetaBovedillaAzoteaP.CargaAdicionalPorMortero, Mode=TwoWay}"/>
 
 
                                 <Label Grid.Row="6" Grid.Column="13" Content="Carga muerta total"/>
                                 <TextBox Grid.Row="6" Grid.Column="15" Template="{StaticResource NumericTextBox}" IsEnabled="False"/>
                                 <TextBox Grid.Row="6" Grid.Column="17" Template="{StaticResource NumericTextBox}" IsEnabled="False"/>
-                                <TextBox Grid.Row="6" Grid.Column="19" Template="{StaticResource NumericTextBox}"/>
+                                <TextBox Grid.Row="6" Grid.Column="19" Template="{StaticResource NumericTextBox}" IsEnabled="False" Text="{Binding LosaViguetaBovedillaAzoteaP.CargaMuerta, Mode=TwoWay}"/>
 
 
                                 <Label Grid.Row="8" Grid.Column="13" Content="Carga viva maxima"/>
                                 <TextBox Grid.Row="8" Grid.Column="15" Template="{StaticResource NumericTextBox}" IsEnabled="False"/>
                                 <TextBox Grid.Row="8" Grid.Column="17" Template="{StaticResource NumericTextBox}" IsEnabled="False"/>
-                                <TextBox Grid.Row="8" Grid.Column="19" Template="{StaticResource NumericTextBox}" />
+                                <TextBox Grid.Row="8" Grid.Column="19" Template="{StaticResource NumericTextBox}" >
+                                    <i:Interaction.Behaviors>
+                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding LosaViguetaBovedillaAzoteaP.CargaVivaMaxima,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                    </i:Interaction.Behaviors>
+                                </TextBox>
 
 
                                 <Label Grid.Row="10" Grid.Column="13" Content="Carga viva instantanea"/>
                                 <TextBox Grid.Row="10" Grid.Column="15" Template="{StaticResource NumericTextBox}" IsEnabled="False"/>
                                 <TextBox Grid.Row="10" Grid.Column="17" Template="{StaticResource NumericTextBox}" IsEnabled="False"/>
-                                <TextBox Grid.Row="10" Grid.Column="19" Template="{StaticResource NumericTextBox}" />
+                                <TextBox Grid.Row="10" Grid.Column="19" Template="{StaticResource NumericTextBox}" >
+                                    <i:Interaction.Behaviors>
+                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding LosaViguetaBovedillaAzoteaP.CargaVivaInstantanea,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                    </i:Interaction.Behaviors>
+                                </TextBox>
 
                                 <zoom:ZoomBorder Grid.Row="12" Grid.RowSpan="8" Grid.Column="13" Grid.ColumnSpan="8"  ClipToBounds="True" Background="White" >
                                     <Image Source="/Content/Images/losa_vigueta_bovedilla_azotea.png" />
@@ -1400,15 +1451,27 @@
                                     <RowDefinition Height="10"/>
                                 </Grid.RowDefinitions>
                                 <Label Grid.Row="0" Grid.Column="1" Content="Carga muerta total"/>
-                               <TextBox Grid.Row="0" Grid.Column="3" Template="{StaticResource NumericTextBox}"/>
+                                <TextBox Grid.Row="0" Grid.Column="3" Template="{StaticResource NumericTextBox}">
+                                    <i:Interaction.Behaviors>
+                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding LosaOtroTipoP.CargaMuerta,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                    </i:Interaction.Behaviors>
+                                </TextBox>
 
 
                                 <Label Grid.Row="0" Grid.Column="5" Content="Carga viva maxima"/>
-                                <TextBox Grid.Row="0" Grid.Column="7" Template="{StaticResource NumericTextBox}" />
+                                <TextBox Grid.Row="0" Grid.Column="7" Template="{StaticResource NumericTextBox}" >
+                                    <i:Interaction.Behaviors>
+                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding LosaOtroTipoP.CargaVivaMaxima,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                    </i:Interaction.Behaviors>
+                                </TextBox>
 
 
                                 <Label Grid.Row="0" Grid.Column="9" Content="Carga viva instantanea"/>
-                                <TextBox Grid.Row="0" Grid.Column="11" Template="{StaticResource NumericTextBox}" />
+                                <TextBox Grid.Row="0" Grid.Column="11" Template="{StaticResource NumericTextBox}" >
+                                    <i:Interaction.Behaviors>
+                                        <Be:TextBoxInputBehavior InputMode="DecimalInput" JustPositivDecimalInput="false" Value="{Binding LosaOtroTipoP.CargaVivaInstantanea,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                    </i:Interaction.Behaviors>
+                                </TextBox>
                             </Grid>
                         </Controls:MetroTabItem>
                         <!--FIN DE OTRO TIPO-->

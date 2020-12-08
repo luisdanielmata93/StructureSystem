@@ -16,7 +16,7 @@ using StructureSystem.BusinessRules.Services;
 
 namespace StructureSystem.ViewModel
 {
-   public class SeismicDistributionVM : PropertyChangedViewModel
+    public class SeismicDistributionVM : PropertyChangedViewModel
     {
         #region Constructor
         public SeismicDistributionVM(PropertyChangedViewModel mainViewModel)
@@ -25,7 +25,6 @@ namespace StructureSystem.ViewModel
 
             this._mainViewModel = mainViewModel;
 
-         
             this.SetCommands();
         }
         #endregion
@@ -34,7 +33,7 @@ namespace StructureSystem.ViewModel
 
         public ICommand SearchCommand { get; private set; }
         public ICommand SaveProjectCommand { get; private set; }
-       
+
 
         #endregion
 
@@ -43,11 +42,26 @@ namespace StructureSystem.ViewModel
 
         private void SetCommands()
         {
+            SearchCommand = new RelayCommand(o => setInitialData());
+
 
         }
 
         #endregion
 
+
+        private void setInitialData()
+        {
+            try
+            {
+                this.StructureP = DataService.GetStructure();
+                this.Storeys = new ObservableCollection<Storey>((List<Storey>)StructureP.Storeys);
+            }
+            catch (Exception ex)
+            {
+
+            }
+        }
 
 
 
@@ -68,6 +82,22 @@ namespace StructureSystem.ViewModel
                 OnPropertyChanged("SelectedWall");
             }
         }
+       
+        private Structure Structure_;
+        public Structure StructureP
+        {
+            get
+            {
+                return Structure_;
+            }
+            set
+            {
+                if (value != Structure_)
+                    Structure_ = value;
+
+                OnPropertyChanged("StructureP");
+            }
+        }
 
         public ObservableCollection<Storey> _Storeys;
         public ObservableCollection<Storey> Storeys
@@ -82,7 +112,7 @@ namespace StructureSystem.ViewModel
         }
 
 
-        private readonly SeismicAnalysisService DataService = new SeismicAnalysisService();
+        private readonly SeismicDistributionService DataService = new SeismicDistributionService();
         private NotificationViewModel notificationViewModel;
         private readonly PropertyChangedViewModel _mainViewModel;
         #endregion

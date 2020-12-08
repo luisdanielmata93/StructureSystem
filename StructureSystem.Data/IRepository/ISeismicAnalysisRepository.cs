@@ -9,6 +9,5 @@ namespace StructureSystem.Data.Model
     {
 
 
-
     }//end of class
 }//end of namespace

@@ -160,6 +160,7 @@
     <Compile Include="Views\DefinitionVM.cs" />
     <Compile Include="Views\LoadAnalysisVM.cs" />
     <Compile Include="Views\SeismicAnalysisVM.cs" />
+    <Compile Include="Views\SeismicDistributionDetail.cs" />
     <Compile Include="Views\SeismicDistributionVM.cs" />
     <Compile Include="Views\StructuralDesignVM.cs" />
     <Compile Include="Views\StructureVM.cs" />

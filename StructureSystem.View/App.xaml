@@ -96,6 +96,7 @@
                 <Setter Property="FontSize" Value="15" />
                 <Setter Property="HorizontalAlignment" Value="Center"/>
             </Style>
+            
             <Style x:Key="LabelHeaderConcepto" TargetType="Label">
                 <Setter Property="FontWeight" Value="Bold" />
                 <Setter Property="FontSize" Value="15" />
@@ -104,6 +105,13 @@
             <Style x:Key="deleteBtn" TargetType="Button">
                 <Setter Property="Background" Value="LightCyan"/>
                 <Setter Property="Foreground" Value="Black"/>
+            </Style>
+
+            <Style x:Key="LittleHeader" TargetType="TextBlock">
+                <Setter Property="FontWeight" Value="DemiBold"/>
+                <Setter Property="FontSize" Value="11"/>
+                <!--<Setter Property="VerticalAlignment" Value="Center"/>
+                <Setter Property="HorizontalAlignment" Value="Left"/>-->
             </Style>
 
 

@@ -23,22 +23,51 @@ namespace StructureSystem.BusinessRules.Services
 
         #region Methods
 
-        public OperationResult Save()
+        public OperationResult Save(Object model, StructureSystem.Model.Enums.MaterialType type, int Nivel)
         {
             OperationResult result = new OperationResult();
             try
             {
+                dataXml = new XMLLoadAnalysisData();
+                dataXml.Storey = Nivel;
+                switch (type)
+                {
+                    case Enums.MaterialType.MacisaEntrepiso:
+                        dataXml.LosaMacizaEntrepisoP = (LosaMacizaEntrepiso)model;
+                        break;
+                    case Enums.MaterialType.MacisaAzotea:
+                        dataXml.LosaMacizaAzoteaP = (LosaMacizaAzotea)model;
+                        break;
+                    case Enums.MaterialType.NervadaEntrepiso:
+                        dataXml.LosaNervadaEntrepisoP = (LosaNervadaEntrepiso)model;
+                        break;
+                    case Enums.MaterialType.NervadaAzotea:
+                        dataXml.LosaNervadaAzoteaP = (LosaNervadaAzotea)model;
+                        break;
+                    case Enums.MaterialType.ViguetaBovedillaEntrepiso:
+                        dataXml.LosaViguetaBovedillaEntrepisoP = (LosaViguetaBovedillaEntrepiso)model;
+                        break;
+                    case Enums.MaterialType.ViguetaBovedillaAzotea:
+                        dataXml.LosaViguetaBovedillaAzoteaP = (LosaViguetaBovedillaAzotea)model;
+                        break;
+                    case Enums.MaterialType.Otra:
+                        dataXml.LosaOtroTipoP = (LosaOtroTipo)model;
+                        break;
+                    default:
+                        break;
+                }
+
                 using (var data = UnitOfWork.Create())
                 {
-                    string document = GetDocumentPath();
-                   // var documentInfo = data.Repositories.DocumentDataContext.LoadAnalysisData.IsSaved(document);
+                   dataXml.DocumentPath = GetDocumentPath();
+                    var documentInfo = data.Repositories.DocumentDataContext.LoadAnalysisData.Create(dataXml);
 
-                    result.OperationSuccess(true, Enums.ActionType.Get);
+                    result.OperationSuccess(true, Enums.ActionType.Create);
                 }
             }
             catch (Exception ex)
             {
-                result.OperationError("Error al validar piso guardado", Enums.ActionType.Get, ex);
+                result.OperationError("Error al insertar tipo de losa", Enums.ActionType.Create, ex);
             }
 
             return result;
@@ -52,7 +81,7 @@ namespace StructureSystem.BusinessRules.Services
                 using (var data = UnitOfWork.Create())
                 {
                     string document = GetDocumentPath();
-                    var documentInfo = data.Repositories.DocumentDataContext.LoadAnalysisData.IsSaved(document,Level);
+                    var documentInfo = data.Repositories.DocumentDataContext.LoadAnalysisData.IsSaved(document, Level);
 
                     result.OperationSuccess(documentInfo, Enums.ActionType.Get);
                 }
@@ -63,7 +92,7 @@ namespace StructureSystem.BusinessRules.Services
             }
 
             return result;
-        } 
+        }
 
 
         public OperationResult GetStoreyList()
@@ -119,10 +148,14 @@ namespace StructureSystem.BusinessRules.Services
         {
             return configData.GetElementByName("LastDocument");
         }
+
+
         #endregion
+
+
         #region Properties
         private WebConfig configData;
-        private XMLGeneralData dataXml;
+        private XMLLoadAnalysisData dataXml;
         #endregion
 
     }//end of class
