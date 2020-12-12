@@ -109,7 +109,7 @@
 
             <Style x:Key="LittleHeader" TargetType="TextBlock">
                 <Setter Property="FontWeight" Value="DemiBold"/>
-                <Setter Property="FontSize" Value="11"/>
+                <Setter Property="FontSize" Value="9"/>
                 <!--<Setter Property="VerticalAlignment" Value="Center"/>
                 <Setter Property="HorizontalAlignment" Value="Left"/>-->
             </Style>

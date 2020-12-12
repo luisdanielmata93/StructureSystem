@@ -24,11 +24,18 @@ namespace StructureSystem.Model
         public double Inercia { get; set; }
         public double AreaLongitudinal { get; set; }
         public double RigidezLateral { get; set; }
-        
-        
-        #region Calculos
 
-        #endregion
+        public double CortanteDirecto { get; set; }
+        
+        public string Clasificacion { get; set; }
+        public double ExcentricidadDisenioX { get; set; }
+        public double ExcentricidadDisenioY { get; set; }
+
+        public double CortantePorTorsion { get; set; }
+        public double CortanteTotales { get; set; }
+        public double MomentoVolteo { get; set; }
+        public double CargaAxialMaxima { get; set; }
+        public double CargaAxialSismo { get; set; }
 
 
     }//end of class

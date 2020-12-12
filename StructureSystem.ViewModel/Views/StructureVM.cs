@@ -21,6 +21,8 @@ namespace StructureSystem.ViewModel
             _mainViewModel = mainViewModel;
             notificationViewModel = new NotificationViewModel();
             SetCommands();
+
+
         }
 
         #endregion

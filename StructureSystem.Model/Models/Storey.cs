@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace StructureSystem.Model
 {
-    public class Storey //NIVEL o PISO
+     public class Storey //NIVEL o PISO
     {
         #region Constructor
         public Storey()
@@ -26,8 +26,36 @@ namespace StructureSystem.Model
 
         public double MasasEntrepisos { get; set; }
 
+        public double CentroMasasX { get; set; }
+        public double CentroMasasY { get; set; }
 
 
+        public double CentroCortantesX { get; set; }
+        public double CentroCortantesY { get; set; }
+
+
+        public double CentroTorsionX { get; set; }
+        public double CentroTorsionY { get; set; }
+
+
+        public double ExcentricidadesEstaticasX { get; set; }
+        public double ExcentricidadesEstaticasY { get; set; }
+
+        public double ExcentricidadesAccidentalesX { get; set; }
+        public double ExcentricidadesAccidentalesY { get; set; }
+
+
+        public double ExcentricidadesDisenioEntrepisoX { get; set; }
+        public double ExcentricidadesDisenioEntrepisoY { get; set; }
+
+
+        public double MomentosTorsionantesX { get; set; }
+        public double MomentosTorsionantesY { get; set; }
+
+
+        public double RigidezTorsionalEntrepiso { get; set; }
+
+        public double MomentoVolteoEntrepiso { get; set; }
 
 
         #endregion

@@ -11,6 +11,192 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-            
+        <Grid.ColumnDefinitions >
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
+        <Controls:MetroTabControl Margin="10 20 10 0"  Grid.Row="0" Grid.Column="0">
+            <Controls:MetroTabItem  Header="Repartición de fuerzas sísmicas">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="60*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="10"/>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="10"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="10"/>
+                    </Grid.RowDefinitions>
+
+                    <Grid Grid.Row="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="90"/>
+                            <ColumnDefinition Width="50"/>
+                        </Grid.ColumnDefinitions>
+                        <Label Content="Actualizar"/>
+                        <Button Grid.Column="1"  Command="{Binding SearchCommand}">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock></TextBlock>
+                                <Icons:PackIconModern Kind="Refresh" VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </Button>
+                    </Grid>
+                    <ScrollViewer  Grid.Row="3" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+                        <DataGrid CanUserAddRows="False" FontSize="17" x:Name="structureData" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" ItemsSource="{Binding Path=Storeys ,Mode=TwoWay}"  AutoGenerateColumns="False" CanUserResizeColumns="True">
+                            <DataGrid.Columns>
+                                <DataGridTemplateColumn  IsReadOnly="True" Header="NIVELES DE LA ESTRUCTURA">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="30"/>
+                                                    <ColumnDefinition Width="10"/>
+                                                    <ColumnDefinition Width="10"/>
+                                                    <ColumnDefinition Width="60"/>
+                                                    <ColumnDefinition Width="60"/>
+                                                    <ColumnDefinition Width="10"/>
+                                                    <ColumnDefinition Width="60"/>
+                                                    <ColumnDefinition Width="60"/>
+                                                    <ColumnDefinition Width="10"/>
+                                                    <ColumnDefinition Width="70"/>
+                                                    <ColumnDefinition Width="60"/>
+                                                    <ColumnDefinition Width="10"/>
+                                                    <ColumnDefinition Width="70"/>
+                                                    <ColumnDefinition Width="60"/>
+                                                    <ColumnDefinition Width="10"/>
+                                                    <ColumnDefinition Width="70"/>
+                                                    <ColumnDefinition Width="60"/>
+                                                    <ColumnDefinition Width="10"/>
+                                                    <ColumnDefinition Width="70"/>
+                                                    <ColumnDefinition Width="60"/>
+                                                    <ColumnDefinition Width="10"/>
+                                                    <ColumnDefinition Width="60"/>
+                                                    <ColumnDefinition Width="60"/>
+                                                    <ColumnDefinition Width="10"/>
+                                                    <ColumnDefinition Width="60"/>
+                                                    <ColumnDefinition Width="60"/>
+                                                    <ColumnDefinition Width="10"/>
+                                                    <ColumnDefinition Width="80"/>
+                                                    <ColumnDefinition Width="60"/>
+                                                    <ColumnDefinition Width="10"/>
+                                                    <ColumnDefinition Width="80"/>
+                                                    <ColumnDefinition Width="60"/>
+                                                    <ColumnDefinition Width="10"/>
+                                                    <ColumnDefinition Width="120"/>
+                                                    <ColumnDefinition Width="60"/>
+                                                    <ColumnDefinition Width="10"/>
+                                                    <ColumnDefinition Width="120"/>
+                                                    <ColumnDefinition Width="60"/>
+                                                    <ColumnDefinition Width="10"/>
+                                                    <ColumnDefinition Width="120"/>
+                                                    <ColumnDefinition Width="60"/>
+                                                    <ColumnDefinition Width="10"/>
+                                                    <ColumnDefinition Width="120"/>
+                                                    <ColumnDefinition Width="60"/>
+                                                    <ColumnDefinition Width="10"/>
+                                                    <ColumnDefinition Width="120"/>
+                                                    <ColumnDefinition Width="60"/>
+                                                    <ColumnDefinition Width="10"/>
+                                                    <ColumnDefinition Width="150"/>
+                                                    <ColumnDefinition Width="60"/>
+                                                    <ColumnDefinition Width="auto"/>
+                                                </Grid.ColumnDefinitions>
+                                                <TextBlock Grid.Row="0" Grid.Column="0" Text="   Nivel" Style="{StaticResource LittleHeader}"/>
+                                                <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding StoreyNumber, Mode=TwoWay}" TextAlignment="Left" Style="{StaticResource LittleHeader}"/>
+                                                <TextBlock Grid.Row="0" Grid.Column="3" Text="C. Masas x: " TextAlignment="Left" Style="{StaticResource LittleHeader}"/>
+                                                <TextBlock Grid.Row="0" Grid.Column="4" Text="{Binding CentroMasasX, Mode=TwoWay}" TextAlignment="Left" Style="{StaticResource LittleHeader}"/>
+                                                <TextBlock Grid.Row="0" Grid.Column="6" Text="C. Masas y: " TextAlignment="Left" Style="{StaticResource LittleHeader}"/>
+                                                <TextBlock Grid.Row="0" Grid.Column="7" Text="{Binding CentroMasasY, Mode=TwoWay}" TextAlignment="Left" Style="{StaticResource LittleHeader}"/>
+                                                <TextBlock Grid.Row="0" Grid.Column="9" Text="C. Cortantes x: " TextAlignment="Left" Style="{StaticResource LittleHeader}"/>
+                                                <TextBlock Grid.Row="0" Grid.Column="10" Text="{Binding CentroCortantesX, Mode=TwoWay}" TextAlignment="Left" Style="{StaticResource LittleHeader}"/>
+                                                <TextBlock Grid.Row="0" Grid.Column="12" Text="C. Cortantes y: " TextAlignment="Left" Style="{StaticResource LittleHeader}"/>
+                                                <TextBlock Grid.Row="0" Grid.Column="13" Text="{Binding CentroCortantesY, Mode=TwoWay}" TextAlignment="Left" Style="{StaticResource LittleHeader}"/>
+                                                <TextBlock Grid.Row="0" Grid.Column="15" Text="C. de torsión x: " TextAlignment="Left" Style="{StaticResource LittleHeader}" />
+                                                <TextBlock Grid.Row="0" Grid.Column="16" Text="{Binding CentroTorsionX, Mode=TwoWay}" TextAlignment="Left" Style="{StaticResource LittleHeader}"/>
+                                                <TextBlock Grid.Row="0" Grid.Column="18" Text="C. de torsión y: " TextAlignment="Left" Style="{StaticResource LittleHeader}" />
+                                                <TextBlock Grid.Row="0" Grid.Column="19" Text="{Binding CentroTorsionY, Mode=TwoWay}" TextAlignment="Left" Style="{StaticResource LittleHeader}"/>
+                                                <TextBlock Grid.Row="0" Grid.Column="21" Text="E. estaticas: " TextAlignment="Left" Style="{StaticResource LittleHeader}"/>
+                                                <TextBlock Grid.Row="0" Grid.Column="22" Text="{Binding ExcentricidadesEstaticasX, Mode=TwoWay}" TextAlignment="Left" Style="{StaticResource LittleHeader}"/>
+                                                <TextBlock Grid.Row="0" Grid.Column="24" Text="E. estaticas: " TextAlignment="Left" Style="{StaticResource LittleHeader}"/>
+                                                <TextBlock Grid.Row="0" Grid.Column="25" Text="{Binding ExcentricidadesEstaticasY, Mode=TwoWay}" TextAlignment="Left" Style="{StaticResource LittleHeader}"/>
+                                                <TextBlock Grid.Row="0" Grid.Column="27" Text="E. accidentales x: " TextAlignment="Left" Style="{StaticResource LittleHeader}"/>
+                                                <TextBlock Grid.Row="0" Grid.Column="28" Text="{Binding ExcentricidadesAccidentalesX,Mode=TwoWay}" TextAlignment="Left" Style="{StaticResource LittleHeader}"/>
+                                                <TextBlock Grid.Row="0" Grid.Column="30" Text="E. accidentales y: " TextAlignment="Left" Style="{StaticResource LittleHeader}"/>
+                                                <TextBlock Grid.Row="0" Grid.Column="31" Text="{Binding ExcentricidadesAccidentalesY,Mode=TwoWay}" TextAlignment="Left" Style="{StaticResource LittleHeader}"/>
+                                                <TextBlock Grid.Row="0" Grid.Column="33" Text="E. de Dño. de entrepiso x: " TextAlignment="Left" Style="{StaticResource LittleHeader}"/>
+                                                <TextBlock Grid.Row="0" Grid.Column="34" Text="{Binding ExcentricidadesDisenioEntrepisoX, Mode=TwoWay}" TextAlignment="Left" Style="{StaticResource LittleHeader}"/>
+                                                <TextBlock Grid.Row="0" Grid.Column="36" Text="E. de Dño. de entrepiso y: " TextAlignment="Left" Style="{StaticResource LittleHeader}"/>
+                                                <TextBlock Grid.Row="0" Grid.Column="37" Text="{Binding ExcentricidadesDisenioEntrepisoY, Mode=TwoWay}" TextAlignment="Left" Style="{StaticResource LittleHeader}"/>
+                                                <TextBlock Grid.Row="0" Grid.Column="39" Text="Momentos torsionantes x: " TextAlignment="Left" Style="{StaticResource LittleHeader}"/>
+                                                <TextBlock Grid.Row="0" Grid.Column="40" Text="{Binding MomentosTorsionantesX,Mode=TwoWay}" TextAlignment="Left" Style="{StaticResource LittleHeader}"/>
+                                                <TextBlock Grid.Row="0" Grid.Column="42" Text="Momentos torsionantes y: " TextAlignment="Left" Style="{StaticResource LittleHeader}"/>
+                                                <TextBlock Grid.Row="0" Grid.Column="43" Text="{Binding MomentosTorsionantesY,Mode=TwoWay}" TextAlignment="Left" Style="{StaticResource LittleHeader}"/>
+                                                <TextBlock Grid.Row="0" Grid.Column="45" Text="Rix. torsional de entrepiso: " TextAlignment="Left" Style="{StaticResource LittleHeader}"/>
+                                                <TextBlock Grid.Row="0" Grid.Column="46" Text="{Binding RigidezTorsionalEntrepiso,Mode=TwoWay}" TextAlignment="Left" Style="{StaticResource LittleHeader}"/>
+                                                <TextBlock Grid.Row="0" Grid.Column="48" Text="Momento de volteo de enntrepiso: " TextAlignment="Left" Style="{StaticResource LittleHeader}"/>
+                                                <TextBlock Grid.Row="0" Grid.Column="49" Text="{Binding MomentoVolteoEntrepiso,Mode=TwoWay}" TextAlignment="Left" Style="{StaticResource LittleHeader}"/>
+                                            </Grid>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                            </DataGrid.Columns>
+                            <DataGrid.RowDetailsTemplate>
+                                <DataTemplate>
+                                    <Border BorderThickness="2,2,2,2" Background="MediumPurple" BorderBrush="Black" >
+                                        <StackPanel>
+                                            <TextBlock Text="INFORMACIÓN DE MUROS HORIZONTALES"/>
+
+                                            <DataGrid AutoGenerateColumns="False" CanUserAddRows="False" SelectedItem="{Binding SelectedWall,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding HorizontalWalls, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                                                <DataGrid.Columns>
+                                                    <DataGridTextColumn Header="Muro" Binding="{Binding WallNumber}" IsReadOnly="True"  />
+                                                    <DataGridTextColumn Header="Excentricidad de carga" Binding="{Binding}" IsReadOnly="True"/>
+                                                    <!--<DataGridComboBoxColumn ItemsSource="{Binding CompanyItems}" DisplayMemberPath="Name" SelectedValuePath="ID" SelectedValueBinding="{Binding CompanyID}" />-->
+                                                    <!--<DataGridCheckBoxColumn />-->
+                                                    <!--<DataGridTextColumn Header="Tipo de muro" Binding="{Binding TipoMuro,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat={}{0:n8}}"  />-->
+                                                    <DataGridTextColumn Header="F. reduccion para los efectos de excentricidad y esbeltez"  Binding="{Binding AreaLongitudinal, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat={}{0:n8}}" />
+                                                    <DataGridTextColumn Header="Rigidez lateral"  Binding="{Binding RigidezLateral, StringFormat={}{0:n8}}" />
+                                                    <DataGridTextColumn Header="Cortante directo"  Binding="{Binding CortanteDirecto,StringFormat={}{0:n8}}" />
+                                                    <DataGridTextColumn Header="Clasificación"  Binding="{Binding Clasificacion, StringFormat={}{0:n8}}" />
+                                                    <DataGridTextColumn Header="Excentricidad de diseño (x)"  Binding="{Binding ExcentricidadDisenioX,StringFormat={}{0:n8}}" />
+                                                    <DataGridTextColumn Header="Excentricidad de diseño (y)"  Binding="{Binding ExcentricidadDisenioY,StringFormat={}{0:n8}}" />
+                                                    <DataGridTextColumn Header="Cortante por torsión"  Binding="{Binding CortantePorTorsion, StringFormat={}{0:n8}}" />
+                                                    <DataGridTextColumn Header="Cortantes totales"  Binding="{Binding CortanteTotales, StringFormat={}{0:n8}}" />
+                                                    <DataGridTextColumn Header="Momento de volteo"  Binding="{Binding MomentoVolteo, StringFormat={}{0:n8}}" />
+                                                    <DataGridTextColumn Header="Carga axial maxima"  Binding="{Binding CargaAxialMaxima, StringFormat={}{0:n8}}" />
+                                                    <DataGridTextColumn Header="Carga axial de sismo"  Binding="{Binding CargaAxialSismo, StringFormat={}{0:n8}}" />-->
+                                                </DataGrid.Columns>
+                                            </DataGrid>
+
+                                            <TextBlock Text="INFORMACIÓN DE MUROS VERTICALES"/>
+                                            <DataGrid AutoGenerateColumns="False" CanUserAddRows="False" SelectedItem="{Binding SelectedWall,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"  ItemsSource="{Binding VerticalWalls, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" >
+                                                <DataGrid.Columns>
+                                                    <DataGridTextColumn Header="Muro" Binding="{Binding WallNumber}" IsReadOnly="True"  />
+                                                    <DataGridTextColumn Header="Inercia" Binding="{Binding Inercia,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat={}{0:n8}}"  />
+                                                    <DataGridTextColumn Header="Area longitudinal"  Binding="{Binding AreaLongitudinal, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat={}{0:n8}}" />
+                                                    <DataGridTextColumn Header="Rigidez lateral"  Binding="{Binding RigidezLateral, StringFormat={}{0:n8}}" />
+                                                    <DataGridTextColumn Header="Cortante directo"  Binding="{Binding CortanteDirecto,StringFormat={}{0:n8}}" />
+                                                    <DataGridTextColumn Header="Clasificación"  Binding="{Binding Clasificacion, StringFormat={}{0:n8}}" />
+                                                    <DataGridTextColumn Header="Excentricidad de diseño (x)"  Binding="{Binding ExcentricidadDisenioX,StringFormat={}{0:n8}}" />
+                                                    <DataGridTextColumn Header="Excentricidad de diseño (y)"  Binding="{Binding ExcentricidadDisenioY,StringFormat={}{0:n8}}" />
+                                                    <DataGridTextColumn Header="Cortante por torsión"  Binding="{Binding CortantePorTorsion, StringFormat={}{0:n8}}" />
+                                                    <DataGridTextColumn Header="Cortantes totales"  Binding="{Binding CortanteTotales, StringFormat={}{0:n8}}" />
+                                                    <DataGridTextColumn Header="Momento de volteo"  Binding="{Binding MomentoVolteo, StringFormat={}{0:n8}}" />
+                                                    <DataGridTextColumn Header="Carga axial maxima"  Binding="{Binding CargaAxialMaxima, StringFormat={}{0:n8}}" />
+                                                    <DataGridTextColumn Header="Carga axial de sismo"  Binding="{Binding CargaAxialSismo, StringFormat={}{0:n8}}" />
+                                                </DataGrid.Columns>
+                                            </DataGrid>
+                                        </StackPanel>
+                                    </Border>
+                                </DataTemplate>
+                            </DataGrid.RowDetailsTemplate>
+                        </DataGrid>
+                    </ScrollViewer>
+                </Grid>
+            </Controls:MetroTabItem>
+        </Controls:MetroTabControl>
     </Grid>
 </UserControl>

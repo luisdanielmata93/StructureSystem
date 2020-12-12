@@ -44,7 +44,6 @@ namespace StructureSystem.ViewModel
         {
             SearchCommand = new RelayCommand(o => setInitialData());
 
-
         }
 
         #endregion

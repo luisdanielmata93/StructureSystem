@@ -15,7 +15,7 @@ namespace StructureSystem.Model
             Delete,
             Get,
             NonAction
-           
+
         }
 
 
@@ -33,5 +33,6 @@ namespace StructureSystem.Model
 
         public enum SideType { Vertical, Horizontal }
 
+        public enum Coordenate { X, Y }
     }
 }

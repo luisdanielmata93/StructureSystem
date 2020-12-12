@@ -18,31 +18,31 @@ namespace StructureSystem.BusinessRules.Services
         {
             this.configData = new WebConfig();
             this.MaterialCollection = this.configData.GetMaterialsCollection();
-            Structure = new Structure();
         }
 
 
         public Structure GetStructure()
         {
+            Structure structure = new Structure();
             try
             {
                 var document = GetDocumentPath();
 
                 using (var data = UnitOfWork.Create())
                 {
-                    Structure.Storeys = (List<Storey>)data.Repositories.DocumentDataContext.SeismicAnalysisData.Get(document);
+                    structure.Storeys = (List<Storey>)data.Repositories.DocumentDataContext.SeismicAnalysisData.Get(document);
 
                 }
-                CalculateInitialData();
+                CalculateInitialData(ref structure);
             }
             catch (Exception ex)
             {
             }
-            return Structure;
+            return structure;
 
         }
 
-        private void CalculateInitialData()
+        private void CalculateInitialData(ref Structure Structure)
         {
             try
             {
@@ -53,13 +53,50 @@ namespace StructureSystem.BusinessRules.Services
                         wall.Inercia = Functions.Operations.CalcularInercia(wall);
                         wall.AreaLongitudinal = Functions.Operations.CalcularAreaLongitudinal(wall);
                         wall.RigidezLateral = Functions.Operations.CalcularRigidezLateral(wall, this.MaterialCollection.Single(x => x.Name == wall.Material));
+                        
+                        wall.CortanteDirecto = Functions.Operations.CalcularFuerzasCortantesDirectas(wall.Side);
+                        wall.Clasificacion = Functions.Operations.CalcularClasificacionMuro(wall.Side);
+                        wall.ExcentricidadDisenioX = Functions.Operations.CalcularExcentricidadesDisenio(Enums.Coordenate.X, wall.Side);
+                        wall.ExcentricidadDisenioY = Functions.Operations.CalcularExcentricidadesDisenio(Enums.Coordenate.Y, wall.Side);
+                        wall.CortantePorTorsion = Functions.Operations.CalcularCortanteTorsion(wall.Side);
+                        wall.CortanteTotales = Functions.Operations.CalcularCortantesTotales(wall.Side);
+                        wall.CargaAxialMaxima = Functions.Operations.CalcularCargaAxialUltima(wall.Side);
+                        wall.CargaAxialSismo = Functions.Operations.CalcularCargaAxialDeSismo(wall.Side);
                     }
                     foreach (var wall in Structure.Storeys[i].VerticalWalls)
                     {
                         wall.Inercia = Functions.Operations.CalcularInercia(wall);
                         wall.AreaLongitudinal = Functions.Operations.CalcularAreaLongitudinal(wall);
                         wall.RigidezLateral = Functions.Operations.CalcularRigidezLateral(wall, this.MaterialCollection.Single(x => x.Name == wall.Material));
+
+                        wall.CortanteDirecto = Functions.Operations.CalcularFuerzasCortantesDirectas(wall.Side);
+                        wall.Clasificacion = Functions.Operations.CalcularClasificacionMuro(wall.Side);
+                        wall.ExcentricidadDisenioX = Functions.Operations.CalcularExcentricidadesDisenio(Enums.Coordenate.X, wall.Side);
+                        wall.ExcentricidadDisenioY = Functions.Operations.CalcularExcentricidadesDisenio(Enums.Coordenate.Y, wall.Side);
+                        wall.CortantePorTorsion = Functions.Operations.CalcularCortanteTorsion(wall.Side);
+                        wall.CortanteTotales = Functions.Operations.CalcularCortantesTotales(wall.Side);
+                        wall.CargaAxialMaxima = Functions.Operations.CalcularCargaAxialUltima(wall.Side);
+                        wall.CargaAxialSismo = Functions.Operations.CalcularCargaAxialDeSismo(wall.Side);
                     }
+
+                    Structure.Storeys[i].CentroCortantesX = Functions.Operations.CalcularCentroCortante(Structure.Storeys[i], Enums.Coordenate.X);
+                    Structure.Storeys[i].CentroCortantesY = Functions.Operations.CalcularCentroCortante(Structure.Storeys[i], Enums.Coordenate.Y);
+                    Structure.Storeys[i].CentroTorsionX = Functions.Operations.CalcularCentroTorsion(Structure.Storeys[i], Enums.Coordenate.X);
+                    Structure.Storeys[i].CentroTorsionY = Functions.Operations.CalcularCentroTorsion(Structure.Storeys[i], Enums.Coordenate.Y);
+                    Structure.Storeys[i].ExcentricidadesEstaticasX = Functions.Operations.CalcularExcentricidadesEstaticas(Structure.Storeys[i], Enums.Coordenate.X);
+                    Structure.Storeys[i].ExcentricidadesEstaticasY = Functions.Operations.CalcularExcentricidadesEstaticas(Structure.Storeys[i], Enums.Coordenate.Y);
+                    Structure.Storeys[i].ExcentricidadesAccidentalesX = Functions.Operations.CalcularExcentricidadesAccidentales(Structure.Storeys[i], Enums.Coordenate.X);
+                    Structure.Storeys[i].ExcentricidadesAccidentalesY = Functions.Operations.CalcularExcentricidadesAccidentales(Structure.Storeys[i], Enums.Coordenate.Y);
+                    Structure.Storeys[i].ExcentricidadesDisenioEntrepisoX = Functions.Operations.CalcularExcentricidadDisenioEntrepiso(Structure.Storeys[i], Enums.Coordenate.X);
+                    Structure.Storeys[i].ExcentricidadesDisenioEntrepisoY = Functions.Operations.CalcularExcentricidadDisenioEntrepiso(Structure.Storeys[i], Enums.Coordenate.Y);
+                    Structure.Storeys[i].MomentosTorsionantesX = Functions.Operations.CalcularMomentosTorsionantes(Structure.Storeys[i], Enums.Coordenate.X);
+                    Structure.Storeys[i].MomentosTorsionantesY = Functions.Operations.CalcularMomentosTorsionantes(Structure.Storeys[i], Enums.Coordenate.Y);
+                    Structure.Storeys[i].RigidezTorsionalEntrepiso = Functions.Operations.CalcularRigidezTorsionalEntrepiso(Structure.Storeys[i]);
+                    Structure.Storeys[i].CentroMasasX = Functions.Operations.CalcularCentroDeMasas(Structure.Storeys[i], Enums.Coordenate.X);
+                    Structure.Storeys[i].CentroMasasY = Functions.Operations.CalcularCentroDeMasas(Structure.Storeys[i], Enums.Coordenate.Y);
+
+                    //Structure.Storeys[i].MomentoVolteoEntrepiso = Functions.Operations.CalcularMomentoVolteo(Structure.Storeys[i]);
+
                 }
 
             }
@@ -102,7 +139,6 @@ namespace StructureSystem.BusinessRules.Services
         #region Properties
         private WebConfig configData;
         private XMLStructureData dataXml;
-        private static Structure Structure;
         private List<Material> MaterialCollection;
         #endregion
 
