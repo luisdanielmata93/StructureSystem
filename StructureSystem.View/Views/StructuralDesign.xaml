@@ -153,21 +153,26 @@
                                             <DataGrid AutoGenerateColumns="False" CanUserAddRows="False" SelectedItem="{Binding SelectedWall,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding HorizontalWalls, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                                                 <DataGrid.Columns>
                                                     <DataGridTextColumn Header="Muro" Binding="{Binding WallNumber}" IsReadOnly="True"  />
-                                                    <DataGridTextColumn Header="Excentricidad de carga" Binding="{Binding}" IsReadOnly="True"/>
-                                                    <!--<DataGridComboBoxColumn ItemsSource="{Binding CompanyItems}" DisplayMemberPath="Name" SelectedValuePath="ID" SelectedValueBinding="{Binding CompanyID}" />-->
-                                                    <!--<DataGridCheckBoxColumn />-->
-                                                    <!--<DataGridTextColumn Header="Tipo de muro" Binding="{Binding TipoMuro,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat={}{0:n8}}"  />-->
-                                                    <DataGridTextColumn Header="F. reduccion para los efectos de excentricidad y esbeltez"  Binding="{Binding AreaLongitudinal, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat={}{0:n8}}" />
-                                                    <DataGridTextColumn Header="Rigidez lateral"  Binding="{Binding RigidezLateral, StringFormat={}{0:n8}}" />
-                                                    <DataGridTextColumn Header="Cortante directo"  Binding="{Binding CortanteDirecto,StringFormat={}{0:n8}}" />
-                                                    <DataGridTextColumn Header="Clasificación"  Binding="{Binding Clasificacion, StringFormat={}{0:n8}}" />
-                                                    <DataGridTextColumn Header="Excentricidad de diseño (x)"  Binding="{Binding ExcentricidadDisenioX,StringFormat={}{0:n8}}" />
-                                                    <DataGridTextColumn Header="Excentricidad de diseño (y)"  Binding="{Binding ExcentricidadDisenioY,StringFormat={}{0:n8}}" />
-                                                    <DataGridTextColumn Header="Cortante por torsión"  Binding="{Binding CortantePorTorsion, StringFormat={}{0:n8}}" />
-                                                    <DataGridTextColumn Header="Cortantes totales"  Binding="{Binding CortanteTotales, StringFormat={}{0:n8}}" />
+                                                    <DataGridTextColumn Header="Excentricidad de carga" Binding="{Binding ExcentrididadCarga}" IsReadOnly="True"/>
+                                                    <DataGridTemplateColumn Header="Tipo de muro">
+                                                        <DataGridTemplateColumn.CellTemplate>
+                                                            <DataTemplate>
+                                                                <ComboBox ItemsSource="{Binding WallTypes}" SelectedItem="{Binding WallType}" SelectedIndex="0" Text="Seleccione un tipo"  />
+                                                            </DataTemplate>
+                                                        </DataGridTemplateColumn.CellTemplate>
+                                                    </DataGridTemplateColumn>
+                                                    <DataGridCheckBoxColumn Header="Restringido extremo superior/inferior" Binding="{Binding Path=RestringidoSupInf, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                                    <DataGridTextColumn Header="Longitud claro Izquierdo"  Binding="{Binding AreaLongitudinal, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat={}{0:n8}}" />
+                                                    <DataGridTextColumn Header="Longitud claro Derecho"  Binding="{Binding RigidezLateral, StringFormat={}{0:n8}}" />
+                                                    <DataGridTextColumn Header="F. de reduccion por efectos de excentricidad y esbeltez"  Binding="{Binding CortanteDirecto,StringFormat={}{0:n8}}" />
+                                                    <DataGridTextColumn Header="F. de altura efectiva"  Binding="{Binding Clasificacion, StringFormat={}{0:n8}}" />
+                                                    <DataGridTextColumn Header="Resistencia a la compresion pura"  Binding="{Binding ExcentricidadDisenioX,StringFormat={}{0:n8}}" />
+                                                    <DataGridTextColumn Header="Resistencia a flexion pura del muro"  Binding="{Binding ExcentricidadDisenioY,StringFormat={}{0:n8}}" />
+                                                    <DataGridTextColumn Header="Coordenada vertical (carga axial)"  Binding="{Binding CortantePorTorsion, StringFormat={}{0:n8}}" />
+                                                    <DataGridTextColumn Header="Coordenada horizontal (carga axial)"  Binding="{Binding CortanteTotales, StringFormat={}{0:n8}}" />
                                                     <DataGridTextColumn Header="Momento de volteo"  Binding="{Binding MomentoVolteo, StringFormat={}{0:n8}}" />
                                                     <DataGridTextColumn Header="Carga axial maxima"  Binding="{Binding CargaAxialMaxima, StringFormat={}{0:n8}}" />
-                                                    <DataGridTextColumn Header="Carga axial de sismo"  Binding="{Binding CargaAxialSismo, StringFormat={}{0:n8}}" />-->
+                                                    <DataGridTextColumn Header="Carga axial de sismo"  Binding="{Binding CargaAxialSismo, StringFormat={}{0:n8}}" />
                                                 </DataGrid.Columns>
                                             </DataGrid>
 

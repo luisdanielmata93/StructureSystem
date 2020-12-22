@@ -7,7 +7,8 @@ using System.Threading.Tasks;
 using System.Data;
 using System.Numerics;
 using MathNet.Numerics.LinearAlgebra;
-using MathNet.Numerics.LinearAlgebra.Complex;
+using MathWorks.EigenTools.EigenValuesNative;
+using MathNet.Numerics.LinearAlgebra.Double;
 
 namespace StructureSystem.BusinessRules.Functions
 {
@@ -17,135 +18,157 @@ namespace StructureSystem.BusinessRules.Functions
 
         public static double[] CalcularVectorPeriodosCirculares(double[,] M, double[,] K)
         {
-
-            List<double> result = new List<double>();
-            //Matrix<double> M = DenseMatrix.OfArray(m);
+            List<double> genvals = new List<double>();
             try
             {
-                //MathNet.Numerics.
 
-              
-                //var eigenvals = IntelMKL.genvals(M, K);
-               //IntelMKL.genvals(M, K); 
-               
-                // Evd<double> Mw = M.Evd();
-                //Evd<double> Kw = K.Evd();
+                EigenValues eigenValues = new EigenValues();
+
+                var eigenTemp = eigenValues.eigen(4, M, K);
+
+                double[,] genvalsTemp = (double[,])eigenTemp[0];
+
+                for (int i = 0; i < genvalsTemp.GetLength(0); i++)
+                {
+                    genvals.Add(genvalsTemp[i, 0]);
+                }
+
+                genvals.Sort();
+                genvals.Reverse();
+
+                for (int i = 0; i < genvals.Count; i++)
+                {
+                    genvals[i] = Math.Sqrt(genvals[i]);
+                }
 
 
-                //Matrix<double> eigenvectorsK = Wk.EigenVectors;
-                //Matrix<double> eigenvectorsM = Mw.EigenVectors;
-
-                //  Vector<Complex> eigenvaluesM = Mw.EigenValues;
-                // Vector<Complex> eigenvaluesK = Kw.EigenValues;
-
-                //var sum = eigenvaluesM + eigenvaluesK;
-
-                //foreach (var item in sum)
-                //{
-                //    result.Add(item.Real);
-                //}
             }
             catch (Exception ex)
             {
 
-                throw;
+                throw ex;
             }
 
-
-            return result.ToArray<double>();
+            return genvals.ToArray();
         }
 
-        public static double[] CalcularVectorPeriodosNaturales(double[,] m, double[,] k)
+        public static double[] CalcularVectorPeriodosNaturales(double[,] M, double[,] K)
         {
             List<double> result = new List<double>();
-            //Matrix<double> K = DenseMatrix.OfArray(k);
-            //Matrix<double> M = DenseMatrix.OfArray(m);
-            //try
-            //{
+            try
+            {
+                EigenValues eigenValues = new EigenValues();
 
+                var eigenTemp = eigenValues.eigen(4, M, K);
 
-            //    Evd<double> Mw = M.Evd();
-            //    Evd<double> Kw = K.Evd();
+                double[,] genvalsTemp = (double[,])eigenTemp[0];
 
-            //    //Matrix<double> eigenvectorsK = Wk.EigenVectors;
-            //    //Matrix<double> eigenvectorsM = Mw.EigenVectors;
+                for (int i = 0; i < genvalsTemp.GetLength(0); i++)
+                {
+                    result.Add(genvalsTemp[i, 0]);
+                }
 
-            //    Vector<Complex> eigenvaluesM = Mw.EigenValues;
-            //    Vector<Complex> eigenvaluesK = Kw.EigenValues;
+                result.Sort();
+                result.Reverse();
 
-            //    var sum = eigenvaluesM + eigenvaluesK;
+                for (int i = 0; i < result.Count; i++)
+                {
+                    result[i] = Math.Sqrt(result[i]);
+                }
 
-            //    foreach (var item in sum)
-            //    {
-            //        result.Add((2 * PI) / item.Real);
-            //    }
-            //}
-            //catch (Exception ex)
-            //{
+                for (int j = 0; j < result.Count; j++)
+                {
+                    result[j] = (2 * PI) / result[j];
+                }
 
-            //    throw;
-            //}
+            }
+            catch (Exception ex)
+            {
 
+                throw ex;
+            }
 
             return result.ToArray<double>();
         }
 
-        public static double[] CalcularVectorFrecuencias(double[,] m, double[,] k)
+        public static double[] CalcularVectorFrecuencias(double[,] M, double[,] K)
         {
             List<double> result = new List<double>();
-            //Matrix<double> K = DenseMatrix.OfArray(k);
-            //Matrix<double> M = DenseMatrix.OfArray(m);
-            //try
-            //{
+            try
+            {
+                EigenValues eigenValues = new EigenValues();
 
+                var eigenTemp = eigenValues.eigen(4, M, K);
 
-            //    Evd<double> Mw = M.Evd();
-            //    Evd<double> Kw = K.Evd();
+                double[,] genvalsTemp = (double[,])eigenTemp[0];
 
-            //    //Matrix<double> eigenvectorsK = Wk.EigenVectors;
-            //    //Matrix<double> eigenvectorsM = Mw.EigenVectors;
+                for (int i = 0; i < genvalsTemp.GetLength(0); i++)
+                {
+                    result.Add(genvalsTemp[i, 0]);
+                }
 
-            //    Vector<Complex> eigenvaluesM = Mw.EigenValues;
-            //    Vector<Complex> eigenvaluesK = Kw.EigenValues;
+                result.Sort();
+                result.Reverse();
 
-            //    var sum = eigenvaluesM + eigenvaluesK;
+                for (int i = 0; i < result.Count; i++)
+                {
+                    result[i] = Math.Sqrt(result[i]);
+                }
 
-            //    foreach (var item in sum)
-            //    {
-            //        result.Add(1 / ((2 * PI) / item.Real));
-            //    }
-            //}
-            //catch (Exception ex)
-            //{
+                for (int j = 0; j < result.Count; j++)
+                {
+                    result[j] = 1 / ((2 * PI) / result[j]);
+                }
 
-            //    throw;
-            //}
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
 
             return result.ToArray<double>();
         }
 
-        public static double[,] CalcularMatrizEigenVectores(double[,] m, double[,] k)
+        public static double[,] CalcularMatrizEigenVectores(double[,] M, double[,] K)
         {
-            return null;
-            //Matrix<double> K = DenseMatrix.OfArray(k);
-            //Matrix<double> M = DenseMatrix.OfArray(m);
-            //try
-            //{
-            //    List<double> row = new List<double>();
-            //    Evd<double> Mw = M.Evd();
-            //    Evd<double> Kw = K.Evd();
+            int n = M.GetLength(0);
+            int i = 0, j = 0;
+            double[,] genvects = new double[n, n];
+            double[,] result = new double[n, n];
 
-            //    Matrix<double> eigenvectorsK = Kw.EigenVectors;
-            //    Matrix<double> eigenvectorsM = Mw.EigenVectors;
+            try
+            {
+                EigenValues eigenValues = new EigenValues();
 
-            //    var result = eigenvectorsK + eigenvectorsM;
+                var eigenTemp = eigenValues.eigen(4, M, K);
 
-            //    return result.ToArray();
-            //}
-            //catch (Exception ex)
-            //{
-            //    return null;
-            //}
+                double[,] genvalsTemp = (double[,])eigenTemp[3];
+
+                for (i = 0; i < n; i++)
+                {
+                    for (j = 0; j < n; j++)
+                    {
+                        genvects[i, j] = genvalsTemp[i, j] * -1;
+                    }
+                }
+
+                for (i = 0; i < n; i++)
+                {
+                    for (j = 0; j < n; j++)
+                    {
+                        result[i, j] = genvects[i, n - 1 - j] / genvects[0, n - 1 - j];
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+
+            return result;
         }
 
         public static double[,] CalcularMatrizRigideces(Structure Structure, Enums.SideType side)
@@ -164,7 +187,7 @@ namespace StructureSystem.BusinessRules.Functions
                             K[i, j] = -1 * Structure.Storeys[i + 1].RigidezEntrepisoHorizontal;
                         }
                         K[i, i] = Structure.Storeys[i].RigidezEntrepisoHorizontal + Structure.Storeys[i + 1].RigidezEntrepisoHorizontal;
-                        K[n-1, n-1] = Structure.Storeys[n-1].RigidezEntrepisoHorizontal;
+                        K[n - 1, n - 1] = Structure.Storeys[n - 1].RigidezEntrepisoHorizontal;
                     }
                 }
             }
@@ -180,7 +203,7 @@ namespace StructureSystem.BusinessRules.Functions
                             K[i, j] = -1 * Structure.Storeys[i + 1].RigidezEntrepisoVertical;
                         }
                         K[i, i] = Structure.Storeys[i].RigidezEntrepisoVertical + Structure.Storeys[i + 1].RigidezEntrepisoVertical;
-                        K[n-1, n-1] = Structure.Storeys[n-1].RigidezEntrepisoVertical;
+                        K[n - 1, n - 1] = Structure.Storeys[n - 1].RigidezEntrepisoVertical;
                     }
                 }
             }
@@ -204,37 +227,97 @@ namespace StructureSystem.BusinessRules.Functions
             }
             return M;
         }
-      
-        public static double[,] CalcularMatrizEspectral(Structure Structure, Enums.SideType side)
-        {
-            int n = Structure.Storeys.Count;
-            double[,] Mespectral = new double[n, n];
 
+        public static double[,] CalcularMatrizEspectral(double[] VectorPeriodosCirculares)
+        {
+            int n = VectorPeriodosCirculares.Length;
+            double[,] Mespectral = new double[n, n];
+            try
+            {
+                for (int i = 0; i < n; i++)
+                {
+                    Mespectral[i, i] = VectorPeriodosCirculares[i];
+                }
+
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
 
             return Mespectral;
         }
 
 
-        public static double[,] CalcularMatrizMasasGeneralizada(Structure Structure, Enums.SideType side)
+        public static double[,] CalcularMatrizMasasGeneralizada(double[,] M, double[,] EigenVects)
         {
-            int n = Structure.Storeys.Count;
-            double[,] Mg = new double[n, n];
+            int n = M.GetLength(0);
+            Matrix<double> MEigenTraspose;
+            Matrix<double> MEigenVects;
+            Matrix<double> MM;
+            Matrix<double> MMg;
 
+            try
+            {
+                MEigenTraspose = DenseMatrix.OfArray(EigenVects).Transpose();
+                MEigenVects = DenseMatrix.OfArray(EigenVects);
+                MM = DenseMatrix.OfArray(M);
+                MMg = MEigenTraspose * MM * MEigenVects;
 
-            return Mg;
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
+
+            return MMg.ToArray();
         }
 
-        public static double[,] CalcularMatrizRigidecesGeneralizada(Structure Structure, Enums.SideType side)
+        public static double[,] CalcularMatrizRigidecesGeneralizada(double[,] K, double[,] EigenVects)
         {
-            int n = Structure.Storeys.Count;
-            double[,] Mg = new double[n, n];
+            int n = K.GetLength(0);
+            Matrix<double> MEigenTraspose;
+            Matrix<double> MEigenVects;
+            Matrix<double> MK;
+            Matrix<double> Kg;
 
+            try
+            {
+                MEigenTraspose = DenseMatrix.OfArray(EigenVects).Transpose();
+                MEigenVects = DenseMatrix.OfArray(EigenVects);
+                MK = DenseMatrix.OfArray(K);
+                Kg = MEigenTraspose * MK * MEigenVects;
 
-            return Mg;
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
+
+            return Kg.ToArray();
         }
-       
-        
-        
+
+
+        public static double[] CalcularVectorParticipacionModal(double[,] M)
+        {
+            List<double> result = new List<double>();
+            try
+            {
+
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
+
+
+
+            return result.ToArray();
+        }
         
         
         #region Operaciones para muros

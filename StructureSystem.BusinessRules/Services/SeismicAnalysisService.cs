@@ -53,11 +53,13 @@ namespace StructureSystem.BusinessRules.Services
                     structure.Storeys = (List<Storey>)data.Repositories.DocumentDataContext.SeismicAnalysisData.Get(document);
 
                 }
+
                 GetInitialData(ref structure);
             }
             catch (Exception ex)
             {
             }
+
             return structure;
 
         }
@@ -105,6 +107,21 @@ namespace StructureSystem.BusinessRules.Services
                     }
                 }
 
+                foreach (var storey in structure.Storeys)
+                {
+                    storey.RigidezEntrepisoHorizontal = Functions.Operations.CalcularRigidezEntrepiso(storey, Enums.SideType.Horizontal);
+                    storey.RigidezEntrepisoVertical = Functions.Operations.CalcularRigidezEntrepiso(storey, Enums.SideType.Vertical);
+                }
+
+                structure.MasaTotal = 0;
+                foreach (var storey in structure.Storeys)
+                {
+                    XMLLoadAnalysisData entrepiso = GetEntrepisoPorNivel(storey.StoreyNumber);
+                    storey.MasasEntrepisos = Functions.Operations.CalcularMasasEntrepiso(MaterialCollection, storey, entrepiso);
+                    structure.MasaTotal += storey.MasasEntrepisos;
+                }
+
+
             }
             catch (Exception ex)
             {
@@ -125,24 +142,6 @@ namespace StructureSystem.BusinessRules.Services
             Structure Structure = this.GetStructure();
             try
             {
-
-                if (side == Enums.SideType.Horizontal)
-                {
-                    foreach (var storey in Structure.Storeys)
-                    {
-                        storey.RigidezEntrepisoHorizontal = Functions.Operations.CalcularRigidezEntrepiso(storey, Enums.SideType.Horizontal);
-                        storey.RigidezEntrepisoVertical = Functions.Operations.CalcularRigidezEntrepiso(storey, Enums.SideType.Vertical);
-                    }
-
-                }
-                if (side == Enums.SideType.Vertical)
-                {
-                    foreach (var storey in Structure.Storeys)
-                    {
-                        storey.RigidezEntrepisoHorizontal = Functions.Operations.CalcularRigidezEntrepiso(storey, Enums.SideType.Horizontal);
-                        storey.RigidezEntrepisoVertical = Functions.Operations.CalcularRigidezEntrepiso(storey, Enums.SideType.Vertical);
-                    }
-                }
 
                 result.Columns.Add("Nivel");
                 result.Columns.Add("Vector de Rigideces");
@@ -170,14 +169,7 @@ namespace StructureSystem.BusinessRules.Services
             Structure Structure = this.GetStructure();
             try
             {
-                Structure.MasaTotal = 0;
-                foreach (var storey in Structure.Storeys)
-                {
-                    XMLLoadAnalysisData entrepiso = GetEntrepisoPorNivel(storey.StoreyNumber);
-                    storey.MasasEntrepisos = Functions.Operations.CalcularMasasEntrepiso(MaterialCollection, storey, entrepiso);
-                    Structure.MasaTotal += storey.MasasEntrepisos;
-                }
-
+               
                 result.Columns.Add("Nivel");
                 result.Columns.Add("Vector de Masas");
 
@@ -201,23 +193,6 @@ namespace StructureSystem.BusinessRules.Services
             {
                 int n = Structure.Storeys.Count;
 
-                if (side == Enums.SideType.Horizontal)
-                {
-                    foreach (var storey in Structure.Storeys)
-                    {
-                        storey.RigidezEntrepisoHorizontal = Functions.Operations.CalcularRigidezEntrepiso(storey, Enums.SideType.Horizontal);
-                        storey.RigidezEntrepisoVertical = Functions.Operations.CalcularRigidezEntrepiso(storey, Enums.SideType.Vertical);
-                    }
-
-                }
-                if (side == Enums.SideType.Vertical)
-                {
-                    foreach (var storey in Structure.Storeys)
-                    {
-                        storey.RigidezEntrepisoHorizontal = Functions.Operations.CalcularRigidezEntrepiso(storey, Enums.SideType.Horizontal);
-                        storey.RigidezEntrepisoVertical = Functions.Operations.CalcularRigidezEntrepiso(storey, Enums.SideType.Vertical);
-                    }
-                }
                 double[,] K = Operations.CalcularMatrizRigideces(Structure, side);
 
                 //Llenamos columnas
@@ -255,14 +230,6 @@ namespace StructureSystem.BusinessRules.Services
             try
             {
                 int n = Structure.Storeys.Count;
-                Structure.MasaTotal = 0;
-
-                foreach (var storey in Structure.Storeys)
-                {
-                    XMLLoadAnalysisData entrepiso = GetEntrepisoPorNivel(storey.StoreyNumber);
-                    storey.MasasEntrepisos = Functions.Operations.CalcularMasasEntrepiso(MaterialCollection,storey, entrepiso);
-                    Structure.MasaTotal += storey.MasasEntrepisos;
-                }
 
                 double[,] M = Operations.CalcularMatrizMasas(Structure, side);
 
@@ -276,7 +243,7 @@ namespace StructureSystem.BusinessRules.Services
                     DataRow row = result.NewRow();
                     for (int k = 0; k < n; k++)
                     {
-                        row[k] = M[j, k].ToString("N4");
+                        row[k] = M[j, k].ToString();
                     }
                     result.Rows.Add(row);
                 }
@@ -299,6 +266,7 @@ namespace StructureSystem.BusinessRules.Services
 
             double[,] M = Operations.CalcularMatrizMasas(Structure, side);
             double[,] K = Operations.CalcularMatrizRigideces(Structure, side);
+            
             try
             {
                 var data = Functions.Operations.CalcularVectorPeriodosCirculares(M, K);
@@ -416,9 +384,13 @@ namespace StructureSystem.BusinessRules.Services
         {
             Structure Structure = GetStructure();
             DataTable result = new DataTable();
+            double[,] M = Operations.CalcularMatrizMasas(Structure, side);
+            double[,] K = Operations.CalcularMatrizRigideces(Structure, side);
+
             try
             {
-                double[,] data = Operations.CalcularMatrizEspectral(Structure, side);
+                double[] PCirculares = Operations.CalcularVectorPeriodosCirculares(M, K);
+                double[,] data = Operations.CalcularMatrizEspectral(PCirculares);
 
 
                 for (int i = 0; i < data.GetLength(0); i++)
@@ -455,19 +427,11 @@ namespace StructureSystem.BusinessRules.Services
             DataTable result = new DataTable();
             try
             {
-                int n = Structure.Storeys.Count;
-                Structure.MasaTotal = 0;
-
-                foreach (var storey in Structure.Storeys)
-                {
-                    XMLLoadAnalysisData entrepiso = GetEntrepisoPorNivel(storey.StoreyNumber);
-                    storey.MasasEntrepisos = Functions.Operations.CalcularMasasEntrepiso(MaterialCollection, storey, entrepiso);
-                    Structure.MasaTotal += storey.MasasEntrepisos;
-                }
 
                 double[,] M = Operations.CalcularMatrizMasas(Structure, side);
-
-                double[,] data = Operations.CalcularMatrizMasasGeneralizada(Structure, side);
+                double[,] K = Operations.CalcularMatrizRigideces(Structure, side);
+                var eigenVects = Functions.Operations.CalcularMatrizEigenVectores(M, K);
+                double[,] data = Operations.CalcularMatrizMasasGeneralizada(M,eigenVects);
 
 
                 for (int i = 0; i < data.GetLength(0); i++)

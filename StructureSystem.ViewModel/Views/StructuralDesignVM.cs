@@ -44,7 +44,22 @@ namespace StructureSystem.ViewModel
 
         private void SetCommands()
         {
+            SearchCommand = new RelayCommand(o => setInitialData());
 
+              }
+
+        private void setInitialData()
+        {
+            try
+            {
+                this.StructureP = DataService.GetStructure();
+                this.Storeys = new ObservableCollection<Storey>((List<Storey>)StructureP.Storeys);
+
+            }
+            catch (Exception ex)
+            {
+
+            }
         }
 
         #endregion
@@ -54,6 +69,21 @@ namespace StructureSystem.ViewModel
 
 
         #region Properties
+        private Structure Structure_;
+        public Structure StructureP
+        {
+            get
+            {
+                return Structure_;
+            }
+            set
+            {
+                if (value != Structure_)
+                    Structure_ = value;
+
+                OnPropertyChanged("StructureP");
+            }
+        }
 
         private Wall _SelectedWall;
         public Wall SelectedWall
@@ -83,7 +113,7 @@ namespace StructureSystem.ViewModel
         }
 
 
-        private readonly SeismicAnalysisService DataService = new SeismicAnalysisService();
+        private readonly SeismicDistributionService DataService = new SeismicDistributionService();
         private NotificationViewModel notificationViewModel;
         private readonly PropertyChangedViewModel _mainViewModel;
         #endregion
