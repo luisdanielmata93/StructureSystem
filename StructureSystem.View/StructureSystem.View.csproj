@@ -33,6 +33,7 @@
     <PackageReference Include="MahApps.Metro.SimpleChildWindow" Version="1.5.0" />
     <PackageReference Include="Microsoft.Maps.MapControl.WPF" Version="1.0.0.3" />
     <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.19" />
+    <PackageReference Include="MoralesLarios.Utilities" Version="1.0.0.1" />
     <PackageReference Include="Notifications.Wpf" Version="0.1.1" />
     <PackageReference Include="Prism.Core" Version="7.2.0.1422" />
     <PackageReference Include="Prism.Wpf" Version="7.2.0.1422" />

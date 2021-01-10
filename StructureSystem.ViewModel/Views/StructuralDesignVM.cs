@@ -33,8 +33,8 @@ namespace StructureSystem.ViewModel
 
         #region Commands
 
-        public ICommand SearchCommand { get; private set; }
-        public ICommand SaveProjectCommand { get; private set; }
+        public ICommand UpdateCommand { get; private set; }
+        public ICommand GraphicCommand { get; private set; }
 
 
         #endregion
@@ -44,9 +44,10 @@ namespace StructureSystem.ViewModel
 
         private void SetCommands()
         {
-            SearchCommand = new RelayCommand(o => setInitialData());
+            UpdateCommand = new RelayCommand(o => setInitialData());
+            GraphicCommand = new RelayCommand(o => setInitialData());
 
-              }
+        }
 
         private void setInitialData()
         {

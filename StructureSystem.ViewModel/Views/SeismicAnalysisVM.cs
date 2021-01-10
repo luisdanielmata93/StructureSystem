@@ -14,6 +14,9 @@ using System.Configuration;
 using MahApps.Metro.Controls.Dialogs;
 using StructureSystem.BusinessRules.Services;
 using System.Data;
+using System.ComponentModel;
+using System.Windows;
+using System.Windows.Controls;
 
 namespace StructureSystem.ViewModel
 {
@@ -30,12 +33,17 @@ namespace StructureSystem.ViewModel
 
 
             ContentDT = new DataTable("table");
-
             this.SetCommands();
 
         }
+
         #endregion
         #region Commands
+
+        public ICommand EliminarEspectroDisCommand { get; private set; }
+        public ICommand GuardarEspectroDisXCommand { get; private set; }
+        public ICommand GuardarEspectroDisYCommand { get; private set; }
+
         //Comandos en X (Horizontales)
         public ICommand VectorRigidecesXCommand { get; private set; }
         public ICommand VectorMasasXCommand { get; private set; }
@@ -54,13 +62,16 @@ namespace StructureSystem.ViewModel
         public ICommand VectorMasasEfectivasXCommand { get; private set; }
         public ICommand MatrizFactPartMasasModalesXCommand { get; private set; }
         public ICommand ParticipacionMasasXCommand { get; private set; }
+        public ICommand GammaXCommand { get; private set; }
         public ICommand EspectroDisenioXCommand { get; private set; }
         public ICommand VectorAceleracionesXCommand { get; private set; }
         public ICommand VectorFuerzasFicticiasEquivXCommand { get; private set; }
         public ICommand VectorFuerzasCortantsDisenioXCommand { get; private set; }
-        public ICommand DetermFuerzasCortantesDisenioXCommand { get; private set; }
+        public ICommand VectorFuerzasCortantsDisenioEstaticoXCommand { get; private set; }
         public ICommand DesplazamientosLateralesXCommand { get; private set; }
         public ICommand EstimPeriodoFundamentalEstructXCommand { get; private set; }
+        public ICommand FuerzasCortantesXCommand { get; private set; }
+
 
         //Comandos en Y (Verticales)
         public ICommand VectorRigidecesYCommand { get; private set; }
@@ -80,13 +91,16 @@ namespace StructureSystem.ViewModel
         public ICommand VectorMasasEfectivasYCommand { get; private set; }
         public ICommand MatrizFactPartMasasModalesYCommand { get; private set; }
         public ICommand ParticipacionMasasYCommand { get; private set; }
+        public ICommand GammaYCommand { get; private set; }
         public ICommand EspectroDisenioYCommand { get; private set; }
         public ICommand VectorAceleracionesYCommand { get; private set; }
         public ICommand VectorFuerzasFicticiasEquivYCommand { get; private set; }
         public ICommand VectorFuerzasCortantsDisenioYCommand { get; private set; }
-        public ICommand DetermFuerzasCortantesDisenioYCommand { get; private set; }
+        public ICommand VectorFuerzasCortantsDisenioEstaticoYCommand { get; private set; }
         public ICommand DesplazamientosLateralesYCommand { get; private set; }
         public ICommand EstimPeriodoFundamentalEstructYCommand { get; private set; }
+        public ICommand FuerzasCortantesYCommand { get; private set; }
+
         #endregion
 
 
@@ -94,6 +108,10 @@ namespace StructureSystem.ViewModel
 
         private void SetCommands()
         {
+            EliminarEspectroDisCommand = new RelayCommand(o => EliminarEspectroDisenioData());
+            GuardarEspectroDisXCommand = new RelayCommand(o => GuardarEspectroDisenioData(Enums.SideType.Horizontal));
+            GuardarEspectroDisYCommand = new RelayCommand(o => GuardarEspectroDisenioData(Enums.SideType.Vertical));
+
             VectorRigidecesXCommand = new RelayCommand(o => ShowVectorRigideces(Enums.SideType.Horizontal));
             VectorMasasXCommand = new RelayCommand(o => ShowVectorMasas());
             MatrizMasasXCommand = new RelayCommand(o => ShowMatrizMasas(Enums.SideType.Horizontal));
@@ -111,13 +129,16 @@ namespace StructureSystem.ViewModel
             VectorMasasEfectivasXCommand = new RelayCommand(o => ShowVectorMasasEfectivas(Enums.SideType.Horizontal));
             MatrizFactPartMasasModalesXCommand = new RelayCommand(o => ShowMatrizFactParticipacionMasasModales(Enums.SideType.Horizontal));
             ParticipacionMasasXCommand = new RelayCommand(o => ShowVectorParticipacionMasas(Enums.SideType.Horizontal));
+            GammaXCommand = new RelayCommand(o => ShowGamma(Enums.SideType.Horizontal));
             EspectroDisenioXCommand = new RelayCommand(o => ShowEspectroDisenio(Enums.SideType.Horizontal));
             VectorAceleracionesXCommand = new RelayCommand(o => ShowVectorAcceleraciones(Enums.SideType.Horizontal));
             VectorFuerzasFicticiasEquivXCommand = new RelayCommand(o => ShowVectorFuerzasFicticiasEquivalentes(Enums.SideType.Horizontal));
             VectorFuerzasCortantsDisenioXCommand = new RelayCommand(o => ShowVectorFuerzasCortantesDisenio(Enums.SideType.Horizontal));
-            DetermFuerzasCortantesDisenioXCommand = new RelayCommand(o => ShowVectorDeterminacionFuerzasCortantes(Enums.SideType.Horizontal));
+            VectorFuerzasCortantsDisenioEstaticoXCommand = new RelayCommand(o => ShowVectorDeterminacionFuerzasCortantes(Enums.SideType.Horizontal));
             DesplazamientosLateralesXCommand = new RelayCommand(o => ShowVectorDesplazamientosLaterales(Enums.SideType.Horizontal));
             EstimPeriodoFundamentalEstructXCommand = new RelayCommand(o => ShowEstimacionPeriodoFundamentalEstructura(Enums.SideType.Horizontal));
+            FuerzasCortantesXCommand = new RelayCommand(o => ShowFuerzasCortantes(Enums.SideType.Horizontal));
+
 
             VectorRigidecesYCommand = new RelayCommand(o => ShowVectorRigideces(Enums.SideType.Vertical));
             VectorMasasYCommand = new RelayCommand(o => ShowVectorMasas());
@@ -136,13 +157,15 @@ namespace StructureSystem.ViewModel
             VectorMasasEfectivasYCommand = new RelayCommand(o => ShowVectorMasasEfectivas(Enums.SideType.Vertical));
             MatrizFactPartMasasModalesYCommand = new RelayCommand(o => ShowMatrizFactParticipacionMasasModales(Enums.SideType.Vertical));
             ParticipacionMasasYCommand = new RelayCommand(o => ShowVectorParticipacionMasas(Enums.SideType.Vertical));
+            GammaYCommand = new RelayCommand(o => ShowGamma(Enums.SideType.Vertical));
             EspectroDisenioYCommand = new RelayCommand(o => ShowEspectroDisenio(Enums.SideType.Vertical));
             VectorAceleracionesYCommand = new RelayCommand(o => ShowVectorAcceleraciones(Enums.SideType.Vertical));
             VectorFuerzasFicticiasEquivYCommand = new RelayCommand(o => ShowVectorFuerzasFicticiasEquivalentes(Enums.SideType.Vertical));
             VectorFuerzasCortantsDisenioYCommand = new RelayCommand(o => ShowVectorFuerzasCortantesDisenio(Enums.SideType.Vertical));
-            DetermFuerzasCortantesDisenioYCommand = new RelayCommand(o => ShowVectorDeterminacionFuerzasCortantes(Enums.SideType.Vertical));
+            VectorFuerzasCortantsDisenioEstaticoYCommand = new RelayCommand(o => ShowVectorDeterminacionFuerzasCortantes(Enums.SideType.Vertical));
             DesplazamientosLateralesYCommand = new RelayCommand(o => ShowVectorDesplazamientosLaterales(Enums.SideType.Vertical));
             EstimPeriodoFundamentalEstructYCommand = new RelayCommand(o => ShowEstimacionPeriodoFundamentalEstructura(Enums.SideType.Vertical));
+            FuerzasCortantesYCommand = new RelayCommand(o => ShowFuerzasCortantes(Enums.SideType.Vertical));
 
         }
 
@@ -152,136 +175,318 @@ namespace StructureSystem.ViewModel
 
 
         #region Metodos operacionales
+
+        private void EliminarEspectroDisenioData()
+        {
+            this.EspectroDisenio.Clear();
+        }
+
+        private void GuardarEspectroDisenioData(Enums.SideType side)
+        {
+            var data = this.DataService.SetEspectroDisenio(this.EspectroDisenio.ToList(), side);
+
+            this.notificationViewModel.ShowNotification(data);
+
+        }
+
+
         private void ShowVectorMasas()
         {
+            this.ShowGetDataTable();
+            this.HideStaticMethod();
             this.ContentDT = DataService.GetVectorMasas();
 
         }
 
         private void ShowVectorRigideces(Enums.SideType side)
         {
-
+            this.ShowGetDataTable();
+            this.HideStaticMethod();
             this.ContentDT = DataService.GetVectorRigidez(side);
 
         }
 
         private void ShowMatrizRigideces(Enums.SideType side)
         {
-
+            this.ShowGetDataTable();
+            this.HideStaticMethod();
             this.ContentDT = DataService.GetMatrizRigideces(side);
 
         }
 
         private void ShowMatrizMasas(Enums.SideType side)
         {
+            this.ShowGetDataTable();
+            this.HideStaticMethod();
             this.ContentDT = DataService.GetMatrizMasas(side);
         }
 
         private void ShowVectorPeriodosCirculares(Enums.SideType side)
         {
+            this.ShowGetDataTable();
+            this.HideStaticMethod();
             this.ContentDT = DataService.GetVectorPeriodosCirculares(side);
         }
 
         private void ShowVectorPeriodosNaturales(Enums.SideType side)
         {
+            this.ShowGetDataTable();
+            this.HideStaticMethod();
             this.ContentDT = DataService.GetVectorPeriodosNaturales(side);
         }
 
         private void ShowVectorFrecuencias(Enums.SideType side)
         {
+            this.ShowGetDataTable();
+            this.HideStaticMethod();
             this.ContentDT = DataService.GetVectorFrecuencias(side);
         }
 
         private void ShowMatrizEigenVectores(Enums.SideType side)
         {
+            this.ShowGetDataTable();
+            this.HideStaticMethod();
             this.ContentDT = DataService.GetMatrizEigenVectoresNormalizados(side);
         }
 
         private void ShowMatrizEspectral(Enums.SideType side)
         {
+            this.ShowGetDataTable();
+            this.HideStaticMethod();
             this.ContentDT = DataService.GetMatrizEspectral(side);
         }
 
         private void ShowMatrizMasasGeneralizada(Enums.SideType side)
         {
+            this.ShowGetDataTable();
+            this.HideStaticMethod();
             this.ContentDT = DataService.GetMatrizMasasGeneralizada(side);
         }
 
         private void ShowMatrizRigidecesGeneralizada(Enums.SideType side)
         {
+            this.ShowGetDataTable();
+            this.HideStaticMethod();
             this.ContentDT = DataService.GetMatrizRigidecesGeneralizada(side);
         }
 
         private void ShowVectorUnos()
         {
+            this.ShowGetDataTable();
+            this.HideStaticMethod();
             this.ContentDT = DataService.GetVectorUnos();
         }
 
         private void ShowVectorParticipacionModal(Enums.SideType side)
         {
+            this.ShowGetDataTable();
+            this.HideStaticMethod();
             this.ContentDT = DataService.GetVectorParticipacionModal(side);
         }
 
         private void ShowMatrizModalNormalizada(Enums.SideType side)
         {
+            this.ShowGetDataTable();
+            this.HideStaticMethod();
             this.ContentDT = DataService.GetMatrizModalNormalizada(side);
         }
 
         private void ShowVectorMasasEfectivas(Enums.SideType side)
         {
+            this.ShowGetDataTable();
+            this.HideStaticMethod();
             this.ContentDT = DataService.GetVectorMasasEfectivas(side);
         }
 
         private void ShowMatrizFactParticipacionMasasModales(Enums.SideType side)
         {
+            this.ShowGetDataTable();
+            this.HideStaticMethod();
             this.ContentDT = DataService.GetMatrizFactParticipacionMasasModales(side);
         }
 
         private void ShowVectorParticipacionMasas(Enums.SideType side)
         {
+            this.ShowGetDataTable();
+            this.HideStaticMethod();
             this.ContentDT = DataService.GetVectorParticipacionMasas(side);
+        }
+
+        private void ShowGamma(Enums.SideType side)
+        {
+            this.ShowGetDataTable();
+            this.HideStaticMethod();
+            this.ContentDT = DataService.GetVectorGamma(side);
         }
 
         private void ShowEspectroDisenio(Enums.SideType side)
         {
-            this.ContentDT = DataService.GetEspectroDisenio(side);
+
+            this.HideStaticMethod();
+            this.ShowSetDataGrid();
+            var datos = this.DataService.GetEspectroDisenio();
+
+            if (datos.Count > 0)
+                this.EspectroDisenio = new ObservableCollection<EspectroDisenio>(datos);
+            else
+                this.EspectroDisenio = new ObservableCollection<EspectroDisenio>();
+
+
+            this.EspectroDisenio.CollectionChanged += EspectroDisenio_CollectionChanged;
+        }
+
+        private void EspectroDisenio_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+
         }
 
         private void ShowVectorAcceleraciones(Enums.SideType side)
         {
+            this.ShowGetDataTable();
             this.ContentDT = DataService.GetVectorAceleraciones(side);
         }
 
         private void ShowVectorFuerzasFicticiasEquivalentes(Enums.SideType side)
         {
+            this.ShowGetDataTable();
             this.ContentDT = DataService.GetVectorFuerzasFicticiasEquivalentes(side);
         }
 
         private void ShowVectorFuerzasCortantesDisenio(Enums.SideType side)
         {
+            this.ShowGetDataTable();
             this.ContentDT = DataService.GetVectorFuerzasCortantesDisenio(side);
         }
 
         private void ShowVectorDeterminacionFuerzasCortantes(Enums.SideType side)
         {
-            this.ContentDT = DataService.GetVectorDeterminacionFuerzasCortantes(side);
+            this.ShowGetDataTable();
+            ShowStaticMethod();
+            if (c > 0 && Q > 0 & R > 0)
+                this.ContentDT = DataService.GetVectorDeterminacionFuerzasCortantes(c, Q, R, side);
         }
 
         private void ShowVectorDesplazamientosLaterales(Enums.SideType side)
         {
+            this.ShowGetDataTable();
             this.ContentDT = DataService.GetVectorDesplazamientosLaterales(side);
         }
 
         private void ShowEstimacionPeriodoFundamentalEstructura(Enums.SideType side)
         {
+            this.ShowGetDataTable();
             this.ContentDT = DataService.GetEstimacionPeriodoFundamentalEstructura(side);
         }
 
+        private void ShowFuerzasCortantes(Enums.SideType side)
+        {
+            this.ShowGetDataTable();
+            this.ContentDT = DataService.GetFuerzasCortantes(side);
+        }
+
+        private void ShowGetDataTable()
+        {
+
+            this.DTContentSet = "Hidden";
+            this.DTContentGet = "Visible";
+        }
+
+        private void ShowSetDataGrid()
+        {
+            this.DTContentSet = "Visible";
+            this.DTContentGet = "Hidden";
+            this.IsEspectroDisenio = "Visible";
+        }
+
+        private void ShowStaticMethod()
+        {
+
+            this.IsStaticV = "Visible";
+            this.IsEspectroDisenio = "Hidden";
+
+        }
+
+        private void HideStaticMethod()
+        {
+            this.IsStaticV = "Hidden";
+            this.IsEspectroDisenio = "Hidden";
+        }
         #endregion
 
 
 
+
         #region Properties
+
+        private double c_;
+        public double c
+        {
+            get
+            {
+                return c_;
+            }
+            set
+            {
+                c_ = value;
+                OnPropertyChanged("c");
+            }
+        }
+        private double Q_;
+        public double Q
+        {
+            get
+            {
+                return Q_;
+            }
+            set
+            {
+                Q_ = value;
+                OnPropertyChanged("Q");
+            }
+        }
+        private double R_;
+        public double R
+        {
+            get
+            {
+                return R_;
+            }
+            set
+            {
+                R_ = value;
+                OnPropertyChanged("R");
+            }
+        }
+
+        private string IsEspectroDisenio_ = "Hidden";
+        public string IsEspectroDisenio
+        {
+            get
+            {
+                return IsEspectroDisenio_;
+            }
+            set
+            {
+                if (value != IsEspectroDisenio_)
+                    IsEspectroDisenio_ = value;
+                OnPropertyChanged("IsEspectroDisenio");
+            }
+        }
+
+        private string IsStaticV_ = "Hidden";
+        public string IsStaticV
+        {
+            get
+            {
+                return IsStaticV_;
+            }
+
+            set
+            {
+                IsStaticV_ = value;
+                OnPropertyChanged("IsStaticV");
+            }
+        }
 
         private Wall _SelectedWall;
         public Wall SelectedWall
@@ -383,6 +588,54 @@ namespace StructureSystem.ViewModel
                 OnPropertyChanged("Storeys");
             }
         }
+
+
+
+
+        public ObservableCollection<EspectroDisenio> EspectroDisenio_;
+        public ObservableCollection<EspectroDisenio> EspectroDisenio
+        {
+            get { return EspectroDisenio_; }
+            set
+            {
+                if (value != EspectroDisenio_)
+                    EspectroDisenio_ = value;
+                OnPropertyChanged("EspectroDisenio");
+            }
+        }
+
+        private string DTContentSet_ = "Hidden";
+        public string DTContentSet
+        {
+            get
+            {
+                return DTContentSet_;
+            }
+            set
+            {
+                if (value != DTContentSet_)
+                    DTContentSet_ = value;
+                OnPropertyChanged("DTContentSet");
+            }
+        }
+
+        private string DTContentGet_ = "Visible";
+        public string DTContentGet
+        {
+            get
+            {
+                return DTContentGet_;
+            }
+            set
+            {
+                if (value != DTContentGet_)
+                    DTContentGet_ = value;
+                OnPropertyChanged("DTContentGet");
+            }
+        }
+
+
+
 
         private readonly SeismicAnalysisService DataService = new SeismicAnalysisService();
         private NotificationViewModel notificationViewModel;

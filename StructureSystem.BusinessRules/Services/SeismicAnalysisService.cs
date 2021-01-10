@@ -169,7 +169,7 @@ namespace StructureSystem.BusinessRules.Services
             Structure Structure = this.GetStructure();
             try
             {
-               
+
                 result.Columns.Add("Nivel");
                 result.Columns.Add("Vector de Masas");
 
@@ -266,7 +266,7 @@ namespace StructureSystem.BusinessRules.Services
 
             double[,] M = Operations.CalcularMatrizMasas(Structure, side);
             double[,] K = Operations.CalcularMatrizRigideces(Structure, side);
-            
+
             try
             {
                 var data = Functions.Operations.CalcularVectorPeriodosCirculares(M, K);
@@ -389,8 +389,8 @@ namespace StructureSystem.BusinessRules.Services
 
             try
             {
-                double[] PCirculares = Operations.CalcularVectorPeriodosCirculares(M, K);
-                double[,] data = Operations.CalcularMatrizEspectral(PCirculares);
+
+                double[,] data = Operations.CalcularMatrizEspectral(M, K);
 
 
                 for (int i = 0; i < data.GetLength(0); i++)
@@ -430,8 +430,7 @@ namespace StructureSystem.BusinessRules.Services
 
                 double[,] M = Operations.CalcularMatrizMasas(Structure, side);
                 double[,] K = Operations.CalcularMatrizRigideces(Structure, side);
-                var eigenVects = Functions.Operations.CalcularMatrizEigenVectores(M, K);
-                double[,] data = Operations.CalcularMatrizMasasGeneralizada(M,eigenVects);
+                double[,] data = Operations.CalcularMatrizMasasGeneralizada(M, K);
 
 
                 for (int i = 0; i < data.GetLength(0); i++)
@@ -469,10 +468,10 @@ namespace StructureSystem.BusinessRules.Services
             DataTable result = new DataTable();
             try
             {
-                int n = Structure.Storeys.Count;
-                Structure.MasaTotal = 0;
+                double[,] M = Operations.CalcularMatrizMasas(Structure, side);
+                double[,] K = Operations.CalcularMatrizRigideces(Structure, side);
+                double[,] data = Operations.CalcularMatrizRigidecesGeneralizada(M, K);
 
-                double[,] data = Operations.CalcularMatrizRigidecesGeneralizada(Structure, side);
 
                 for (int i = 0; i < data.GetLength(0); i++)
                 {
@@ -492,7 +491,6 @@ namespace StructureSystem.BusinessRules.Services
                 }
 
                 result.AcceptChanges();
-
 
             }
             catch (Exception ex)
@@ -525,10 +523,20 @@ namespace StructureSystem.BusinessRules.Services
 
         public DataTable GetVectorParticipacionModal(Enums.SideType side)
         {
+            Structure Structure = GetStructure();
             DataTable result = new DataTable();
+            double[,] M = Operations.CalcularMatrizMasas(Structure, side);
+            double[,] K = Operations.CalcularMatrizRigideces(Structure, side);
+            double[] data = Operations.CalcularVectorParticipacionModal(M, K);
 
+            result.Columns.Add("Vector de participacion modal");
 
+            for (int i = 0; i < data.Length; i++)
+            {
+                result.Rows.Add(data[i]);
+            }
 
+            result.AcceptChanges();
 
             return result;
         }
@@ -536,19 +544,61 @@ namespace StructureSystem.BusinessRules.Services
 
         public DataTable GetMatrizModalNormalizada(Enums.SideType side)
         {
+            Structure Structure = GetStructure();
             DataTable result = new DataTable();
+            try
+            {
+                double[,] M = Operations.CalcularMatrizMasas(Structure, side);
+                double[,] K = Operations.CalcularMatrizRigideces(Structure, side);
+                double[,] data = Operations.CalcularMatrizModalNormalizada(M, K);
 
 
+                for (int i = 0; i < data.GetLength(0); i++)
+                {
+                    result.Columns.Add(i.ToString());
+                }
 
+                for (int i = 0; i < data.GetLength(0); i++)
+                {
+                    DataRow row = result.NewRow();
+                    for (int j = 0; j < data.GetLength(0); j++)
+                    {
+                        row[j] = data[i, j].ToString();
+                    }
+
+                    result.Rows.Add(row);
+
+                }
+
+                result.AcceptChanges();
+
+            }
+            catch (Exception ex)
+            {
+
+            }
 
             return result;
+
         }
 
 
         public DataTable GetVectorMasasEfectivas(Enums.SideType side)
         {
+            Structure Structure = GetStructure();
             DataTable result = new DataTable();
+            double[,] M = Operations.CalcularMatrizMasas(Structure, side);
+            double[,] K = Operations.CalcularMatrizRigideces(Structure, side);
+            double[] data = Operations.CalcularVectorMasasEfectivas(M, K);
 
+            result.Columns.Add("Vector de masas efectivas");
+
+            for (int i = 0; i < data.Length; i++)
+            {
+                result.Rows.Add(data[i]);
+            }
+
+            result.AcceptChanges();
 
             return result;
         }
@@ -557,10 +607,29 @@ namespace StructureSystem.BusinessRules.Services
 
         public DataTable GetMatrizFactParticipacionMasasModales(Enums.SideType side)
         {
+            Structure Structure = GetStructure();
             DataTable result = new DataTable();
+            try
+            {
+                double[,] M = Operations.CalcularMatrizMasas(Structure, side);
+                double[,] K = Operations.CalcularMatrizRigideces(Structure, side);
+                double[] data = Operations.CalcularMatrizFactoresParticipacionMasasModales(M, K);
 
 
+                result.Columns.Add("Factores de participacion de masas modales");
 
+                for (int i = 0; i < data.Length; i++)
+                {
+                    result.Rows.Add(data[i]);
+                }
+
+                result.AcceptChanges();
+
+            }
+            catch (Exception ex)
+            {
+
+            }
 
             return result;
         }
@@ -569,31 +638,109 @@ namespace StructureSystem.BusinessRules.Services
 
         public DataTable GetVectorParticipacionMasas(Enums.SideType side)
         {
+            Structure Structure = GetStructure();
             DataTable result = new DataTable();
+            double[,] M = Operations.CalcularMatrizMasas(Structure, side);
+            double[,] K = Operations.CalcularMatrizRigideces(Structure, side);
 
+            double[] data = Operations.CalcularParticipacionDeMasas(M, K, Structure.MasaTotal);
 
+            result.Columns.Add("Participación de masas");
 
+            for (int i = 0; i < data.Length; i++)
+            {
+                result.Rows.Add(data[i]);
+            }
+
+            result.AcceptChanges();
 
             return result;
         }
 
-
-
-        public DataTable GetEspectroDisenio(Enums.SideType side)
+        public DataTable GetVectorGamma(Enums.SideType side)
         {
+            Structure Structure = GetStructure();
             DataTable result = new DataTable();
+            double[,] M = Operations.CalcularMatrizMasas(Structure, side);
+            double[,] K = Operations.CalcularMatrizRigideces(Structure, side);
 
+            double[] data = Operations.CalcularGamma(M, K);
+
+            result.Columns.Add("Gamma");
+
+            for (int i = 0; i < data.Length; i++)
+            {
+                result.Rows.Add(data[i]);
+            }
+
+            result.AcceptChanges();
+
+            return result;
+        }
+
+        public OperationResult SetEspectroDisenio(List<EspectroDisenio> DisEspectral, Enums.SideType side)
+        {
+            OperationResult result = new OperationResult();
+            try
+            {
+                using (var data = UnitOfWork.Create())
+                {
+                    XMLSeismicAnalysisData document = new XMLSeismicAnalysisData();
+                    document.DocumentPath = GetDocumentPath();
+                    document.DisenioEspectral = DisEspectral;
+                    var documentInfo = data.Repositories.DocumentDataContext.SeismicAnalysisData.Create(document);
+
+                    result.OperationSuccess(true, Enums.ActionType.Update);
+                }
+            }
+            catch (Exception ex)
+            {
+                result.OperationError("Error al guardar espectro de diseño", Enums.ActionType.Update, ex);
+            }
 
 
             return result;
         }
 
+        public List<EspectroDisenio> GetEspectroDisenio()
+        {
+            List<EspectroDisenio> result = new List<EspectroDisenio>();
+            try
+            {
+                using (var data = UnitOfWork.Create())
+                {
+                    result = data.Repositories.DocumentDataContext.SeismicAnalysisData.Get(GetDocumentPath()).ToList();
 
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return result;
+        }
 
         public DataTable GetVectorAceleraciones(Enums.SideType side)
         {
+            Structure Structure = GetStructure();
             DataTable result = new DataTable();
+            double[] data;
+            double[,] M = Operations.CalcularMatrizMasas(Structure, side);
+            double[,] K = Operations.CalcularMatrizRigideces(Structure, side);
+            using (var dat = UnitOfWork.Create())
+            {
+                var info = dat.Repositories.DocumentDataContext.SeismicAnalysisData.Get(GetDocumentPath()).ToList();
+                data = Operations.CalcularVectorDeAceleraciones(M, K, info);
+            }
 
+            result.Columns.Add("Vector de aceleraciones");
+
+            for (int i = 0; i < data.Length; i++)
+            {
+                result.Rows.Add(data[i]);
+            }
+
+            result.AcceptChanges();
 
             return result;
         }
@@ -602,10 +749,31 @@ namespace StructureSystem.BusinessRules.Services
 
         public DataTable GetVectorFuerzasFicticiasEquivalentes(Enums.SideType side)
         {
+            Structure Structure = GetStructure();
             DataTable result = new DataTable();
+            double[] data;
+            double[] m = new double[Structure.Storeys.Count];
+            double[,] M = Operations.CalcularMatrizMasas(Structure, side);
+            double[,] K = Operations.CalcularMatrizRigideces(Structure, side);
+            using (var dat = UnitOfWork.Create())
+            {
+                var info = dat.Repositories.DocumentDataContext.SeismicAnalysisData.Get(GetDocumentPath()).ToList();
+                data = Operations.CalcularVectorDeAceleraciones(M, K, info);
+            }
+
+            for (int i = 0; i < Structure.Storeys.Count; i++)
+                m[i] = Structure.Storeys[i].MasasEntrepisos;
 
 
+            var va = Operations.CalcularVectorDeFuerzasFicticias(data, m);
+            result.Columns.Add("Vector de fuerzas ficticias equivalentes");
 
+            for (int i = 0; i < data.Length; i++)
+            {
+                result.Rows.Add(va[i]);
+            }
+
+            result.AcceptChanges();
 
             return result;
         }
@@ -615,40 +783,143 @@ namespace StructureSystem.BusinessRules.Services
 
         public DataTable GetVectorFuerzasCortantesDisenio(Enums.SideType side)
         {
+            Structure Structure = GetStructure();
             DataTable result = new DataTable();
+            double[] data;
+            double[] m = new double[Structure.Storeys.Count];
+            double[,] M = Operations.CalcularMatrizMasas(Structure, side);
+            double[,] K = Operations.CalcularMatrizRigideces(Structure, side);
+            using (var dat = UnitOfWork.Create())
+            {
+                var info = dat.Repositories.DocumentDataContext.SeismicAnalysisData.Get(GetDocumentPath()).ToList();
+                data = Operations.CalcularVectorDeAceleraciones(M, K, info);
+            }
 
+            for (int i = 0; i < Structure.Storeys.Count; i++)
+                m[i] = Structure.Storeys[i].MasasEntrepisos;
 
+            var va = Operations.CalcularVectorDeFuerzasFicticias(data, m);
+
+            var vn = Operations.CalcularVectorDeFuerzasCortantesDeDisenio(va);
+
+            result.Columns.Add("Vector de fuerzas cortantes de diseño");
+
+            for (int i = 0; i < vn.Length; i++)
+            {
+                result.Rows.Add(vn[i]);
+            }
+
+            result.AcceptChanges();
 
             return result;
         }
 
 
-
-
-        public DataTable GetVectorDeterminacionFuerzasCortantes(Enums.SideType side)
+        public DataTable GetVectorDeterminacionFuerzasCortantes(double cp, double Qp, double Rp, Enums.SideType side)
         {
+            Structure Structure = GetStructure();
             DataTable result = new DataTable();
 
+            c = cp;
+            Q = Qp;
+            R = Rp;
+            var data = Operations.CalcularVectorDeFuerzasCortantesDeDisenioEstatico(c, Q, R, Structure);
 
+            result.Columns.Add("Vector de fuerzas cortantes de diseño");
 
+            for (int i = 0; i < data.Length; i++)
+            {
+                result.Rows.Add(data[i]);
+            }
+
+            result.AcceptChanges();
             return result;
         }
 
 
         public DataTable GetVectorDesplazamientosLaterales(Enums.SideType side)
         {
+            Structure Structure = GetStructure();
             DataTable result = new DataTable();
 
+            var F = Operations.CalcularVectorDeFuerzasCortantesDeDisenioEstatico(c, Q, R, Structure);
+            double[] K = new double[Structure.Storeys.Count];
+            if (side == Enums.SideType.Horizontal)
+            {
+                for (int i = 0; i < Structure.Storeys.Count; i++)
+                    K[i] = Structure.Storeys[i].RigidezEntrepisoHorizontal;
+            }
+            if (side == Enums.SideType.Vertical)
+            {
+                for (int i = 0; i < Structure.Storeys.Count; i++)
+                    K[i] = Structure.Storeys[i].RigidezEntrepisoVertical;
 
+            }
 
+            var X = Operations.CalcularDesplazamientosLaterales(F, K);
+
+            result.Columns.Add("Desplazamientos laterales");
+
+            for (int i = 0; i < X.Length; i++)
+            {
+                result.Rows.Add(X[i]);
+            }
+
+            result.AcceptChanges();
             return result;
+
         }
 
         public DataTable GetEstimacionPeriodoFundamentalEstructura(Enums.SideType side)
         {
+            Structure Structure = GetStructure();
             DataTable result = new DataTable();
 
+            var F = Operations.CalcularVectorDeFuerzasCortantesDeDisenioEstatico(c, Q, R, Structure);
+            double[] K = new double[Structure.Storeys.Count];
+            double[] m = new double[Structure.Storeys.Count];
+            if (side == Enums.SideType.Horizontal)
+            {
+                for (int i = 0; i < Structure.Storeys.Count; i++)
+                    K[i] = Structure.Storeys[i].RigidezEntrepisoHorizontal;
+            }
+            if (side == Enums.SideType.Vertical)
+            {
+                for (int i = 0; i < Structure.Storeys.Count; i++)
+                    K[i] = Structure.Storeys[i].RigidezEntrepisoVertical;
+            }
 
+            for (int i = 0; i < Structure.Storeys.Count; i++)
+                m[i] = Structure.Storeys[i].MasasEntrepisos;
+
+            var X = Operations.CalcularDesplazamientosLaterales(F, K);
+
+            var T = Operations.CalcularPeriodoFundamental(m,X,F);
+
+            result.Columns.Add("Periodo fundamental de la estructura");
+
+            result.Rows.Add(T);
+
+
+            result.AcceptChanges();
+            return result;
+        }
+
+        public DataTable GetFuerzasCortantes(Enums.SideType side)
+        {
+            Structure Structure = GetStructure();
+            DataTable result = new DataTable();
+
+            var data = Operations.CalcularVectorDeFuerzasCortantesDeDisenioEstatico(c, Q, R, Structure);
+
+            result.Columns.Add("Vector de fuerzas cortantes");
+
+            for (int i = 0; i < data.Length; i++)
+            {
+                result.Rows.Add(data[i]);
+            }
+
+            result.AcceptChanges();
             return result;
         }
 
@@ -665,8 +936,9 @@ namespace StructureSystem.BusinessRules.Services
         #endregion
 
         #region Properties
+        private static double c = 0, Q = 0, R = 0;
         private WebConfig configData;
-        private XMLStructureData dataXml;
+        private XMLSeismicAnalysisData dataXml;
         private List<Material> MaterialCollection;
         #endregion
 

@@ -34,7 +34,8 @@ namespace StructureSystem.Data
                                                                         ),
                                                             new XElement("HorizontalWalls", ""),
                                                             new XElement("VerticalWalls", ""),
-                                                            new XElement("LoadAnalysis", "")
+                                                            new XElement("LoadAnalysis", ""),
+                                                              new XElement("DisenioEspectral", "")
                                                                     )
                                                         );
 

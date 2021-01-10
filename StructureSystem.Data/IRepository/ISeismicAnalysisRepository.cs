@@ -4,8 +4,8 @@ using StructureSystem.Model;
 
 namespace StructureSystem.Data.Model
 {
-   public interface ISeismicAnalysisRepository : IReadable<IList<Storey>, string>,
-                                  ICreatable<XMLStructureData>, IUpdatable<XMLStructureData>
+   public interface ISeismicAnalysisRepository : IReadable<IList<EspectroDisenio>, string>,
+                                  ICreatable<XMLSeismicAnalysisData>, IUpdatable<XMLSeismicAnalysisData>
     {
 
 

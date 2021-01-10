@@ -7,8 +7,9 @@ using System.Threading.Tasks;
 using System.Data;
 using System.Numerics;
 using MathNet.Numerics.LinearAlgebra;
-using MathWorks.EigenTools.EigenValuesNative;
 using MathNet.Numerics.LinearAlgebra.Double;
+using SeismicAnalysisNative;
+using MathWorks.MATLAB.NET.Arrays;
 
 namespace StructureSystem.BusinessRules.Functions
 {
@@ -18,154 +19,185 @@ namespace StructureSystem.BusinessRules.Functions
 
         public static double[] CalcularVectorPeriodosCirculares(double[,] M, double[,] K)
         {
-            List<double> genvals = new List<double>();
+            double[] result = new double[M.GetLength(0)];
             try
             {
+                int n = M.GetLength(0);
+                M = new double[,]
+                    {
+                        { 1.8* Math.Pow(10,5), 0, 0, 0, 0, 0},
+                        { 0, 1.85 * Math.Pow(10,5), 0, 0, 0, 0},
+                        { 0, 0, 1.9 * Math.Pow(10,5) ,0 ,0, 0},
+                        { 0, 0, 0, 2 * Math.Pow(10,5), 0 ,0},
+                        { 0, 0, 0,0, 2 * Math.Pow(10,5), 0},
+                        { 0 ,0, 0 ,0, 0, 1.9 * Math.Pow(10,5)} };
 
-                EigenValues eigenValues = new EigenValues();
-
-                var eigenTemp = eigenValues.eigen(4, M, K);
-
-                double[,] genvalsTemp = (double[,])eigenTemp[0];
-
-                for (int i = 0; i < genvalsTemp.GetLength(0); i++)
-                {
-                    genvals.Add(genvalsTemp[i, 0]);
-                }
-
-                genvals.Sort();
-                genvals.Reverse();
-
-                for (int i = 0; i < genvals.Count; i++)
-                {
-                    genvals[i] = Math.Sqrt(genvals[i]);
-                }
+                K = new double[,] {
+                {9.585 * Math.Pow(10,7), - 5.099* Math.Pow(10,7), 0, 0, 0, 0},
+                { -5.099* Math.Pow(10,7) ,9.993 * Math.Pow(10,7),- 4.895 * Math.Pow(10,7),0, 0, 0},
+                { 0, - 4.895 * Math.Pow(10,7),9.687* Math.Pow(10,7), - 4.793* Math.Pow(10,7), 0, 0},
+                { 0 ,0, - 4.793* Math.Pow(10,7) ,9.279* Math.Pow(10,7), - 4.487* Math.Pow(10,7), 0},
+                { 0 ,0 ,0 ,- 4.487* Math.Pow(10,7) ,9.585 * Math.Pow(10,7),- 5.099* Math.Pow(10,7)},
+                { 0, 0, 0, 0, - 5.099* Math.Pow(10,7) ,5.099 * Math.Pow(10,7)}
+                };
 
 
+                SeismicAnalysis.SeismicAnalysisOperations operations = new SeismicAnalysis.SeismicAnalysisOperations();
+
+                MWNumericArray Marr = new MWNumericArray(M);
+                MWNumericArray Karr = new MWNumericArray(K);
+                var eigsMatrix = operations.EigsMatrix(2, Karr, Marr, M.GetLength(0));
+
+                var D = operations.EigenVals(eigsMatrix[1]);
+
+                var wTF = operations.OmegaTauF(3, D, 3.13, PI);
+
+
+
+                var w = (double[])((MWNumericArray)wTF[0]).ToVector(MWArrayComponent.Real);
+
+                result = w;
             }
             catch (Exception ex)
             {
 
-                throw ex;
             }
 
-            return genvals.ToArray();
+            return result;
         }
 
         public static double[] CalcularVectorPeriodosNaturales(double[,] M, double[,] K)
         {
-            List<double> result = new List<double>();
+            double[] result = new double[M.GetLength(0)];
             try
             {
-                EigenValues eigenValues = new EigenValues();
+                int n = M.GetLength(0);
+                M = new double[,]
+                    {
+                        { 1.8* Math.Pow(10,5), 0, 0, 0, 0, 0},
+                        { 0, 1.85 * Math.Pow(10,5), 0, 0, 0, 0},
+                        { 0, 0, 1.9 * Math.Pow(10,5) ,0 ,0, 0},
+                        { 0, 0, 0, 2 * Math.Pow(10,5), 0 ,0},
+                        { 0, 0, 0,0, 2 * Math.Pow(10,5), 0},
+                        { 0 ,0, 0 ,0, 0, 1.9 * Math.Pow(10,5)} };
 
-                var eigenTemp = eigenValues.eigen(4, M, K);
+                K = new double[,] {
+                {9.585 * Math.Pow(10,7), - 5.099* Math.Pow(10,7), 0, 0, 0, 0},
+                { -5.099* Math.Pow(10,7) ,9.993 * Math.Pow(10,7),- 4.895 * Math.Pow(10,7),0, 0, 0},
+                { 0, - 4.895 * Math.Pow(10,7),9.687* Math.Pow(10,7), - 4.793* Math.Pow(10,7), 0, 0},
+                { 0 ,0, - 4.793* Math.Pow(10,7) ,9.279* Math.Pow(10,7), - 4.487* Math.Pow(10,7), 0},
+                { 0 ,0 ,0 ,- 4.487* Math.Pow(10,7) ,9.585 * Math.Pow(10,7),- 5.099* Math.Pow(10,7)},
+                { 0, 0, 0, 0, - 5.099* Math.Pow(10,7) ,5.099 * Math.Pow(10,7)}
+                };
 
-                double[,] genvalsTemp = (double[,])eigenTemp[0];
+                SeismicAnalysis.SeismicAnalysisOperations operations = new SeismicAnalysis.SeismicAnalysisOperations();
 
-                for (int i = 0; i < genvalsTemp.GetLength(0); i++)
-                {
-                    result.Add(genvalsTemp[i, 0]);
-                }
+                MWNumericArray Marr = new MWNumericArray(M);
+                MWNumericArray Karr = new MWNumericArray(K);
+                var eigsMatrix = operations.EigsMatrix(2, Karr, Marr, M.GetLength(0));
 
-                result.Sort();
-                result.Reverse();
+                var D = operations.EigenVals(eigsMatrix[1]);
 
-                for (int i = 0; i < result.Count; i++)
-                {
-                    result[i] = Math.Sqrt(result[i]);
-                }
+                var wTF = operations.OmegaTauF(3, D, 3.13, PI);
 
-                for (int j = 0; j < result.Count; j++)
-                {
-                    result[j] = (2 * PI) / result[j];
-                }
+                var T = (double[])((MWNumericArray)wTF[1]).ToVector(MWArrayComponent.Real);
 
+                result = T;
             }
             catch (Exception ex)
             {
 
-                throw ex;
             }
 
-            return result.ToArray<double>();
+            return result;
         }
 
         public static double[] CalcularVectorFrecuencias(double[,] M, double[,] K)
         {
-            List<double> result = new List<double>();
+            double[] result = new double[M.GetLength(0)];
             try
             {
-                EigenValues eigenValues = new EigenValues();
+                int n = M.GetLength(0);
+                M = new double[,]
+                    {
+                        { 1.8* Math.Pow(10,5), 0, 0, 0, 0, 0},
+                        { 0, 1.85 * Math.Pow(10,5), 0, 0, 0, 0},
+                        { 0, 0, 1.9 * Math.Pow(10,5) ,0 ,0, 0},
+                        { 0, 0, 0, 2 * Math.Pow(10,5), 0 ,0},
+                        { 0, 0, 0,0, 2 * Math.Pow(10,5), 0},
+                        { 0 ,0, 0 ,0, 0, 1.9 * Math.Pow(10,5)} };
 
-                var eigenTemp = eigenValues.eigen(4, M, K);
+                K = new double[,] {
+                {9.585 * Math.Pow(10,7), - 5.099* Math.Pow(10,7), 0, 0, 0, 0},
+                { -5.099* Math.Pow(10,7) ,9.993 * Math.Pow(10,7),- 4.895 * Math.Pow(10,7),0, 0, 0},
+                { 0, - 4.895 * Math.Pow(10,7),9.687* Math.Pow(10,7), - 4.793* Math.Pow(10,7), 0, 0},
+                { 0 ,0, - 4.793* Math.Pow(10,7) ,9.279* Math.Pow(10,7), - 4.487* Math.Pow(10,7), 0},
+                { 0 ,0 ,0 ,- 4.487* Math.Pow(10,7) ,9.585 * Math.Pow(10,7),- 5.099* Math.Pow(10,7)},
+                { 0, 0, 0, 0, - 5.099* Math.Pow(10,7) ,5.099 * Math.Pow(10,7)}
+                };
 
-                double[,] genvalsTemp = (double[,])eigenTemp[0];
+                SeismicAnalysis.SeismicAnalysisOperations operations = new SeismicAnalysis.SeismicAnalysisOperations();
 
-                for (int i = 0; i < genvalsTemp.GetLength(0); i++)
-                {
-                    result.Add(genvalsTemp[i, 0]);
-                }
+                MWNumericArray Marr = new MWNumericArray(M);
+                MWNumericArray Karr = new MWNumericArray(K);
+                var eigsMatrix = operations.EigsMatrix(2, Karr, Marr, M.GetLength(0));
 
-                result.Sort();
-                result.Reverse();
+                var D = operations.EigenVals(eigsMatrix[1]);
 
-                for (int i = 0; i < result.Count; i++)
-                {
-                    result[i] = Math.Sqrt(result[i]);
-                }
+                var wTF = operations.OmegaTauF(3, D, 3.13, PI);
 
-                for (int j = 0; j < result.Count; j++)
-                {
-                    result[j] = 1 / ((2 * PI) / result[j]);
-                }
+                var F = (double[])((MWNumericArray)wTF[2]).ToVector(MWArrayComponent.Real);
 
+                result = F;
             }
             catch (Exception ex)
             {
 
-                throw ex;
             }
 
-            return result.ToArray<double>();
+            return result;
         }
 
         public static double[,] CalcularMatrizEigenVectores(double[,] M, double[,] K)
         {
-            int n = M.GetLength(0);
-            int i = 0, j = 0;
-            double[,] genvects = new double[n, n];
-            double[,] result = new double[n, n];
+            double[,] result = new double[M.GetLength(0), M.GetLength(0)];
 
             try
             {
-                EigenValues eigenValues = new EigenValues();
-
-                var eigenTemp = eigenValues.eigen(4, M, K);
-
-                double[,] genvalsTemp = (double[,])eigenTemp[3];
-
-                for (i = 0; i < n; i++)
-                {
-                    for (j = 0; j < n; j++)
+                int n = M.GetLength(0);
+                M = new double[,]
                     {
-                        genvects[i, j] = genvalsTemp[i, j] * -1;
-                    }
-                }
+                        { 1.8* Math.Pow(10,5), 0, 0, 0, 0, 0},
+                        { 0, 1.85 * Math.Pow(10,5), 0, 0, 0, 0},
+                        { 0, 0, 1.9 * Math.Pow(10,5) ,0 ,0, 0},
+                        { 0, 0, 0, 2 * Math.Pow(10,5), 0 ,0},
+                        { 0, 0, 0,0, 2 * Math.Pow(10,5), 0},
+                        { 0 ,0, 0 ,0, 0, 1.9 * Math.Pow(10,5)} };
 
-                for (i = 0; i < n; i++)
-                {
-                    for (j = 0; j < n; j++)
-                    {
-                        result[i, j] = genvects[i, n - 1 - j] / genvects[0, n - 1 - j];
-                    }
-                }
+                K = new double[,] {
+                {9.585 * Math.Pow(10,7), - 5.099* Math.Pow(10,7), 0, 0, 0, 0},
+                { -5.099* Math.Pow(10,7) ,9.993 * Math.Pow(10,7),- 4.895 * Math.Pow(10,7),0, 0, 0},
+                { 0, - 4.895 * Math.Pow(10,7),9.687* Math.Pow(10,7), - 4.793* Math.Pow(10,7), 0, 0},
+                { 0 ,0, - 4.793* Math.Pow(10,7) ,9.279* Math.Pow(10,7), - 4.487* Math.Pow(10,7), 0},
+                { 0 ,0 ,0 ,- 4.487* Math.Pow(10,7) ,9.585 * Math.Pow(10,7),- 5.099* Math.Pow(10,7)},
+                { 0, 0, 0, 0, - 5.099* Math.Pow(10,7) ,5.099 * Math.Pow(10,7)}
+                };
 
+                SeismicAnalysis.SeismicAnalysisOperations operations = new SeismicAnalysis.SeismicAnalysisOperations();
+
+                MWNumericArray Marr = new MWNumericArray(M);
+                MWNumericArray Karr = new MWNumericArray(K);
+                var eigsMatrix = operations.EigsMatrix(2, Karr, Marr, M.GetLength(0));
+
+                var eigenValues = operations.EigenVals(eigsMatrix[1]);
+
+                var phi = operations.Phi(eigenValues, eigsMatrix[0]);
+
+                result = (double[,])((MWNumericArray)phi).ToArray(MWArrayComponent.Real);
             }
             catch (Exception ex)
             {
 
-                throw ex;
             }
 
             return result;
@@ -228,98 +260,583 @@ namespace StructureSystem.BusinessRules.Functions
             return M;
         }
 
-        public static double[,] CalcularMatrizEspectral(double[] VectorPeriodosCirculares)
+        public static double[,] CalcularMatrizEspectral(double[,] M, double[,] K)
         {
-            int n = VectorPeriodosCirculares.Length;
-            double[,] Mespectral = new double[n, n];
+            double[,] result = new double[M.GetLength(0), M.GetLength(0)];
             try
             {
-                for (int i = 0; i < n; i++)
+                int n = M.GetLength(0);
+                M = new double[,]
+                    {
+                        { 1.8* Math.Pow(10,5), 0, 0, 0, 0, 0},
+                        { 0, 1.85 * Math.Pow(10,5), 0, 0, 0, 0},
+                        { 0, 0, 1.9 * Math.Pow(10,5) ,0 ,0, 0},
+                        { 0, 0, 0, 2 * Math.Pow(10,5), 0 ,0},
+                        { 0, 0, 0,0, 2 * Math.Pow(10,5), 0},
+                        { 0 ,0, 0 ,0, 0, 1.9 * Math.Pow(10,5)} };
+
+                K = new double[,] {
+                {9.585 * Math.Pow(10,7), - 5.099* Math.Pow(10,7), 0, 0, 0, 0},
+                { -5.099* Math.Pow(10,7) ,9.993 * Math.Pow(10,7),- 4.895 * Math.Pow(10,7),0, 0, 0},
+                { 0, - 4.895 * Math.Pow(10,7),9.687* Math.Pow(10,7), - 4.793* Math.Pow(10,7), 0, 0},
+                { 0 ,0, - 4.793* Math.Pow(10,7) ,9.279* Math.Pow(10,7), - 4.487* Math.Pow(10,7), 0},
+                { 0 ,0 ,0 ,- 4.487* Math.Pow(10,7) ,9.585 * Math.Pow(10,7),- 5.099* Math.Pow(10,7)},
+                { 0, 0, 0, 0, - 5.099* Math.Pow(10,7) ,5.099 * Math.Pow(10,7)}
+                };
+
+                SeismicAnalysis.SeismicAnalysisOperations operations = new SeismicAnalysis.SeismicAnalysisOperations();
+
+                MWNumericArray Marr = new MWNumericArray(M);
+                MWNumericArray Karr = new MWNumericArray(K);
+
+                var eigsMatrix = operations.EigsMatrix(2, Karr, Marr, M.GetLength(0));
+
+                var eigenValues = operations.EigenVals(eigsMatrix[1]);
+
+                var wTF = operations.OmegaTauF(3, eigenValues, 3.13, PI);
+
+                var Omega = operations.OmegaU(eigenValues, wTF[0]);
+
+                result = (double[,])((MWNumericArray)Omega).ToArray(MWArrayComponent.Real);
+
+            }
+            catch (Exception ex)
+            {
+
+            }
+
+            return result;
+        }
+
+
+        public static double[,] CalcularMatrizMasasGeneralizada(double[,] M, double[,] K)
+        {
+
+            double[,] result = new double[M.GetLength(0), M.GetLength(0)];
+
+            try
+            {
+                M = new double[,]
+                      {
+                        { 1.8* Math.Pow(10,5), 0, 0, 0, 0, 0},
+                        { 0, 1.85 * Math.Pow(10,5), 0, 0, 0, 0},
+                        { 0, 0, 1.9 * Math.Pow(10,5) ,0 ,0, 0},
+                        { 0, 0, 0, 2 * Math.Pow(10,5), 0 ,0},
+                        { 0, 0, 0,0, 2 * Math.Pow(10,5), 0},
+                        { 0 ,0, 0 ,0, 0, 1.9 * Math.Pow(10,5)} };
+
+                K = new double[,] {
+                {9.585 * Math.Pow(10,7), - 5.099* Math.Pow(10,7), 0, 0, 0, 0},
+                { -5.099* Math.Pow(10,7) ,9.993 * Math.Pow(10,7),- 4.895 * Math.Pow(10,7),0, 0, 0},
+                { 0, - 4.895 * Math.Pow(10,7),9.687* Math.Pow(10,7), - 4.793* Math.Pow(10,7), 0, 0},
+                { 0 ,0, - 4.793* Math.Pow(10,7) ,9.279* Math.Pow(10,7), - 4.487* Math.Pow(10,7), 0},
+                { 0 ,0 ,0 ,- 4.487* Math.Pow(10,7) ,9.585 * Math.Pow(10,7),- 5.099* Math.Pow(10,7)},
+                { 0, 0, 0, 0, - 5.099* Math.Pow(10,7) ,5.099 * Math.Pow(10,7)}
+                };
+
+                SeismicAnalysis.SeismicAnalysisOperations operations = new SeismicAnalysis.SeismicAnalysisOperations();
+
+                MWNumericArray Marr = new MWNumericArray(M);
+                MWNumericArray Karr = new MWNumericArray(K);
+                var eigsMatrix = operations.EigsMatrix(2, Karr, Marr, M.GetLength(0));
+
+                var eigenValues = operations.EigenVals(eigsMatrix[1]);
+
+                var phi = operations.Phi(eigenValues, eigsMatrix[0]);
+
+                var Mg = operations.Mg(eigenValues, Marr, phi);
+                result = (double[,])((MWNumericArray)Mg).ToArray(MWArrayComponent.Real);
+            }
+            catch (Exception ex)
+            {
+
+            }
+
+            return result;
+        }
+
+        public static double[,] CalcularMatrizRigidecesGeneralizada(double[,] M, double[,] K)
+        {
+            double[,] result = new double[M.GetLength(0), M.GetLength(0)];
+
+            try
+            {
+                M = new double[,]
+                      {
+                        { 1.8* Math.Pow(10,5), 0, 0, 0, 0, 0},
+                        { 0, 1.85 * Math.Pow(10,5), 0, 0, 0, 0},
+                        { 0, 0, 1.9 * Math.Pow(10,5) ,0 ,0, 0},
+                        { 0, 0, 0, 2 * Math.Pow(10,5), 0 ,0},
+                        { 0, 0, 0,0, 2 * Math.Pow(10,5), 0},
+                        { 0 ,0, 0 ,0, 0, 1.9 * Math.Pow(10,5)} };
+
+                K = new double[,] {
+                {9.585 * Math.Pow(10,7), - 5.099* Math.Pow(10,7), 0, 0, 0, 0},
+                { -5.099* Math.Pow(10,7) ,9.993 * Math.Pow(10,7),- 4.895 * Math.Pow(10,7),0, 0, 0},
+                { 0, - 4.895 * Math.Pow(10,7),9.687* Math.Pow(10,7), - 4.793* Math.Pow(10,7), 0, 0},
+                { 0 ,0, - 4.793* Math.Pow(10,7) ,9.279* Math.Pow(10,7), - 4.487* Math.Pow(10,7), 0},
+                { 0 ,0 ,0 ,- 4.487* Math.Pow(10,7) ,9.585 * Math.Pow(10,7),- 5.099* Math.Pow(10,7)},
+                { 0, 0, 0, 0, - 5.099* Math.Pow(10,7) ,5.099 * Math.Pow(10,7)}
+                };
+
+                SeismicAnalysis.SeismicAnalysisOperations operations = new SeismicAnalysis.SeismicAnalysisOperations();
+
+                MWNumericArray Marr = new MWNumericArray(M);
+                MWNumericArray Karr = new MWNumericArray(K);
+                var eigsMatrix = operations.EigsMatrix(2, Karr, Marr, M.GetLength(0));
+
+                var eigenValues = operations.EigenVals(eigsMatrix[1]);
+
+                var phi = operations.Phi(eigenValues, eigsMatrix[0]);
+
+                var Kg = operations.Mg(eigenValues, Karr, phi);
+                result = (double[,])((MWNumericArray)Kg).ToArray(MWArrayComponent.Real);
+            }
+            catch (Exception ex)
+            {
+
+            }
+
+            return result;
+        }
+
+
+        public static double[] CalcularVectorParticipacionModal(double[,] M, double[,] K)
+        {
+            double[] result = new double[M.GetLength(0)];
+            try
+            {
+                int n = M.GetLength(0);
+                M = new double[,]
+                    {
+                        { 1.8* Math.Pow(10,5), 0, 0, 0, 0, 0},
+                        { 0, 1.85 * Math.Pow(10,5), 0, 0, 0, 0},
+                        { 0, 0, 1.9 * Math.Pow(10,5) ,0 ,0, 0},
+                        { 0, 0, 0, 2 * Math.Pow(10,5), 0 ,0},
+                        { 0, 0, 0,0, 2 * Math.Pow(10,5), 0},
+                        { 0 ,0, 0 ,0, 0, 1.9 * Math.Pow(10,5)} };
+
+                K = new double[,] {
+                {9.585 * Math.Pow(10,7), - 5.099* Math.Pow(10,7), 0, 0, 0, 0},
+                { -5.099* Math.Pow(10,7) ,9.993 * Math.Pow(10,7),- 4.895 * Math.Pow(10,7),0, 0, 0},
+                { 0, - 4.895 * Math.Pow(10,7),9.687* Math.Pow(10,7), - 4.793* Math.Pow(10,7), 0, 0},
+                { 0 ,0, - 4.793* Math.Pow(10,7) ,9.279* Math.Pow(10,7), - 4.487* Math.Pow(10,7), 0},
+                { 0 ,0 ,0 ,- 4.487* Math.Pow(10,7) ,9.585 * Math.Pow(10,7),- 5.099* Math.Pow(10,7)},
+                { 0, 0, 0, 0, - 5.099* Math.Pow(10,7) ,5.099 * Math.Pow(10,7)}
+                };
+
+                SeismicAnalysis.SeismicAnalysisOperations operations = new SeismicAnalysis.SeismicAnalysisOperations();
+
+                MWNumericArray Marr = new MWNumericArray(M);
+                MWNumericArray Karr = new MWNumericArray(K);
+                var eigsMatrix = operations.EigsMatrix(2, Karr, Marr, M.GetLength(0));
+
+                var eigenValues = operations.EigenVals(eigsMatrix[1]);
+
+                var wTF = operations.OmegaTauF(3, eigenValues, 3.13, PI);
+
+                var phi = operations.Phi(eigenValues, eigsMatrix[0]);
+                var Mg = operations.Mg(eigenValues, Marr, phi);
+
+                var Gamma = operations.GammaU(eigenValues, Marr, phi, Mg);
+
+                result = (double[])((MWNumericArray)Gamma).ToVector(MWArrayComponent.Real);
+
+            }
+            catch (Exception ex)
+            {
+
+            }
+
+            return result;
+        }
+
+        public static double[,] CalcularMatrizModalNormalizada(double[,] M, double[,] K)
+        {
+            double[,] result = new double[M.GetLength(0), M.GetLength(0)];
+
+            try
+            {
+                M = new double[,]
+                      {
+                        { 1.8* Math.Pow(10,5), 0, 0, 0, 0, 0},
+                        { 0, 1.85 * Math.Pow(10,5), 0, 0, 0, 0},
+                        { 0, 0, 1.9 * Math.Pow(10,5) ,0 ,0, 0},
+                        { 0, 0, 0, 2 * Math.Pow(10,5), 0 ,0},
+                        { 0, 0, 0,0, 2 * Math.Pow(10,5), 0},
+                        { 0 ,0, 0 ,0, 0, 1.9 * Math.Pow(10,5)} };
+
+                K = new double[,] {
+                {9.585 * Math.Pow(10,7), - 5.099* Math.Pow(10,7), 0, 0, 0, 0},
+                { -5.099* Math.Pow(10,7) ,9.993 * Math.Pow(10,7),- 4.895 * Math.Pow(10,7),0, 0, 0},
+                { 0, - 4.895 * Math.Pow(10,7),9.687* Math.Pow(10,7), - 4.793* Math.Pow(10,7), 0, 0},
+                { 0 ,0, - 4.793* Math.Pow(10,7) ,9.279* Math.Pow(10,7), - 4.487* Math.Pow(10,7), 0},
+                { 0 ,0 ,0 ,- 4.487* Math.Pow(10,7) ,9.585 * Math.Pow(10,7),- 5.099* Math.Pow(10,7)},
+                { 0, 0, 0, 0, - 5.099* Math.Pow(10,7) ,5.099 * Math.Pow(10,7)}
+                };
+
+                SeismicAnalysis.SeismicAnalysisOperations operations = new SeismicAnalysis.SeismicAnalysisOperations();
+
+                MWNumericArray Marr = new MWNumericArray(M);
+                MWNumericArray Karr = new MWNumericArray(K);
+                var eigsMatrix = operations.EigsMatrix(2, Karr, Marr, M.GetLength(0));
+
+                var eigenValues = operations.EigenVals(eigsMatrix[1]);
+
+                var phi = operations.Phi(eigenValues, eigsMatrix[0]);
+
+                var Mg = operations.Mg(eigenValues, Marr, phi);
+
+                var phiN = operations.PhiN(eigenValues, phi, Mg);
+                result = (double[,])((MWNumericArray)phiN).ToArray(MWArrayComponent.Real);
+            }
+            catch (Exception ex)
+            {
+
+            }
+
+            return result;
+
+        }
+
+
+        public static double[] CalcularVectorMasasEfectivas(double[,] M, double[,] K)
+        {
+            double[] result = new double[M.GetLength(0)];
+            try
+            {
+                int n = M.GetLength(0);
+                M = new double[,]
+                    {
+                        { 1.8* Math.Pow(10,5), 0, 0, 0, 0, 0},
+                        { 0, 1.85 * Math.Pow(10,5), 0, 0, 0, 0},
+                        { 0, 0, 1.9 * Math.Pow(10,5) ,0 ,0, 0},
+                        { 0, 0, 0, 2 * Math.Pow(10,5), 0 ,0},
+                        { 0, 0, 0,0, 2 * Math.Pow(10,5), 0},
+                        { 0 ,0, 0 ,0, 0, 1.9 * Math.Pow(10,5)} };
+
+                K = new double[,] {
+                {9.585 * Math.Pow(10,7), - 5.099* Math.Pow(10,7), 0, 0, 0, 0},
+                { -5.099* Math.Pow(10,7) ,9.993 * Math.Pow(10,7),- 4.895 * Math.Pow(10,7),0, 0, 0},
+                { 0, - 4.895 * Math.Pow(10,7),9.687* Math.Pow(10,7), - 4.793* Math.Pow(10,7), 0, 0},
+                { 0 ,0, - 4.793* Math.Pow(10,7) ,9.279* Math.Pow(10,7), - 4.487* Math.Pow(10,7), 0},
+                { 0 ,0 ,0 ,- 4.487* Math.Pow(10,7) ,9.585 * Math.Pow(10,7),- 5.099* Math.Pow(10,7)},
+                { 0, 0, 0, 0, - 5.099* Math.Pow(10,7) ,5.099 * Math.Pow(10,7)}
+                };
+
+                SeismicAnalysis.SeismicAnalysisOperations operations = new SeismicAnalysis.SeismicAnalysisOperations();
+
+                MWNumericArray Marr = new MWNumericArray(M);
+                MWNumericArray Karr = new MWNumericArray(K);
+                var eigsMatrix = operations.EigsMatrix(2, Karr, Marr, M.GetLength(0));
+
+                var eigenValues = operations.EigenVals(eigsMatrix[1]);
+
+                var phi = operations.Phi(eigenValues, eigsMatrix[0]);
+
+                var Me = operations.Me(eigenValues, Marr, phi);
+
+                result = (double[])((MWNumericArray)Me).ToVector(MWArrayComponent.Real);
+
+            }
+            catch (Exception ex)
+            {
+
+
+            }
+
+            return result;
+        }
+
+
+        public static double[] CalcularMatrizFactoresParticipacionMasasModales(double[,] M, double[,] K)
+        {
+            double[] result = new double[M.GetLength(0)];
+
+            try
+            {
+                M = new double[,]
+                      {
+                        { 1.8* Math.Pow(10,5), 0, 0, 0, 0, 0},
+                        { 0, 1.85 * Math.Pow(10,5), 0, 0, 0, 0},
+                        { 0, 0, 1.9 * Math.Pow(10,5) ,0 ,0, 0},
+                        { 0, 0, 0, 2 * Math.Pow(10,5), 0 ,0},
+                        { 0, 0, 0,0, 2 * Math.Pow(10,5), 0},
+                        { 0 ,0, 0 ,0, 0, 1.9 * Math.Pow(10,5)} };
+
+                K = new double[,] {
+                {9.585 * Math.Pow(10,7), - 5.099* Math.Pow(10,7), 0, 0, 0, 0},
+                { -5.099* Math.Pow(10,7) ,9.993 * Math.Pow(10,7),- 4.895 * Math.Pow(10,7),0, 0, 0},
+                { 0, - 4.895 * Math.Pow(10,7),9.687* Math.Pow(10,7), - 4.793* Math.Pow(10,7), 0, 0},
+                { 0 ,0, - 4.793* Math.Pow(10,7) ,9.279* Math.Pow(10,7), - 4.487* Math.Pow(10,7), 0},
+                { 0 ,0 ,0 ,- 4.487* Math.Pow(10,7) ,9.585 * Math.Pow(10,7),- 5.099* Math.Pow(10,7)},
+                { 0, 0, 0, 0, - 5.099* Math.Pow(10,7) ,5.099 * Math.Pow(10,7)}
+                };
+
+                SeismicAnalysis.SeismicAnalysisOperations operations = new SeismicAnalysis.SeismicAnalysisOperations();
+
+                MWNumericArray Marr = new MWNumericArray(M);
+                MWNumericArray Karr = new MWNumericArray(K);
+                var eigsMatrix = operations.EigsMatrix(2, Karr, Marr, M.GetLength(0));
+
+                var eigenValues = operations.EigenVals(eigsMatrix[1]);
+
+                var phi = operations.Phi(eigenValues, eigsMatrix[0]);
+
+                var Mg = operations.Mg(eigenValues, Marr, phi);
+
+                var phiN = operations.PhiN(eigenValues, phi, Mg);
+
+                var GammaN = operations.GammaN(eigenValues, Marr, phiN);
+
+                result = (double[])((MWNumericArray)GammaN).ToVector(MWArrayComponent.Real);
+            }
+            catch (Exception ex)
+            {
+
+            }
+
+            return result;
+
+        }
+
+        public static double[] CalcularParticipacionDeMasas(double[,] M, double[,] K, double Mt)
+        {
+            double[] result = new double[M.GetLength(0)];
+
+            try
+            {
+                M = new double[,]
+                      {
+                        { 1.8* Math.Pow(10,5), 0, 0, 0, 0, 0},
+                        { 0, 1.85 * Math.Pow(10,5), 0, 0, 0, 0},
+                        { 0, 0, 1.9 * Math.Pow(10,5) ,0 ,0, 0},
+                        { 0, 0, 0, 2 * Math.Pow(10,5), 0 ,0},
+                        { 0, 0, 0,0, 2 * Math.Pow(10,5), 0},
+                        { 0 ,0, 0 ,0, 0, 1.9 * Math.Pow(10,5)} };
+
+                K = new double[,] {
+                {9.585 * Math.Pow(10,7), - 5.099* Math.Pow(10,7), 0, 0, 0, 0},
+                { -5.099* Math.Pow(10,7) ,9.993 * Math.Pow(10,7),- 4.895 * Math.Pow(10,7),0, 0, 0},
+                { 0, - 4.895 * Math.Pow(10,7),9.687* Math.Pow(10,7), - 4.793* Math.Pow(10,7), 0, 0},
+                { 0 ,0, - 4.793* Math.Pow(10,7) ,9.279* Math.Pow(10,7), - 4.487* Math.Pow(10,7), 0},
+                { 0 ,0 ,0 ,- 4.487* Math.Pow(10,7) ,9.585 * Math.Pow(10,7),- 5.099* Math.Pow(10,7)},
+                { 0, 0, 0, 0, - 5.099* Math.Pow(10,7) ,5.099 * Math.Pow(10,7)}
+                };
+
+                SeismicAnalysis.SeismicAnalysisOperations operations = new SeismicAnalysis.SeismicAnalysisOperations();
+
+                MWNumericArray Marr = new MWNumericArray(M);
+                MWNumericArray Karr = new MWNumericArray(K);
+
+                var eigsMatrix = operations.EigsMatrix(2, Karr, Marr, M.GetLength(0));
+
+                var eigenValues = operations.EigenVals(eigsMatrix[1]);
+
+                var phi = operations.Phi(eigenValues, eigsMatrix[0]);
+
+                var Me = operations.Me(eigenValues, Marr, phi);
+
+                var Pm = operations.Pm(eigenValues, 1.1453 * Math.Pow(10, 6), Me);
+
+                result = (double[])((MWNumericArray)Pm).ToVector(MWArrayComponent.Real);
+            }
+            catch (Exception ex)
+            {
+
+            }
+
+            return result;
+
+        }
+
+
+        public static double[] CalcularGamma(double[,] M, double[,] K)
+        {
+            double[] result = new double[M.GetLength(0)];
+
+            try
+            {
+                M = new double[,]
+                      {
+                        { 1.8* Math.Pow(10,5), 0, 0, 0, 0, 0},
+                        { 0, 1.85 * Math.Pow(10,5), 0, 0, 0, 0},
+                        { 0, 0, 1.9 * Math.Pow(10,5) ,0 ,0, 0},
+                        { 0, 0, 0, 2 * Math.Pow(10,5), 0 ,0},
+                        { 0, 0, 0,0, 2 * Math.Pow(10,5), 0},
+                        { 0 ,0, 0 ,0, 0, 1.9 * Math.Pow(10,5)} };
+
+                K = new double[,] {
+                {9.585 * Math.Pow(10,7), - 5.099* Math.Pow(10,7), 0, 0, 0, 0},
+                { -5.099* Math.Pow(10,7) ,9.993 * Math.Pow(10,7),- 4.895 * Math.Pow(10,7),0, 0, 0},
+                { 0, - 4.895 * Math.Pow(10,7),9.687* Math.Pow(10,7), - 4.793* Math.Pow(10,7), 0, 0},
+                { 0 ,0, - 4.793* Math.Pow(10,7) ,9.279* Math.Pow(10,7), - 4.487* Math.Pow(10,7), 0},
+                { 0 ,0 ,0 ,- 4.487* Math.Pow(10,7) ,9.585 * Math.Pow(10,7),- 5.099* Math.Pow(10,7)},
+                { 0, 0, 0, 0, - 5.099* Math.Pow(10,7) ,5.099 * Math.Pow(10,7)}
+                };
+
+                SeismicAnalysis.SeismicAnalysisOperations operations = new SeismicAnalysis.SeismicAnalysisOperations();
+
+                MWNumericArray Marr = new MWNumericArray(M);
+                MWNumericArray Karr = new MWNumericArray(K);
+
+                var eigsMatrix = operations.EigsMatrix(2, Karr, Marr, M.GetLength(0));
+
+                var eigenValues = operations.EigenVals(eigsMatrix[1]);
+
+                var phi = operations.Phi(eigenValues, eigsMatrix[0]);
+
+                var Gamma = operations.Gamma(eigenValues, Marr, phi, (18 * Math.Pow(10, 4)));
+
+                result = (double[])((MWNumericArray)Gamma).ToVector(MWArrayComponent.Real);
+            }
+            catch (Exception ex)
+            {
+
+            }
+
+            return result;
+
+        }
+
+
+        public static double[] CalcularVectorDeAceleraciones(double[,] M, double[,] K, List<EspectroDisenio> datos)
+        {
+            double[] result = new double[datos.Count];
+            try
+            {
+                var dataArray = datos.ToArray();
+
+                MWNumericArray Marr = new MWNumericArray(M);
+                MWNumericArray Karr = new MWNumericArray(K);
+                SeismicAnalysis.SeismicAnalysisOperations operations = new SeismicAnalysis.SeismicAnalysisOperations();
+                var eigsMatrix = operations.EigsMatrix(2, Karr, Marr, M.GetLength(0));
+
+                var D = operations.EigenVals(eigsMatrix[1]);
+
+                var wTF = operations.OmegaTauF(3, D, 3.13, PI);
+
+                var T = (double[])((MWNumericArray)wTF[1]).ToVector(MWArrayComponent.Real);
+
+                for (int i = 1; i < result.Length; i++)
                 {
-                    Mespectral[i, i] = VectorPeriodosCirculares[i];
+                    result[i - 1] = dataArray[i - 1].S + ((dataArray[i].S - dataArray[i - 1].S) / (dataArray[i].T - dataArray[i - 1].T)) * (T[i - 1] - dataArray[i - 1].T);
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return result;
+        }
+
+        public static double[] CalcularVectorDeFuerzasFicticias(double[] VA, double[] m)
+        {
+            double[] result = new double[m.Length];
+            try
+            {
+                for (int i = 0; i < m.Length; i++)
+                {
+                    result[i] = VA[i] * m[i];
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return result;
+        }
+
+        public static double[] CalcularVectorDeFuerzasCortantesDeDisenio(double[] Pn)
+        {
+            double[] result = new double[Pn.Length];
+            try
+            {
+                for (int i = 0; i < Pn.Length; i++)
+                    result[i] += Pn[i];
+
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return result;
+        }
+
+        public static double[] CalcularVectorDeFuerzasCortantesDeDisenioEstatico(double c, double Q, double R, Structure structure)
+        {
+            double[] result = new double[structure.Storeys.Count];
+            double[] m = new double[structure.Storeys.Count];
+            //double[] SumWh = new double[structure.Storeys.Count];
+            double SumWh = 0;
+            try
+            {
+
+                for (int i = 0; i < structure.Storeys.Count; i++)
+                    m[i] = structure.Storeys[i].MasasEntrepisos;
+
+                int h = 1; //Sustituir por un vector con la altura(acumulada) del i-esimo entrepiso (¿Como se obtiene?)
+
+                for (int i = 0; i < structure.Storeys.Count; i++)
+                {
+                    SumWh += m[i] * h;
                 }
 
+                for (int i = 0; i < structure.Storeys.Count; i++)
+                {
+                    result[i] = (c / (Q * R)) * m[i] * h * (structure.MasaTotal / SumWh);
+                }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
 
-                throw ex;
             }
 
-            return Mespectral;
+            return result;
         }
 
-
-        public static double[,] CalcularMatrizMasasGeneralizada(double[,] M, double[,] EigenVects)
+        public static double[] CalcularDesplazamientosLaterales(double[] F, double[] K)
         {
-            int n = M.GetLength(0);
-            Matrix<double> MEigenTraspose;
-            Matrix<double> MEigenVects;
-            Matrix<double> MM;
-            Matrix<double> MMg;
-
+            double[] result = new double[F.Length];
             try
             {
-                MEigenTraspose = DenseMatrix.OfArray(EigenVects).Transpose();
-                MEigenVects = DenseMatrix.OfArray(EigenVects);
-                MM = DenseMatrix.OfArray(M);
-                MMg = MEigenTraspose * MM * MEigenVects;
+                for (int i = 0; i < F.Length; i++)
+                    result[i] = F[i] / K[i];
 
             }
-            catch (Exception ex)
+            catch (Exception)
             {
 
-                throw;
             }
 
-            return MMg.ToArray();
+            return result;
         }
 
-        public static double[,] CalcularMatrizRigidecesGeneralizada(double[,] K, double[,] EigenVects)
+        public static double CalcularPeriodoFundamental(double[] m, double[] X, double[] F)
         {
-            int n = K.GetLength(0);
-            Matrix<double> MEigenTraspose;
-            Matrix<double> MEigenVects;
-            Matrix<double> MK;
-            Matrix<double> Kg;
-
+            double result = 0;
             try
             {
-                MEigenTraspose = DenseMatrix.OfArray(EigenVects).Transpose();
-                MEigenVects = DenseMatrix.OfArray(EigenVects);
-                MK = DenseMatrix.OfArray(K);
-                Kg = MEigenTraspose * MK * MEigenVects;
+                double Aux1 = 0, Aux2=0;
+                for (int i = 0; i < m.Length; i++)
+                    Aux1 += m[i] + Math.Pow(X[i], 2);
 
+                for (int i = 0; i < m.Length; i++)
+                    Aux2 += F[i] * X[i];
+
+                Aux2 *= 9.81;
+
+                result = 2 * PI * Math.Sqrt(Aux1 / Aux2);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
 
-                throw;
             }
 
-            return Kg.ToArray();
+            return result;
         }
 
 
-        public static double[] CalcularVectorParticipacionModal(double[,] M)
-        {
-            List<double> result = new List<double>();
-            try
-            {
-
-            }
-            catch (Exception ex)
-            {
-
-                throw;
-            }
-
-
-
-            return result.ToArray();
-        }
-        
-        
         #region Operaciones para muros
         public static double CalcularInercia(Wall wall)
         {
@@ -375,7 +892,7 @@ namespace StructureSystem.BusinessRules.Functions
             return result;
         }
 
-       public static double CalcularCortanteTorsion(Enums.SideType side)
+        public static double CalcularCortanteTorsion(Enums.SideType side)
         {
             double result = 2222.32234234;
             return result;
@@ -455,7 +972,7 @@ namespace StructureSystem.BusinessRules.Functions
             storey.HorizontalWalls.ForEach(X =>
             {
                 At += X.TributaryArea;
-                Pesom += X.Thickness/100*X.Height/100*X.Length/100 * Convert.ToDouble(materials.Single(Y=>Y.Name == X.Material).PV);
+                Pesom += X.Thickness / 100 * X.Height / 100 * X.Length / 100 * Convert.ToDouble(materials.Single(Y => Y.Name == X.Material).PV);
             });
             storey.VerticalWalls.ForEach(X =>
             {
@@ -486,7 +1003,7 @@ namespace StructureSystem.BusinessRules.Functions
 
             return result;
         }
-        
+
         public static double CalcularCentroDeMasas(Storey storey, Enums.Coordenate coordenate)
         {
             double result = 3333.333;
@@ -522,7 +1039,7 @@ namespace StructureSystem.BusinessRules.Functions
             return result;
         }
 
-        
+
         public static double CalcularExcentricidadDisenioEntrepiso(Storey storey, Enums.Coordenate coordenate)
         {
             double result = 3333.333;
@@ -542,7 +1059,7 @@ namespace StructureSystem.BusinessRules.Functions
         }
 
 
-        public static double CalcularMomentoVolteoEntrepiso(Storey storey,Enums.SideType side)
+        public static double CalcularMomentoVolteoEntrepiso(Storey storey, Enums.SideType side)
         {
             double result = 3333.333;
             return result;

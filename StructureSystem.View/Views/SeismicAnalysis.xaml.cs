@@ -10,17 +10,19 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-
 namespace StructureSystem.View.Views
 {
     /// <summary>
     /// Lógica de interacción para SeismicAnalysis.xaml
     /// </summary>
+   
     public partial class SeismicAnalysis : UserControl
     {
         public SeismicAnalysis()
         {
             InitializeComponent();
         }
-    }
-}
+
+      
+    }//end of class
+}//end of namespace

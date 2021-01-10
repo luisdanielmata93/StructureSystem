@@ -60,6 +60,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Models\Enum.cs" />
+    <Compile Include="Models\EspectroDisenio.cs" />
     <Compile Include="Models\FlooringMaterial.cs" />
     <Compile Include="Models\Group.cs" />
     <Compile Include="Models\Helper.cs" />
