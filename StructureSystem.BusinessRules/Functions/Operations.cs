@@ -23,23 +23,23 @@ namespace StructureSystem.BusinessRules.Functions
             try
             {
                 int n = M.GetLength(0);
-                M = new double[,]
-                    {
-                        { 1.8* Math.Pow(10,5), 0, 0, 0, 0, 0},
-                        { 0, 1.85 * Math.Pow(10,5), 0, 0, 0, 0},
-                        { 0, 0, 1.9 * Math.Pow(10,5) ,0 ,0, 0},
-                        { 0, 0, 0, 2 * Math.Pow(10,5), 0 ,0},
-                        { 0, 0, 0,0, 2 * Math.Pow(10,5), 0},
-                        { 0 ,0, 0 ,0, 0, 1.9 * Math.Pow(10,5)} };
+                //M = new double[,]
+                //    {
+                //        { 1.8* Math.Pow(10,5), 0, 0, 0, 0, 0},
+                //        { 0, 1.85 * Math.Pow(10,5), 0, 0, 0, 0},
+                //        { 0, 0, 1.9 * Math.Pow(10,5) ,0 ,0, 0},
+                //        { 0, 0, 0, 2 * Math.Pow(10,5), 0 ,0},
+                //        { 0, 0, 0,0, 2 * Math.Pow(10,5), 0},
+                //        { 0 ,0, 0 ,0, 0, 1.9 * Math.Pow(10,5)} };
 
-                K = new double[,] {
-                {9.585 * Math.Pow(10,7), - 5.099* Math.Pow(10,7), 0, 0, 0, 0},
-                { -5.099* Math.Pow(10,7) ,9.993 * Math.Pow(10,7),- 4.895 * Math.Pow(10,7),0, 0, 0},
-                { 0, - 4.895 * Math.Pow(10,7),9.687* Math.Pow(10,7), - 4.793* Math.Pow(10,7), 0, 0},
-                { 0 ,0, - 4.793* Math.Pow(10,7) ,9.279* Math.Pow(10,7), - 4.487* Math.Pow(10,7), 0},
-                { 0 ,0 ,0 ,- 4.487* Math.Pow(10,7) ,9.585 * Math.Pow(10,7),- 5.099* Math.Pow(10,7)},
-                { 0, 0, 0, 0, - 5.099* Math.Pow(10,7) ,5.099 * Math.Pow(10,7)}
-                };
+                //K = new double[,] {
+                //{9.585 * Math.Pow(10,7), - 5.099* Math.Pow(10,7), 0, 0, 0, 0},
+                //{ -5.099* Math.Pow(10,7) ,9.993 * Math.Pow(10,7),- 4.895 * Math.Pow(10,7),0, 0, 0},
+                //{ 0, - 4.895 * Math.Pow(10,7),9.687* Math.Pow(10,7), - 4.793* Math.Pow(10,7), 0, 0},
+                //{ 0 ,0, - 4.793* Math.Pow(10,7) ,9.279* Math.Pow(10,7), - 4.487* Math.Pow(10,7), 0},
+                //{ 0 ,0 ,0 ,- 4.487* Math.Pow(10,7) ,9.585 * Math.Pow(10,7),- 5.099* Math.Pow(10,7)},
+                //{ 0, 0, 0, 0, - 5.099* Math.Pow(10,7) ,5.099 * Math.Pow(10,7)}
+                //};
 
 
                 SeismicAnalysis.SeismicAnalysisOperations operations = new SeismicAnalysis.SeismicAnalysisOperations();
@@ -72,23 +72,6 @@ namespace StructureSystem.BusinessRules.Functions
             try
             {
                 int n = M.GetLength(0);
-                M = new double[,]
-                    {
-                        { 1.8* Math.Pow(10,5), 0, 0, 0, 0, 0},
-                        { 0, 1.85 * Math.Pow(10,5), 0, 0, 0, 0},
-                        { 0, 0, 1.9 * Math.Pow(10,5) ,0 ,0, 0},
-                        { 0, 0, 0, 2 * Math.Pow(10,5), 0 ,0},
-                        { 0, 0, 0,0, 2 * Math.Pow(10,5), 0},
-                        { 0 ,0, 0 ,0, 0, 1.9 * Math.Pow(10,5)} };
-
-                K = new double[,] {
-                {9.585 * Math.Pow(10,7), - 5.099* Math.Pow(10,7), 0, 0, 0, 0},
-                { -5.099* Math.Pow(10,7) ,9.993 * Math.Pow(10,7),- 4.895 * Math.Pow(10,7),0, 0, 0},
-                { 0, - 4.895 * Math.Pow(10,7),9.687* Math.Pow(10,7), - 4.793* Math.Pow(10,7), 0, 0},
-                { 0 ,0, - 4.793* Math.Pow(10,7) ,9.279* Math.Pow(10,7), - 4.487* Math.Pow(10,7), 0},
-                { 0 ,0 ,0 ,- 4.487* Math.Pow(10,7) ,9.585 * Math.Pow(10,7),- 5.099* Math.Pow(10,7)},
-                { 0, 0, 0, 0, - 5.099* Math.Pow(10,7) ,5.099 * Math.Pow(10,7)}
-                };
 
                 SeismicAnalysis.SeismicAnalysisOperations operations = new SeismicAnalysis.SeismicAnalysisOperations();
 
@@ -118,24 +101,7 @@ namespace StructureSystem.BusinessRules.Functions
             try
             {
                 int n = M.GetLength(0);
-                M = new double[,]
-                    {
-                        { 1.8* Math.Pow(10,5), 0, 0, 0, 0, 0},
-                        { 0, 1.85 * Math.Pow(10,5), 0, 0, 0, 0},
-                        { 0, 0, 1.9 * Math.Pow(10,5) ,0 ,0, 0},
-                        { 0, 0, 0, 2 * Math.Pow(10,5), 0 ,0},
-                        { 0, 0, 0,0, 2 * Math.Pow(10,5), 0},
-                        { 0 ,0, 0 ,0, 0, 1.9 * Math.Pow(10,5)} };
-
-                K = new double[,] {
-                {9.585 * Math.Pow(10,7), - 5.099* Math.Pow(10,7), 0, 0, 0, 0},
-                { -5.099* Math.Pow(10,7) ,9.993 * Math.Pow(10,7),- 4.895 * Math.Pow(10,7),0, 0, 0},
-                { 0, - 4.895 * Math.Pow(10,7),9.687* Math.Pow(10,7), - 4.793* Math.Pow(10,7), 0, 0},
-                { 0 ,0, - 4.793* Math.Pow(10,7) ,9.279* Math.Pow(10,7), - 4.487* Math.Pow(10,7), 0},
-                { 0 ,0 ,0 ,- 4.487* Math.Pow(10,7) ,9.585 * Math.Pow(10,7),- 5.099* Math.Pow(10,7)},
-                { 0, 0, 0, 0, - 5.099* Math.Pow(10,7) ,5.099 * Math.Pow(10,7)}
-                };
-
+               
                 SeismicAnalysis.SeismicAnalysisOperations operations = new SeismicAnalysis.SeismicAnalysisOperations();
 
                 MWNumericArray Marr = new MWNumericArray(M);
@@ -165,23 +131,6 @@ namespace StructureSystem.BusinessRules.Functions
             try
             {
                 int n = M.GetLength(0);
-                M = new double[,]
-                    {
-                        { 1.8* Math.Pow(10,5), 0, 0, 0, 0, 0},
-                        { 0, 1.85 * Math.Pow(10,5), 0, 0, 0, 0},
-                        { 0, 0, 1.9 * Math.Pow(10,5) ,0 ,0, 0},
-                        { 0, 0, 0, 2 * Math.Pow(10,5), 0 ,0},
-                        { 0, 0, 0,0, 2 * Math.Pow(10,5), 0},
-                        { 0 ,0, 0 ,0, 0, 1.9 * Math.Pow(10,5)} };
-
-                K = new double[,] {
-                {9.585 * Math.Pow(10,7), - 5.099* Math.Pow(10,7), 0, 0, 0, 0},
-                { -5.099* Math.Pow(10,7) ,9.993 * Math.Pow(10,7),- 4.895 * Math.Pow(10,7),0, 0, 0},
-                { 0, - 4.895 * Math.Pow(10,7),9.687* Math.Pow(10,7), - 4.793* Math.Pow(10,7), 0, 0},
-                { 0 ,0, - 4.793* Math.Pow(10,7) ,9.279* Math.Pow(10,7), - 4.487* Math.Pow(10,7), 0},
-                { 0 ,0 ,0 ,- 4.487* Math.Pow(10,7) ,9.585 * Math.Pow(10,7),- 5.099* Math.Pow(10,7)},
-                { 0, 0, 0, 0, - 5.099* Math.Pow(10,7) ,5.099 * Math.Pow(10,7)}
-                };
 
                 SeismicAnalysis.SeismicAnalysisOperations operations = new SeismicAnalysis.SeismicAnalysisOperations();
 
@@ -266,23 +215,6 @@ namespace StructureSystem.BusinessRules.Functions
             try
             {
                 int n = M.GetLength(0);
-                M = new double[,]
-                    {
-                        { 1.8* Math.Pow(10,5), 0, 0, 0, 0, 0},
-                        { 0, 1.85 * Math.Pow(10,5), 0, 0, 0, 0},
-                        { 0, 0, 1.9 * Math.Pow(10,5) ,0 ,0, 0},
-                        { 0, 0, 0, 2 * Math.Pow(10,5), 0 ,0},
-                        { 0, 0, 0,0, 2 * Math.Pow(10,5), 0},
-                        { 0 ,0, 0 ,0, 0, 1.9 * Math.Pow(10,5)} };
-
-                K = new double[,] {
-                {9.585 * Math.Pow(10,7), - 5.099* Math.Pow(10,7), 0, 0, 0, 0},
-                { -5.099* Math.Pow(10,7) ,9.993 * Math.Pow(10,7),- 4.895 * Math.Pow(10,7),0, 0, 0},
-                { 0, - 4.895 * Math.Pow(10,7),9.687* Math.Pow(10,7), - 4.793* Math.Pow(10,7), 0, 0},
-                { 0 ,0, - 4.793* Math.Pow(10,7) ,9.279* Math.Pow(10,7), - 4.487* Math.Pow(10,7), 0},
-                { 0 ,0 ,0 ,- 4.487* Math.Pow(10,7) ,9.585 * Math.Pow(10,7),- 5.099* Math.Pow(10,7)},
-                { 0, 0, 0, 0, - 5.099* Math.Pow(10,7) ,5.099 * Math.Pow(10,7)}
-                };
 
                 SeismicAnalysis.SeismicAnalysisOperations operations = new SeismicAnalysis.SeismicAnalysisOperations();
 
@@ -316,24 +248,7 @@ namespace StructureSystem.BusinessRules.Functions
 
             try
             {
-                M = new double[,]
-                      {
-                        { 1.8* Math.Pow(10,5), 0, 0, 0, 0, 0},
-                        { 0, 1.85 * Math.Pow(10,5), 0, 0, 0, 0},
-                        { 0, 0, 1.9 * Math.Pow(10,5) ,0 ,0, 0},
-                        { 0, 0, 0, 2 * Math.Pow(10,5), 0 ,0},
-                        { 0, 0, 0,0, 2 * Math.Pow(10,5), 0},
-                        { 0 ,0, 0 ,0, 0, 1.9 * Math.Pow(10,5)} };
-
-                K = new double[,] {
-                {9.585 * Math.Pow(10,7), - 5.099* Math.Pow(10,7), 0, 0, 0, 0},
-                { -5.099* Math.Pow(10,7) ,9.993 * Math.Pow(10,7),- 4.895 * Math.Pow(10,7),0, 0, 0},
-                { 0, - 4.895 * Math.Pow(10,7),9.687* Math.Pow(10,7), - 4.793* Math.Pow(10,7), 0, 0},
-                { 0 ,0, - 4.793* Math.Pow(10,7) ,9.279* Math.Pow(10,7), - 4.487* Math.Pow(10,7), 0},
-                { 0 ,0 ,0 ,- 4.487* Math.Pow(10,7) ,9.585 * Math.Pow(10,7),- 5.099* Math.Pow(10,7)},
-                { 0, 0, 0, 0, - 5.099* Math.Pow(10,7) ,5.099 * Math.Pow(10,7)}
-                };
-
+           
                 SeismicAnalysis.SeismicAnalysisOperations operations = new SeismicAnalysis.SeismicAnalysisOperations();
 
                 MWNumericArray Marr = new MWNumericArray(M);
@@ -361,24 +276,7 @@ namespace StructureSystem.BusinessRules.Functions
 
             try
             {
-                M = new double[,]
-                      {
-                        { 1.8* Math.Pow(10,5), 0, 0, 0, 0, 0},
-                        { 0, 1.85 * Math.Pow(10,5), 0, 0, 0, 0},
-                        { 0, 0, 1.9 * Math.Pow(10,5) ,0 ,0, 0},
-                        { 0, 0, 0, 2 * Math.Pow(10,5), 0 ,0},
-                        { 0, 0, 0,0, 2 * Math.Pow(10,5), 0},
-                        { 0 ,0, 0 ,0, 0, 1.9 * Math.Pow(10,5)} };
-
-                K = new double[,] {
-                {9.585 * Math.Pow(10,7), - 5.099* Math.Pow(10,7), 0, 0, 0, 0},
-                { -5.099* Math.Pow(10,7) ,9.993 * Math.Pow(10,7),- 4.895 * Math.Pow(10,7),0, 0, 0},
-                { 0, - 4.895 * Math.Pow(10,7),9.687* Math.Pow(10,7), - 4.793* Math.Pow(10,7), 0, 0},
-                { 0 ,0, - 4.793* Math.Pow(10,7) ,9.279* Math.Pow(10,7), - 4.487* Math.Pow(10,7), 0},
-                { 0 ,0 ,0 ,- 4.487* Math.Pow(10,7) ,9.585 * Math.Pow(10,7),- 5.099* Math.Pow(10,7)},
-                { 0, 0, 0, 0, - 5.099* Math.Pow(10,7) ,5.099 * Math.Pow(10,7)}
-                };
-
+            
                 SeismicAnalysis.SeismicAnalysisOperations operations = new SeismicAnalysis.SeismicAnalysisOperations();
 
                 MWNumericArray Marr = new MWNumericArray(M);
@@ -407,23 +305,7 @@ namespace StructureSystem.BusinessRules.Functions
             try
             {
                 int n = M.GetLength(0);
-                M = new double[,]
-                    {
-                        { 1.8* Math.Pow(10,5), 0, 0, 0, 0, 0},
-                        { 0, 1.85 * Math.Pow(10,5), 0, 0, 0, 0},
-                        { 0, 0, 1.9 * Math.Pow(10,5) ,0 ,0, 0},
-                        { 0, 0, 0, 2 * Math.Pow(10,5), 0 ,0},
-                        { 0, 0, 0,0, 2 * Math.Pow(10,5), 0},
-                        { 0 ,0, 0 ,0, 0, 1.9 * Math.Pow(10,5)} };
-
-                K = new double[,] {
-                {9.585 * Math.Pow(10,7), - 5.099* Math.Pow(10,7), 0, 0, 0, 0},
-                { -5.099* Math.Pow(10,7) ,9.993 * Math.Pow(10,7),- 4.895 * Math.Pow(10,7),0, 0, 0},
-                { 0, - 4.895 * Math.Pow(10,7),9.687* Math.Pow(10,7), - 4.793* Math.Pow(10,7), 0, 0},
-                { 0 ,0, - 4.793* Math.Pow(10,7) ,9.279* Math.Pow(10,7), - 4.487* Math.Pow(10,7), 0},
-                { 0 ,0 ,0 ,- 4.487* Math.Pow(10,7) ,9.585 * Math.Pow(10,7),- 5.099* Math.Pow(10,7)},
-                { 0, 0, 0, 0, - 5.099* Math.Pow(10,7) ,5.099 * Math.Pow(10,7)}
-                };
+             
 
                 SeismicAnalysis.SeismicAnalysisOperations operations = new SeismicAnalysis.SeismicAnalysisOperations();
 
@@ -457,24 +339,7 @@ namespace StructureSystem.BusinessRules.Functions
 
             try
             {
-                M = new double[,]
-                      {
-                        { 1.8* Math.Pow(10,5), 0, 0, 0, 0, 0},
-                        { 0, 1.85 * Math.Pow(10,5), 0, 0, 0, 0},
-                        { 0, 0, 1.9 * Math.Pow(10,5) ,0 ,0, 0},
-                        { 0, 0, 0, 2 * Math.Pow(10,5), 0 ,0},
-                        { 0, 0, 0,0, 2 * Math.Pow(10,5), 0},
-                        { 0 ,0, 0 ,0, 0, 1.9 * Math.Pow(10,5)} };
-
-                K = new double[,] {
-                {9.585 * Math.Pow(10,7), - 5.099* Math.Pow(10,7), 0, 0, 0, 0},
-                { -5.099* Math.Pow(10,7) ,9.993 * Math.Pow(10,7),- 4.895 * Math.Pow(10,7),0, 0, 0},
-                { 0, - 4.895 * Math.Pow(10,7),9.687* Math.Pow(10,7), - 4.793* Math.Pow(10,7), 0, 0},
-                { 0 ,0, - 4.793* Math.Pow(10,7) ,9.279* Math.Pow(10,7), - 4.487* Math.Pow(10,7), 0},
-                { 0 ,0 ,0 ,- 4.487* Math.Pow(10,7) ,9.585 * Math.Pow(10,7),- 5.099* Math.Pow(10,7)},
-                { 0, 0, 0, 0, - 5.099* Math.Pow(10,7) ,5.099 * Math.Pow(10,7)}
-                };
-
+              
                 SeismicAnalysis.SeismicAnalysisOperations operations = new SeismicAnalysis.SeismicAnalysisOperations();
 
                 MWNumericArray Marr = new MWNumericArray(M);
@@ -506,23 +371,6 @@ namespace StructureSystem.BusinessRules.Functions
             try
             {
                 int n = M.GetLength(0);
-                M = new double[,]
-                    {
-                        { 1.8* Math.Pow(10,5), 0, 0, 0, 0, 0},
-                        { 0, 1.85 * Math.Pow(10,5), 0, 0, 0, 0},
-                        { 0, 0, 1.9 * Math.Pow(10,5) ,0 ,0, 0},
-                        { 0, 0, 0, 2 * Math.Pow(10,5), 0 ,0},
-                        { 0, 0, 0,0, 2 * Math.Pow(10,5), 0},
-                        { 0 ,0, 0 ,0, 0, 1.9 * Math.Pow(10,5)} };
-
-                K = new double[,] {
-                {9.585 * Math.Pow(10,7), - 5.099* Math.Pow(10,7), 0, 0, 0, 0},
-                { -5.099* Math.Pow(10,7) ,9.993 * Math.Pow(10,7),- 4.895 * Math.Pow(10,7),0, 0, 0},
-                { 0, - 4.895 * Math.Pow(10,7),9.687* Math.Pow(10,7), - 4.793* Math.Pow(10,7), 0, 0},
-                { 0 ,0, - 4.793* Math.Pow(10,7) ,9.279* Math.Pow(10,7), - 4.487* Math.Pow(10,7), 0},
-                { 0 ,0 ,0 ,- 4.487* Math.Pow(10,7) ,9.585 * Math.Pow(10,7),- 5.099* Math.Pow(10,7)},
-                { 0, 0, 0, 0, - 5.099* Math.Pow(10,7) ,5.099 * Math.Pow(10,7)}
-                };
 
                 SeismicAnalysis.SeismicAnalysisOperations operations = new SeismicAnalysis.SeismicAnalysisOperations();
 
@@ -555,23 +403,6 @@ namespace StructureSystem.BusinessRules.Functions
 
             try
             {
-                M = new double[,]
-                      {
-                        { 1.8* Math.Pow(10,5), 0, 0, 0, 0, 0},
-                        { 0, 1.85 * Math.Pow(10,5), 0, 0, 0, 0},
-                        { 0, 0, 1.9 * Math.Pow(10,5) ,0 ,0, 0},
-                        { 0, 0, 0, 2 * Math.Pow(10,5), 0 ,0},
-                        { 0, 0, 0,0, 2 * Math.Pow(10,5), 0},
-                        { 0 ,0, 0 ,0, 0, 1.9 * Math.Pow(10,5)} };
-
-                K = new double[,] {
-                {9.585 * Math.Pow(10,7), - 5.099* Math.Pow(10,7), 0, 0, 0, 0},
-                { -5.099* Math.Pow(10,7) ,9.993 * Math.Pow(10,7),- 4.895 * Math.Pow(10,7),0, 0, 0},
-                { 0, - 4.895 * Math.Pow(10,7),9.687* Math.Pow(10,7), - 4.793* Math.Pow(10,7), 0, 0},
-                { 0 ,0, - 4.793* Math.Pow(10,7) ,9.279* Math.Pow(10,7), - 4.487* Math.Pow(10,7), 0},
-                { 0 ,0 ,0 ,- 4.487* Math.Pow(10,7) ,9.585 * Math.Pow(10,7),- 5.099* Math.Pow(10,7)},
-                { 0, 0, 0, 0, - 5.099* Math.Pow(10,7) ,5.099 * Math.Pow(10,7)}
-                };
 
                 SeismicAnalysis.SeismicAnalysisOperations operations = new SeismicAnalysis.SeismicAnalysisOperations();
 
@@ -606,23 +437,6 @@ namespace StructureSystem.BusinessRules.Functions
 
             try
             {
-                M = new double[,]
-                      {
-                        { 1.8* Math.Pow(10,5), 0, 0, 0, 0, 0},
-                        { 0, 1.85 * Math.Pow(10,5), 0, 0, 0, 0},
-                        { 0, 0, 1.9 * Math.Pow(10,5) ,0 ,0, 0},
-                        { 0, 0, 0, 2 * Math.Pow(10,5), 0 ,0},
-                        { 0, 0, 0,0, 2 * Math.Pow(10,5), 0},
-                        { 0 ,0, 0 ,0, 0, 1.9 * Math.Pow(10,5)} };
-
-                K = new double[,] {
-                {9.585 * Math.Pow(10,7), - 5.099* Math.Pow(10,7), 0, 0, 0, 0},
-                { -5.099* Math.Pow(10,7) ,9.993 * Math.Pow(10,7),- 4.895 * Math.Pow(10,7),0, 0, 0},
-                { 0, - 4.895 * Math.Pow(10,7),9.687* Math.Pow(10,7), - 4.793* Math.Pow(10,7), 0, 0},
-                { 0 ,0, - 4.793* Math.Pow(10,7) ,9.279* Math.Pow(10,7), - 4.487* Math.Pow(10,7), 0},
-                { 0 ,0 ,0 ,- 4.487* Math.Pow(10,7) ,9.585 * Math.Pow(10,7),- 5.099* Math.Pow(10,7)},
-                { 0, 0, 0, 0, - 5.099* Math.Pow(10,7) ,5.099 * Math.Pow(10,7)}
-                };
 
                 SeismicAnalysis.SeismicAnalysisOperations operations = new SeismicAnalysis.SeismicAnalysisOperations();
 
@@ -657,24 +471,7 @@ namespace StructureSystem.BusinessRules.Functions
 
             try
             {
-                M = new double[,]
-                      {
-                        { 1.8* Math.Pow(10,5), 0, 0, 0, 0, 0},
-                        { 0, 1.85 * Math.Pow(10,5), 0, 0, 0, 0},
-                        { 0, 0, 1.9 * Math.Pow(10,5) ,0 ,0, 0},
-                        { 0, 0, 0, 2 * Math.Pow(10,5), 0 ,0},
-                        { 0, 0, 0,0, 2 * Math.Pow(10,5), 0},
-                        { 0 ,0, 0 ,0, 0, 1.9 * Math.Pow(10,5)} };
-
-                K = new double[,] {
-                {9.585 * Math.Pow(10,7), - 5.099* Math.Pow(10,7), 0, 0, 0, 0},
-                { -5.099* Math.Pow(10,7) ,9.993 * Math.Pow(10,7),- 4.895 * Math.Pow(10,7),0, 0, 0},
-                { 0, - 4.895 * Math.Pow(10,7),9.687* Math.Pow(10,7), - 4.793* Math.Pow(10,7), 0, 0},
-                { 0 ,0, - 4.793* Math.Pow(10,7) ,9.279* Math.Pow(10,7), - 4.487* Math.Pow(10,7), 0},
-                { 0 ,0 ,0 ,- 4.487* Math.Pow(10,7) ,9.585 * Math.Pow(10,7),- 5.099* Math.Pow(10,7)},
-                { 0, 0, 0, 0, - 5.099* Math.Pow(10,7) ,5.099 * Math.Pow(10,7)}
-                };
-
+            
                 SeismicAnalysis.SeismicAnalysisOperations operations = new SeismicAnalysis.SeismicAnalysisOperations();
 
                 MWNumericArray Marr = new MWNumericArray(M);
