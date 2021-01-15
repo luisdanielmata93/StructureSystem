@@ -668,6 +668,7 @@ namespace StructureSystem.BusinessRules.Functions
 
             return result;
         }
+
         public static double CalcularFuerzasCortantesDirectas(Enums.SideType side)
         {
             double result = 2222.32234234;
@@ -697,7 +698,6 @@ namespace StructureSystem.BusinessRules.Functions
 
         }
 
-
         public static double CalcularCortantesTotales(Enums.SideType side)
         {
             double result = 2222.32234234;
@@ -707,14 +707,11 @@ namespace StructureSystem.BusinessRules.Functions
             return result;
         }
 
-
         public static double CalcularMomentoVolteo(Enums.SideType side)
         {
             double result = 2222.32234234;
             return result;
         }
-
-
 
 
         public static double CalcularCargaAxialUltima(Enums.SideType side)

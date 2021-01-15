@@ -51,7 +51,6 @@ namespace StructureSystem.BusinessRules.Services
                 using (var data = UnitOfWork.Create())
                 {
                     structure.Storeys = (List<Storey>)data.Repositories.DocumentDataContext.SeismicAnalysisData.Get(document);
-
                 }
 
                 GetInitialData(ref structure);
@@ -709,7 +708,7 @@ namespace StructureSystem.BusinessRules.Services
             {
                 using (var data = UnitOfWork.Create())
                 {
-                    result = data.Repositories.DocumentDataContext.SeismicAnalysisData.Get(GetDocumentPath()).ToList();
+                    result = data.Repositories.DocumentDataContext.SeismicAnalysisData.GetEspectroDisenio(GetDocumentPath()).ToList();
 
                 }
             }
@@ -729,7 +728,7 @@ namespace StructureSystem.BusinessRules.Services
             double[,] K = Operations.CalcularMatrizRigideces(Structure, side);
             using (var dat = UnitOfWork.Create())
             {
-                var info = dat.Repositories.DocumentDataContext.SeismicAnalysisData.Get(GetDocumentPath()).ToList();
+                var info = dat.Repositories.DocumentDataContext.SeismicAnalysisData.GetEspectroDisenio(GetDocumentPath()).ToList();
                 data = Operations.CalcularVectorDeAceleraciones(M, K, info);
             }
 
@@ -757,7 +756,7 @@ namespace StructureSystem.BusinessRules.Services
             double[,] K = Operations.CalcularMatrizRigideces(Structure, side);
             using (var dat = UnitOfWork.Create())
             {
-                var info = dat.Repositories.DocumentDataContext.SeismicAnalysisData.Get(GetDocumentPath()).ToList();
+                var info = dat.Repositories.DocumentDataContext.SeismicAnalysisData.GetEspectroDisenio(GetDocumentPath()).ToList();
                 data = Operations.CalcularVectorDeAceleraciones(M, K, info);
             }
 
@@ -791,7 +790,7 @@ namespace StructureSystem.BusinessRules.Services
             double[,] K = Operations.CalcularMatrizRigideces(Structure, side);
             using (var dat = UnitOfWork.Create())
             {
-                var info = dat.Repositories.DocumentDataContext.SeismicAnalysisData.Get(GetDocumentPath()).ToList();
+                var info = dat.Repositories.DocumentDataContext.SeismicAnalysisData.GetEspectroDisenio(GetDocumentPath()).ToList();
                 data = Operations.CalcularVectorDeAceleraciones(M, K, info);
             }
 
