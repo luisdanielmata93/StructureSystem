@@ -50,7 +50,7 @@ namespace StructureSystem.BusinessRules.Functions
 
                 var D = operations.EigenVals(eigsMatrix[1]);
 
-                var wTF = operations.OmegaTauF(3, D, 3.13, PI);
+                var wTF = operations.OmegaTauF(3, D,1, PI);
 
 
 
@@ -81,7 +81,7 @@ namespace StructureSystem.BusinessRules.Functions
 
                 var D = operations.EigenVals(eigsMatrix[1]);
 
-                var wTF = operations.OmegaTauF(3, D, 3.13, PI);
+                var wTF = operations.OmegaTauF(3, D,1, PI);
 
                 var T = (double[])((MWNumericArray)wTF[1]).ToVector(MWArrayComponent.Real);
 
@@ -110,7 +110,7 @@ namespace StructureSystem.BusinessRules.Functions
 
                 var D = operations.EigenVals(eigsMatrix[1]);
 
-                var wTF = operations.OmegaTauF(3, D, 3.13, PI);
+                var wTF = operations.OmegaTauF(3, D, 1, PI);
 
                 var F = (double[])((MWNumericArray)wTF[2]).ToVector(MWArrayComponent.Real);
 
@@ -225,7 +225,7 @@ namespace StructureSystem.BusinessRules.Functions
 
                 var eigenValues = operations.EigenVals(eigsMatrix[1]);
 
-                var wTF = operations.OmegaTauF(3, eigenValues, 3.13, PI);
+                var wTF = operations.OmegaTauF(3, eigenValues, 1, PI);
 
                 var Omega = operations.OmegaU(eigenValues, wTF[0]);
 
@@ -315,7 +315,7 @@ namespace StructureSystem.BusinessRules.Functions
 
                 var eigenValues = operations.EigenVals(eigsMatrix[1]);
 
-                var wTF = operations.OmegaTauF(3, eigenValues, 3.13, PI);
+                var wTF = operations.OmegaTauF(3, eigenValues, 1, PI);
 
                 var phi = operations.Phi(eigenValues, eigsMatrix[0]);
                 var Mg = operations.Mg(eigenValues, Marr, phi);
@@ -451,7 +451,7 @@ namespace StructureSystem.BusinessRules.Functions
 
                 var Me = operations.Me(eigenValues, Marr, phi);
 
-                var Pm = operations.Pm(eigenValues, 1.1453 * Math.Pow(10, 6), Me);
+                var Pm = operations.Pm(eigenValues,1, Me);
 
                 result = (double[])((MWNumericArray)Pm).ToVector(MWArrayComponent.Real);
             }
@@ -483,9 +483,10 @@ namespace StructureSystem.BusinessRules.Functions
 
                 var phi = operations.Phi(eigenValues, eigsMatrix[0]);
 
-                var Gamma = operations.Gamma(eigenValues, Marr, phi, (18 * Math.Pow(10, 4)));
+                var Gamma = operations.Gamma(eigenValues, Marr, phi, 1);
 
                 result = (double[])((MWNumericArray)Gamma).ToVector(MWArrayComponent.Real);
+
             }
             catch (Exception ex)
             {
@@ -511,7 +512,7 @@ namespace StructureSystem.BusinessRules.Functions
 
                 var D = operations.EigenVals(eigsMatrix[1]);
 
-                var wTF = operations.OmegaTauF(3, D, 3.13, PI);
+                var wTF = operations.OmegaTauF(3, D, 1, PI);
 
                 var T = (double[])((MWNumericArray)wTF[1]).ToVector(MWArrayComponent.Real);
 
