@@ -58,8 +58,8 @@
                                     </Grid.RowDefinitions>
                                     <Label Grid.Row="1" Grid.Column="1" Content="Coeficiente sismico" Visibility="{Binding IsStaticV}"/>
                                     <TextBox Grid.Row="1" Grid.Column="3" Text="{Binding c,Mode=TwoWay}" Visibility="{Binding IsStaticV}" />
-                                    <Label Grid.Row="1" Grid.Column="5" Content="F. de comportamiento sismico" Visibility="{Binding IsStaticV}"/>
-                                    <TextBox Grid.Row="1" Grid.Column="7" Text="{Binding Q, Mode=TwoWay}" Visibility="{Binding IsStaticV}"/>
+                                    <Label Grid.Row="1" Grid.Column="5" Content="F. de comportamiento sismico" Visibility="{Binding QVisible}"/>
+                                    <TextBox Grid.Row="1" Grid.Column="7" Text="{Binding Q, Mode=TwoWay}" Visibility="{Binding QVisible}"/>
                                     <Label Grid.Row="1" Grid.Column="9" Content="F. de sobrerresistencia" Visibility="{Binding IsStaticV}"/>
                                     <TextBox Grid.Row="1" Grid.Column="11" Text="{Binding R, Mode=TwoWay}" Visibility="{Binding IsStaticV}"/>
 
@@ -82,6 +82,22 @@
                                         <ColumnDefinition Width="30"/>
                                     </Grid.ColumnDefinitions>
                                     <Grid.RowDefinitions>
+                                        <RowDefinition Height="10"/>
+                                        <RowDefinition Height="40"/>
+                                        <RowDefinition Height="10"/>
+                                        <RowDefinition Height="40"/>
+                                        <RowDefinition Height="10"/>
+                                        <RowDefinition Height="40"/>
+                                        <RowDefinition Height="10"/>
+                                        <RowDefinition Height="40"/>
+                                        <RowDefinition Height="10"/>
+                                        <RowDefinition Height="40"/>
+                                        <RowDefinition Height="10"/>
+                                        <RowDefinition Height="40"/>
+                                        <RowDefinition Height="10"/>
+                                        <RowDefinition Height="40"/>
+                                        <RowDefinition Height="10"/>
+                                        <RowDefinition Height="40"/>
                                         <RowDefinition Height="10"/>
                                         <RowDefinition Height="40"/>
                                         <RowDefinition Height="10"/>
@@ -167,28 +183,44 @@
                                     <Button Grid.Row="27" Grid.Column="3" Content="Visualizar" Command="{Binding MatrizModalNormalizadoXCommand}" VerticalAlignment="Center" />
                                     <Label Grid.Row="29" Grid.Column="1" Content="Vector de masas efectivas:" />
                                     <Button Grid.Row="29" Grid.Column="3" Content="Visualizar" Command="{Binding VectorMasasEfectivasXCommand}" VerticalAlignment="Center" />
-                                    <Label Grid.Row="31" Grid.Column="1" Content ="Factor de part. modal norm. con la matriz de masas: " />
+                                    <Label Grid.Row="31" Grid.Column="1" Content ="Factor de participación modal normalizado: " />
                                     <Button Grid.Row="31" Grid.Column="3" Content="Visualizar" Command="{Binding MatrizFactPartMasasModalesXCommand}" VerticalAlignment="Center" />
                                     <Label Grid.Row="33" Grid.Column="1" Content ="Participación de masas: " />
                                     <Button Grid.Row="33" Grid.Column="3" Content="Visualizar" Command="{Binding ParticipacionMasasXCommand}" VerticalAlignment="Center" />
-                                    <Label Grid.Row="35" Grid.Column="1" Content ="Gamma: " />
-                                    <Button Grid.Row="35" Grid.Column="3" Content="Visualizar" Command="{Binding GammaXCommand}" VerticalAlignment="Center" />
-                                    <Label Grid.Row="37" Grid.Column="1" Content ="Espectro de diseño: " />
-                                    <Button Grid.Row="37" Grid.Column="3" Content="Visualizar" Command="{Binding EspectroDisenioXCommand}" VerticalAlignment="Center" />
-                                    <Label Grid.Row="39" Grid.Column="1" Content ="Vector de aceleraciones: " />
-                                    <Button Grid.Row="39" Grid.Column="3" Content="Visualizar" Command="{Binding VectorAceleracionesXCommand}" VerticalAlignment="Center" />
-                                    <Label Grid.Row="41" Grid.Column="1" Content ="Vector de fuerzas ficticias equivalentes: " />
-                                    <Button Grid.Row="41" Grid.Column="3" Content="Visualizar" Command="{Binding VectorFuerzasFicticiasEquivXCommand}" VerticalAlignment="Center" />
-                                    <Label Grid.Row="43" Grid.Column="1" Content ="Vector de fuerzas cortantes de diseño: " />
-                                    <Button Grid.Row="43" Grid.Column="3" Content="Visualizar" Command="{Binding VectorFuerzasCortantsDisenioXCommand}" VerticalAlignment="Center" />
-                                    <Label Grid.Row="45" Grid.Column="1" Content ="Vector de fuerzas cortantes de diseño (M. Estático): " IsEnabled="{Binding IsStatic,Mode=TwoWay}" />
-                                    <Button Grid.Row="45" Grid.Column="3" Content="Visualizar" Command="{Binding VectorFuerzasCortantsDisenioEstaticoXCommand}" VerticalAlignment="Center" IsEnabled="{Binding IsStatic,Mode=TwoWay}"/>
-                                    <Label Grid.Row="47" Grid.Column="1" Content ="Vector de desplazamientos laterales y entrepisos: " IsEnabled="{Binding IsStatic,Mode=TwoWay}"/>
-                                    <Button Grid.Row="47" Grid.Column="3" Content="Visualizar" Command="{Binding DesplazamientosLateralesXCommand}" VerticalAlignment="Center" IsEnabled="{Binding IsStatic,Mode=TwoWay}"/>
-                                    <Label Grid.Row="49" Grid.Column="1" Content ="Estimación del periodo fundamental de la estructura: " IsEnabled="{Binding IsStatic,Mode=TwoWay}"/>
-                                    <Button Grid.Row="49" Grid.Column="3" Content="Visualizar" Command="{Binding EstimPeriodoFundamentalEstructXCommand}" VerticalAlignment="Center" IsEnabled="{Binding IsStatic,Mode=TwoWay}"/>
-                                    <Label Grid.Row="51" Grid.Column="1" Content ="Fuerzas cortantes (X): " IsEnabled="{Binding IsStatic,Mode=TwoWay}"/>
-                                    <Button Grid.Row="51" Grid.Column="3" Content="Visualizar" Command="{Binding FuerzasCortantesXCommand}" VerticalAlignment="Center" IsEnabled="{Binding IsStatic,Mode=TwoWay}"/>
+                                    <Label Grid.Row="35" Grid.Column="1" Content ="Espectro de diseño: " />
+                                    <Button Grid.Row="35" Grid.Column="3" Content="Visualizar" Command="{Binding EspectroDisenioXCommand}" VerticalAlignment="Center" />
+                                    <Label Grid.Row="37" Grid.Column="1" Content ="Vector de aceleraciones: " />
+                                    <Button Grid.Row="37" Grid.Column="3" Content="Visualizar" Command="{Binding VectorAceleracionesXCommand}" VerticalAlignment="Center" />
+                                    <Label Grid.Row="39" Grid.Column="1" Content ="Coeficiente modal: " />
+                                    <Button Grid.Row="39" Grid.Column="3" Content="Visualizar" Command="{Binding GammaXCommand}" VerticalAlignment="Center" />
+                                    <Label Grid.Row="41" Grid.Column="1" Content ="Aceleración por modo: " />
+                                    <Button Grid.Row="41" Grid.Column="3" Content="Visualizar" Command="{Binding AceleracionPorModoXCommand}" VerticalAlignment="Center" />
+                                    <Label Grid.Row="43" Grid.Column="1" Content ="Vectores de aceleración por nivel: " />
+                                    <Button Grid.Row="43" Grid.Column="3" Content="Visualizar" Command="{Binding VectAceleracionPorModoXCommand}" VerticalAlignment="Center" />
+                                    <Label Grid.Row="45" Grid.Column="1" Content ="Vector de fuerzas ficticias por nivel: " />
+                                    <Button Grid.Row="45" Grid.Column="3" Content="Visualizar" Command="{Binding FuerzasFicticiasEquivPorModoXCommand}" VerticalAlignment="Center" />
+                                    <Label Grid.Row="47" Grid.Column="1" Content ="Vector de fuerzas cortantes por nivel: " />
+                                    <Button Grid.Row="47" Grid.Column="3" Content="Visualizar" Command="{Binding VectorFuerzasCortantsDisenioXCommand}" VerticalAlignment="Center" />
+                                    <Label Grid.Row="49" Grid.Column="1" Content ="Desplazamientos de azotea por nivel: " />
+                                    <Button Grid.Row="49" Grid.Column="3" Content="Visualizar" Command="{Binding DesplazamientoAzoteaPorModoXCommand}" VerticalAlignment="Center" />
+                                    <Label Grid.Row="51" Grid.Column="1" Content ="Desplazamientos de entrepiso por nivel: " />
+                                    <Button Grid.Row="51" Grid.Column="3" Content="Visualizar" Command="{Binding DesplazamientoEntrepisoPorModoXCommand}" VerticalAlignment="Center" />
+                                    <Label Grid.Row="53" Grid.Column="1" Content ="Vector de aceleración combinada: " />
+                                    <Button Grid.Row="53" Grid.Column="3" Content="Visualizar" Command="{Binding VectorAceleracionCombinadaXCommand}" VerticalAlignment="Center" />
+                                    <Label Grid.Row="55" Grid.Column="1" Content ="Vector de fuerzas ficticia equiv. combinada: " />
+                                    <Button Grid.Row="55" Grid.Column="3" Content="Visualizar" Command="{Binding VectFuerzasFicticiasEquivCombinadaXCommand}" VerticalAlignment="Center" />
+                                    <Label Grid.Row="57" Grid.Column="1" Content ="Vector de fuerzas cortantes de entrepisos combinada: " />
+                                    <Button Grid.Row="57" Grid.Column="3" Content="Visualizar" Command="{Binding VectFuerzasCortantesDisenioCombinadaXCommand}" VerticalAlignment="Center" />
+                                    <Label Grid.Row="59" Grid.Column="1" Content ="Vector de desplazamientos combinados: " />
+                                    <Button Grid.Row="59" Grid.Column="3" Content="Visualizar" Command="{Binding VectDesplazamientosSSRSXCommand}" VerticalAlignment="Center" />
+                                    <Label Grid.Row="61" Grid.Column="1" Content ="Vector de fuerzas cortantes de diseño (M. Estático): " IsEnabled="{Binding IsStatic,Mode=TwoWay}" />
+                                    <Button Grid.Row="61" Grid.Column="3" Content="Visualizar" Command="{Binding VectorFuerzasCortantsDisenioEstaticoXCommand}" VerticalAlignment="Center" IsEnabled="{Binding IsStatic,Mode=TwoWay}"/>
+                                    <Label Grid.Row="63" Grid.Column="1" Content ="Vector de desplazamientos laterales y entrepisos: " IsEnabled="{Binding IsStatic,Mode=TwoWay}"/>
+                                    <Button Grid.Row="63" Grid.Column="3" Content="Visualizar" Command="{Binding DesplazamientosLateralesXCommand}" VerticalAlignment="Center" IsEnabled="{Binding IsStatic,Mode=TwoWay}"/>
+                                    <Label Grid.Row="65" Grid.Column="1" Content ="Estimación del periodo fundamental de la estructura: " IsEnabled="{Binding IsStatic,Mode=TwoWay}"/>
+                                    <Button Grid.Row="65" Grid.Column="3" Content="Visualizar" Command="{Binding EstimPeriodoFundamentalEstructXCommand}" VerticalAlignment="Center" IsEnabled="{Binding IsStatic,Mode=TwoWay}"/>
+                                    <Label Grid.Row="67" Grid.Column="1" Content ="Fuerzas cortantes (X): " IsEnabled="{Binding IsStatic,Mode=TwoWay}"/>
+                                    <Button Grid.Row="67" Grid.Column="3" Content="Visualizar" Command="{Binding FuerzasCortantesXCommand}" VerticalAlignment="Center" IsEnabled="{Binding IsStatic,Mode=TwoWay}"/>
                                 </Grid>
                             </ScrollViewer>
                         </Grid>
@@ -209,7 +241,7 @@
                                         <ColumnDefinition Width="20"/>
                                         <ColumnDefinition Width="120"/>
                                         <ColumnDefinition Width="10"/>
-                                        <ColumnDefinition Width="70"/>
+                                        <ColumnDefinition Width="90"/>
                                         <ColumnDefinition Width="10"/>
                                         <ColumnDefinition Width="170"/>
                                         <ColumnDefinition Width="10"/>
@@ -229,13 +261,16 @@
                                     </Grid.RowDefinitions>
                                     <Label Grid.Row="1" Grid.Column="1" Content="Coeficiente sismico" Visibility="{Binding IsStaticV}"/>
                                     <TextBox Grid.Row="1" Grid.Column="3" Text="{Binding c,Mode=TwoWay}" Visibility="{Binding IsStaticV}" />
-                                    <Label Grid.Row="1" Grid.Column="5" Content="F. de comportamiento sismico" Visibility="{Binding IsStaticV}"/>
-                                    <TextBox Grid.Row="1" Grid.Column="7" Text="{Binding Q, Mode=TwoWay}" Visibility="{Binding IsStaticV}"/>
+                                    <Label Grid.Row="1" Grid.Column="5" Content="F. de comportamiento sismico" Visibility="{Binding QVisible}"/>
+                                    <TextBox Grid.Row="1" Grid.Column="7" Text="{Binding Q, Mode=TwoWay}" Visibility="{Binding QVisible}"/>
                                     <Label Grid.Row="1" Grid.Column="9" Content="F. de sobrerresistencia" Visibility="{Binding IsStaticV}"/>
                                     <TextBox Grid.Row="1" Grid.Column="11" Text="{Binding R, Mode=TwoWay}" Visibility="{Binding IsStaticV}"/>
 
+                                    <Button Grid.Row="1" Grid.Column="1" Width="90" Content="Eliminar" Command="{Binding EliminarEspectroDisCommand}" Visibility="{Binding IsEspectroDisenio}"/>
+                                    <Button Grid.Row="1" Grid.Column="3" Width="90"  Content="Guardar" Command="{Binding GuardarEspectroDisXCommand}" Visibility="{Binding IsEspectroDisenio}"/>
+
                                     <DataGrid Visibility="{Binding DTContentGet}" x:Name="DataGridDataY" Grid.Row="3" Grid.ColumnSpan="12" AutoGenerateColumns="True"  ItemsSource="{Binding Path=ContentDT, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Margin="10,0,10,0" />
-                                    <DataGrid Visibility="{Binding DTContentSet}" x:Name="DataGridSetY" Grid.Row="3" Grid.ColumnSpan="12" ItemsSource="{Binding Path=EspectroDisenio, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" SelectionUnit="Cell" AutoGenerateColumns="True" Margin="10,0,10,0" />
+                                    <DataGrid ml:ExcelActions.EnabledCopyExcel="True" ml:ExcelActions.EnabledPasteExcel="True" Visibility="{Binding DTContentSet}" x:Name="DataGridY" Grid.Row="3" Grid.ColumnSpan="12" ItemsSource="{Binding EspectroDisenio ,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" SelectionUnit="Cell" Margin="10,0,10,0" />
                                 </Grid>
                             </ScrollViewer>
                             <ScrollViewer  Grid.Column="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
@@ -248,6 +283,22 @@
                                         <ColumnDefinition Width="30"/>
                                     </Grid.ColumnDefinitions>
                                     <Grid.RowDefinitions>
+                                        <RowDefinition Height="10"/>
+                                        <RowDefinition Height="40"/>
+                                        <RowDefinition Height="10"/>
+                                        <RowDefinition Height="40"/>
+                                        <RowDefinition Height="10"/>
+                                        <RowDefinition Height="40"/>
+                                        <RowDefinition Height="10"/>
+                                        <RowDefinition Height="40"/>
+                                        <RowDefinition Height="10"/>
+                                        <RowDefinition Height="40"/>
+                                        <RowDefinition Height="10"/>
+                                        <RowDefinition Height="40"/>
+                                        <RowDefinition Height="10"/>
+                                        <RowDefinition Height="40"/>
+                                        <RowDefinition Height="10"/>
+                                        <RowDefinition Height="40"/>
                                         <RowDefinition Height="10"/>
                                         <RowDefinition Height="40"/>
                                         <RowDefinition Height="10"/>
@@ -333,28 +384,44 @@
                                     <Button Grid.Row="27" Grid.Column="3" Content="Visualizar" Command="{Binding MatrizModalNormalizadoYCommand}" VerticalAlignment="Center" />
                                     <Label Grid.Row="29" Grid.Column="1" Content="Vector de masas efectivas:" />
                                     <Button Grid.Row="29" Grid.Column="3" Content="Visualizar" Command="{Binding VectorMasasEfectivasYCommand}" VerticalAlignment="Center" />
-                                    <Label Grid.Row="31" Grid.Column="1" Content ="Factor de part. modal norm. con la matriz de masas: " />
+                                    <Label Grid.Row="31" Grid.Column="1" Content ="Factor de participación modal normalizado: " />
                                     <Button Grid.Row="31" Grid.Column="3" Content="Visualizar" Command="{Binding MatrizFactPartMasasModalesYCommand}" VerticalAlignment="Center" />
                                     <Label Grid.Row="33" Grid.Column="1" Content ="Participación de masas: " />
                                     <Button Grid.Row="33" Grid.Column="3" Content="Visualizar" Command="{Binding ParticipacionMasasYCommand}" VerticalAlignment="Center" />
-                                    <Label Grid.Row="35" Grid.Column="1" Content ="Gamma: " />
-                                    <Button Grid.Row="35" Grid.Column="3" Content="Visualizar" Command="{Binding GammaYCommand}" VerticalAlignment="Center" />
-                                    <Label Grid.Row="37" Grid.Column="1" Content ="Espectro de diseño: " />
-                                    <Button Grid.Row="37" Grid.Column="3" Content="Visualizar" Command="{Binding EspectroDisenioYCommand}" VerticalAlignment="Center" />
-                                    <Label Grid.Row="39" Grid.Column="1" Content ="Vector de aceleraciones: " />
-                                    <Button Grid.Row="39" Grid.Column="3" Content="Visualizar" Command="{Binding VectorAceleracionesYCommand}" VerticalAlignment="Center" />
-                                    <Label Grid.Row="41" Grid.Column="1" Content ="Vector de fuerzas ficticias equivalentes: " />
-                                    <Button Grid.Row="41" Grid.Column="3" Content="Visualizar" Command="{Binding VectorFuerzasFicticiasEquivYCommand}" VerticalAlignment="Center" />
-                                    <Label Grid.Row="43" Grid.Column="1" Content ="Vector de fuerzas cortantes de diseño: " />
-                                    <Button Grid.Row="43" Grid.Column="3" Content="Visualizar" Command="{Binding VectorFuerzasCortantsDisenioYCommand}" VerticalAlignment="Center" />
-                                    <Label Grid.Row="45" Grid.Column="1" Content ="Vector de fuerzas cortantes de diseño (M. Estático): " IsEnabled="{Binding IsStatic,Mode=TwoWay}" />
-                                    <Button Grid.Row="45" Grid.Column="3" Content="Visualizar" Command="{Binding VectorFuerzasCortantsDisenioEstaticoYCommand}" VerticalAlignment="Center" IsEnabled="{Binding IsStatic,Mode=TwoWay}"/>
-                                    <Label Grid.Row="47" Grid.Column="1" Content ="Vector de desplazamientos laterales y entrepisos: " IsEnabled="{Binding IsStatic,Mode=TwoWay}"/>
-                                    <Button Grid.Row="47" Grid.Column="3" Content="Visualizar" Command="{Binding DesplazamientosLateralesYCommand}" VerticalAlignment="Center" IsEnabled="{Binding IsStatic,Mode=TwoWay}"/>
-                                    <Label Grid.Row="49" Grid.Column="1" Content ="Estimación del periodo fundamental de la estructura: " IsEnabled="{Binding IsStatic,Mode=TwoWay}"/>
-                                    <Button Grid.Row="49" Grid.Column="3" Content="Visualizar" Command="{Binding EstimPeriodoFundamentalEstructYCommand}" VerticalAlignment="Center" IsEnabled="{Binding IsStatic,Mode=TwoWay}"/>
-                                    <Label Grid.Row="51" Grid.Column="1" Content ="Fuerzas cortantes (Y): " IsEnabled="{Binding IsStatic,Mode=TwoWay}"/>
-                                    <Button Grid.Row="51" Grid.Column="3" Content="Visualizar" Command="{Binding EstimPeriodoFundamentalEstructYCommand}" VerticalAlignment="Center" IsEnabled="{Binding IsStatic,Mode=TwoWay}"/>
+                                    <Label Grid.Row="35" Grid.Column="1" Content ="Espectro de diseño: " />
+                                    <Button Grid.Row="35" Grid.Column="3" Content="Visualizar" Command="{Binding EspectroDisenioYCommand}" VerticalAlignment="Center" />
+                                    <Label Grid.Row="37" Grid.Column="1" Content ="Vector de aceleraciones: " />
+                                    <Button Grid.Row="37" Grid.Column="3" Content="Visualizar" Command="{Binding VectorAceleracionesYCommand}" VerticalAlignment="Center" />
+                                    <Label Grid.Row="39" Grid.Column="1" Content ="Coeficiente modal: " />
+                                    <Button Grid.Row="39" Grid.Column="3" Content="Visualizar" Command="{Binding GammaYCommand}" VerticalAlignment="Center" />
+                                    <Label Grid.Row="41" Grid.Column="1" Content ="Aceleración por modo: " />
+                                    <Button Grid.Row="41" Grid.Column="3" Content="Visualizar" Command="{Binding AceleracionPorModoYCommand}" VerticalAlignment="Center" />
+                                    <Label Grid.Row="43" Grid.Column="1" Content ="Vectores de aceleración por nivel: " />
+                                    <Button Grid.Row="43" Grid.Column="3" Content="Visualizar" Command="{Binding VectAceleracionPorModoYCommand}" VerticalAlignment="Center" />
+                                    <Label Grid.Row="45" Grid.Column="1" Content ="Vector de fuerzas ficticias por nivel: " />
+                                    <Button Grid.Row="45" Grid.Column="3" Content="Visualizar" Command="{Binding FuerzasFicticiasEquivPorModoYCommand}" VerticalAlignment="Center" />
+                                    <Label Grid.Row="47" Grid.Column="1" Content ="Vector de fuerzas cortantes por nivel: " />
+                                    <Button Grid.Row="47" Grid.Column="3" Content="Visualizar" Command="{Binding VectorFuerzasCortantsDisenioYCommand}" VerticalAlignment="Center" />
+                                    <Label Grid.Row="49" Grid.Column="1" Content ="Desplazamientos de azotea por nivel: " />
+                                    <Button Grid.Row="49" Grid.Column="3" Content="Visualizar" Command="{Binding DesplazamientoAzoteaPorModoYCommand}" VerticalAlignment="Center" />
+                                    <Label Grid.Row="51" Grid.Column="1" Content ="Desplazamientos de entrepiso por nivel: " />
+                                    <Button Grid.Row="51" Grid.Column="3" Content="Visualizar" Command="{Binding DesplazamientoEntrepisoPorModoYCommand}" VerticalAlignment="Center" />
+                                    <Label Grid.Row="53" Grid.Column="1" Content ="Vector de aceleración combinada: " />
+                                    <Button Grid.Row="53" Grid.Column="3" Content="Visualizar" Command="{Binding VectorAceleracionCombinadaYCommand}" VerticalAlignment="Center" />
+                                    <Label Grid.Row="55" Grid.Column="1" Content ="Vector de fuerzas ficticia equiv. combinada: " />
+                                    <Button Grid.Row="55" Grid.Column="3" Content="Visualizar" Command="{Binding VectFuerzasFicticiasEquivCombinadaYCommand}" VerticalAlignment="Center" />
+                                    <Label Grid.Row="57" Grid.Column="1" Content ="Vector de fuerzas cortantes de entrepisos combinada: " />
+                                    <Button Grid.Row="57" Grid.Column="3" Content="Visualizar" Command="{Binding VectFuerzasCortantesDisenioCombinadaYCommand}" VerticalAlignment="Center" />
+                                    <Label Grid.Row="59" Grid.Column="1" Content ="Vector de desplazamientos combinados: " />
+                                    <Button Grid.Row="59" Grid.Column="3" Content="Visualizar" Command="{Binding VectDesplazamientosSSRSYCommand}" VerticalAlignment="Center" />
+                                    <Label Grid.Row="61" Grid.Column="1" Content ="Vector de fuerzas cortantes de diseño (M. Estático): " IsEnabled="{Binding IsStatic,Mode=TwoWay}" />
+                                    <Button Grid.Row="61" Grid.Column="3" Content="Visualizar" Command="{Binding VectorFuerzasCortantsDisenioEstaticoYCommand}" VerticalAlignment="Center" IsEnabled="{Binding IsStatic,Mode=TwoWay}"/>
+                                    <Label Grid.Row="63" Grid.Column="1" Content ="Vector de desplazamientos laterales y entrepisos: " IsEnabled="{Binding IsStatic,Mode=TwoWay}"/>
+                                    <Button Grid.Row="63" Grid.Column="3" Content="Visualizar" Command="{Binding DesplazamientosLateralesYCommand}" VerticalAlignment="Center" IsEnabled="{Binding IsStatic,Mode=TwoWay}"/>
+                                    <Label Grid.Row="65" Grid.Column="1" Content ="Estimación del periodo fundamental de la estructura: " IsEnabled="{Binding IsStatic,Mode=TwoWay}"/>
+                                    <Button Grid.Row="65" Grid.Column="3" Content="Visualizar" Command="{Binding EstimPeriodoFundamentalEstructYCommand}" VerticalAlignment="Center" IsEnabled="{Binding IsStatic,Mode=TwoWay}"/>
+                                    <Label Grid.Row="67" Grid.Column="1" Content ="Fuerzas cortantes (Y): " IsEnabled="{Binding IsStatic,Mode=TwoWay}"/>
+                                    <Button Grid.Row="67" Grid.Column="3" Content="Visualizar" Command="{Binding FuerzasCortantesYCommand}" VerticalAlignment="Center" IsEnabled="{Binding IsStatic,Mode=TwoWay}"/>
                                 </Grid>
                             </ScrollViewer>
                         </Grid>

@@ -20,9 +20,16 @@ namespace StructureSystem.BusinessRules.Functions
         public static double[] CalcularVectorPeriodosCirculares(double[,] M, double[,] K)
         {
             double[] result = new double[M.GetLength(0)];
+            double[,] k = K;
             try
             {
                 int n = M.GetLength(0);
+             
+                for (int i = 0; i < k.GetLength(0); i++)
+                    for (int j = 0; j < k.GetLength(1); j++)
+                        k[i, j] = k[i, j] * 981;
+             
+
                 //M = new double[,]
                 //    {
                 //        { 1.8* Math.Pow(10,5), 0, 0, 0, 0, 0},
@@ -45,12 +52,12 @@ namespace StructureSystem.BusinessRules.Functions
                 SeismicAnalysis.SeismicAnalysisOperations operations = new SeismicAnalysis.SeismicAnalysisOperations();
 
                 MWNumericArray Marr = new MWNumericArray(M);
-                MWNumericArray Karr = new MWNumericArray(K);
+                MWNumericArray Karr = new MWNumericArray(k);
                 var eigsMatrix = operations.EigsMatrix(2, Karr, Marr, M.GetLength(0));
 
                 var D = operations.EigenVals(eigsMatrix[1]);
 
-                var wTF = operations.OmegaTauF(3, D,1, PI);
+                var wTF = operations.OmegaTauF(3, D, 1, PI);
 
 
 
@@ -69,23 +76,29 @@ namespace StructureSystem.BusinessRules.Functions
         public static double[] CalcularVectorPeriodosNaturales(double[,] M, double[,] K)
         {
             double[] result = new double[M.GetLength(0)];
+            double[,] k = K;
             try
             {
                 int n = M.GetLength(0);
 
+                for (int i = 0; i < k.GetLength(0); i++)
+                    for (int j = 0; j < k.GetLength(1); j++)
+                        k[i, j] = k[i, j] * 981;
+
                 SeismicAnalysis.SeismicAnalysisOperations operations = new SeismicAnalysis.SeismicAnalysisOperations();
 
                 MWNumericArray Marr = new MWNumericArray(M);
-                MWNumericArray Karr = new MWNumericArray(K);
+                MWNumericArray Karr = new MWNumericArray(k);
                 var eigsMatrix = operations.EigsMatrix(2, Karr, Marr, M.GetLength(0));
 
                 var D = operations.EigenVals(eigsMatrix[1]);
 
-                var wTF = operations.OmegaTauF(3, D,1, PI);
+                var wTF = operations.OmegaTauF(3, D, 1, PI);
 
                 var T = (double[])((MWNumericArray)wTF[1]).ToVector(MWArrayComponent.Real);
 
-                result = T;
+                var TReverse = T.Reverse();
+                result = TReverse.ToArray();
             }
             catch (Exception ex)
             {
@@ -98,14 +111,20 @@ namespace StructureSystem.BusinessRules.Functions
         public static double[] CalcularVectorFrecuencias(double[,] M, double[,] K)
         {
             double[] result = new double[M.GetLength(0)];
+            double[,] k = K;
             try
             {
                 int n = M.GetLength(0);
-               
+
+                for (int i = 0; i < k.GetLength(0); i++)
+                    for (int j = 0; j < k.GetLength(1); j++)
+                        k[i, j] = k[i, j] * 981;
+
+
                 SeismicAnalysis.SeismicAnalysisOperations operations = new SeismicAnalysis.SeismicAnalysisOperations();
 
                 MWNumericArray Marr = new MWNumericArray(M);
-                MWNumericArray Karr = new MWNumericArray(K);
+                MWNumericArray Karr = new MWNumericArray(k);
                 var eigsMatrix = operations.EigsMatrix(2, Karr, Marr, M.GetLength(0));
 
                 var D = operations.EigenVals(eigsMatrix[1]);
@@ -114,7 +133,8 @@ namespace StructureSystem.BusinessRules.Functions
 
                 var F = (double[])((MWNumericArray)wTF[2]).ToVector(MWArrayComponent.Real);
 
-                result = F;
+                var FReverse = F.Reverse();
+                result = FReverse.ToArray();
             }
             catch (Exception ex)
             {
@@ -127,15 +147,20 @@ namespace StructureSystem.BusinessRules.Functions
         public static double[,] CalcularMatrizEigenVectores(double[,] M, double[,] K)
         {
             double[,] result = new double[M.GetLength(0), M.GetLength(0)];
-
+            double[,] k = K;
             try
             {
                 int n = M.GetLength(0);
 
+                for (int i = 0; i < k.GetLength(0); i++)
+                    for (int j = 0; j < k.GetLength(1); j++)
+                        k[i, j] = k[i, j] * 981;
+
+
                 SeismicAnalysis.SeismicAnalysisOperations operations = new SeismicAnalysis.SeismicAnalysisOperations();
 
                 MWNumericArray Marr = new MWNumericArray(M);
-                MWNumericArray Karr = new MWNumericArray(K);
+                MWNumericArray Karr = new MWNumericArray(k);
                 var eigsMatrix = operations.EigsMatrix(2, Karr, Marr, M.GetLength(0));
 
                 var eigenValues = operations.EigenVals(eigsMatrix[1]);
@@ -156,6 +181,7 @@ namespace StructureSystem.BusinessRules.Functions
         {
             int n = Structure.Storeys.Count;
             double[,] K = new double[n, n];
+
             if (side == Enums.SideType.Horizontal)
             {
                 for (int i = 0; i <= n - 2; i++)
@@ -212,14 +238,20 @@ namespace StructureSystem.BusinessRules.Functions
         public static double[,] CalcularMatrizEspectral(double[,] M, double[,] K)
         {
             double[,] result = new double[M.GetLength(0), M.GetLength(0)];
+            double[,] k = K;
             try
             {
                 int n = M.GetLength(0);
 
+                for (int i = 0; i < k.GetLength(0); i++)
+                    for (int j = 0; j < k.GetLength(1); j++)
+                        k[i, j] = k[i, j] * 981;
+
+
                 SeismicAnalysis.SeismicAnalysisOperations operations = new SeismicAnalysis.SeismicAnalysisOperations();
 
                 MWNumericArray Marr = new MWNumericArray(M);
-                MWNumericArray Karr = new MWNumericArray(K);
+                MWNumericArray Karr = new MWNumericArray(k);
 
                 var eigsMatrix = operations.EigsMatrix(2, Karr, Marr, M.GetLength(0));
 
@@ -229,8 +261,19 @@ namespace StructureSystem.BusinessRules.Functions
 
                 var Omega = operations.OmegaU(eigenValues, wTF[0]);
 
-                result = (double[,])((MWNumericArray)Omega).ToArray(MWArrayComponent.Real);
+                var resTemp = (double[,])((MWNumericArray)Omega).ToArray(MWArrayComponent.Real);
 
+                double[,] Espectral = new double[resTemp.GetLength(0), resTemp.GetLength(1)];
+
+                for (int i = 0; i < resTemp.GetLength(0); i++)
+                {
+                    for (int j = 0; j < resTemp.GetLength(1); j++)
+                    {
+                        Espectral[i, j] = resTemp[n-1-i,n-1-j]; 
+                    }
+                }
+
+                result = Espectral;
             }
             catch (Exception ex)
             {
@@ -245,14 +288,19 @@ namespace StructureSystem.BusinessRules.Functions
         {
 
             double[,] result = new double[M.GetLength(0), M.GetLength(0)];
-
+            double[,] k = K;
             try
             {
-           
+
+                for (int i = 0; i < k.GetLength(0); i++)
+                    for (int j = 0; j < k.GetLength(1); j++)
+                        k[i, j] = k[i, j] * 981;
+
+
                 SeismicAnalysis.SeismicAnalysisOperations operations = new SeismicAnalysis.SeismicAnalysisOperations();
 
                 MWNumericArray Marr = new MWNumericArray(M);
-                MWNumericArray Karr = new MWNumericArray(K);
+                MWNumericArray Karr = new MWNumericArray(k);
                 var eigsMatrix = operations.EigsMatrix(2, Karr, Marr, M.GetLength(0));
 
                 var eigenValues = operations.EigenVals(eigsMatrix[1]);
@@ -273,14 +321,19 @@ namespace StructureSystem.BusinessRules.Functions
         public static double[,] CalcularMatrizRigidecesGeneralizada(double[,] M, double[,] K)
         {
             double[,] result = new double[M.GetLength(0), M.GetLength(0)];
-
+            double[,] k = K;
             try
             {
-            
+
+                for (int i = 0; i < k.GetLength(0); i++)
+                    for (int j = 0; j < k.GetLength(1); j++)
+                        k[i, j] = k[i, j] * 981;
+
+
                 SeismicAnalysis.SeismicAnalysisOperations operations = new SeismicAnalysis.SeismicAnalysisOperations();
 
                 MWNumericArray Marr = new MWNumericArray(M);
-                MWNumericArray Karr = new MWNumericArray(K);
+                MWNumericArray Karr = new MWNumericArray(k);
                 var eigsMatrix = operations.EigsMatrix(2, Karr, Marr, M.GetLength(0));
 
                 var eigenValues = operations.EigenVals(eigsMatrix[1]);
@@ -302,15 +355,22 @@ namespace StructureSystem.BusinessRules.Functions
         public static double[] CalcularVectorParticipacionModal(double[,] M, double[,] K)
         {
             double[] result = new double[M.GetLength(0)];
+            double[,] k = K;
+
             try
             {
                 int n = M.GetLength(0);
-             
+
+
+                for (int i = 0; i < k.GetLength(0); i++)
+                    for (int j = 0; j < k.GetLength(1); j++)
+                        k[i, j] = k[i, j] * 981;
+
 
                 SeismicAnalysis.SeismicAnalysisOperations operations = new SeismicAnalysis.SeismicAnalysisOperations();
 
                 MWNumericArray Marr = new MWNumericArray(M);
-                MWNumericArray Karr = new MWNumericArray(K);
+                MWNumericArray Karr = new MWNumericArray(k);
                 var eigsMatrix = operations.EigsMatrix(2, Karr, Marr, M.GetLength(0));
 
                 var eigenValues = operations.EigenVals(eigsMatrix[1]);
@@ -336,14 +396,19 @@ namespace StructureSystem.BusinessRules.Functions
         public static double[,] CalcularMatrizModalNormalizada(double[,] M, double[,] K)
         {
             double[,] result = new double[M.GetLength(0), M.GetLength(0)];
-
+            double[,] k = K;
             try
             {
-              
+
+                for (int i = 0; i < k.GetLength(0); i++)
+                    for (int j = 0; j < k.GetLength(1); j++)
+                        k[i, j] = k[i, j] * 981;
+
+
                 SeismicAnalysis.SeismicAnalysisOperations operations = new SeismicAnalysis.SeismicAnalysisOperations();
 
                 MWNumericArray Marr = new MWNumericArray(M);
-                MWNumericArray Karr = new MWNumericArray(K);
+                MWNumericArray Karr = new MWNumericArray(k);
                 var eigsMatrix = operations.EigsMatrix(2, Karr, Marr, M.GetLength(0));
 
                 var eigenValues = operations.EigenVals(eigsMatrix[1]);
@@ -368,14 +433,20 @@ namespace StructureSystem.BusinessRules.Functions
         public static double[] CalcularVectorMasasEfectivas(double[,] M, double[,] K)
         {
             double[] result = new double[M.GetLength(0)];
+            double[,] k = K;
             try
             {
                 int n = M.GetLength(0);
 
+                for (int i = 0; i < k.GetLength(0); i++)
+                    for (int j = 0; j < k.GetLength(1); j++)
+                        k[i, j] = k[i, j] * 981;
+
+
                 SeismicAnalysis.SeismicAnalysisOperations operations = new SeismicAnalysis.SeismicAnalysisOperations();
 
                 MWNumericArray Marr = new MWNumericArray(M);
-                MWNumericArray Karr = new MWNumericArray(K);
+                MWNumericArray Karr = new MWNumericArray(k);
                 var eigsMatrix = operations.EigsMatrix(2, Karr, Marr, M.GetLength(0));
 
                 var eigenValues = operations.EigenVals(eigsMatrix[1]);
@@ -385,6 +456,7 @@ namespace StructureSystem.BusinessRules.Functions
                 var Me = operations.Me(eigenValues, Marr, phi);
 
                 result = (double[])((MWNumericArray)Me).ToVector(MWArrayComponent.Real);
+
 
             }
             catch (Exception ex)
@@ -400,14 +472,17 @@ namespace StructureSystem.BusinessRules.Functions
         public static double[] CalcularMatrizFactoresParticipacionMasasModales(double[,] M, double[,] K)
         {
             double[] result = new double[M.GetLength(0)];
-
+            double[,] k = K;
             try
             {
+                for (int i = 0; i < k.GetLength(0); i++)
+                    for (int j = 0; j < k.GetLength(1); j++)
+                        k[i, j] = k[i, j] * 981;
 
                 SeismicAnalysis.SeismicAnalysisOperations operations = new SeismicAnalysis.SeismicAnalysisOperations();
 
                 MWNumericArray Marr = new MWNumericArray(M);
-                MWNumericArray Karr = new MWNumericArray(K);
+                MWNumericArray Karr = new MWNumericArray(k);
                 var eigsMatrix = operations.EigsMatrix(2, Karr, Marr, M.GetLength(0));
 
                 var eigenValues = operations.EigenVals(eigsMatrix[1]);
@@ -434,14 +509,17 @@ namespace StructureSystem.BusinessRules.Functions
         public static double[] CalcularParticipacionDeMasas(double[,] M, double[,] K, double Mt)
         {
             double[] result = new double[M.GetLength(0)];
-
+            double[,] k = K;
             try
             {
+                for (int i = 0; i < k.GetLength(0); i++)
+                    for (int j = 0; j < k.GetLength(1); j++)
+                        k[i, j] = k[i, j] * 981;
 
                 SeismicAnalysis.SeismicAnalysisOperations operations = new SeismicAnalysis.SeismicAnalysisOperations();
 
                 MWNumericArray Marr = new MWNumericArray(M);
-                MWNumericArray Karr = new MWNumericArray(K);
+                MWNumericArray Karr = new MWNumericArray(k);
 
                 var eigsMatrix = operations.EigsMatrix(2, Karr, Marr, M.GetLength(0));
 
@@ -451,9 +529,13 @@ namespace StructureSystem.BusinessRules.Functions
 
                 var Me = operations.Me(eigenValues, Marr, phi);
 
-                var Pm = operations.Pm(eigenValues,1, Me);
+                var Pm = operations.Pm(eigenValues, 1, Me);
 
                 result = (double[])((MWNumericArray)Pm).ToVector(MWArrayComponent.Real);
+
+                for (int i = 0; i < result.Length; i++)
+                    result[i] = result[i] / Mt;
+
             }
             catch (Exception ex)
             {
@@ -468,14 +550,17 @@ namespace StructureSystem.BusinessRules.Functions
         public static double[] CalcularGamma(double[,] M, double[,] K)
         {
             double[] result = new double[M.GetLength(0)];
-
+            double[,] k = K;
             try
             {
-            
+                for (int i = 0; i < k.GetLength(0); i++)
+                    for (int j = 0; j < k.GetLength(1); j++)
+                        k[i, j] = k[i, j] * 981;
+
                 SeismicAnalysis.SeismicAnalysisOperations operations = new SeismicAnalysis.SeismicAnalysisOperations();
 
                 MWNumericArray Marr = new MWNumericArray(M);
-                MWNumericArray Karr = new MWNumericArray(K);
+                MWNumericArray Karr = new MWNumericArray(k);
 
                 var eigsMatrix = operations.EigsMatrix(2, Karr, Marr, M.GetLength(0));
 
@@ -483,9 +568,19 @@ namespace StructureSystem.BusinessRules.Functions
 
                 var phi = operations.Phi(eigenValues, eigsMatrix[0]);
 
-                var Gamma = operations.Gamma(eigenValues, Marr, phi, 1);
+                var phiAux = (double[,])((MWNumericArray)phi).ToArray(MWArrayComponent.Real);
 
-                result = (double[])((MWNumericArray)Gamma).ToVector(MWArrayComponent.Real);
+                int n = M.GetLength(0);
+                for (int i = 0; i < M.GetLength(0); i++)
+                {
+                    double Temp1 = 0, Temp2 = 0;
+                    for (int j = 0; j < M.GetLength(1); j++)
+                    {
+                        Temp1 += M[n-1-i, j] * phiAux[i, j];
+                        Temp2 += M[n-1-i, j] * Math.Pow(phiAux[i, j], 2);
+                    }
+                    result[i] = Temp1 / Temp2;
+                }
 
             }
             catch (Exception ex)
@@ -500,14 +595,21 @@ namespace StructureSystem.BusinessRules.Functions
 
         public static double[] CalcularVectorDeAceleraciones(double[,] M, double[,] K, List<EspectroDisenio> datos)
         {
-            double[] result = new double[datos.Count];
+            double[] result = new double[M.GetLength(0)];
+            double[,] k = K;
             try
             {
+                for (int i = 0; i < k.GetLength(0); i++)
+                    for (int j = 0; j < k.GetLength(1); j++)
+                        k[i, j] = k[i, j] * 981;
+
+
                 var dataArray = datos.ToArray();
 
                 MWNumericArray Marr = new MWNumericArray(M);
-                MWNumericArray Karr = new MWNumericArray(K);
+                MWNumericArray Karr = new MWNumericArray(k);
                 SeismicAnalysis.SeismicAnalysisOperations operations = new SeismicAnalysis.SeismicAnalysisOperations();
+
                 var eigsMatrix = operations.EigsMatrix(2, Karr, Marr, M.GetLength(0));
 
                 var D = operations.EigenVals(eigsMatrix[1]);
@@ -516,9 +618,55 @@ namespace StructureSystem.BusinessRules.Functions
 
                 var T = (double[])((MWNumericArray)wTF[1]).ToVector(MWArrayComponent.Real);
 
-                for (int i = 1; i < result.Length; i++)
+                double SMayor = 0, SMenor = 0, TMayor = 0, TMenor = 0;
+
+                for (int i = 0; i < T.Length; i++)
                 {
-                    result[i - 1] = dataArray[i - 1].S + ((dataArray[i].S - dataArray[i - 1].S) / (dataArray[i].T - dataArray[i - 1].T)) * (T[i - 1] - dataArray[i - 1].T);
+                    for (int j = 0; j < datos.Count; j++)
+                    {
+                        if (T[i] <= datos[j].T)
+                        {
+                            TMayor = datos[j].T;
+                            TMenor = datos[j - 1].T;
+                            SMayor = datos[j].S;
+                            SMenor = datos[j - 1].S;
+                            break;
+                        }
+                        else if (T[i] > datos[j].T && j == datos.Count - 1)
+                        {
+                            TMayor = datos[j].T;
+                            TMenor = datos[j].T;
+                            SMayor = datos[j].S;
+                            SMenor = datos[j].S;
+                            break;
+                        }
+                    }
+
+                    var resultado = (SMenor + (((SMayor - SMenor) / (TMayor - TMenor)) * (T[i] - TMenor))) * 981;
+
+                    if (resultado > 0)
+                        result[i] = resultado;
+                    else
+                        result[i] = SMayor * 981;
+                }
+
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return result;
+        }
+
+
+        public static double[] CalcularVectorDeAceleracionPorModo(double[] va, double[] cm)
+        {
+            double[] result = new double[va.Length];
+            try
+            {
+                for (int i = 0; i < va.Length; i++)
+                {
+                    result[i] = va[i] * cm[i];
                 }
             }
             catch (Exception ex)
@@ -527,6 +675,58 @@ namespace StructureSystem.BusinessRules.Functions
             }
             return result;
         }
+
+        public static double[,] CalcularVectoresDeAceleracionesPorModo(double[] a, double[,] phi)
+        {
+            double[,] result = new double[a.Length, a.Length];
+
+            try
+            {
+
+                for (int i = 0; i < a.Length; i++)
+                {
+
+                    for (int j = 0; j < a.Length; j++)
+                    {
+                        result[i, j] = a[i] * phi[j, i];
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+
+            }
+
+            return result;
+        }
+
+
+        public static double[,] CalcularFuerzasFicticiasEquivalentesPorModo(double[,] A, double[] m)
+        {
+            int n = A.GetLength(0);
+            double[,] result = new double[n, n];
+
+            try
+            {
+
+                for (int i = 0; i < n; i++)
+                {
+                    for (int j = 0; j < n; j++)
+                    {
+                        result[i, j] = (A[i, j] * m[n - 1 - i])/1000;
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+
+            }
+
+            return result;
+        }
+
 
         public static double[] CalcularVectorDeFuerzasFicticias(double[] VA, double[] m)
         {
@@ -545,44 +745,239 @@ namespace StructureSystem.BusinessRules.Functions
             return result;
         }
 
-        public static double[] CalcularVectorDeFuerzasCortantesDeDisenio(double[] Pn)
+        public static double[,] CalcularVectoresDeFuerzasCortantesDeDisenio(double[,] Pn)
         {
-            double[] result = new double[Pn.Length];
+
+            int n = Pn.GetLength(0);
+            double[,] result = new double[n, n];
+
             try
             {
-                for (int i = 0; i < Pn.Length; i++)
-                    result[i] += Pn[i];
+
+                for (int i = 0; i < n; i++)
+                {
+                    for (int j = 0; j < n; j++)
+                    {
+                        if (j == 0)
+                            result[i, j] = Pn[i, j];
+                        else
+                            result[i, j] = Pn[i, j] + Pn[i, j - 1];
+                    }
+                }
 
             }
             catch (Exception ex)
             {
 
             }
+
+
             return result;
         }
 
-        public static double[] CalcularVectorDeFuerzasCortantesDeDisenioEstatico(double c, double Q, double R, Structure structure)
+
+        public static double[] CalcularDesplazamientoEnAzotea(double[,] A, double[] w, double Q)
         {
-            double[] result = new double[structure.Storeys.Count];
-            double[] m = new double[structure.Storeys.Count];
-            //double[] SumWh = new double[structure.Storeys.Count];
-            double SumWh = 0;
+            int n = A.GetLength(0);
+            double[] result = new double[n];
+
             try
             {
 
+                for (int i = 0; i < n; i++)
+                {
+                    var a = w[i] / (2 * PI);
+                    result[i] = (A[i, 0]/10) * (Math.Pow(a, 2) * Q);
+                }
+
+            }
+            catch (Exception ex)
+            {
+
+            }
+
+            return result;
+        }
+
+        public static double[,] CalcularDesplazamientoEntrepiso(double[] D, double[,]phi)
+        {
+            double[,] result = new double[D.Length, D.Length];
+
+            try
+            {
+
+                for (int i = 0; i < D.Length; i++)
+                {
+
+                    for (int j = 0; j < D.Length; j++)
+                    {
+                        result[i, j] = D[i] * phi[j, i];
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+
+            }
+
+            return result;
+        }
+
+
+        public static double[] CalcularVectorDeAceleracionCombinada(double[,] A)
+        {
+            int n = A.GetLength(0);
+            double[] result = new double[n];
+
+            try
+            {
+
+                for (int i = 0; i < n; i++)
+                {
+                    for (int j = 0; j < n; j++)
+                    {
+                        result[i] += Math.Pow(A[j,i],2);
+                    }
+                    result[i] = Math.Sqrt(result[i]);
+                }
+
+            }
+            catch (Exception ex)
+            {
+
+            }
+
+
+            return result;
+        }
+
+        public static double[] CalcularVectorDeFuerzasFicticiasEquivalentesCombinada(double[,] P)
+        {
+            int n = P.GetLength(0);
+            double[] result = new double[n];
+
+            try
+            {
+
+                for (int i = 0; i < n; i++)
+                {
+                    for (int j = 0; j < n; j++)
+                    {
+                        result[i] += Math.Pow(P[j, i], 2);
+                    }
+
+                    result[i] = Math.Sqrt(result[i]) / 1000;
+                }
+
+            }
+            catch (Exception ex)
+            {
+
+            }
+
+
+            return result;
+        }
+
+        public static double[] CalcularVectorDeFuerzasCortantesCombinada(double[,] Vn)
+        {
+            int n = Vn.GetLength(0);
+            double[] result = new double[n];
+
+            try
+            {
+
+                for (int i = 0; i < n; i++)
+                {
+                    for (int j = 0; j < n; j++)
+                    {
+                        result[i] += Math.Pow(Vn[j, i], 2);
+                    }
+
+                    result[i] = Math.Sqrt(result[i]);
+                }
+
+            }
+            catch (Exception ex)
+            {
+
+            }
+
+
+            return result;
+        }
+
+        public static double[] CalcularVectorDeDesplazamientosCombinado(double[,] DEnt)
+        {
+            int n = DEnt.GetLength(0);
+            double[] result = new double[n];
+
+            try
+            {
+
+                for (int i = 0; i < n; i++)
+                {
+                    for (int j = 0; j < n; j++)
+                    {
+                        result[i] += Math.Pow(DEnt[j, i], 2);
+                    }
+
+                    result[i] = Math.Sqrt(result[i]);
+                }
+
+            }
+            catch (Exception ex)
+            {
+
+            }
+
+
+            return result;
+        }
+
+        public static double[] CalcularVectorDeFuerzasCortantesDeDisenioEstatico(double c, double Q, double R, Structure structure, Enums.SideType side)
+        {
+            double[] result = new double[structure.Storeys.Count];
+            double[] m = new double[structure.Storeys.Count];
+            double[] h = new double[structure.Storeys.Count];
+            double SumWh = 0;
+            try
+            {
                 for (int i = 0; i < structure.Storeys.Count; i++)
                     m[i] = structure.Storeys[i].MasasEntrepisos;
 
-                int h = 1; //Sustituir por un vector con la altura(acumulada) del i-esimo entrepiso (¿Como se obtiene?)
+                if (side.Equals(Enums.SideType.Horizontal))
+                {
+                    for (int i = 0; i < structure.Storeys.Count && side.Equals(Enums.SideType.Horizontal); i++)
+                    {
+                        if (i == 0)
+                            h[i] = structure.Storeys[i].HorizontalWalls.Max(x => x.Height);
+                        else
+                            h[i] = structure.Storeys[i - 1].HorizontalWalls.Max(x => x.Height) + structure.Storeys[i].HorizontalWalls.Max(x => x.Height); ;
+                    }
+                }
+
+                if (side.Equals(Enums.SideType.Vertical))
+                {
+                    for (int i = 0; i < structure.Storeys.Count && side.Equals(Enums.SideType.Vertical); i++)
+                    {
+                        if (i == 0)
+                            h[i] = structure.Storeys[i].VerticalWalls.Max(x => x.Height);
+                        else
+                            h[i] = structure.Storeys[i - 1].VerticalWalls.Max(x => x.Height) + structure.Storeys[i].VerticalWalls.Max(x => x.Height); ;
+                    }
+                }
+
 
                 for (int i = 0; i < structure.Storeys.Count; i++)
                 {
-                    SumWh += m[i] * h;
+                    SumWh += m[i] * h[i];
                 }
 
                 for (int i = 0; i < structure.Storeys.Count; i++)
                 {
-                    result[i] = (c / (Q * R)) * m[i] * h * (structure.MasaTotal / SumWh);
+                    result[i] = (c / (Q * R)) * m[i] * h[i] * (structure.MasaTotal / SumWh);
                 }
             }
             catch (Exception)
@@ -598,6 +993,7 @@ namespace StructureSystem.BusinessRules.Functions
             double[] result = new double[F.Length];
             try
             {
+
                 for (int i = 0; i < F.Length; i++)
                     result[i] = F[i] / K[i];
 
@@ -615,14 +1011,14 @@ namespace StructureSystem.BusinessRules.Functions
             double result = 0;
             try
             {
-                double Aux1 = 0, Aux2=0;
+                double Aux1 = 0, Aux2 = 0;
                 for (int i = 0; i < m.Length; i++)
-                    Aux1 += m[i] + Math.Pow(X[i], 2);
+                    Aux1 += (m[i] * Math.Pow(X[i], 2));
 
                 for (int i = 0; i < m.Length; i++)
-                    Aux2 += F[i] * X[i];
+                    Aux2 += (F[i] * X[i]);
 
-                Aux2 *= 9.81;
+                Aux2 *= 981;
 
                 result = 2 * PI * Math.Sqrt(Aux1 / Aux2);
             }
@@ -633,7 +1029,6 @@ namespace StructureSystem.BusinessRules.Functions
 
             return result;
         }
-
 
         #region Operaciones para muros
         public static double CalcularInercia(Wall wall)

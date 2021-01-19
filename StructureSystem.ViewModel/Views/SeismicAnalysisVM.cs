@@ -44,6 +44,7 @@ namespace StructureSystem.ViewModel
         public ICommand GuardarEspectroDisXCommand { get; private set; }
         public ICommand GuardarEspectroDisYCommand { get; private set; }
 
+
         //Comandos en X (Horizontales)
         public ICommand VectorRigidecesXCommand { get; private set; }
         public ICommand VectorMasasXCommand { get; private set; }
@@ -62,11 +63,19 @@ namespace StructureSystem.ViewModel
         public ICommand VectorMasasEfectivasXCommand { get; private set; }
         public ICommand MatrizFactPartMasasModalesXCommand { get; private set; }
         public ICommand ParticipacionMasasXCommand { get; private set; }
-        public ICommand GammaXCommand { get; private set; }
         public ICommand EspectroDisenioXCommand { get; private set; }
         public ICommand VectorAceleracionesXCommand { get; private set; }
-        public ICommand VectorFuerzasFicticiasEquivXCommand { get; private set; }
+        public ICommand GammaXCommand { get; private set; }
+        public ICommand AceleracionPorModoXCommand { get; private set; }
+        public ICommand VectAceleracionPorModoXCommand { get; private set; }
+        public ICommand FuerzasFicticiasEquivPorModoXCommand { get; private set; }
         public ICommand VectorFuerzasCortantsDisenioXCommand { get; private set; }
+        public ICommand DesplazamientoAzoteaPorModoXCommand { get; private set; }
+        public ICommand DesplazamientoEntrepisoPorModoXCommand { get; private set; }
+        public ICommand VectorAceleracionCombinadaXCommand { get; private set; }
+        public ICommand VectFuerzasFicticiasEquivCombinadaXCommand { get; private set; }
+        public ICommand VectFuerzasCortantesDisenioCombinadaXCommand { get; private set; }
+        public ICommand VectDesplazamientosSSRSXCommand { get; private set; }
         public ICommand VectorFuerzasCortantsDisenioEstaticoXCommand { get; private set; }
         public ICommand DesplazamientosLateralesXCommand { get; private set; }
         public ICommand EstimPeriodoFundamentalEstructXCommand { get; private set; }
@@ -91,11 +100,19 @@ namespace StructureSystem.ViewModel
         public ICommand VectorMasasEfectivasYCommand { get; private set; }
         public ICommand MatrizFactPartMasasModalesYCommand { get; private set; }
         public ICommand ParticipacionMasasYCommand { get; private set; }
-        public ICommand GammaYCommand { get; private set; }
         public ICommand EspectroDisenioYCommand { get; private set; }
         public ICommand VectorAceleracionesYCommand { get; private set; }
-        public ICommand VectorFuerzasFicticiasEquivYCommand { get; private set; }
+        public ICommand GammaYCommand { get; private set; }
+        public ICommand AceleracionPorModoYCommand { get; private set; }
+        public ICommand VectAceleracionPorModoYCommand { get; private set; }
+        public ICommand FuerzasFicticiasEquivPorModoYCommand { get; private set; }
         public ICommand VectorFuerzasCortantsDisenioYCommand { get; private set; }
+        public ICommand DesplazamientoAzoteaPorModoYCommand { get; private set; }
+        public ICommand DesplazamientoEntrepisoPorModoYCommand { get; private set; }
+        public ICommand VectorAceleracionCombinadaYCommand { get; private set; }
+        public ICommand VectFuerzasFicticiasEquivCombinadaYCommand { get; private set; }
+        public ICommand VectFuerzasCortantesDisenioCombinadaYCommand { get; private set; }
+        public ICommand VectDesplazamientosSSRSYCommand { get; private set; }
         public ICommand VectorFuerzasCortantsDisenioEstaticoYCommand { get; private set; }
         public ICommand DesplazamientosLateralesYCommand { get; private set; }
         public ICommand EstimPeriodoFundamentalEstructYCommand { get; private set; }
@@ -111,7 +128,8 @@ namespace StructureSystem.ViewModel
             EliminarEspectroDisCommand = new RelayCommand(o => EliminarEspectroDisenioData());
             GuardarEspectroDisXCommand = new RelayCommand(o => GuardarEspectroDisenioData(Enums.SideType.Horizontal));
             GuardarEspectroDisYCommand = new RelayCommand(o => GuardarEspectroDisenioData(Enums.SideType.Vertical));
-
+           
+            //Comandos X(Horizontales)
             VectorRigidecesXCommand = new RelayCommand(o => ShowVectorRigideces(Enums.SideType.Horizontal));
             VectorMasasXCommand = new RelayCommand(o => ShowVectorMasas());
             MatrizMasasXCommand = new RelayCommand(o => ShowMatrizMasas(Enums.SideType.Horizontal));
@@ -129,17 +147,25 @@ namespace StructureSystem.ViewModel
             VectorMasasEfectivasXCommand = new RelayCommand(o => ShowVectorMasasEfectivas(Enums.SideType.Horizontal));
             MatrizFactPartMasasModalesXCommand = new RelayCommand(o => ShowMatrizFactParticipacionMasasModales(Enums.SideType.Horizontal));
             ParticipacionMasasXCommand = new RelayCommand(o => ShowVectorParticipacionMasas(Enums.SideType.Horizontal));
-            GammaXCommand = new RelayCommand(o => ShowGamma(Enums.SideType.Horizontal));
             EspectroDisenioXCommand = new RelayCommand(o => ShowEspectroDisenio(Enums.SideType.Horizontal));
             VectorAceleracionesXCommand = new RelayCommand(o => ShowVectorAcceleraciones(Enums.SideType.Horizontal));
-            VectorFuerzasFicticiasEquivXCommand = new RelayCommand(o => ShowVectorFuerzasFicticiasEquivalentes(Enums.SideType.Horizontal));
+            GammaXCommand = new RelayCommand(o => ShowGamma(Enums.SideType.Horizontal));
+            AceleracionPorModoXCommand = new RelayCommand(o => ShowAceleracionPorModo(Enums.SideType.Horizontal));
+            VectAceleracionPorModoXCommand = new RelayCommand(o => ShowVectAceleracionPorModo(Enums.SideType.Horizontal));
+            FuerzasFicticiasEquivPorModoXCommand = new RelayCommand(o => ShowFuerzasFicticiasEquivPorModo(Enums.SideType.Horizontal));
             VectorFuerzasCortantsDisenioXCommand = new RelayCommand(o => ShowVectorFuerzasCortantesDisenio(Enums.SideType.Horizontal));
+            DesplazamientoAzoteaPorModoXCommand = new RelayCommand(o => ShowDesplazamientoAzoteaPorModo(Enums.SideType.Horizontal));
+            DesplazamientoEntrepisoPorModoXCommand = new RelayCommand(o => ShowDesplazamientoEntrepisoPorModo(Enums.SideType.Horizontal));
+            VectorAceleracionCombinadaXCommand = new RelayCommand(o => ShowVectorAceleracionCombinada(Enums.SideType.Horizontal));
+            VectFuerzasFicticiasEquivCombinadaXCommand = new RelayCommand(o => ShowVectorFuerzasFicticiasEquivCombinada(Enums.SideType.Horizontal));
+            VectFuerzasCortantesDisenioCombinadaXCommand = new RelayCommand(o => ShowVectorFuerzasCortantesDisenioCombinada(Enums.SideType.Horizontal));
+            VectDesplazamientosSSRSXCommand = new RelayCommand(o => ShowVectorDesplazamientosSSRS(Enums.SideType.Horizontal));
             VectorFuerzasCortantsDisenioEstaticoXCommand = new RelayCommand(o => ShowVectorDeterminacionFuerzasCortantes(Enums.SideType.Horizontal));
             DesplazamientosLateralesXCommand = new RelayCommand(o => ShowVectorDesplazamientosLaterales(Enums.SideType.Horizontal));
             EstimPeriodoFundamentalEstructXCommand = new RelayCommand(o => ShowEstimacionPeriodoFundamentalEstructura(Enums.SideType.Horizontal));
             FuerzasCortantesXCommand = new RelayCommand(o => ShowFuerzasCortantes(Enums.SideType.Horizontal));
 
-
+            //Comandos Y(Verticales)
             VectorRigidecesYCommand = new RelayCommand(o => ShowVectorRigideces(Enums.SideType.Vertical));
             VectorMasasYCommand = new RelayCommand(o => ShowVectorMasas());
             MatrizMasasYCommand = new RelayCommand(o => ShowMatrizMasas(Enums.SideType.Vertical));
@@ -157,11 +183,19 @@ namespace StructureSystem.ViewModel
             VectorMasasEfectivasYCommand = new RelayCommand(o => ShowVectorMasasEfectivas(Enums.SideType.Vertical));
             MatrizFactPartMasasModalesYCommand = new RelayCommand(o => ShowMatrizFactParticipacionMasasModales(Enums.SideType.Vertical));
             ParticipacionMasasYCommand = new RelayCommand(o => ShowVectorParticipacionMasas(Enums.SideType.Vertical));
-            GammaYCommand = new RelayCommand(o => ShowGamma(Enums.SideType.Vertical));
             EspectroDisenioYCommand = new RelayCommand(o => ShowEspectroDisenio(Enums.SideType.Vertical));
             VectorAceleracionesYCommand = new RelayCommand(o => ShowVectorAcceleraciones(Enums.SideType.Vertical));
-            VectorFuerzasFicticiasEquivYCommand = new RelayCommand(o => ShowVectorFuerzasFicticiasEquivalentes(Enums.SideType.Vertical));
+            GammaYCommand = new RelayCommand(o => ShowGamma(Enums.SideType.Vertical));
+            AceleracionPorModoYCommand = new RelayCommand(o => ShowAceleracionPorModo(Enums.SideType.Vertical));
+            VectAceleracionPorModoYCommand = new RelayCommand(o => ShowVectAceleracionPorModo(Enums.SideType.Vertical));
+            FuerzasFicticiasEquivPorModoYCommand = new RelayCommand(o => ShowFuerzasFicticiasEquivPorModo(Enums.SideType.Vertical));
             VectorFuerzasCortantsDisenioYCommand = new RelayCommand(o => ShowVectorFuerzasCortantesDisenio(Enums.SideType.Vertical));
+            DesplazamientoAzoteaPorModoYCommand = new RelayCommand(o => ShowDesplazamientoAzoteaPorModo(Enums.SideType.Vertical));
+            DesplazamientoEntrepisoPorModoYCommand = new RelayCommand(o => ShowDesplazamientoEntrepisoPorModo(Enums.SideType.Vertical));
+            VectorAceleracionCombinadaYCommand = new RelayCommand(o => ShowVectorAceleracionCombinada(Enums.SideType.Vertical));
+            VectFuerzasFicticiasEquivCombinadaYCommand = new RelayCommand(o => ShowVectorFuerzasFicticiasEquivCombinada(Enums.SideType.Vertical));
+            VectFuerzasCortantesDisenioCombinadaYCommand = new RelayCommand(o => ShowVectorFuerzasCortantesDisenioCombinada(Enums.SideType.Vertical));
+            VectDesplazamientosSSRSYCommand = new RelayCommand(o => ShowVectorDesplazamientosSSRS(Enums.SideType.Vertical));
             VectorFuerzasCortantsDisenioEstaticoYCommand = new RelayCommand(o => ShowVectorDeterminacionFuerzasCortantes(Enums.SideType.Vertical));
             DesplazamientosLateralesYCommand = new RelayCommand(o => ShowVectorDesplazamientosLaterales(Enums.SideType.Vertical));
             EstimPeriodoFundamentalEstructYCommand = new RelayCommand(o => ShowEstimacionPeriodoFundamentalEstructura(Enums.SideType.Vertical));
@@ -175,6 +209,71 @@ namespace StructureSystem.ViewModel
 
 
         #region Metodos operacionales
+
+        private void ShowAceleracionPorModo(Enums.SideType side)
+        {
+            this.ShowGetDataTable();
+            this.HideStaticMethod();
+            this.ContentDT = DataService.GetAceleracionPorModo(side);
+        }
+
+        private void ShowVectAceleracionPorModo(Enums.SideType side)
+        {
+            this.ShowGetDataTable();
+            this.HideStaticMethod();
+            this.ContentDT = DataService.GetVectoresDeAceleracionPorModo(side);
+        }
+
+        private void ShowFuerzasFicticiasEquivPorModo(Enums.SideType side)
+        {
+            this.ShowGetDataTable();
+            this.HideStaticMethod();
+            this.ContentDT = DataService.GetFuerzasFicticiasEquivPorModo(side);
+        }
+
+        private void ShowDesplazamientoAzoteaPorModo(Enums.SideType side)
+        {
+            this.ShowGetDataTable();
+            this.HideStaticMethod();
+            this.QVisible = "Visible";
+            this.SideTemp = side;
+        }
+
+        private void ShowDesplazamientoEntrepisoPorModo(Enums.SideType side)
+        {
+
+            this.ShowGetDataTable();
+            this.HideStaticMethod();
+            this.ContentDT = DataService.GetDesplazamientoEntrepisoPorModo(side);
+        }
+
+        private void ShowVectorAceleracionCombinada(Enums.SideType side)
+        {
+            this.ShowGetDataTable();
+            this.HideStaticMethod();
+            this.ContentDT = DataService.GetVectorAceleracionCombinada(side);
+        }
+
+        private void ShowVectorFuerzasFicticiasEquivCombinada(Enums.SideType side)
+        {
+            this.ShowGetDataTable();
+            this.HideStaticMethod();
+            this.ContentDT = DataService.GetVectorFuerzasFicticiasEquivCombinada(side);
+        }
+
+        private void ShowVectorFuerzasCortantesDisenioCombinada(Enums.SideType side)
+        {
+            this.ShowGetDataTable();
+            this.HideStaticMethod();
+            this.ContentDT = DataService.GetVectorFuerzasCortantesDisenioCombinada(side);
+        }
+
+        private void ShowVectorDesplazamientosSSRS(Enums.SideType side)
+        {
+            this.ShowGetDataTable();
+            this.HideStaticMethod();
+            this.ContentDT = DataService.GetVectorDesplazamientosCombinados(side);
+        }
 
         private void EliminarEspectroDisenioData()
         {
@@ -343,18 +442,21 @@ namespace StructureSystem.ViewModel
         private void ShowVectorAcceleraciones(Enums.SideType side)
         {
             this.ShowGetDataTable();
+            this.HideStaticMethod();
             this.ContentDT = DataService.GetVectorAceleraciones(side);
         }
 
         private void ShowVectorFuerzasFicticiasEquivalentes(Enums.SideType side)
         {
             this.ShowGetDataTable();
+            this.HideStaticMethod();
             this.ContentDT = DataService.GetVectorFuerzasFicticiasEquivalentes(side);
         }
 
         private void ShowVectorFuerzasCortantesDisenio(Enums.SideType side)
         {
             this.ShowGetDataTable();
+            this.HideStaticMethod();
             this.ContentDT = DataService.GetVectorFuerzasCortantesDisenio(side);
         }
 
@@ -362,37 +464,41 @@ namespace StructureSystem.ViewModel
         {
             this.ShowGetDataTable();
             ShowStaticMethod();
-            if (c > 0 && Q > 0 & R > 0)
-                this.ContentDT = DataService.GetVectorDeterminacionFuerzasCortantes(c, Q, R, side);
+            this.SideTemp = side;
         }
 
         private void ShowVectorDesplazamientosLaterales(Enums.SideType side)
         {
+
             this.ShowGetDataTable();
+            this.HideStaticMethod();
             this.ContentDT = DataService.GetVectorDesplazamientosLaterales(side);
         }
 
         private void ShowEstimacionPeriodoFundamentalEstructura(Enums.SideType side)
         {
             this.ShowGetDataTable();
+            this.HideStaticMethod();
             this.ContentDT = DataService.GetEstimacionPeriodoFundamentalEstructura(side);
         }
 
         private void ShowFuerzasCortantes(Enums.SideType side)
         {
             this.ShowGetDataTable();
+            this.HideStaticMethod();
             this.ContentDT = DataService.GetFuerzasCortantes(side);
         }
 
         private void ShowGetDataTable()
         {
-
+            this.ContentDT.Clear();
             this.DTContentSet = "Hidden";
             this.DTContentGet = "Visible";
         }
 
         private void ShowSetDataGrid()
         {
+            this.ContentDT.Clear();
             this.DTContentSet = "Visible";
             this.DTContentGet = "Hidden";
             this.IsEspectroDisenio = "Visible";
@@ -403,12 +509,13 @@ namespace StructureSystem.ViewModel
 
             this.IsStaticV = "Visible";
             this.IsEspectroDisenio = "Hidden";
-
+            this.QVisible = "Visible";
         }
 
         private void HideStaticMethod()
         {
             this.IsStaticV = "Hidden";
+            this.QVisible = "Hidden";
             this.IsEspectroDisenio = "Hidden";
         }
         #endregion
@@ -418,6 +525,7 @@ namespace StructureSystem.ViewModel
 
         #region Properties
 
+        Enums.SideType SideTemp { get; set; }
         private double c_;
         public double c
         {
@@ -427,7 +535,12 @@ namespace StructureSystem.ViewModel
             }
             set
             {
-                c_ = value;
+                if (c_ != value)
+                    c_ = value;
+
+                if (c > 0 && Q > 0 & R > 0)
+                    this.ContentDT = DataService.GetVectorDeterminacionFuerzasCortantes(c, Q, R, SideTemp);
+
                 OnPropertyChanged("c");
             }
         }
@@ -440,7 +553,19 @@ namespace StructureSystem.ViewModel
             }
             set
             {
-                Q_ = value;
+                if (value != Q_)
+                    Q_ = value;
+
+                if (QVisible == "Visible" && IsStaticV == "Visible")
+                {
+                    if (c > 0 && Q > 0 & R > 0)
+                        this.ContentDT = DataService.GetVectorDeterminacionFuerzasCortantes(c, Q, R, SideTemp);
+                }
+                else if (QVisible == "Visible" && IsStaticV == "Hidden")
+                {
+                    this.ContentDT = DataService.GetDesplazamientoAzoteaPorModo(SideTemp, Q_);
+                }
+
                 OnPropertyChanged("Q");
             }
         }
@@ -453,7 +578,11 @@ namespace StructureSystem.ViewModel
             }
             set
             {
-                R_ = value;
+                if (value != R_)
+                    R_ = value;
+                if (c > 0 && Q > 0 & R > 0)
+                    this.ContentDT = DataService.GetVectorDeterminacionFuerzasCortantes(c, Q, R, SideTemp);
+
                 OnPropertyChanged("R");
             }
         }
@@ -485,6 +614,21 @@ namespace StructureSystem.ViewModel
             {
                 IsStaticV_ = value;
                 OnPropertyChanged("IsStaticV");
+            }
+        }
+
+        private string QVisible_ = "Hidden";
+        public string QVisible
+        {
+            get
+            {
+                return QVisible_;
+            }
+
+            set
+            {
+                QVisible_ = value;
+                OnPropertyChanged("QVisible");
             }
         }
 
