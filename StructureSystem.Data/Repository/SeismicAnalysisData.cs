@@ -16,11 +16,11 @@ namespace StructureSystem.Data
         public bool Create(XMLSeismicAnalysisData document)
         {
             bool result = false;
-           
+
             XDocument doc = XDocument.Load(document.DocumentPath);
             var root = doc.Root.Elements("DisenioEspectral").LastOrDefault();
 
-          
+
             var Rows = doc.Root.Elements("DisenioEspectral")
                      .SelectMany(x => x.Elements("Row"))
                      .ToList();
@@ -31,7 +31,7 @@ namespace StructureSystem.Data
             foreach (var item in document.DisenioEspectral)
             {
                 root.Add(
-                     new XElement("Row", new XAttribute("T",item.T ), new XAttribute("S",item.S))
+                     new XElement("Row", new XAttribute("T", item.T), new XAttribute("S", item.S))
                      );
             }
 
@@ -55,14 +55,14 @@ namespace StructureSystem.Data
             {
                 EspectroDisenio st = new EspectroDisenio();
 
-                    st.T = Convert.ToDouble((string)row.Attribute("T"));
-                    st.S = Convert.ToDouble((string)row.Attribute("S"));                
+                st.T = Convert.ToDouble((string)row.Attribute("T"));
+                st.S = Convert.ToDouble((string)row.Attribute("S"));
 
                 result.Add(st);
             }
 
 
-            
+
             return result;
         }
 
@@ -135,6 +135,36 @@ namespace StructureSystem.Data
         public bool Update(XMLSeismicAnalysisData entity)
         {
             throw new NotImplementedException();
+        }
+
+        public bool GuardarProps(string document, double c, double Q, double R)
+        {
+            bool result = false;
+            try
+            {
+                XDocument doc = XDocument.Load(document);
+                var root = doc.Root.Elements("GeneralData").LastOrDefault();
+
+                bool existsObj = root.Attribute("c") != null || root.Attribute("Q") != null || root.Attribute("R") != null ? true : false;
+
+
+                if (!existsObj)
+                    root.Add(new XAttribute("c", c), new XAttribute("Q", Q), new XAttribute("R", R));
+                else
+                {
+                    root.Attribute("c").Value = c.ToString();
+                    root.Attribute("Q").Value = Q.ToString();
+                    root.Attribute("R").Value = R.ToString();
+                }
+
+                doc.Save(document);
+            }
+            catch (Exception ex)
+            {
+
+            }
+           
+            return result;
         }
     }//end of class
 }//end of namespace

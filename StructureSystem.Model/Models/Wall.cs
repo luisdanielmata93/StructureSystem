@@ -33,17 +33,30 @@ namespace StructureSystem.Model
         public double AreaLongitudinal { get; set; }
         public double RigidezLateral { get; set; }
 
+        public double WMuro { get; set; }
+        public double WLosa { get; set; }
+        public double MSup { get; set; }
+        public double WTotal { get; set; }
+
+
         public double CortanteDirecto { get; set; }
 
         public string Clasificacion { get; set; }
         public double ExcentricidadDisenioX { get; set; }
         public double ExcentricidadDisenioY { get; set; }
 
-        public double CortantePorTorsion { get; set; }
+        public double CortantePorTorsionX { get; set; }
+        public double CortantePorTorsionY { get; set; }
+
+
         public double CortanteTotales { get; set; }
         public double MomentoVolteo { get; set; }
+
         public double CargaAxialMaxima { get; set; }
         public double CargaAxialSismo { get; set; }
+
+
+        public double Peso { get; set; }
 
         private List<string> WallTypes_;
         public List<string> WallTypes

@@ -1449,11 +1449,20 @@ namespace StructureSystem.BusinessRules.Services
             return result;
         }
 
+
+
         #endregion
 
 
         #region GetDocument
 
+        private void GuardarPropiedadesEstaticas()
+        {
+            using (var data = UnitOfWork.Create())
+            {
+                var documentInfo = data.Repositories.DocumentDataContext.SeismicAnalysisData.GuardarProps(GetDocumentPath(), c, Q, R);
+            }
+        }
         private string GetDocumentPath()
         {
             return configData.GetElementByName("LastDocument");
@@ -1462,7 +1471,54 @@ namespace StructureSystem.BusinessRules.Services
         #endregion
 
         #region Properties
-        private static double c = 0, Q = 0, R = 0;
+        private static double c_;
+        public double c
+        {
+            get
+            {
+                return c_;
+            }
+            set
+            {
+                if (value != c_)
+                    c_ = value;
+                    GuardarPropiedadesEstaticas();
+
+            }
+        }
+        private static double Q_;
+        public double Q
+        {
+            get
+            {
+                return Q_;
+            }
+            set
+            {
+                if (value != Q_)
+                    Q_ = value;
+                    GuardarPropiedadesEstaticas();
+
+            }
+        }
+
+        private static double R_;
+        public double R
+        {
+            get
+            {
+                return R_;
+            }
+            set
+            {
+                if (value != R_)
+                    R_ = value;
+                    GuardarPropiedadesEstaticas();
+
+            }
+        }
+
+
         private WebConfig configData;
         private XMLSeismicAnalysisData dataXml;
         private List<Material> MaterialCollection;

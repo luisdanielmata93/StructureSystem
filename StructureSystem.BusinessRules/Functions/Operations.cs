@@ -24,11 +24,11 @@ namespace StructureSystem.BusinessRules.Functions
             try
             {
                 int n = M.GetLength(0);
-             
+
                 for (int i = 0; i < k.GetLength(0); i++)
                     for (int j = 0; j < k.GetLength(1); j++)
                         k[i, j] = k[i, j] * 981;
-             
+
 
                 //M = new double[,]
                 //    {
@@ -269,7 +269,7 @@ namespace StructureSystem.BusinessRules.Functions
                 {
                     for (int j = 0; j < resTemp.GetLength(1); j++)
                     {
-                        Espectral[i, j] = resTemp[n-1-i,n-1-j]; 
+                        Espectral[i, j] = resTemp[n - 1 - i, n - 1 - j];
                     }
                 }
 
@@ -576,8 +576,8 @@ namespace StructureSystem.BusinessRules.Functions
                     double Temp1 = 0, Temp2 = 0;
                     for (int j = 0; j < M.GetLength(1); j++)
                     {
-                        Temp1 += M[n-1-i, j] * phiAux[i, j];
-                        Temp2 += M[n-1-i, j] * Math.Pow(phiAux[i, j], 2);
+                        Temp1 += M[n - 1 - i, j] * phiAux[i, j];
+                        Temp2 += M[n - 1 - i, j] * Math.Pow(phiAux[i, j], 2);
                     }
                     result[i] = Temp1 / Temp2;
                 }
@@ -714,7 +714,7 @@ namespace StructureSystem.BusinessRules.Functions
                 {
                     for (int j = 0; j < n; j++)
                     {
-                        result[i, j] = (A[i, j] * m[n - 1 - i])/1000;
+                        result[i, j] = (A[i, j] * m[n - 1 - i]) / 1000;
                     }
                 }
 
@@ -775,7 +775,6 @@ namespace StructureSystem.BusinessRules.Functions
             return result;
         }
 
-
         public static double[] CalcularDesplazamientoEnAzotea(double[,] A, double[] w, double Q)
         {
             int n = A.GetLength(0);
@@ -787,7 +786,7 @@ namespace StructureSystem.BusinessRules.Functions
                 for (int i = 0; i < n; i++)
                 {
                     var a = w[i] / (2 * PI);
-                    result[i] = (A[i, 0]/10) * (Math.Pow(a, 2) * Q);
+                    result[i] = (A[i, 0] / 10) * (Math.Pow(a, 2) * Q);
                 }
 
             }
@@ -799,7 +798,7 @@ namespace StructureSystem.BusinessRules.Functions
             return result;
         }
 
-        public static double[,] CalcularDesplazamientoEntrepiso(double[] D, double[,]phi)
+        public static double[,] CalcularDesplazamientoEntrepiso(double[] D, double[,] phi)
         {
             double[,] result = new double[D.Length, D.Length];
 
@@ -824,7 +823,6 @@ namespace StructureSystem.BusinessRules.Functions
             return result;
         }
 
-
         public static double[] CalcularVectorDeAceleracionCombinada(double[,] A)
         {
             int n = A.GetLength(0);
@@ -837,7 +835,7 @@ namespace StructureSystem.BusinessRules.Functions
                 {
                     for (int j = 0; j < n; j++)
                     {
-                        result[i] += Math.Pow(A[j,i],2);
+                        result[i] += Math.Pow(A[j, i], 2);
                     }
                     result[i] = Math.Sqrt(result[i]);
                 }
@@ -867,7 +865,7 @@ namespace StructureSystem.BusinessRules.Functions
                         result[i] += Math.Pow(P[j, i], 2);
                     }
 
-                    result[i] = Math.Sqrt(result[i]) / 1000;
+                    result[i] = Math.Sqrt(result[i]);
                 }
 
             }
@@ -875,7 +873,6 @@ namespace StructureSystem.BusinessRules.Functions
             {
 
             }
-
 
             return result;
         }
@@ -1064,62 +1061,342 @@ namespace StructureSystem.BusinessRules.Functions
             return result;
         }
 
-        public static double CalcularFuerzasCortantesDirectas(Enums.SideType side)
+        public static double CalcularFuerzasCortantesDirectas(Wall wall, double Fc, double RlTotal)
         {
-            double result = 2222.32234234;
+            double result = 0;
 
+            result = (wall.RigidezLateral * Fc) / RlTotal;
 
-
-            return 0;
+            return Math.Round(result, 5);
         }
 
-        public static string CalcularClasificacionMuro(Enums.SideType side)
+        public static string CalcularClasificacionMuro(double CM, double CT, Wall wall)
         {
             string result = "Clasificacion";
 
+            if (wall.Side.Equals(Enums.SideType.Horizontal))
+            {
+                if (CM < CT)
+                {
+                    if (wall.PositionY <= CM)
+                        result = "Flexible";
+                    else
+                        result = "Rigido";
+                }
+                else
+                {
+                    if (wall.PositionY <= CM)
+                        result = "Rigido";
+                    else
+                        result = "Flexible";
+                }
+            }
+            if (wall.Side.Equals(Enums.SideType.Vertical))
+            {
+                if (CM < CT)
+                {
+                    if (wall.PositionX <= CM)
+                        result = "Flexible";
+                    else
+                        result = "Rigido";
+                }
+                else
+                {
+                    if (wall.PositionX <= CM)
+                        result = "Rigido";
+                    else
+                        result = "Flexible";
+                }
+            }
+
             return result;
         }
 
-        public static double CalcularExcentricidadesDisenio(Enums.Coordenate coordenate, Enums.SideType side)
+        public static double CalcularExcentricidadesDisenio(double EE, double EA, string classific, Enums.SideType side, Enums.Coordenate coordenate)
         {
-            double result = 2222.32234234;
-            return result;
+            double result = 0;
+
+
+            if (side.Equals(Enums.SideType.Horizontal))
+            {
+                if (coordenate.Equals(Enums.Coordenate.X))
+                    result = 1.5 * EE + EA;
+
+                if (coordenate.Equals(Enums.Coordenate.Y))
+                {
+                    if (classific.Equals("Flexible"))
+                        result = 1.5 * EE + EA;
+                    else
+                    {
+                        if (Math.Abs(EE) > EA)
+                            result = 0;
+                        else
+                            result = EA - Math.Abs(EE);
+                    }
+                }
+            }
+            if (side.Equals(Enums.SideType.Vertical))
+            {
+                if (coordenate.Equals(Enums.Coordenate.X))
+                {
+                    if (classific.Equals("Flexible"))
+                        result = 1.5 * EE + EA;
+                    else
+                    {
+                        if (Math.Abs(EE) > EA)
+                            result = 0;
+                        else
+                            result = EA - Math.Abs(EE);
+                    }
+                }
+                if (coordenate.Equals(Enums.Coordenate.Y))
+                    result = 1.5 * EE + EA;
+            }
+
+            return Math.Round(result, 5);
         }
 
-        public static double CalcularCortanteTorsion(Enums.SideType side)
-        {
-            double result = 2222.32234234;
-            return result;
 
+        public static double CalcularCortanteTorsion(Wall wall, double CTX, double CTY, double EEX, double EEY, double EAX, double EAY, double RTE, double Fcx, double Fcy, Enums.Coordenate coordenate)
+        {
+            //s - Estatica a - Accidental
+            double result = 0;
+            if (wall.Side.Equals(Enums.SideType.Horizontal))
+            {
+                if (wall.Clasificacion.Equals("Flexible"))
+                {
+                    if (coordenate.Equals(Enums.Coordenate.X))
+                    {
+                        double dif = wall.PositionY - CTY;
+                        result = wall.RigidezLateral * Math.Abs(dif) / RTE * (1.5 * Fcx * EEY);
+                    }
+                    if (coordenate.Equals(Enums.Coordenate.Y))
+                    {
+                        double dif = wall.PositionY - CTY;
+                        double a = EAY * Fcx;
+                        double b = 0.3 * EAX * Fcy;
+                        result = wall.RigidezLateral * Math.Abs(dif) / RTE * (0.3 * 1.5 * Fcy * EEX + Math.Max(a, b));
+                    }
+                }
+                else if (wall.Clasificacion.Equals("Rigido"))
+                {
+                    if (coordenate.Equals(Enums.Coordenate.X))
+                    {
+                        double dif = wall.PositionY - CTY;
+                        result = wall.RigidezLateral * Math.Abs(dif) / RTE * (0.3 * 1.5 * Fcy * EEX);
+                    }
+                    if (coordenate.Equals(Enums.Coordenate.Y))
+                    {
+                        double dif = wall.PositionY - CTY;
+                        double a = 0.3 * EAX * Fcy;
+                        double b = 0;
+                        if (EEY < EAY)
+                            b = (EAY - EEY) * Fcx;
+                        result = wall.RigidezLateral * Math.Abs(dif) / RTE * Math.Max(a, b);
+                    }
+                }
+            }
+
+            if (wall.Side.Equals(Enums.SideType.Vertical))
+            {
+                if (wall.Clasificacion.Equals("Flexible"))
+                {
+                    if (coordenate.Equals(Enums.Coordenate.X))
+                    {
+                        double dif = wall.PositionX - CTX;
+                        double a = EAX * Fcy;
+                        double b = 0.3 * EAY * Fcx;
+                        result = wall.RigidezLateral * Math.Abs(dif) / RTE * (0.3 * 1.5 * Fcx * EEY + Math.Max(a, b));
+                    }
+                    if (coordenate.Equals(Enums.Coordenate.Y))
+                    {
+                        double dif = wall.PositionX - CTX;
+                        result = wall.RigidezLateral * Math.Abs(dif) / RTE * (1.5 * Fcy * EEX);
+                    }
+                }
+                else if (wall.Clasificacion.Equals("Rigido"))
+                {
+                    if (coordenate.Equals(Enums.Coordenate.X))
+                    {
+                        double dif = wall.PositionX - CTX;
+                        double a = 0;
+                        if (EEX < EAX)
+                            a = (EAX - EEX) * Fcy;
+                        double b = 0.3 * EAY * Fcx;
+                        result = wall.RigidezLateral * Math.Abs(dif) / RTE * Math.Max(a, b);
+                    }
+                    if (coordenate.Equals(Enums.Coordenate.Y))
+                    {
+                        double dif = wall.PositionX - CTX;
+                        result = wall.RigidezLateral * Math.Abs(dif) / RTE * (0.3 * 1.5 * Fcx * EEY);
+                    }
+                }
+            }
+            return Math.Round(result, 5);
         }
 
-        public static double CalcularCortantesTotales(Enums.SideType side)
+        public static double CalcularCortantesTotales(Wall wall)
         {
-            double result = 2222.32234234;
+            double result = wall.CortanteDirecto + wall.CortantePorTorsionX + wall.CortantePorTorsionY;
 
-
-
-            return result;
+            return Math.Round(result, 5);
         }
 
-        public static double CalcularMomentoVolteo(Enums.SideType side)
+        public static double CalcularMomentoVolteo(Wall wall, double RE, double MV)
         {
-            double result = 2222.32234234;
-            return result;
-        }
+            double result = 0;
 
+            result = MV * wall.RigidezLateral / RE;
 
-        public static double CalcularCargaAxialUltima(Enums.SideType side)
-        {
-            double result = 2222.32234234;
-            return result;
+            return Math.Round(result, 5);
         }
 
 
-        public static double CalcularCargaAxialDeSismo(Enums.SideType side)
+        public static double CalcularCargaAxialUltima(Wall wall, XMLLoadAnalysisData entrepiso, int nivel, Structure structure, List<Material> materials)
         {
-            double result = 2222.32234234;
-            return result;
+            double result = 0, CM = 0, CV = 0, P = 0, A = 0;
+
+            if (entrepiso.LosaMacizaAzoteaP != null)
+            {
+                CM = entrepiso.LosaMacizaAzoteaP.CargaMuerta;
+                CV = entrepiso.LosaMacizaAzoteaP.CargaVivaMaxima;
+            }
+            if (entrepiso.LosaMacizaEntrepisoP != null)
+            {
+                CM = entrepiso.LosaMacizaEntrepisoP.CargaMuerta;
+                CV = entrepiso.LosaMacizaEntrepisoP.CargaVivaMaxima;
+            }
+            if (entrepiso.LosaNervadaAzoteaP != null)
+            {
+                CM = entrepiso.LosaNervadaAzoteaP.CargaMuerta;
+                CV = entrepiso.LosaNervadaAzoteaP.CargaVivaMaxima;
+            }
+            if (entrepiso.LosaNervadaEntrepisoP != null)
+            {
+                CM = entrepiso.LosaNervadaEntrepisoP.CargaMuerta;
+                CV = entrepiso.LosaNervadaEntrepisoP.CargaVivaMaxima;
+            }
+            if (entrepiso.LosaViguetaBovedillaAzoteaP != null)
+            {
+                CM = entrepiso.LosaViguetaBovedillaAzoteaP.CargaMuerta;
+                CV = entrepiso.LosaViguetaBovedillaAzoteaP.CargaVivaMaxima;
+            }
+            if (entrepiso.LosaViguetaBovedillaEntrepisoP != null)
+            {
+                CM = entrepiso.LosaViguetaBovedillaEntrepisoP.CargaMuerta;
+                CV = entrepiso.LosaViguetaBovedillaEntrepisoP.CargaVivaMaxima;
+            }
+            if (entrepiso.LosaOtroTipoP != null)
+            {
+                CM = entrepiso.LosaOtroTipoP.CargaMuerta;
+                CV = entrepiso.LosaOtroTipoP.CargaVivaMaxima;
+            }
+
+            double X = wall.PositionX;
+            double Y = wall.PositionY;
+            int n = structure.Storeys.Count - 1;
+            if (wall.Side.Equals(Enums.SideType.Horizontal))
+            {
+                if (nivel == n + 1)
+                {
+                    wall.Peso = wall.Thickness / 100 * wall.Height / 100 * wall.Length / 100 * Convert.ToDouble(materials.Single(mat => mat.Name == wall.Material).PV);
+                    result = wall.Peso + (1.3 * CM + 1.5 * CV) * wall.TributaryArea;
+                }
+                else
+                {
+                    wall.Peso = wall.Thickness / 100 * wall.Height / 100 * wall.Length / 100 * Convert.ToDouble(materials.Single(mat => mat.Name == wall.Material).PV);
+                    result = wall.Peso + (1.3 * CM + 1.5 * CV) * wall.TributaryArea;
+                }
+            }
+            if (wall.Side.Equals(Enums.SideType.Vertical))
+            {
+                if (nivel == n + 1)
+                {
+                    wall.Peso = wall.Thickness / 100 * wall.Height / 100 * wall.Length / 100 * Convert.ToDouble(materials.Single(mat => mat.Name == wall.Material).PV);
+                    result = wall.Peso + (1.3 * CM + 1.5 * CV) * wall.TributaryArea;
+                }
+                else
+                {
+                    wall.Peso = wall.Thickness / 100 * wall.Height / 100 * wall.Length / 100 * Convert.ToDouble(materials.Single(mat => mat.Name == wall.Material).PV);
+                    result = wall.Peso + (1.3 * CM + 1.5 * CV) * wall.TributaryArea;
+                }
+            }
+
+            return Math.Round(result, 5);
+        }
+
+
+        public static double CalcularCargaAxialDeSismo(Wall wall, XMLLoadAnalysisData entrepiso, int nivel, Structure structure, List<Material> materials)
+        {
+            double result = 0, CM = 0, CV = 0, P = 0, A = 0;
+
+            if (entrepiso.LosaMacizaAzoteaP != null)
+            {
+                CM = entrepiso.LosaMacizaAzoteaP.CargaMuerta;
+                CV = entrepiso.LosaMacizaAzoteaP.CargaVivaInstantanea;
+            }
+            if (entrepiso.LosaMacizaEntrepisoP != null)
+            {
+                CM = entrepiso.LosaMacizaEntrepisoP.CargaMuerta;
+                CV = entrepiso.LosaMacizaEntrepisoP.CargaVivaInstantanea;
+            }
+            if (entrepiso.LosaNervadaAzoteaP != null)
+            {
+                CM = entrepiso.LosaNervadaAzoteaP.CargaMuerta;
+                CV = entrepiso.LosaNervadaAzoteaP.CargaVivaInstantanea;
+            }
+            if (entrepiso.LosaNervadaEntrepisoP != null)
+            {
+                CM = entrepiso.LosaNervadaEntrepisoP.CargaMuerta;
+                CV = entrepiso.LosaNervadaEntrepisoP.CargaVivaInstantanea;
+            }
+            if (entrepiso.LosaViguetaBovedillaAzoteaP != null)
+            {
+                CM = entrepiso.LosaViguetaBovedillaAzoteaP.CargaMuerta;
+                CV = entrepiso.LosaViguetaBovedillaAzoteaP.CargaVivaInstantanea;
+            }
+            if (entrepiso.LosaViguetaBovedillaEntrepisoP != null)
+            {
+                CM = entrepiso.LosaViguetaBovedillaEntrepisoP.CargaMuerta;
+                CV = entrepiso.LosaViguetaBovedillaEntrepisoP.CargaVivaInstantanea;
+            }
+            if (entrepiso.LosaOtroTipoP != null)
+            {
+                CM = entrepiso.LosaOtroTipoP.CargaMuerta;
+                CV = entrepiso.LosaOtroTipoP.CargaVivaInstantanea;
+            }
+
+            double X = wall.PositionX;
+            double Y = wall.PositionY;
+            int n = structure.Storeys.Count - 1;
+            if (wall.Side.Equals(Enums.SideType.Horizontal))
+            {
+                if (nivel == n + 1)
+                {
+                    wall.Peso = wall.Thickness / 100 * wall.Height / 100 * wall.Length / 100 * Convert.ToDouble(materials.Single(mat => mat.Name == wall.Material).PV);
+                    result = wall.Peso + (CM + CV) * wall.TributaryArea;
+                }
+                else
+                {
+                    wall.Peso = wall.Thickness / 100 * wall.Height / 100 * wall.Length / 100 * Convert.ToDouble(materials.Single(mat => mat.Name == wall.Material).PV);
+                    result = wall.Peso + (CM + CV) * wall.TributaryArea;
+                }
+            }
+            if (wall.Side.Equals(Enums.SideType.Vertical))
+            {
+                if (nivel == n + 1)
+                {
+                    wall.Peso = wall.Thickness / 100 * wall.Height / 100 * wall.Length / 100 * Convert.ToDouble(materials.Single(mat => mat.Name == wall.Material).PV);
+                    result = wall.Peso + (CM + CV) * wall.TributaryArea;
+                }
+                else
+                {
+                    wall.Peso = wall.Thickness / 100 * wall.Height / 100 * wall.Length / 100 * Convert.ToDouble(materials.Single(mat => mat.Name == wall.Material).PV);
+                    result = wall.Peso + (CM + CV) * wall.TributaryArea;
+                }
+            }
+
+            return Math.Round(result, 5);
         }
 
 
@@ -1194,65 +1471,163 @@ namespace StructureSystem.BusinessRules.Functions
             return result;
         }
 
-        public static double CalcularCentroDeMasas(Storey storey, Enums.Coordenate coordenate)
+        public static double CalcularCentroDeMasas(Storey piso, Enums.Coordenate coordenate)
         {
-            double result = 3333.333;
-            return result;
+            double result = 0, a = 0, b = 0;
+            try
+            {
+                if (coordenate.Equals(Enums.Coordenate.X))
+                {
+                    foreach (var muro in piso.HorizontalWalls)
+                    {
+                        a += muro.PositionY * muro.WTotal;
+                        b += muro.WTotal;
+                    }
+
+                }
+                if (coordenate.Equals(Enums.Coordenate.Y))
+                {
+                    foreach (var muro in piso.VerticalWalls)
+                    {
+                        a += muro.PositionX * muro.WTotal;
+                        b += muro.WTotal;
+                    }
+                }
+
+                result = a / b;
+
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return Math.Round(result, 5);
         }
-        public static double CalcularCentroCortante(Storey storey, Enums.Coordenate coordenate)
+
+        public static double CalcularCentroCortante(double V, double Fc, double CM, Enums.Coordenate coordenate, bool isLast, double CMant = 0, double Fca = 0)
         {
-            double result = 4444.444;
 
+            double result = 0, a = 0, b = 0;
+            try
+            {
+                if (isLast)
+                {
+                    result += (Fc * CM) / V;
+                }
+                else
+                {
+                    result += ((Fc * CM) + (Fca * CMant)) / V;
+                }
+            }
+            catch (Exception ex)
+            {
 
-            return result;
+            }
+
+            return Math.Round(result, 5);
         }
 
         public static double CalcularCentroTorsion(Storey storey, Enums.Coordenate coordenate)
         {
-            double result = 3333.333;
+            double result = 0;
 
-
-
-            return result;
+            if (coordenate.Equals(Enums.Coordenate.X))
+            {
+                result = storey.HorizontalWalls.Sum(x => x.RigidezLateral * x.PositionY) / storey.HorizontalWalls.Sum(x => x.RigidezLateral);
+            }
+            if (coordenate.Equals(Enums.Coordenate.Y))
+            {
+                result = storey.VerticalWalls.Sum(x => x.RigidezLateral * x.PositionX) / storey.VerticalWalls.Sum(x => x.RigidezLateral);
+            }
+            return Math.Round(result, 5);
         }
 
 
-        public static double CalcularExcentricidadesEstaticas(Storey storey, Enums.Coordenate coordenate)
+        public static double CalcularExcentricidadesEstaticas(double CM, double CT)
         {
-            double result = 4444.444;
-            return result;
+            double a = Math.Round(CM, 5) - Math.Round(CT, 5);
+            double result = Math.Abs(a);
+            return Math.Round(result, 5);
         }
 
-        public static double CalcularExcentricidadesAccidentales(Storey storey, Enums.Coordenate coordenate)
+        public static double CalcularExcentricidadesAccidentales(int Niveles, Storey storey, Enums.Coordenate coordenate)
         {
-            double result = 3333.333;
-            return result;
+            double result = 0;
+
+            if (coordenate.Equals(Enums.Coordenate.X))
+            {
+
+                double a = storey.VerticalWalls.Max(x => x.PositionX);
+                double b = storey.HorizontalWalls.Max(x => x.PositionX);
+                double Max = 0;
+                if (a > b)
+                    Max = a;
+                else
+                    Max = b;
+
+                result = (0.05 + ((storey.StoreyNumber - 1) / (Niveles - 1)) * 0.05) * Max;
+
+            }
+            if (coordenate.Equals(Enums.Coordenate.Y))
+            {
+                double a = storey.VerticalWalls.Max(x => x.PositionY);
+                double b = storey.HorizontalWalls.Max(x => x.PositionY);
+                double Max = 0;
+                if (a > b)
+                    Max = a;
+                else
+                    Max = b;
+
+                result = (0.05 + ((storey.StoreyNumber - 1) / (Niveles - 1)) * 0.05) * Max;
+            }
+            return Math.Round(result, 5);
         }
 
 
-        public static double CalcularExcentricidadDisenioEntrepiso(Storey storey, Enums.Coordenate coordenate)
+        public static double CalcularExcentricidadDisenioEntrepiso(double EEstatica, double EAccidental)
         {
-            double result = 3333.333;
-            return result;
+            double result = EEstatica + EAccidental;
+            return Math.Round(result, 0);
         }
 
-        public static double CalcularMomentosTorsionantes(Storey storey, Enums.Coordenate coordenate)
+        public static double CalcularMomentosTorsionantes(double ED, double Fs)
         {
-            double result = 3333.333;
-            return result;
+            double result = ED * Fs;
+
+            return Math.Round(result, 5);
         }
 
-        public static double CalcularRigidezTorsionalEntrepiso(Storey storey)
+        public static double CalcularRigidezTorsionalEntrepiso(Storey storey, double CTx, double CTy)
         {
-            double result = 3333.333;
-            return result;
+            double result = 0, a = 0, b = 0;
+
+            foreach (var wall in storey.HorizontalWalls)
+            {
+                a += wall.RigidezLateral * Math.Pow(wall.PositionY - CTy, 2);
+            }
+
+            foreach (var wall in storey.VerticalWalls)
+            {
+                b += wall.RigidezLateral * Math.Pow((wall.PositionX - CTx), 2);
+            }
+
+            result = a + b;
+
+            return Math.Round(result, 5);
         }
 
 
-        public static double CalcularMomentoVolteoEntrepiso(Storey storey, Enums.SideType side)
+        public static double CalcularMomentoVolteoEntrepiso(Storey storey, double CE)
         {
-            double result = 3333.333;
-            return result;
+            double result = 0;
+
+            double Mh = storey.HorizontalWalls.Max(x => x.Height);
+            double Mv = storey.VerticalWalls.Max(x => x.Height);
+            double Max = Math.Max(Mh, Mv);
+
+            result = CE * Max;
+
+            return Math.Round(result, 5);
         }
 
         #endregion

@@ -110,9 +110,31 @@
             <Style x:Key="LittleHeader" TargetType="TextBlock">
                 <Setter Property="FontWeight" Value="DemiBold"/>
                 <Setter Property="FontSize" Value="9"/>
-                <!--<Setter Property="VerticalAlignment" Value="Center"/>
-                <Setter Property="HorizontalAlignment" Value="Left"/>-->
+                <Setter Property="VerticalAlignment" Value="Center"/>
+                <Setter Property="HorizontalAlignment" Value="Left"/>
             </Style>
+            
+            <Style x:Key="LittleHeaderBold" TargetType="TextBlock">
+                <Setter Property="FontWeight" Value="Bold"/>
+                <Setter Property="FontSize" Value="10"/>
+                <Setter Property="VerticalAlignment" Value="Center"/>
+                <Setter Property="HorizontalAlignment" Value="Left"/>
+            </Style>
+
+            <!--<Style TargetType="DataGridCell" x:Key="StyledCells">
+                --><!-- Setter Details --><!--
+                <Setter Property="FontSize" Value="20"/>
+            </Style>
+
+            <Style TargetType="DataGridColumnHeader" x:Key="StyledColumnHeader">
+                --><!-- Setter Details --><!--
+            </Style>
+
+            <Style TargetType="DataGrid">
+                <Setter Property="ColumnHeaderStyle" Value="{DynamicResource StyledColumnHeader}" />
+                <Setter Property="CellStyle" Value="{DynamicResource StyledCells}" />
+            </Style>-->
+
 
 
             <ControlTemplate x:Key="NumericTextBox" TargetType="{x:Type TextBoxBase}">

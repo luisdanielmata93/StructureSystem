@@ -15,5 +15,6 @@ namespace StructureSystem.Data.Model
         ILoadAnalysisRepository LoadAnalysisData { get; }
         IStructureRepository StructureData { get; }
         ISeismicAnalysisRepository SeismicAnalysisData { get; }
+        ISeismicDistributionRepository SeismicDistributionData { get; }
     }//end of interface
 }//end of namespace

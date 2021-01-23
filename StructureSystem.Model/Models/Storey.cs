@@ -55,7 +55,8 @@ namespace StructureSystem.Model
 
         public double RigidezTorsionalEntrepiso { get; set; }
 
-        public double MomentoVolteoEntrepiso { get; set; }
+        public double MomentoVolteoEntrepisoY { get; set; }
+        public double MomentoVolteoEntrepisoX { get; set; }
 
 
         #endregion

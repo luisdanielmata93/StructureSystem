@@ -59,6 +59,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Models\ArrayExt.cs" />
     <Compile Include="Models\Enum.cs" />
     <Compile Include="Models\EspectroDisenio.cs" />
     <Compile Include="Models\FlooringMaterial.cs" />
@@ -83,6 +84,7 @@
     <Compile Include="Models\XMLGeneralData.cs" />
     <Compile Include="Models\XMLLoadAnalysisData.cs" />
     <Compile Include="Models\XMLSeismicAnalysisData.cs" />
+    <Compile Include="Models\XMLSeismicDistributionData.cs" />
     <Compile Include="Models\XMLStructureData.cs" />
     <Compile Include="Models\XMLWallData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
