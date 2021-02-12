@@ -103,12 +103,7 @@ namespace StructureSystem.ViewModel
 
         private void Refresh()
         {
-            //this.Length = 0;
-            //this.TributaryArea = 0;
-            //this.Thickness = 0;
-            //this.Height = 0;
-            //this.PositionX = 0;
-            //this.PositionY = 0;
+          
             OnPropertyChanged("CountH");
             OnPropertyChanged("CountV");
         }

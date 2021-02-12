@@ -33,6 +33,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="JetBrains.Annotations, Version=2020.1.0.0, Culture=neutral, PublicKeyToken=1010a0d8d6380325, processorArchitecture=MSIL">
+      <HintPath>..\packages\JetBrains.Annotations.2020.1.0\lib\net20\JetBrains.Annotations.dll</HintPath>
+    </Reference>
     <Reference Include="MathNet.Numerics, Version=4.12.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\MathNet.Numerics.4.12.0\lib\net40\MathNet.Numerics.dll</HintPath>
     </Reference>
@@ -73,6 +76,7 @@
     <Compile Include="Services\LoadAnalysisService.cs" />
     <Compile Include="Services\SeismicAnalysisService.cs" />
     <Compile Include="Services\SeismicDistributionService.cs" />
+    <Compile Include="Services\StructuralDesignService.cs" />
     <Compile Include="Services\StructureDataService.cs" />
     <Compile Include="Services\WallDataService.cs" />
     <Compile Include="Services\WindowService.cs" />

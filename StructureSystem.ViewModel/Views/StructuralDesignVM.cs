@@ -13,30 +13,32 @@ using Notifications.Wpf;
 using System.Configuration;
 using MahApps.Metro.Controls.Dialogs;
 using StructureSystem.BusinessRules.Services;
-
+using System.ComponentModel;
+using JetBrains.Annotations;
+using System.Runtime.CompilerServices;
 
 namespace StructureSystem.ViewModel
 {
     public class StructuralDesignVM : PropertyChangedViewModel
     {
         #region Constructor
+
         public StructuralDesignVM(PropertyChangedViewModel mainViewModel)
         {
             notificationViewModel = new NotificationViewModel();
 
             this._mainViewModel = mainViewModel;
-
-
             this.SetCommands();
         }
+
+      
+
         #endregion
 
         #region Commands
 
         public ICommand UpdateCommand { get; private set; }
         public ICommand GraphicCommand { get; private set; }
-
-
         #endregion
 
 
@@ -45,17 +47,20 @@ namespace StructureSystem.ViewModel
         private void SetCommands()
         {
             UpdateCommand = new RelayCommand(o => setInitialData());
-            GraphicCommand = new RelayCommand(o => setInitialData());
+            GraphicCommand = new RelayCommand(o => ShowGraph());
 
+        }
+        private void ShowGraph()
+        {
+            var ok = SelectedWall;
+           
         }
 
         private void setInitialData()
         {
             try
-            {
-                this.StructureP = DataService.GetStructure();
-                this.Storeys = new ObservableCollection<Storey>((List<Storey>)StructureP.Storeys);
-
+            {   
+                this.Storeys = new ObservableCollection<Storey>((List<Storey>)DataService.GetStructure().Storeys);
             }
             catch (Exception ex)
             {
@@ -66,25 +71,16 @@ namespace StructureSystem.ViewModel
         #endregion
 
 
+        private void Refresh()
+        {
+            var st = new ObservableCollection<Storey>((List<Storey>)DataService.Update(this.Storeys.ToList()).Storeys);
+            this.Storeys = st;
+        }
+
 
 
 
         #region Properties
-        private Structure Structure_;
-        public Structure StructureP
-        {
-            get
-            {
-                return Structure_;
-            }
-            set
-            {
-                if (value != Structure_)
-                    Structure_ = value;
-
-                OnPropertyChanged("StructureP");
-            }
-        }
 
         private Wall _SelectedWall;
         public Wall SelectedWall
@@ -96,10 +92,15 @@ namespace StructureSystem.ViewModel
             set
             {
                 if (value != _SelectedWall)
+                {
                     _SelectedWall = value;
-                OnPropertyChanged("SelectedWall");
+                    Refresh();
+                    OnPropertyChanged("SelectedWall");
+                }
             }
         }
+
+
 
         public ObservableCollection<Storey> _Storeys;
         public ObservableCollection<Storey> Storeys
@@ -108,15 +109,21 @@ namespace StructureSystem.ViewModel
             set
             {
                 if (value != _Storeys)
+                {
                     _Storeys = value;
-                OnPropertyChanged("Storeys");
+                    OnPropertyChanged("Storeys");
+                }
+                
             }
         }
 
 
-        private readonly SeismicDistributionService DataService = new SeismicDistributionService();
+
+        private readonly StructuralDesignService DataService = new StructuralDesignService();
         private NotificationViewModel notificationViewModel;
         private readonly PropertyChangedViewModel _mainViewModel;
         #endregion
+
+
     }//end of class
 }//end of namespace

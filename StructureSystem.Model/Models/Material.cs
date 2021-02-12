@@ -130,6 +130,32 @@ namespace StructureSystem.Model
             }
         }
 
+        private double _An;
+        public string An 
+        {
+            get
+            {
+                return _An.ToString();
+            }
+            set
+            {
+                _An = FormulaProcessor(value);
+            }
+        }
+
+        private double _Ab;
+        public string Ab 
+        {
+            get
+            {
+                return _Ab.ToString();
+            }
+            set
+            {
+                _Ab = FormulaProcessor(value);
+            }
+        }
+
 
         private double FormulaProcessor(string formula)
         {

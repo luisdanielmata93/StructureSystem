@@ -513,6 +513,17 @@ namespace StructureSystem.BusinessRules.Configuration
             get { return (string)base["PV"]; }
         }
 
+        [ConfigurationProperty("An", IsRequired = false)]
+        public string An
+        {
+            get { return (string)base["An"]; }
+        }
+
+        [ConfigurationProperty("Ab", IsRequired = false)]
+        public string Ab
+        {
+            get { return (string)base["Ab"]; }
+        }
     } //end of ConfigurationObject class
 
     #endregion

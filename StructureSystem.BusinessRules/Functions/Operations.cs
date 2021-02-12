@@ -1399,7 +1399,345 @@ namespace StructureSystem.BusinessRules.Functions
             return Math.Round(result, 5);
         }
 
+        public static double CalcularExcentricidadDeCarga(Wall wall)
+        {
+            double result = (wall.Thickness / 2) - (wall.AnchoDeApoyo / 3);
+            return Math.Round(result, 5);
+        }
 
+        public static double CalcularFactorDeAlturaEfectiva(Wall wall)
+        {
+            double result = 0;
+
+            if (wall.Tipo.Equals("Interior"))
+                result = 0.8;
+            else
+            {
+                if (!wall.RestringidoSuperiorInferior)
+                    result = 2;
+                else
+                    result = 1;
+            }
+
+            return Math.Round(result, 5);
+        }
+
+        public static double CalcularFactorReduccionExcentricidadEsbeltez(Wall wall, XMLLoadAnalysisData entrepiso)
+        {
+            double result = 0, CV = 0, CM = 0;
+            if (entrepiso.LosaMacizaAzoteaP != null)
+            {
+                CM = entrepiso.LosaMacizaAzoteaP.CargaMuerta;
+                CV = entrepiso.LosaMacizaAzoteaP.CargaVivaInstantanea;
+            }
+            if (entrepiso.LosaMacizaEntrepisoP != null)
+            {
+                CM = entrepiso.LosaMacizaEntrepisoP.CargaMuerta;
+                CV = entrepiso.LosaMacizaEntrepisoP.CargaVivaInstantanea;
+            }
+            if (entrepiso.LosaNervadaAzoteaP != null)
+            {
+                CM = entrepiso.LosaNervadaAzoteaP.CargaMuerta;
+                CV = entrepiso.LosaNervadaAzoteaP.CargaVivaInstantanea;
+            }
+            if (entrepiso.LosaNervadaEntrepisoP != null)
+            {
+                CM = entrepiso.LosaNervadaEntrepisoP.CargaMuerta;
+                CV = entrepiso.LosaNervadaEntrepisoP.CargaVivaInstantanea;
+            }
+            if (entrepiso.LosaViguetaBovedillaAzoteaP != null)
+            {
+                CM = entrepiso.LosaViguetaBovedillaAzoteaP.CargaMuerta;
+                CV = entrepiso.LosaViguetaBovedillaAzoteaP.CargaVivaInstantanea;
+            }
+            if (entrepiso.LosaViguetaBovedillaEntrepisoP != null)
+            {
+                CM = entrepiso.LosaViguetaBovedillaEntrepisoP.CargaMuerta;
+                CV = entrepiso.LosaViguetaBovedillaEntrepisoP.CargaVivaInstantanea;
+            }
+            if (entrepiso.LosaOtroTipoP != null)
+            {
+                CM = entrepiso.LosaOtroTipoP.CargaMuerta;
+                CV = entrepiso.LosaOtroTipoP.CargaVivaInstantanea;
+            }
+
+            if (wall.RestringidoSuperiorInferior)
+            {
+                if (wall.ExcentricidadDeCarga <= (wall.Thickness / 6))
+                {
+                    if ((wall.Height / wall.Thickness) <= 20)
+                    {
+                        if (wall.Tipo.Equals("Interior"))
+                        {
+                            if ((Math.Min(wall.LongClaroIzquierdo, wall.LongClaroDerecho) / Math.Max(wall.LongClaroIzquierdo, wall.LongClaroDerecho)) > 0.5)
+                            {
+                                result = 0.7;
+                            }
+                        }
+                        else if (wall.Tipo.Equals("Extremo"))
+                        {
+                            if ((Math.Min(wall.LongClaroIzquierdo, wall.LongClaroDerecho) / Math.Max(wall.LongClaroIzquierdo, wall.LongClaroDerecho)) < 0.5 || (CV / CM) > 1)
+                            {
+                                result = 0.6;
+                            }
+                        }
+                    }
+                }
+            }
+            else if ((wall.ExcentricidadDeCarga > (wall.Thickness / 6)) || ((wall.Height / wall.Thickness) > 20))
+            {
+                double e_ = wall.ExcentricidadDeCarga + (wall.Thickness / 24);
+                double a = 1 - (2 * e_) / wall.Thickness;
+                double b = (wall.FactorAlturaEfectiva * wall.Height) / (30 * wall.Thickness);
+                double c = 1 - Math.Pow(b, 2);
+                result = a * c;
+            }
+            return Math.Round(result, 5);
+        }
+
+        public static double CalcularResistenciaCompresionPura(Wall wall, Material material)
+        {
+
+            double result = 0.6 * wall.FE * (Convert.ToDouble(material.Dfm) * wall.Length * wall.Thickness + (wall.As * 2) * wall.Fy);
+
+            return result;
+        }
+
+
+        public static double CalcularResistenciaFlexionPura(Wall wall)
+        {
+
+            double Dd = wall.Length - wall.bc;
+            double result = wall.As * wall.Fy * Dd;
+
+            return result;
+        }
+
+        public static double CalcularP1X(Wall wall)
+        {
+            double result = 0;
+
+            return result;
+        }
+
+        public static double CalcularP1Y(Wall wall)
+        {
+
+            double result = -0.8 * wall.FE * wall.As * wall.Fy;
+
+            return result;
+        }
+
+
+        public static double CalcularP2X(Wall wall)
+        {
+            double result = wall.Mo * 0.8;
+
+            return result;
+        }
+
+
+        public static double CalcularP2Y(Wall wall)
+        {
+            double result = 0;
+
+            return result;
+        }
+
+
+        public static double CalcularP3X(Wall wall)
+        {
+            double d = wall.Length - (wall.bc / 2);
+            double result = 0.8 * wall.Mo + 0.3 * (wall.PR / 3) * d;
+            return result;
+        }
+
+        public static double CalcularP3Y(Wall wall)
+        {
+
+            double result = wall.PR / 3;
+            return result;
+        }
+
+
+        public static double CalcularP4X(Wall wall)
+        {
+            double d = wall.Length - (wall.bc / 2);
+            double result = (1.5 * 0.6 * wall.Mo + 0.15 * wall.PR * d) * 0.66666666;
+            return Math.Round(result,3);
+        }
+
+        public static double CalcularP4Y(Wall wall)
+        {
+            double result = wall.PR / 3;
+            return result;
+        }
+
+        public static double CalcularP5X(Wall wall)
+        {
+            double result = 0;
+            return result;
+        }
+
+        public static double CalcularP5Y(Wall wall)
+        {
+            double result = wall.PR;
+            return result;
+        }
+
+        public static double CalcularTP1P2(Wall wall)
+        {
+            double result = 0;
+
+            return result;
+        }
+
+        public static double CalcularTP2P3(Wall wall)
+        {
+            double result = 0/*wall.P1X - (wall.P1X/wall.ResistenciaFlexionPura) * */;
+
+            return result;
+        }
+
+        public static double CalcularTP3P4(Wall wall)
+        {
+            double result = 0;
+
+            return result;
+        }
+
+        public static double CalcularTP4P5(Wall wall)
+        {
+            double result = 0;
+
+            return result;
+        }
+
+        public static double CalcularResistenciaMamposteriaCortante(Wall wall, Material material)
+        {
+
+            double f = 0;
+
+            if (wall.Height / wall.Length < 0.2)
+                f = 1.5;
+            else if (wall.Height / wall.Length >= 1)
+                f = 1;
+            else
+                f = 1.625 - 0.625 * (wall.Height / wall.Length);
+
+
+            double a = 0.7 * ((0.5 * Convert.ToDouble(material.Dvm) * wall.AreaLongitudinal + 0.3 * wall.CargaAxialSismo) * f);
+
+            double b = 1.5 * 0.7 * Convert.ToDouble(material.Dvm) * wall.AreaLongitudinal * f;
+
+            double result = Math.Max(a, b);
+
+
+            return result;
+        }
+
+        public static double CalcularResistenciaAceroRefuerzoHorizontalCortante(Wall wall, Material material)
+        {
+            if (!wall.AceroDeRefuerzo)
+                return 0;
+
+            double n = 0, ph = 0, fyh = 0, k0 = 0, k1 = 0, fan = 0, ns = 0, ns1 = 0, Dfm = 0, Ab = 0, An = 0;
+
+            fyh = wall.EsfuerzoDeFluenciaDelAceroRefuerzoHorizontal;
+            Dfm = Convert.ToDouble(material.Dfm);
+            An = Convert.ToDouble(material.An);
+            Ab = Convert.ToDouble(material.Ab);
+
+            ph = wall.Ash / (wall.Sh * wall.Thickness);
+
+            if (wall.Height / wall.Length <= 1)
+                k0 = 1.3;
+            else if (wall.Height / wall.Length >= 1.5)
+                k0 = 1;
+            else
+                k0 = 1.9 - 0.6 * (wall.Height / wall.Length);
+
+            fan = An / Ab;
+
+            k1 = Math.Max((1 - 0.045 * ph * fyh), (1 - 0.1 * fan * Dfm * 0.045));
+
+            if (Dfm >= 90)
+                ns1 = 0.75;
+            else if (Dfm >= 60)
+                ns1 = 0.55;
+            else
+                ns1 = 0.15 + (2 / 300) * Dfm;
+
+            if ((ph * fyh) > (0.1 * fan * Dfm))
+                ns = ns1;
+            else
+                ns = ns1 * ((0.1 * fan * Dfm) / ph * fyh);
+
+            n = wall.ResMamposteriaCortante / ((0.7 * ph * fyh * wall.AreaLongitudinal)) * (k0 * k1 - 1) + ns;
+
+            double result = 0.7 * n * ph * fyh * wall.AreaLongitudinal;
+
+
+            return result;
+        }
+
+        public static double CalcularResistenciaTotalACortante(Wall wall)
+        {
+            double result = wall.ResMamposteriaCortante + wall.ResAceroRefuerzoHorizontalCortante;
+
+
+            return result;
+        }
+
+        public static double CalcularResistenciaCortanteConcreto(Wall wall)
+        {
+            double result = 0;
+
+            return result;
+        }
+
+
+
+
+
+
+
+        public static string CalcularConclusionPorCortante(Wall wall)
+        {
+            string result = string.Empty;
+            if (wall.CortanteTotales < wall.ResistenciaTotalACortante)
+                result = "SI PASA";
+            else
+                result = "NO PASA";
+
+            return result;
+        }
+
+        public static string CalcularConclusionPorCortanteDeEntrepiso(Storey storey)
+        {
+            string result = string.Empty;
+            //if (storey.co < wall.ResistenciaTotalACortante)
+            //    result = "SI PASA";
+            //else
+            //    result = "NO PASA";
+
+            return result;
+        }
+
+
+
+
+
+        public static bool CalcularBc(Wall wall)
+        {
+            bool result = false;
+
+            double a = (0.85 * wall.Dfc / wall.Fy) * (0.85 * 0.9 * 6000 / (wall.Fy + 6000)) * wall.bc * wall.Thickness;
+            if (wall.As > a)
+                result = true;
+
+            return result;
+        }
         #endregion
 
 
@@ -1436,12 +1774,12 @@ namespace StructureSystem.BusinessRules.Functions
             double At = 0;
             double Pesom = 0;
 
-            storey.HorizontalWalls.ForEach(X =>
+            storey.HorizontalWalls.ToList().ForEach(X =>
             {
                 At += X.TributaryArea;
                 Pesom += X.Thickness / 100 * X.Height / 100 * X.Length / 100 * Convert.ToDouble(materials.Single(Y => Y.Name == X.Material).PV);
             });
-            storey.VerticalWalls.ForEach(X =>
+            storey.VerticalWalls.ToList().ForEach(X =>
             {
                 At += X.TributaryArea;
                 Pesom += X.Thickness / 100 * X.Height / 100 * X.Length / 100 * Convert.ToDouble(materials.Single(Y => Y.Name == X.Material).PV);
@@ -1616,7 +1954,6 @@ namespace StructureSystem.BusinessRules.Functions
             return Math.Round(result, 5);
         }
 
-
         public static double CalcularMomentoVolteoEntrepiso(Storey storey, double CE)
         {
             double result = 0;
@@ -1629,6 +1966,11 @@ namespace StructureSystem.BusinessRules.Functions
 
             return Math.Round(result, 5);
         }
+
+
+
+
+
 
         #endregion
 

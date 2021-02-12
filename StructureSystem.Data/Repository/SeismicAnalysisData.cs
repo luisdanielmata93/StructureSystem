@@ -94,6 +94,7 @@ namespace StructureSystem.Data
                     wa.Height = Convert.ToDouble((string)wall.Element("Height"));
                     wa.PositionX = Convert.ToDouble((string)wall.Element("PositionX"));
                     wa.PositionY = Convert.ToDouble((string)wall.Element("PositionY"));
+                    wa.AnchoDeApoyo = wa.Thickness;
                     wa.Side = Enums.SideType.Horizontal;
 
                     st.HorizontalWalls.Add(wa);
@@ -122,6 +123,7 @@ namespace StructureSystem.Data
                     wa.Height = Convert.ToDouble((string)wall.Element("Height"));
                     wa.PositionX = Convert.ToDouble((string)wall.Element("PositionX"));
                     wa.PositionY = Convert.ToDouble((string)wall.Element("PositionY"));
+                    wa.AnchoDeApoyo = wa.Thickness;
                     wa.Side = Enums.SideType.Vertical;
                     StoreysResult.Find(x => x.StoreyNumber == Convert.ToInt32((string)storey.Attribute("level").Value)).
                         VerticalWalls.Add(wa);

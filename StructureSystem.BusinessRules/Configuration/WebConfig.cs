@@ -52,7 +52,7 @@ namespace StructureSystem.BusinessRules.Configuration
             }
         }
 
-   
+
         public List<Regulation> GetRegulationsCollection()
         {
             var regulations = new List<Regulation>();
@@ -126,7 +126,7 @@ namespace StructureSystem.BusinessRules.Configuration
 
                 config.Materials.Cast<ConfigurationObject>().ToList().ForEach(x =>
                 {
-                    materials.Add(new Material { Id = Convert.ToInt32(x.Id), Name = x.Name ,Dfm = x.Dfm, Dvm = x.Dvm, Em = x.Em, Gm = x.Gm, vm=x.vm, PV=x.PV });
+                    materials.Add(new Material { Id = Convert.ToInt32(x.Id), Name = x.Name, Dfm = x.Dfm, Dvm = x.Dvm, Em = x.Em, Gm = x.Gm, vm = x.vm, PV = x.PV, An = x.An, Ab = x.Ab });
                 });
             }
             catch (Exception ex) { throw; }

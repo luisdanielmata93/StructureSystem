@@ -125,7 +125,7 @@ namespace StructureSystem.Data
                         {
                             int wallNum = Convert.ToInt32((string)wall.Element("Number"));
 
-                            var wallTmp = StryTmp.HorizontalWalls.Find(x => x.WallNumber == wallNum);
+                            var wallTmp = StryTmp.HorizontalWalls.ToList().Find(x => x.WallNumber == wallNum);
 
                             wall.SetElementValue("Material", wallTmp.Material);
                             wall.SetElementValue("Length", wallTmp.Length);
@@ -175,7 +175,7 @@ namespace StructureSystem.Data
                         {
                             int wallNum = Convert.ToInt32((string)wall.Element("Number"));
 
-                            var wallTmp = StryTmp.VerticalWalls.Find(x => x.WallNumber == wallNum);
+                            var wallTmp = StryTmp.VerticalWalls.ToList().Find(x => x.WallNumber == wallNum);
 
                             wall.SetElementValue("Material", wallTmp.Material);
                             wall.SetElementValue("Length", wallTmp.Length);

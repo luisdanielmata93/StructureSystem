@@ -58,7 +58,7 @@ namespace StructureSystem.ViewModel
                     Icon = new PackIconMaterial() {Kind = PackIconMaterialKind.BallotOutline},
                     Label = "Definición",
                     ToolTip = "Definición general del proyecto",
-                   Tag = new DefinitionVM(this)
+                    Tag = new DefinitionVM(this)
                 },
                 new HamburgerMenuIconItem()
                 {
@@ -107,14 +107,19 @@ namespace StructureSystem.ViewModel
                    // Tag = new AboutViewModel(this)
                 }
             };
+
+           
+
         }
 
+      
         public HamburgerMenuItemCollection MenuItems
         {
             get { return _menuItems; }
             set
             {
                 if (Equals(value, _menuItems)) return;
+
                 _menuItems = value;
                 OnPropertyChanged();
             }

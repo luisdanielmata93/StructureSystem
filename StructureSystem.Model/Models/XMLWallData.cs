@@ -27,6 +27,8 @@ namespace StructureSystem.Model
 
         public double PositionY { get; set; }
 
+        public double Dfc { get; set; }
+
         public Enums.SideType Side { get; set; }
     }//end of class
 }//end of namespace

@@ -22,5 +22,6 @@ namespace StructureSystem.View.Views
         {
             InitializeComponent();
         }
+
     }
 }

@@ -17,7 +17,6 @@ namespace StructureSystem.Model
 
         public double MasaTotal { get; set; }
 
-
         public double PeriodosCirculares { get; set; }
 
         public double PeriodosNaturales { get; set; }

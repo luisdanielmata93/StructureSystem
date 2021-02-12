@@ -118,6 +118,7 @@
                            OptionsItemTemplate="{StaticResource MenuItemTemplate}"
                            OptionsItemsSource="{Binding MenuOptionItems}"
                            SelectedIndex="0"
+                           IsEnabled="{Binding ProjectLoad,Mode=TwoWay}"
                            >
             
             

@@ -19,7 +19,6 @@ namespace StructureSystem.ViewModel
     public class DefinitionVM : PropertyChangedViewModel
     {
 
-
         #region Constructor
         public DefinitionVM(PropertyChangedViewModel mainViewModel)
         {

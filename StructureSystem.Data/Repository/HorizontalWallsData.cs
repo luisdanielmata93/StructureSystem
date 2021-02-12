@@ -39,8 +39,10 @@ namespace StructureSystem.Data
                                          new XElement("Thickness", model.Thickness.ToString()),
                                          new XElement("Height", model.Height.ToString()),
                                          new XElement("PositionX", model.PositionX.ToString()),
-                                         new XElement("PositionY", model.PositionY.ToString()))
-                        );
+                                         new XElement("PositionY", model.PositionY.ToString()),
+                                         new XElement("Dfc", model.Dfc.ToString())
+                        ));
+
                     mydoc.Save(model.DocumentPath);
                     return true;
                 }
@@ -55,7 +57,8 @@ namespace StructureSystem.Data
                                                   new XElement("Thickness", model.Thickness.ToString()),
                                                   new XElement("Height", model.Height.ToString()),
                                                   new XElement("PositionX", model.PositionX.ToString()),
-                                                  new XElement("PositionY", model.PositionY.ToString())
+                                                  new XElement("PositionY", model.PositionY.ToString()),
+                                                  new XElement("Dfc", model.Dfc.ToString())
                         )));
 
                 mydoc.Save(model.DocumentPath);
@@ -84,7 +87,8 @@ namespace StructureSystem.Data
                              (string)x.Element("Thickness") == model.Thickness.ToString() &&
                              (string)x.Element("Height") == model.Height.ToString() &&
                              (string)x.Element("PositionX") == model.PositionX.ToString() &&
-                             (string)x.Element("PositionY") == model.PositionY.ToString())
+                             (string)x.Element("PositionY") == model.PositionY.ToString() &&
+                             (string)x.Element("Dfc") == model.Dfc.ToString())
                  .Remove();
 
                 mydoc.Save(model.DocumentPath);

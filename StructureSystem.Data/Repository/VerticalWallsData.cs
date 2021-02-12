@@ -39,7 +39,9 @@ namespace StructureSystem.Data
                                          new XElement("Thickness", model.Thickness.ToString()),
                                          new XElement("Height", model.Height.ToString()),
                                          new XElement("PositionX", model.PositionX.ToString()),
-                                         new XElement("PositionY", model.PositionY.ToString()))
+                                         new XElement("PositionY", model.PositionY.ToString()),
+                                         new XElement("Dfc", model.Dfc.ToString())
+                                         )
                         );
                     mydoc.Save(model.DocumentPath);
                     return true;
@@ -55,7 +57,8 @@ namespace StructureSystem.Data
                                                   new XElement("Thickness", model.Thickness.ToString()),
                                                   new XElement("Height", model.Height.ToString()),
                                                   new XElement("PositionX", model.PositionX.ToString()),
-                                                  new XElement("PositionY", model.PositionY.ToString())
+                                                  new XElement("PositionY", model.PositionY.ToString()),
+                                                  new XElement("Dfc", model.Dfc.ToString())
                         )));
 
                 mydoc.Save(model.DocumentPath);
