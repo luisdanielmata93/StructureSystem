@@ -52,6 +52,7 @@
     <Compile Include="IRepository\ILoadAnalysisRepository.cs" />
     <Compile Include="IRepository\ISeismicAnalysisRepository.cs" />
     <Compile Include="IRepository\ISeismicDistributionRepository.cs" />
+    <Compile Include="IRepository\IStructuralDesignRepository.cs" />
     <Compile Include="IRepository\IStructureRepository.cs" />
     <Compile Include="IRepository\UnitOfWork\IUnitOfWork.cs" />
     <Compile Include="IRepository\UnitOfWork\IUnitOfWorkAdapter.cs" />
@@ -64,6 +65,7 @@
     <Compile Include="Repository\LoadAnalysisData.cs" />
     <Compile Include="Repository\SeismicAnalysisData.cs" />
     <Compile Include="Repository\SeismicDistributionData.cs" />
+    <Compile Include="Repository\StructuralDesignData.cs" />
     <Compile Include="Repository\StructureData.cs" />
     <Compile Include="Repository\VerticalWallsData.cs" />
     <Compile Include="UnitOfWork\UnitOfWork.cs" />

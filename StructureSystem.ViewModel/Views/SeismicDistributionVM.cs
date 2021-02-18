@@ -25,8 +25,23 @@ namespace StructureSystem.ViewModel
 
             this._mainViewModel = mainViewModel;
 
+            this._mainViewModel.ProcessCompleted += _mainViewModel_ProcessCompleted;
             this.SetCommands();
         }
+
+        private void _mainViewModel_ProcessCompleted(object sender, bool e)
+        {
+            try
+            {
+                setInitialData();
+            }
+            catch (Exception ex)
+            {
+
+            }
+        }
+      
+        
         #endregion
 
         #region Commands

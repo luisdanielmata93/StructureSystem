@@ -31,7 +31,7 @@ namespace StructureSystem.ViewModel
             this.SetCommands();
         }
 
-      
+
 
         #endregion
 
@@ -52,14 +52,16 @@ namespace StructureSystem.ViewModel
         }
         private void ShowGraph()
         {
-            var ok = SelectedWall;
-           
+            if (SelectedWall != null)
+                DataService.Graficar(SelectedWall);
+            else
+                notificationViewModel.ShowAlert("Seleccione un muro para visualizar su gráfica. ");
         }
 
         private void setInitialData()
         {
             try
-            {   
+            {
                 this.Storeys = new ObservableCollection<Storey>((List<Storey>)DataService.GetStructure().Storeys);
             }
             catch (Exception ex)
@@ -113,7 +115,7 @@ namespace StructureSystem.ViewModel
                     _Storeys = value;
                     OnPropertyChanged("Storeys");
                 }
-                
+
             }
         }
 

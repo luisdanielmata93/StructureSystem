@@ -22,7 +22,20 @@ namespace StructureSystem.ViewModel
             notificationViewModel = new NotificationViewModel();
             SetCommands();
 
+            this._mainViewModel.ProcessCompleted += _mainViewModel_ProcessCompleted;
 
+        }
+
+        private void _mainViewModel_ProcessCompleted(object sender, bool e)
+        {
+            try
+            {
+                doUpdate();
+            }
+            catch (Exception ex)
+            {
+
+            }
         }
 
         #endregion
@@ -95,6 +108,7 @@ namespace StructureSystem.ViewModel
             FillData();
 
         }
+
         private bool setWallInfo()
         {
 

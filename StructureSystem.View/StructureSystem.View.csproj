@@ -14,6 +14,7 @@
     <None Remove="Content\Images\edificios.png" />
     <None Remove="Content\Images\edificios2.png" />
     <None Remove="Content\Images\edificios3.png" />
+    <None Remove="Content\Images\error2.png" />
     <None Remove="Content\Images\estructura33.jpg" />
     <None Remove="Content\Images\losa_macisa_azotea.png" />
     <None Remove="Content\Images\losa_macisa_entrepiso.png" />
@@ -23,6 +24,10 @@
     <None Remove="Content\Images\losa_vigueta_bovedilla_entrepiso.png" />
     <None Remove="Content\Images\pisa.png" />
     <None Remove="Content\Images\SplashScreen.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Content\Images\error2.png" />
   </ItemGroup>
 
   <ItemGroup>

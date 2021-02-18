@@ -18,7 +18,6 @@ namespace StructureSystem.Data
             {
                 XDocument mydoc = XDocument.Load(model.DocumentPath);
 
-
                 var storeys = mydoc.Root.Elements("VerticalWalls")
                     .SelectMany(x => x.Elements("Storey"))
                     .ToList();

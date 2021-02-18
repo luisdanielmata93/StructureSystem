@@ -64,6 +64,7 @@ namespace StructureSystem.Data
 
                 foreach (var wall in storey.Elements("Wall"))
                 {
+
                     Wall wa = new Wall();
                     wa.WallNumber = Convert.ToInt32((string)wall.Element("Number"));
                     wa.Material = (string)wall.Element("Material");

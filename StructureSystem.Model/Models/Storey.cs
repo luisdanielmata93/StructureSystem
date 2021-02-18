@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace StructureSystem.Model
 {
-     public class Storey //Nivel o entrepiso
+    public class Storey //Nivel o entrepiso
     {
         #region Constructor
         public Storey()
@@ -25,7 +25,8 @@ namespace StructureSystem.Model
         public int StoreyNumber { get; set; }
 
         private List<Wall> HorizontalWalls_;
-        public List<Wall> HorizontalWalls {
+        public List<Wall> HorizontalWalls
+        {
             get
             {
                 return HorizontalWalls_;
@@ -41,7 +42,8 @@ namespace StructureSystem.Model
 
 
         private List<Wall> VerticalWalls_;
-        public List<Wall> VerticalWalls {
+        public List<Wall> VerticalWalls
+        {
             get
             {
                 return VerticalWalls_;
@@ -90,20 +92,91 @@ namespace StructureSystem.Model
         public double MomentoVolteoEntrepisoY { get; set; }
         public double MomentoVolteoEntrepisoX { get; set; }
 
-        private string Conclusion_;
-        public string Conclusion 
+        private double EsfuerzoNormalPromedio_;
+        public double EsfuerzoNormalPromedio
         {
             get
             {
-                return Conclusion_;
+                return EsfuerzoNormalPromedio_;
             }
             set
             {
-                if (value != Conclusion_)
-                    Conclusion_ = value;    
+                if (value != EsfuerzoNormalPromedio_)
+                    EsfuerzoNormalPromedio_ = value;
             }
         }
 
+        private double CortanteResistenteEntrepisoMamposteria_;
+        public double CortanteResistenteEntrepisoMamposteria
+        {
+            get
+            {
+                return CortanteResistenteEntrepisoMamposteria_;
+            }
+            set
+            {
+                if (value != CortanteResistenteEntrepisoMamposteria_)
+                    CortanteResistenteEntrepisoMamposteria_ = value;
+            }
+        }
+
+        private double CortanteResistenteEntrepisoConcreto_;
+        public double CortanteResistenteEntrepisoConcreto
+        {
+            get
+            {
+                return CortanteResistenteEntrepisoConcreto_;
+            }
+            set
+            {
+                if (value != CortanteResistenteEntrepisoConcreto_)
+                    CortanteResistenteEntrepisoConcreto_ = value;
+            }
+        }
+
+
+        private double CortanteEntrepisoTotal_;
+        public double CortanteEntrepisoTotal
+        {
+            get
+            {
+                return CortanteEntrepisoTotal_;
+            }
+            set
+            {
+                if (value != CortanteEntrepisoTotal_)
+                    CortanteEntrepisoTotal_ = value;
+            }
+        }
+
+        private string ConclusionX_;
+        public string ConclusionX
+        {
+            get
+            {
+                return ConclusionX_;
+            }
+            set
+            {
+                if (value != ConclusionX_)
+                    ConclusionX_ = value;
+            }
+        }
+
+        private string ConclusionY_;
+        public string ConclusionY
+        {
+            get
+            {
+                return ConclusionY_;
+            }
+
+            set
+            {
+                if (value != ConclusionY_)
+                    ConclusionY_ = value;
+            }
+        }
 
         #endregion
 

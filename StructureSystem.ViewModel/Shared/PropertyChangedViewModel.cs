@@ -13,6 +13,28 @@ namespace StructureSystem.ViewModel.Shared
     public class PropertyChangedViewModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
+        public event EventHandler<bool> ProcessCompleted;
+
+
+        public void Start()
+        {
+            try
+            {
+
+                OnProcessCompleted(true);
+            }
+            catch (Exception ex)
+            {
+                OnProcessCompleted(false);
+            }
+        }
+
+        protected virtual void OnProcessCompleted(bool IsSuccessful)
+        {
+            ProcessCompleted?.Invoke(this, IsSuccessful);
+        }
+
+
 
         [NotifyPropertyChangedInvocator]
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)

@@ -19,6 +19,9 @@ namespace StructureSystem.ViewModel
     public class DefinitionVM : PropertyChangedViewModel
     {
 
+
+
+
         #region Constructor
         public DefinitionVM(PropertyChangedViewModel mainViewModel)
         {
@@ -26,10 +29,18 @@ namespace StructureSystem.ViewModel
             notificationViewModel = new NotificationViewModel();
             this._mainViewModel = mainViewModel;
             this.SetInitialData();
-
             this.SetCommands();
 
+
+            this._mainViewModel.ProcessCompleted += _mainViewModel_ProcessCompleted;
         }
+
+        private void _mainViewModel_ProcessCompleted(object sender, bool e)
+        {
+
+        }
+
+
 
         #endregion
 
@@ -60,6 +71,9 @@ namespace StructureSystem.ViewModel
 
         #region CommandMethods
 
+
+       
+
         public void ImportProject()
         {
 
@@ -72,30 +86,38 @@ namespace StructureSystem.ViewModel
             this.notificationViewModel.ShowNotification(InitialProjectData);
 
             SetImportData(InitialProjectData);
-           
+
+            this._mainViewModel.Start();
+
         }
 
         private void NewProject()
         {
 
-                var resultData = DocumentData.CreateDocument(this);
+            var resultData = DocumentData.CreateDocument(this);
 
-                if (resultData.Error && resultData.ActionType == Enums.ActionType.Update)
-                    UpdateProject();
-                else
-                    notificationViewModel.ShowNotification(resultData);
+            if (resultData.Error && resultData.ActionType == Enums.ActionType.Update)
+                UpdateProject();
+            else
+                notificationViewModel.ShowNotification(resultData);
 
             this.IsAlert = "Hidden";
+
+            this._mainViewModel.Start();
+
         }
 
         private async void UpdateProject()
         {
             this.dialogCoordinator = new DialogCoordinator();
-            var result = await this.dialogCoordinator.ShowMessageAsync(this, string.Concat("Ya existe un proyecto con el nombre ",this.ProjectName," \n ¿Desea actualizar el proyecto existente?"), "Se sobreescribirá la información guardada.", MessageDialogStyle.AffirmativeAndNegative);
+            var result = await this.dialogCoordinator.ShowMessageAsync(this, string.Concat("Ya existe un proyecto con el nombre ", this.ProjectName, " \n ¿Desea actualizar el proyecto existente?"), "Se sobreescribirá la información guardada.", MessageDialogStyle.AffirmativeAndNegative);
             if (result == MessageDialogResult.Affirmative)
             {
                 var updateResult = DocumentData.UpdateDocument(this);
                 notificationViewModel.ShowNotification(updateResult);
+
+                this._mainViewModel.Start();
+
             }
         }
 
@@ -117,7 +139,7 @@ namespace StructureSystem.ViewModel
 
         }
 
-   
+
 
         #endregion
 
@@ -400,6 +422,26 @@ namespace StructureSystem.ViewModel
             }
         }
 
+
+
+
+        private bool IsLoadProject_;
+        public bool IsLoadProject
+        {
+            get
+            {
+                return IsLoadProject_;
+            }
+            set
+            {
+                if (value != IsLoadProject_)
+                {
+                    IsLoadProject_ = value;
+                }
+                OnPropertyChanged("IsLoadProject");
+
+            }
+        }
         #endregion
 
     }//end of class

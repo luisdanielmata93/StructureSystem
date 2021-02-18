@@ -85,6 +85,7 @@
     <Compile Include="Models\XMLLoadAnalysisData.cs" />
     <Compile Include="Models\XMLSeismicAnalysisData.cs" />
     <Compile Include="Models\XMLSeismicDistributionData.cs" />
+    <Compile Include="Models\XMLStructuralDesignData.cs" />
     <Compile Include="Models\XMLStructureData.cs" />
     <Compile Include="Models\XMLWallData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -15,8 +15,13 @@ namespace StructureSystem.BusinessRules.Functions
 {
     internal static class Operations
     {
+
         private const double PI = 3.14159265;
 
+        //private static SeismicAnalysis.SeismicAnalysisOperations operations = new SeismicAnalysis.SeismicAnalysisOperations();
+
+
+        #region Calculos MathLab previos a calculos para muros
         public static double[] CalcularVectorPeriodosCirculares(double[,] M, double[,] K)
         {
             double[] result = new double[M.GetLength(0)];
@@ -30,26 +35,12 @@ namespace StructureSystem.BusinessRules.Functions
                         k[i, j] = k[i, j] * 981;
 
 
-                //M = new double[,]
-                //    {
-                //        { 1.8* Math.Pow(10,5), 0, 0, 0, 0, 0},
-                //        { 0, 1.85 * Math.Pow(10,5), 0, 0, 0, 0},
-                //        { 0, 0, 1.9 * Math.Pow(10,5) ,0 ,0, 0},
-                //        { 0, 0, 0, 2 * Math.Pow(10,5), 0 ,0},
-                //        { 0, 0, 0,0, 2 * Math.Pow(10,5), 0},
-                //        { 0 ,0, 0 ,0, 0, 1.9 * Math.Pow(10,5)} };
 
-                //K = new double[,] {
-                //{9.585 * Math.Pow(10,7), - 5.099* Math.Pow(10,7), 0, 0, 0, 0},
-                //{ -5.099* Math.Pow(10,7) ,9.993 * Math.Pow(10,7),- 4.895 * Math.Pow(10,7),0, 0, 0},
-                //{ 0, - 4.895 * Math.Pow(10,7),9.687* Math.Pow(10,7), - 4.793* Math.Pow(10,7), 0, 0},
-                //{ 0 ,0, - 4.793* Math.Pow(10,7) ,9.279* Math.Pow(10,7), - 4.487* Math.Pow(10,7), 0},
-                //{ 0 ,0 ,0 ,- 4.487* Math.Pow(10,7) ,9.585 * Math.Pow(10,7),- 5.099* Math.Pow(10,7)},
-                //{ 0, 0, 0, 0, - 5.099* Math.Pow(10,7) ,5.099 * Math.Pow(10,7)}
-                //};
 
 
                 SeismicAnalysis.SeismicAnalysisOperations operations = new SeismicAnalysis.SeismicAnalysisOperations();
+
+
 
                 MWNumericArray Marr = new MWNumericArray(M);
                 MWNumericArray Karr = new MWNumericArray(k);
@@ -608,6 +599,7 @@ namespace StructureSystem.BusinessRules.Functions
 
                 MWNumericArray Marr = new MWNumericArray(M);
                 MWNumericArray Karr = new MWNumericArray(k);
+
                 SeismicAnalysis.SeismicAnalysisOperations operations = new SeismicAnalysis.SeismicAnalysisOperations();
 
                 var eigsMatrix = operations.EigsMatrix(2, Karr, Marr, M.GetLength(0));
@@ -1027,6 +1019,8 @@ namespace StructureSystem.BusinessRules.Functions
             return result;
         }
 
+        #endregion
+
         #region Operaciones para muros
         public static double CalcularInercia(Wall wall)
         {
@@ -1401,6 +1395,7 @@ namespace StructureSystem.BusinessRules.Functions
 
         public static double CalcularExcentricidadDeCarga(Wall wall)
         {
+
             double result = (wall.Thickness / 2) - (wall.AnchoDeApoyo / 3);
             return Math.Round(result, 5);
         }
@@ -1564,7 +1559,7 @@ namespace StructureSystem.BusinessRules.Functions
         {
             double d = wall.Length - (wall.bc / 2);
             double result = (1.5 * 0.6 * wall.Mo + 0.15 * wall.PR * d) * 0.66666666;
-            return Math.Round(result,3);
+            return Math.Round(result, 3);
         }
 
         public static double CalcularP4Y(Wall wall)
@@ -1666,14 +1661,15 @@ namespace StructureSystem.BusinessRules.Functions
             else if (Dfm >= 60)
                 ns1 = 0.55;
             else
-                ns1 = 0.15 + (2 / 300) * Dfm;
+                ns1 = 0.15 + 0.00666666666666666666666666666667 * Dfm;
+
 
             if ((ph * fyh) > (0.1 * fan * Dfm))
                 ns = ns1;
             else
                 ns = ns1 * ((0.1 * fan * Dfm) / ph * fyh);
 
-            n = wall.ResMamposteriaCortante / ((0.7 * ph * fyh * wall.AreaLongitudinal)) * (k0 * k1 - 1) + ns;
+            n = (wall.ResMamposteriaCortante / (0.7 * ph * fyh * wall.AreaLongitudinal)) * (k0 * k1 - 1) + ns;
 
             double result = 0.7 * n * ph * fyh * wall.AreaLongitudinal;
 
@@ -1696,12 +1692,6 @@ namespace StructureSystem.BusinessRules.Functions
             return result;
         }
 
-
-
-
-
-
-
         public static string CalcularConclusionPorCortante(Wall wall)
         {
             string result = string.Empty;
@@ -1713,19 +1703,61 @@ namespace StructureSystem.BusinessRules.Functions
             return result;
         }
 
-        public static string CalcularConclusionPorCortanteDeEntrepiso(Storey storey)
+        public static bool ValidarGrafica(Wall wall)
         {
-            string result = string.Empty;
-            //if (storey.co < wall.ResistenciaTotalACortante)
-            //    result = "SI PASA";
-            //else
-            //    result = "NO PASA";
+            bool result = false;
+            try
+            {
+                SeismicAnalysis.SeismicAnalysisOperations operations = new SeismicAnalysis.SeismicAnalysisOperations();
+
+                double[] X = { wall.P1X, wall.P2X, wall.P3X, wall.P4X, wall.P5X };
+                double[] Y = { wall.P1Y, wall.P2Y, wall.P3Y, wall.P4Y, wall.P5Y };
+                double[,] P = { { wall.MomentoVolteo }, { wall.CargaAxialMaxima } };
+                string titulo = wall.WallNumber.ToString();
+
+                MWNumericArray Xa = new MWNumericArray(X);
+                MWNumericArray Ya = new MWNumericArray(Y);
+                MWNumericArray Pa = new MWNumericArray(P);
+
+                var IsValid = operations.isValidToPlot(Xa, Ya, Pa);
+
+                if (IsValid.ToArray().GetValue(0).ToString().Equals("Y"))
+                    result = true;
+
+            }
+            catch (Exception ex)
+            {
+
+            }
 
             return result;
+
         }
 
 
+        public static void Graficar(Wall wall)
+        {
+            try
+            {
+                SeismicAnalysis.SeismicAnalysisOperations operations = new SeismicAnalysis.SeismicAnalysisOperations();
+                
+                double[] X = { wall.P1X, wall.P2X, wall.P3X, wall.P4X, wall.P5X };
+                double[] Y = { wall.P1Y, wall.P2Y, wall.P3Y, wall.P4Y, wall.P5Y };
+                double[,] P = { { wall.PositionX }, { wall.PositionY } };
+                string titulo = wall.WallNumber.ToString();
 
+                MWNumericArray Xa = new MWNumericArray(X);
+                MWNumericArray Ya = new MWNumericArray(Y);
+                MWNumericArray Pa = new MWNumericArray(P);
+                operations.plotter(Xa, Ya, Pa, titulo);
+               
+
+            }
+            catch (Exception ex)
+            {
+
+            }
+        }
 
 
         public static bool CalcularBc(Wall wall)
@@ -1968,9 +2000,101 @@ namespace StructureSystem.BusinessRules.Functions
         }
 
 
+        public static string CalcularConclusionPorCortanteDeEntrepiso(double V, double VRT)
+        {
+            string result = string.Empty;
+
+
+            if (V < VRT)
+                result = "SI PASA";
+            else
+                result = "NO PASA";
+
+            return result;
+        }
+
+
+        public static double CalcularEsfuerzoNormalPromedioDeEntrepiso(Storey storey, Material material)
+        {
+            double P = storey.HorizontalWalls.Count > 0 ? storey.HorizontalWalls.Average(x => x.CargaAxialMaxima / x.AreaLongitudinal) : 0.0;
+            double Dvm = Convert.ToDouble(material.Dvm);
+            double result = Math.Max(P, 3.33 * Dvm);
+
+            return Math.Round(result, 5);
+        }
+
+        public static double CalcularCortanteResistenteEntrepisoMamposteria(Storey storey, Material material)
+        {
+            double Dvm = Convert.ToDouble(material.Dvm);
+            double nMin = 0, phmin = 0;
+            double n = 0, ph = 0, fyh = 0, k0 = 0, k1 = 0, fan = 0, ns = 0, ns1 = 0, Dfm = 0, Ab = 0, An = 0;
+
+            for (int i = 0; i < storey.HorizontalWalls.Count; i++)
+            {
+                Wall wall = storey.HorizontalWalls[i];
+                fyh = wall.EsfuerzoDeFluenciaDelAceroRefuerzoHorizontal;
+                Dfm = Convert.ToDouble(material.Dfm);
+                An = Convert.ToDouble(material.An);
+                Ab = Convert.ToDouble(material.Ab);
+
+                ph = wall.Ash / (wall.Sh * wall.Thickness);
+
+                if (i == 0 || ph < phmin)
+                    phmin = ph;
+
+                if (wall.Height / wall.Length <= 1)
+                    k0 = 1.3;
+                else if (wall.Height / wall.Length >= 1.5)
+                    k0 = 1;
+                else
+                    k0 = 1.9 - 0.6 * (wall.Height / wall.Length);
+
+                fan = An / Ab;
+
+                k1 = Math.Max((1 - 0.045 * ph * fyh), (1 - 0.1 * fan * Dfm * 0.045));
+
+                if (Dfm >= 90)
+                    ns1 = 0.75;
+                else if (Dfm >= 60)
+                    ns1 = 0.55;
+                else
+                    ns1 = 0.15 + 0.00666666666666666666666666666667 * Dfm;
+
+
+                if ((ph * fyh) > (0.1 * fan * Dfm))
+                    ns = ns1;
+                else
+                    ns = ns1 * ((0.1 * fan * Dfm) / ph * fyh);
+
+                n = (wall.ResMamposteriaCortante / (0.7 * ph * fyh * wall.AreaLongitudinal)) * (k0 * k1 - 1) + ns;
+
+                if (i == 0 || n < nMin)
+                    nMin = n;
+            }
+
+            double SumAT = storey.HorizontalWalls.Sum(x => x.AreaLongitudinal);
+
+            double result = (0.7 * 0.5 * Dvm + 0.3 * storey.EsfuerzoNormalPromedio) * SumAT + nMin * phmin * fyh * SumAT;
 
 
 
+            return Math.Round(result, 5);
+        }
+
+        public static double CalcularCortanteResistenteEntrepisoConcreto(Storey storey)
+        {
+            double result = storey.HorizontalWalls.Sum(x => x.ResistenciaCortanteConcreto);
+
+
+            return Math.Round(result, 5);
+        }
+
+        public static double CalcularCortanteEntrepisoTotal(Storey storey)
+        {
+            double result = storey.CortanteResistenteEntrepisoMamposteria + storey.CortanteResistenteEntrepisoConcreto;
+
+            return Math.Round(result, 5);
+        }
 
         #endregion
 

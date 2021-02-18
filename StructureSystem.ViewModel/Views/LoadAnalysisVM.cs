@@ -18,6 +18,7 @@ namespace StructureSystem.ViewModel
 {
     public class LoadAnalysisVM : PropertyChangedViewModel
     {
+
         #region Constructor
         public LoadAnalysisVM(PropertyChangedViewModel mainViewModel)
         {
@@ -26,11 +27,27 @@ namespace StructureSystem.ViewModel
 
             this._mainViewModel = mainViewModel;
 
-            this.SetInitialData();
-
             this.SetCommands();
 
+            this._mainViewModel.ProcessCompleted += _mainViewModel_ProcessCompleted;
         }
+
+       
+        
+        private void _mainViewModel_ProcessCompleted(object sender, bool e)
+        {
+            try
+            {
+                SetInitialData();
+            }
+            catch (Exception ex)
+            {
+            }
+            
+        }
+
+
+
         #endregion
 
 
@@ -62,7 +79,7 @@ namespace StructureSystem.ViewModel
                 notificationViewModel.ShowAlert("No se tiene seleccionado ningun sistema de entrepiso.");
                 return;
             }
-                
+
 
             if (IsSaved())
             {
@@ -150,7 +167,7 @@ namespace StructureSystem.ViewModel
 
         private void SelectTabItem()
         {
-           
+
             if (FlooringMaterial is null || FlooringMaterial.Id < 0)
                 return;
 
@@ -250,6 +267,26 @@ namespace StructureSystem.ViewModel
         private IDialogCoordinator dialogCoordinator;
         private NotificationViewModel notificationViewModel;
         private Enums.MaterialType MaterialType { get; set; }
+
+
+        private bool IsLoadProject_;
+        public bool IsLoadProject
+        {
+            get
+            {
+                return IsLoadProject_;
+            }
+            set
+            {
+                if (value != IsLoadProject_)
+                {
+                    IsLoadProject_ = value;
+                }
+                OnPropertyChanged("IsLoadProject");
+
+            }
+        }
+
 
         private string _IsAlert = "Visible";
         public string IsAlert
