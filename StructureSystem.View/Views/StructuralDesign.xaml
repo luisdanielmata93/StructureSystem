@@ -118,9 +118,9 @@
                                                 <TextBlock Grid.Row="0" Grid.Column="10" Text="{Binding CortanteResistenteEntrepisoConcreto, Mode=TwoWay}" TextAlignment="Left" Style="{StaticResource LittleHeader}"/>
                                                 <TextBlock Grid.Row="0" Grid.Column="12" Text="Cortante de entrepiso Total: " TextAlignment="Left" Style="{StaticResource LittleHeader}"/>
                                                 <TextBlock Grid.Row="0" Grid.Column="13" Text="{Binding CortanteEntrepisoTotal, Mode=TwoWay}" TextAlignment="Left" Style="{StaticResource LittleHeader}"/>
-                                                <TextBlock Grid.Row="0" Grid.Column="15" Text="Conclusión (Horizontales): " TextAlignment="Left" Style="{StaticResource LittleHeader}"/>
+                                                <TextBlock Grid.Row="0" Grid.Column="15" Text="Revisión a cortante (X): " TextAlignment="Left" Style="{StaticResource LittleHeader}"/>
                                                 <TextBlock Grid.Row="0" Grid.Column="16" Text="{Binding ConclusionX, Mode=TwoWay}" TextAlignment="Left" Style="{StaticResource LittleHeader}"/>
-                                                <TextBlock Grid.Row="0" Grid.Column="18" Text="Conclusión (Verticales): " TextAlignment="Left" Style="{StaticResource LittleHeader}"/>
+                                                <TextBlock Grid.Row="0" Grid.Column="18" Text="Revisión a cortante (Y): " TextAlignment="Left" Style="{StaticResource LittleHeader}"/>
                                                 <TextBlock Grid.Row="0" Grid.Column="19" Text="{Binding ConclusionY, Mode=TwoWay}" TextAlignment="Left" Style="{StaticResource LittleHeader}"/>
                                             </Grid>
                                         </DataTemplate>
@@ -150,13 +150,13 @@
                                                     <DataGridCheckBoxColumn Header="Restringido extremo superior/inferior"  Binding="{Binding Path=RestringidoSuperiorInferior, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                                                     <DataGridTextColumn Header="Longitud claro Izquierdo"  Binding="{Binding LongClaroIzquierdo, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" />
                                                     <DataGridTextColumn Header="Longitud claro Derecho"  Binding="{Binding LongClaroDerecho, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"/>
-                                                    <DataGridTextColumn Header="F. de reduccion por efectos de excentricidad y esbeltez"  Binding="{Binding FE,Mode=TwoWay,UpdateSourceTrigger=LostFocus}" IsReadOnly="True"/>
+                                                    <DataGridTextColumn Header="F.E.E."  Binding="{Binding FE,Mode=TwoWay,UpdateSourceTrigger=LostFocus}" IsReadOnly="True"/>
                                                     <DataGridTextColumn Header="F. de altura efectiva"  Binding="{Binding FactorAlturaEfectiva, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" IsReadOnly="True" />
                                                     <!--<DataGridTextColumn Header="Esfuerzo de fluencia (Acero de refuerzo)"  Binding="{Binding Fy, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"  />-->
                                                     <DataGridTextColumn Header="Resistencia a la compresion pura"  Binding="{Binding PR, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" IsReadOnly="True" />
                                                     <DataGridTextColumn Header=" Resistencia a flexión pura"  Binding="{Binding Mo, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" IsReadOnly="True"/>
 
-                                                    <DataGridTextColumn Header="Pn1"  Binding="{Binding P1Y, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" IsReadOnly="True"/>
+                                                    <!--<DataGridTextColumn Header="Pn1"  Binding="{Binding P1Y, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" IsReadOnly="True"/>
                                                     <DataGridTextColumn Header="Mn1"  Binding="{Binding P1X, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" IsReadOnly="True"/>
                                                     <DataGridTextColumn Header="Pn2"  Binding="{Binding P2Y, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" IsReadOnly="True"/>
                                                     <DataGridTextColumn Header="Mn2"  Binding="{Binding P2X, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" IsReadOnly="True"/>
@@ -165,7 +165,7 @@
                                                     <DataGridTextColumn Header="Pn4"  Binding="{Binding P4Y, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" IsReadOnly="True"/>
                                                     <DataGridTextColumn Header="Mn4"  Binding="{Binding P4X, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" IsReadOnly="True"/>
                                                     <DataGridTextColumn Header="Pn5"  Binding="{Binding P5Y, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" IsReadOnly="True"/>
-                                                    <DataGridTextColumn Header="Mn5"  Binding="{Binding P5X, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" IsReadOnly="True"/>
+                                                    <DataGridTextColumn Header="Mn5"  Binding="{Binding P5X, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" IsReadOnly="True"/>-->
                                                     
                                                     <DataGridTextColumn Header="Resistencia de la mamposteria a cortante"  Binding="{Binding ResMamposteriaCortante, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" IsReadOnly="True"/>
                                                     <DataGridCheckBoxColumn Header="Acero de refuerzo"  Binding="{Binding Path=AceroDeRefuerzo, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
@@ -200,13 +200,13 @@
                                                     <DataGridCheckBoxColumn Header="Restringido extremo superior/inferior"  Binding="{Binding Path=RestringidoSuperiorInferior, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                                                     <DataGridTextColumn Header="Longitud claro Izquierdo"  Binding="{Binding LongClaroIzquierdo, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" />
                                                     <DataGridTextColumn Header="Longitud claro Derecho"  Binding="{Binding LongClaroDerecho, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"/>
-                                                    <DataGridTextColumn Header="F. de reduccion por efectos de excentricidad y esbeltez"  Binding="{Binding FE,Mode=TwoWay,UpdateSourceTrigger=LostFocus}" IsReadOnly="True"/>
+                                                    <DataGridTextColumn Header="F.E.E."  Binding="{Binding FE,Mode=TwoWay,UpdateSourceTrigger=LostFocus}" IsReadOnly="True"/>
                                                     <DataGridTextColumn Header="F. de altura efectiva"  Binding="{Binding FactorAlturaEfectiva, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" IsReadOnly="True" />
                                                     <!--<DataGridTextColumn Header="Esfuerzo de fluencia (Acero de refuerzo)"  Binding="{Binding Fy, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"  />-->
                                                     <DataGridTextColumn Header="Resistencia a la compresion pura"  Binding="{Binding PR, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" IsReadOnly="True" />
                                                     <DataGridTextColumn Header=" Resistencia a flexión pura"  Binding="{Binding Mo, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" IsReadOnly="True"/>
 
-                                                    <DataGridTextColumn Header="Pn1"  Binding="{Binding P1Y, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" IsReadOnly="True"/>
+                                                    <!--<DataGridTextColumn Header="Pn1"  Binding="{Binding P1Y, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" IsReadOnly="True"/>
                                                     <DataGridTextColumn Header="Mn1"  Binding="{Binding P1X, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" IsReadOnly="True"/>
                                                     <DataGridTextColumn Header="Pn2"  Binding="{Binding P2Y, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" IsReadOnly="True"/>
                                                     <DataGridTextColumn Header="Mn2"  Binding="{Binding P2X, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" IsReadOnly="True"/>
@@ -215,7 +215,7 @@
                                                     <DataGridTextColumn Header="Pn4"  Binding="{Binding P4Y, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" IsReadOnly="True"/>
                                                     <DataGridTextColumn Header="Mn4"  Binding="{Binding P4X, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" IsReadOnly="True"/>
                                                     <DataGridTextColumn Header="Pn5"  Binding="{Binding P5Y, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" IsReadOnly="True"/>
-                                                    <DataGridTextColumn Header="Mn5"  Binding="{Binding P5X, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" IsReadOnly="True"/>
+                                                    <DataGridTextColumn Header="Mn5"  Binding="{Binding P5X, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" IsReadOnly="True"/>-->
 
                                                     <DataGridTextColumn Header="Resistencia de la mamposteria a cortante"  Binding="{Binding ResMamposteriaCortante, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" IsReadOnly="True"/>
                                                     <DataGridCheckBoxColumn Header="Acero de refuerzo"  Binding="{Binding Path=AceroDeRefuerzo, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
