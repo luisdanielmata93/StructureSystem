@@ -116,7 +116,7 @@
                                                         </DataGridTemplateColumn.CellTemplate>
                                                     </DataGridTemplateColumn>
 
-                                                    <DataGridTemplateColumn>
+                                                    <!--<DataGridTemplateColumn>
                                                         <DataGridTemplateColumn.CellTemplate>
                                                             <DataTemplate>
                                                                 <Button Style="{StaticResource deleteBtn}" ToolTip="Especificación del muro">
@@ -124,7 +124,7 @@
                                                                 </Button>
                                                             </DataTemplate>
                                                         </DataGridTemplateColumn.CellTemplate>
-                                                    </DataGridTemplateColumn>
+                                                    </DataGridTemplateColumn>-->
                                                 </DataGrid.Columns>
                                             </DataGrid>
 
@@ -150,7 +150,7 @@
                                                         </DataGridTemplateColumn.CellTemplate>
                                                     </DataGridTemplateColumn>
 
-                                                    <DataGridTemplateColumn>
+                                                    <!--<DataGridTemplateColumn>
                                                         <DataGridTemplateColumn.CellTemplate>
                                                             <DataTemplate>
                                                                 <Button Style="{StaticResource deleteBtn}" ToolTip="Especificación del muro">
@@ -158,7 +158,7 @@
                                                                 </Button>
                                                             </DataTemplate>
                                                         </DataGridTemplateColumn.CellTemplate>
-                                                    </DataGridTemplateColumn>
+                                                    </DataGridTemplateColumn>-->
                                                 </DataGrid.Columns>
                                             </DataGrid>
                                         </StackPanel>

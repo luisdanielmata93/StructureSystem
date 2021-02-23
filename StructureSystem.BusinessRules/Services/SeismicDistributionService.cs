@@ -248,7 +248,7 @@ namespace StructureSystem.BusinessRules.Services
             try
             {
                 XMLLoadAnalysisData entrepiso;
-                double sumVcy = 0, sumVcx = 0, sumPcy = 0, sumPcx = 0, PaH = 0 , PaV = 0;
+                double sumVcy = 0, sumVcx = 0, sumPcy = 0, sumPcx = 0, PaH = 0 , PaV = 0, CAUAx = 0, CAUAy= 0, CASAx = 0, CASAy = 0;
 
                 for (int i = Structure.Storeys.Count - 1; i >= 0; i--)
                 {
@@ -283,8 +283,16 @@ namespace StructureSystem.BusinessRules.Services
                     Structure.Storeys[i].MomentosTorsionantesX = Functions.Operations.CalcularMomentosTorsionantes(Structure.Storeys[i].ExcentricidadesDisenioEntrepisoY, Pcx[Structure.Storeys.Count - 1 - i]);
                     Structure.Storeys[i].MomentosTorsionantesY = Functions.Operations.CalcularMomentosTorsionantes(Structure.Storeys[i].ExcentricidadesDisenioEntrepisoX, Pcy[Structure.Storeys.Count - 1 - i]);
                     Structure.Storeys[i].RigidezTorsionalEntrepiso = Functions.Operations.CalcularRigidezTorsionalEntrepiso(Structure.Storeys[i], Structure.Storeys[i].CentroTorsionX, Structure.Storeys[i].CentroTorsionY);
-                    Structure.Storeys[i].MomentoVolteoEntrepisoX = Functions.Operations.CalcularMomentoVolteoEntrepiso(Structure.Storeys[i], Vcx[Structure.Storeys.Count - 1 - i]);
-                    Structure.Storeys[i].MomentoVolteoEntrepisoY = Functions.Operations.CalcularMomentoVolteoEntrepiso(Structure.Storeys[i], Vcy[Structure.Storeys.Count - 1 - i]);
+                    Structure.Storeys[i].MomentoVolteoEntrepisoX = Functions.Operations.CalcularMomentoVolteoEntrepiso(Structure.Storeys[i], Pcx[Structure.Storeys.Count - 1 - i]);
+                    Structure.Storeys[i].MomentoVolteoEntrepisoY = Functions.Operations.CalcularMomentoVolteoEntrepiso(Structure.Storeys[i], Pcy[Structure.Storeys.Count - 1 - i]);
+
+
+                    if (i < Structure.Storeys.Count - 1)
+                    {
+                        CAUAx += Structure.Storeys[i + 1].HorizontalWalls.First().CargaAxialMaxima;
+                        CASAx += Structure.Storeys[i + 1].HorizontalWalls.First().CargaAxialSismo;
+                    }
+
 
                     foreach (var wall in Structure.Storeys[i].HorizontalWalls)
                     {
@@ -296,10 +304,19 @@ namespace StructureSystem.BusinessRules.Services
                         wall.CortantePorTorsionY = Functions.Operations.CalcularCortanteTorsion(wall, Structure.Storeys[i].CentroTorsionX, Structure.Storeys[i].CentroTorsionY, Structure.Storeys[i].ExcentricidadesEstaticasX, Structure.Storeys[i].ExcentricidadesEstaticasY, Structure.Storeys[i].ExcentricidadesAccidentalesX, Structure.Storeys[i].ExcentricidadesAccidentalesY, Structure.Storeys[i].RigidezTorsionalEntrepiso, Pcx[Structure.Storeys.Count - 1 - i], Pcy[Structure.Storeys.Count - 1 - i], Enums.Coordenate.Y);
                         wall.CortanteTotales = Functions.Operations.CalcularCortantesTotales(wall);
                         wall.MomentoVolteo = Functions.Operations.CalcularMomentoVolteo(wall, Structure.Storeys[i].RigidezEntrepisoHorizontal, Structure.Storeys[i].MomentoVolteoEntrepisoX);
+                        wall.Peso = wall.Thickness / 100 * wall.Height / 100 * wall.Length / 100 * Convert.ToDouble(MaterialCollection.Single(mat => mat.Name == wall.Material).PV);
 
-                        wall.CargaAxialMaxima = Functions.Operations.CalcularCargaAxialUltima(wall, entrepiso, Structure.Storeys[i].StoreyNumber, Structure, MaterialCollection);
-                        wall.CargaAxialSismo = Functions.Operations.CalcularCargaAxialDeSismo(wall, entrepiso, Structure.Storeys[i].StoreyNumber, Structure, MaterialCollection);
+                        wall.CargaAxialMaxima = Functions.Operations.CalcularCargaAxialUltima(wall, entrepiso, Structure.Storeys[i].StoreyNumber, CAUAx, Structure);
+                        wall.CargaAxialSismo = Functions.Operations.CalcularCargaAxialDeSismo(wall, entrepiso, Structure.Storeys[i].StoreyNumber, CASAx, Structure);
                     }
+
+
+                    if (i < Structure.Storeys.Count - 1)
+                    {
+                        CAUAy += Structure.Storeys[i + 1].VerticalWalls.First().CargaAxialMaxima;
+                        CASAy += Structure.Storeys[i + 1].VerticalWalls.First().CargaAxialSismo;
+                    }
+
                     foreach (var wall in Structure.Storeys[i].VerticalWalls)
                     {
                         wall.CortanteDirecto = Functions.Operations.CalcularFuerzasCortantesDirectas(wall, Vcy[Structure.Storeys.Count - 1 - i], Structure.Storeys[i].VerticalWalls.Sum(x => x.RigidezLateral));
@@ -310,9 +327,10 @@ namespace StructureSystem.BusinessRules.Services
                         wall.CortantePorTorsionY = Functions.Operations.CalcularCortanteTorsion(wall, Structure.Storeys[i].CentroTorsionX, Structure.Storeys[i].CentroTorsionY, Structure.Storeys[i].ExcentricidadesEstaticasX, Structure.Storeys[i].ExcentricidadesEstaticasY, Structure.Storeys[i].ExcentricidadesAccidentalesX, Structure.Storeys[i].ExcentricidadesAccidentalesY, Structure.Storeys[i].RigidezTorsionalEntrepiso, Pcx[Structure.Storeys.Count - 1 - i], Pcy[Structure.Storeys.Count - 1 - i], Enums.Coordenate.Y);
                         wall.CortanteTotales = Functions.Operations.CalcularCortantesTotales(wall);
                         wall.MomentoVolteo = Functions.Operations.CalcularMomentoVolteo(wall, Structure.Storeys[i].RigidezEntrepisoVertical, Structure.Storeys[i].MomentoVolteoEntrepisoY);
+                        wall.Peso = wall.Thickness / 100 * wall.Height / 100 * wall.Length / 100 * Convert.ToDouble(MaterialCollection.Single(mat => mat.Name == wall.Material).PV);
 
-                        wall.CargaAxialMaxima = Functions.Operations.CalcularCargaAxialUltima(wall, entrepiso, Structure.Storeys[i].StoreyNumber, Structure, MaterialCollection);
-                        wall.CargaAxialSismo = Functions.Operations.CalcularCargaAxialDeSismo(wall, entrepiso, Structure.Storeys[i].StoreyNumber, Structure, MaterialCollection);
+                        wall.CargaAxialMaxima = Functions.Operations.CalcularCargaAxialUltima(wall, entrepiso, Structure.Storeys[i].StoreyNumber, CAUAy, Structure);
+                        wall.CargaAxialSismo = Functions.Operations.CalcularCargaAxialDeSismo(wall, entrepiso, Structure.Storeys[i].StoreyNumber, CASAy, Structure);
 
                     }
                 }

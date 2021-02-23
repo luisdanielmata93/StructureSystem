@@ -51,7 +51,7 @@
                     <ScrollViewer  Grid.Row="3" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
                         <DataGrid CanUserAddRows="False" FontSize="17" x:Name="structureData" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" ItemsSource="{Binding Path=Storeys ,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  AutoGenerateColumns="False" CanUserResizeColumns="True">
                             <DataGrid.Columns>
-                                <DataGridTemplateColumn  IsReadOnly="True" Header="NIVELES DE LA ESTRUCTURA">
+                                <DataGridTemplateColumn  IsReadOnly="True" Header="DETALLE DE LA ESTRUCTURA">
                                     <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate>
                                             <Grid>
@@ -173,7 +173,7 @@
                                                     <DataGridTextColumn Header="Separación de acero horizontal"  Binding="{Binding Sh, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"/>
                                                     <DataGridTextColumn Header="Esfuerzo de fluencia de acero horizontal"  Binding="{Binding EsfuerzoDeFluenciaDelAceroRefuerzoHorizontal, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"/>
 
-                                                    <DataGridTextColumn Header="Resistencia de acero de refuerzo horizontal"  Binding="{Binding ResistenciaTotalACortante, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" IsReadOnly="True"/>
+                                                    <DataGridTextColumn Header="Resistencia de acero de refuerzo horizontal"  Binding="{Binding ResAceroRefuerzoHorizontalCortante, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" IsReadOnly="True"/>
                                                     <DataGridTextColumn Header="Resistencia total a cortante del muro"  Binding="{Binding ResistenciaTotalACortante, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" IsReadOnly="True"/>
                                                     <DataGridTextColumn Header="Resistencia a cortante (muro de concreto)"  Binding="{Binding ResistenciaCortanteConcreto, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" IsReadOnly="True"/>
 

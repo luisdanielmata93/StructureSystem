@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "StructureSystem.View": {
+      "commandName": "Project",
+      "nativeDebugging": false
+    }
+  }
+}

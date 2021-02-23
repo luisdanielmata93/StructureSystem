@@ -7,20 +7,22 @@
         xmlns:viewModels="clr-namespace:StructureSystem.ViewModel;assembly=StructureSystem.ViewModel"
         xmlns:core="clr-namespace:StructureSystem.ViewModel.Shared;assembly=StructureSystem.ViewModel"
         xmlns:local="clr-namespace:StructureSystem.View.SplashScreenView"
+        xmlns:gif="http://wpfanimatedgif.codeplex.com" 
         mc:Ignorable="d"
         Title="SplashScreenWindow"
         WindowStartupLocation="CenterScreen"
         WindowStyle="None"
         AllowsTransparency="True"
-        Background="Transparent"
-        Height="450" Width="800">
+            Background="Transparent"
+        Height="530" Width="800">
     <Window.DataContext>
         <viewModels:SplashScreenViewVM />
     </Window.DataContext>
     <Grid>
-        <Image HorizontalAlignment="Left" Height="386" Margin="108,0,0,0"  Source="/Content/Images/SplashScreen.png" VerticalAlignment="Center" Width="590"/>
-        <mah:MetroProgressBar Background="Transparent"  Margin="151,383,182,52" Value="{Binding CurrentProgress, Mode=OneWay}" />
-        <!--<TextBlock HorizontalAlignment="Left"
-                   VerticalAlignment="Top" Margin="358,381,0,0" Text="{Binding StatusMessage, Mode=OneWay}"></TextBlock>-->
+        <Image HorizontalAlignment="Center" Height="450" Margin="0,1,0,0"  Source="/Content/Images/SplashScreen.png" VerticalAlignment="Top" Width="700"/>
+        <!--<MediaElement  Margin="17,372,16,79" Height="60" Width="60"
+             VerticalAlignment="Top" Source="/Content/Images/loadA1.gif"
+            LoadedBehavior="Play" Stretch="Fill" SpeedRatio="1" IsMuted="False" Panel.ZIndex="99999999" />-->
+        <Image gif:ImageBehavior.RepeatBehavior="3x" Margin="344,356,356,74" Height="100" Width="100" gif:ImageBehavior.AnimatedSource="/Content/Images/loadA1.gif" />
     </Grid>
 </Window>

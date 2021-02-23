@@ -16,6 +16,7 @@
     <None Remove="Content\Images\edificios3.png" />
     <None Remove="Content\Images\error2.png" />
     <None Remove="Content\Images\estructura33.jpg" />
+    <None Remove="Content\Images\loadA1.gif" />
     <None Remove="Content\Images\losa_macisa_azotea.png" />
     <None Remove="Content\Images\losa_macisa_entrepiso.png" />
     <None Remove="Content\Images\losa_nervada_azotea.png" />
@@ -43,6 +44,7 @@
     <PackageReference Include="Prism.Core" Version="7.2.0.1422" />
     <PackageReference Include="Prism.Wpf" Version="7.2.0.1422" />
     <PackageReference Include="System.Drawing.Common" Version="4.7.0" />
+    <PackageReference Include="WpfAnimatedGif" Version="2.0.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -57,6 +59,7 @@
     <Resource Include="Content\Images\edificios2.png" />
     <Resource Include="Content\Images\edificios3.png" />
     <Resource Include="Content\Images\estructura33.jpg" />
+    <Resource Include="Content\Images\loadA1.gif" />
     <Resource Include="Content\Images\losa_macisa_azotea.png" />
     <Resource Include="Content\Images\losa_macisa_entrepiso.png" />
     <Resource Include="Content\Images\losa_nervada_azotea.png" />

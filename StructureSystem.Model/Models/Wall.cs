@@ -17,10 +17,8 @@ namespace StructureSystem.Model
         {
             this.Tipos = new ObservableCollection<string> { "Interior", "Extremo" };
             this.Tipo = "Interior";
-            //this.As = 7;//temp calculable
-            //this.bc = 20; //temp calculable
             this.Fy = 4200; //temp
-            this.EsfuerzoDeFluenciaDelAceroRefuerzoHorizontal = 6000; //temp
+            this.EsfuerzoDeFluenciaDelAceroRefuerzoHorizontal = 6000; 
         }
 
         public int WallNumber { get; set; }

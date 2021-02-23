@@ -10,10 +10,12 @@ namespace StructureSystem.Model
     {
         public List<Storey> Storeys { get; set; }
         public string DocumentPath { get; set; }
+        public Wall SelectedWall { get; set; }
 
         public XMLStructuralDesignData()
         {
             Storeys = new List<Storey>();
+            SelectedWall = new Wall();
         }
     }
 }

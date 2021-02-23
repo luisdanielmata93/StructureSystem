@@ -34,7 +34,7 @@
             </Grid>
         </Border>-->
         
-        <Controls:MetroTabControl Margin="10 20 10 10" Grid.Row="1" Grid.Column="0" >
+        <Controls:MetroTabControl Margin="10 20 10 10" Grid.Row="1" Grid.Column="0"  >
             <Controls:MetroTabItem Header="Análisis de carga">
                 <Grid>
                     <Grid.ColumnDefinitions>

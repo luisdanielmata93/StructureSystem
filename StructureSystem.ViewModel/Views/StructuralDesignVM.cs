@@ -29,6 +29,13 @@ namespace StructureSystem.ViewModel
 
             this._mainViewModel = mainViewModel;
             this.SetCommands();
+            this._mainViewModel.ProcessCompleted += _mainViewModel_ProcessCompleted; ;
+
+        }
+
+        private void _mainViewModel_ProcessCompleted(object sender, bool e)
+        {
+            setInitialData();
         }
 
 
@@ -53,7 +60,10 @@ namespace StructureSystem.ViewModel
         private void ShowGraph()
         {
             if (SelectedWall != null)
+            {
                 DataService.Graficar(SelectedWall);
+                SelectedWall = null;
+            }
             else
                 notificationViewModel.ShowAlert("Seleccione un muro para visualizar su gráfica. ");
         }
@@ -75,8 +85,16 @@ namespace StructureSystem.ViewModel
 
         private void Refresh()
         {
-            var st = new ObservableCollection<Storey>((List<Storey>)DataService.Update(this.Storeys.ToList()).Storeys);
-            this.Storeys = st;
+            try
+            {
+                var st = new ObservableCollection<Storey>((List<Storey>)DataService.Update(this.Storeys.ToList()).Storeys);
+                this.Storeys = st;
+
+            }
+            catch (Exception ex)
+            {
+
+            }
         }
 
 

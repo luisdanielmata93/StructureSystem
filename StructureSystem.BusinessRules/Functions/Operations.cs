@@ -34,10 +34,6 @@ namespace StructureSystem.BusinessRules.Functions
                     for (int j = 0; j < k.GetLength(1); j++)
                         k[i, j] = k[i, j] * 981;
 
-
-
-
-
                 SeismicAnalysis.SeismicAnalysisOperations operations = new SeismicAnalysis.SeismicAnalysisOperations();
 
 
@@ -53,6 +49,8 @@ namespace StructureSystem.BusinessRules.Functions
 
 
                 var w = (double[])((MWNumericArray)wTF[0]).ToVector(MWArrayComponent.Real);
+
+                operations = null;
 
                 result = w;
             }
@@ -90,6 +88,8 @@ namespace StructureSystem.BusinessRules.Functions
 
                 var TReverse = T.Reverse();
                 result = TReverse.ToArray();
+
+                operations = null;
             }
             catch (Exception ex)
             {
@@ -126,6 +126,8 @@ namespace StructureSystem.BusinessRules.Functions
 
                 var FReverse = F.Reverse();
                 result = FReverse.ToArray();
+
+                operations = null;
             }
             catch (Exception ex)
             {
@@ -159,6 +161,8 @@ namespace StructureSystem.BusinessRules.Functions
                 var phi = operations.Phi(eigenValues, eigsMatrix[0]);
 
                 result = (double[,])((MWNumericArray)phi).ToArray(MWArrayComponent.Real);
+
+                operations = null;
             }
             catch (Exception ex)
             {
@@ -265,6 +269,7 @@ namespace StructureSystem.BusinessRules.Functions
                 }
 
                 result = Espectral;
+                operations = null;
             }
             catch (Exception ex)
             {
@@ -300,6 +305,8 @@ namespace StructureSystem.BusinessRules.Functions
 
                 var Mg = operations.Mg(eigenValues, Marr, phi);
                 result = (double[,])((MWNumericArray)Mg).ToArray(MWArrayComponent.Real);
+
+                operations = null;
             }
             catch (Exception ex)
             {
@@ -333,6 +340,8 @@ namespace StructureSystem.BusinessRules.Functions
 
                 var Kg = operations.Mg(eigenValues, Karr, phi);
                 result = (double[,])((MWNumericArray)Kg).ToArray(MWArrayComponent.Real);
+
+                operations = null;
             }
             catch (Exception ex)
             {
@@ -375,6 +384,7 @@ namespace StructureSystem.BusinessRules.Functions
 
                 result = (double[])((MWNumericArray)Gamma).ToVector(MWArrayComponent.Real);
 
+                operations = null;
             }
             catch (Exception ex)
             {
@@ -410,6 +420,8 @@ namespace StructureSystem.BusinessRules.Functions
 
                 var phiN = operations.PhiN(eigenValues, phi, Mg);
                 result = (double[,])((MWNumericArray)phiN).ToArray(MWArrayComponent.Real);
+
+                operations = null;
             }
             catch (Exception ex)
             {
@@ -448,7 +460,7 @@ namespace StructureSystem.BusinessRules.Functions
 
                 result = (double[])((MWNumericArray)Me).ToVector(MWArrayComponent.Real);
 
-
+                operations = null;
             }
             catch (Exception ex)
             {
@@ -487,6 +499,8 @@ namespace StructureSystem.BusinessRules.Functions
                 var GammaN = operations.GammaN(eigenValues, Marr, phiN);
 
                 result = (double[])((MWNumericArray)GammaN).ToVector(MWArrayComponent.Real);
+
+                operations = null;
             }
             catch (Exception ex)
             {
@@ -527,6 +541,8 @@ namespace StructureSystem.BusinessRules.Functions
                 for (int i = 0; i < result.Length; i++)
                     result[i] = result[i] / Mt;
 
+
+                operations = null;
             }
             catch (Exception ex)
             {
@@ -573,6 +589,7 @@ namespace StructureSystem.BusinessRules.Functions
                     result[i] = Temp1 / Temp2;
                 }
 
+                operations = null;
             }
             catch (Exception ex)
             {
@@ -1246,10 +1263,11 @@ namespace StructureSystem.BusinessRules.Functions
         }
 
 
-        public static double CalcularCargaAxialUltima(Wall wall, XMLLoadAnalysisData entrepiso, int nivel, Structure structure, List<Material> materials)
+        public static double CalcularCargaAxialUltima(Wall wall, XMLLoadAnalysisData entrepiso, int nivel, double CAU, Structure structure)
         {
             double result = 0, CM = 0, CV = 0, P = 0, A = 0;
-
+          
+            #region Entrepisos
             if (entrepiso.LosaMacizaAzoteaP != null)
             {
                 CM = entrepiso.LosaMacizaAzoteaP.CargaMuerta;
@@ -1285,6 +1303,7 @@ namespace StructureSystem.BusinessRules.Functions
                 CM = entrepiso.LosaOtroTipoP.CargaMuerta;
                 CV = entrepiso.LosaOtroTipoP.CargaVivaMaxima;
             }
+            #endregion
 
             double X = wall.PositionX;
             double Y = wall.PositionY;
@@ -1293,26 +1312,22 @@ namespace StructureSystem.BusinessRules.Functions
             {
                 if (nivel == n + 1)
                 {
-                    wall.Peso = wall.Thickness / 100 * wall.Height / 100 * wall.Length / 100 * Convert.ToDouble(materials.Single(mat => mat.Name == wall.Material).PV);
                     result = wall.Peso + (1.3 * CM + 1.5 * CV) * wall.TributaryArea;
                 }
                 else
                 {
-                    wall.Peso = wall.Thickness / 100 * wall.Height / 100 * wall.Length / 100 * Convert.ToDouble(materials.Single(mat => mat.Name == wall.Material).PV);
-                    result = wall.Peso + (1.3 * CM + 1.5 * CV) * wall.TributaryArea;
+                    result = wall.Peso + (1.3 * CM + 1.5 * CV) * wall.TributaryArea + CAU;
                 }
             }
             if (wall.Side.Equals(Enums.SideType.Vertical))
             {
                 if (nivel == n + 1)
                 {
-                    wall.Peso = wall.Thickness / 100 * wall.Height / 100 * wall.Length / 100 * Convert.ToDouble(materials.Single(mat => mat.Name == wall.Material).PV);
                     result = wall.Peso + (1.3 * CM + 1.5 * CV) * wall.TributaryArea;
                 }
                 else
                 {
-                    wall.Peso = wall.Thickness / 100 * wall.Height / 100 * wall.Length / 100 * Convert.ToDouble(materials.Single(mat => mat.Name == wall.Material).PV);
-                    result = wall.Peso + (1.3 * CM + 1.5 * CV) * wall.TributaryArea;
+                    result = wall.Peso + (1.3 * CM + 1.5 * CV) * wall.TributaryArea + CAU;
                 }
             }
 
@@ -1320,10 +1335,11 @@ namespace StructureSystem.BusinessRules.Functions
         }
 
 
-        public static double CalcularCargaAxialDeSismo(Wall wall, XMLLoadAnalysisData entrepiso, int nivel, Structure structure, List<Material> materials)
+        public static double CalcularCargaAxialDeSismo(Wall wall, XMLLoadAnalysisData entrepiso, int nivel, double CAU, Structure structure)
         {
             double result = 0, CM = 0, CV = 0, P = 0, A = 0;
-
+            
+            #region entrepiso
             if (entrepiso.LosaMacizaAzoteaP != null)
             {
                 CM = entrepiso.LosaMacizaAzoteaP.CargaMuerta;
@@ -1359,6 +1375,7 @@ namespace StructureSystem.BusinessRules.Functions
                 CM = entrepiso.LosaOtroTipoP.CargaMuerta;
                 CV = entrepiso.LosaOtroTipoP.CargaVivaInstantanea;
             }
+            #endregion
 
             double X = wall.PositionX;
             double Y = wall.PositionY;
@@ -1367,26 +1384,22 @@ namespace StructureSystem.BusinessRules.Functions
             {
                 if (nivel == n + 1)
                 {
-                    wall.Peso = wall.Thickness / 100 * wall.Height / 100 * wall.Length / 100 * Convert.ToDouble(materials.Single(mat => mat.Name == wall.Material).PV);
                     result = wall.Peso + (CM + CV) * wall.TributaryArea;
                 }
                 else
                 {
-                    wall.Peso = wall.Thickness / 100 * wall.Height / 100 * wall.Length / 100 * Convert.ToDouble(materials.Single(mat => mat.Name == wall.Material).PV);
-                    result = wall.Peso + (CM + CV) * wall.TributaryArea;
+                    result = wall.Peso + (CM + CV) * wall.TributaryArea + CAU;
                 }
             }
             if (wall.Side.Equals(Enums.SideType.Vertical))
             {
                 if (nivel == n + 1)
                 {
-                    wall.Peso = wall.Thickness / 100 * wall.Height / 100 * wall.Length / 100 * Convert.ToDouble(materials.Single(mat => mat.Name == wall.Material).PV);
                     result = wall.Peso + (CM + CV) * wall.TributaryArea;
                 }
                 else
                 {
-                    wall.Peso = wall.Thickness / 100 * wall.Height / 100 * wall.Length / 100 * Convert.ToDouble(materials.Single(mat => mat.Name == wall.Material).PV);
-                    result = wall.Peso + (CM + CV) * wall.TributaryArea;
+                    result = wall.Peso + (CM + CV) * wall.TributaryArea+ CAU;
                 }
             }
 
@@ -1628,7 +1641,7 @@ namespace StructureSystem.BusinessRules.Functions
             double result = Math.Max(a, b);
 
 
-            return result;
+            return Math.Round(result,5);
         }
 
         public static double CalcularResistenciaAceroRefuerzoHorizontalCortante(Wall wall, Material material)
@@ -1674,7 +1687,7 @@ namespace StructureSystem.BusinessRules.Functions
             double result = 0.7 * n * ph * fyh * wall.AreaLongitudinal;
 
 
-            return result;
+            return Math.Round(result,5);
         }
 
         public static double CalcularResistenciaTotalACortante(Wall wall)
@@ -1682,7 +1695,7 @@ namespace StructureSystem.BusinessRules.Functions
             double result = wall.ResMamposteriaCortante + wall.ResAceroRefuerzoHorizontalCortante;
 
 
-            return result;
+            return Math.Round(result,5);
         }
 
         public static double CalcularResistenciaCortanteConcreto(Wall wall)
@@ -1706,23 +1719,30 @@ namespace StructureSystem.BusinessRules.Functions
         public static bool ValidarGrafica(Wall wall)
         {
             bool result = false;
+            int IsGraphValidCondition = 0;
             try
             {
                 SeismicAnalysis.SeismicAnalysisOperations operations = new SeismicAnalysis.SeismicAnalysisOperations();
 
-                double[] X = { wall.P1X, wall.P2X, wall.P3X, wall.P4X, wall.P5X };
-                double[] Y = { wall.P1Y, wall.P2Y, wall.P3Y, wall.P4Y, wall.P5Y };
-                double[,] P = { { wall.MomentoVolteo }, { wall.CargaAxialMaxima } };
+                MWNumericArray Xa;
+                MWNumericArray Ya;
+                MWNumericArray Pa;
+
+                    double[] X = { wall.P1X, wall.P2X, wall.P3X, wall.P4X, wall.P5X };
+                    double[] Y = { wall.P1Y, wall.P2Y, wall.P3Y, wall.P4Y, wall.P5Y };
+                    double[,] P = { { wall.MomentoVolteo }, { wall.CargaAxialMaxima } };
+                    Xa = new MWNumericArray(X);
+                    Ya = new MWNumericArray(Y);
+                    Pa = new MWNumericArray(P);
+                
                 string titulo = wall.WallNumber.ToString();
 
-                MWNumericArray Xa = new MWNumericArray(X);
-                MWNumericArray Ya = new MWNumericArray(Y);
-                MWNumericArray Pa = new MWNumericArray(P);
-
                 var IsValid = operations.isValidToPlot(Xa, Ya, Pa);
+                IsGraphValidCondition = Convert.ToInt32(IsValid.ToString());
 
-                if (IsValid.ToArray().GetValue(0).ToString().Equals("Y"))
+                if (IsGraphValidCondition == 1)
                     result = true;
+
 
             }
             catch (Exception ex)
@@ -1740,17 +1760,18 @@ namespace StructureSystem.BusinessRules.Functions
             try
             {
                 SeismicAnalysis.SeismicAnalysisOperations operations = new SeismicAnalysis.SeismicAnalysisOperations();
-                
+
                 double[] X = { wall.P1X, wall.P2X, wall.P3X, wall.P4X, wall.P5X };
                 double[] Y = { wall.P1Y, wall.P2Y, wall.P3Y, wall.P4Y, wall.P5Y };
-                double[,] P = { { wall.PositionX }, { wall.PositionY } };
+                double[,] P = { { wall.MomentoVolteo }, { wall.CargaAxialMaxima } };
+
                 string titulo = wall.WallNumber.ToString();
 
                 MWNumericArray Xa = new MWNumericArray(X);
                 MWNumericArray Ya = new MWNumericArray(Y);
                 MWNumericArray Pa = new MWNumericArray(P);
                 operations.plotter(Xa, Ya, Pa, titulo);
-               
+
 
             }
             catch (Exception ex)
@@ -1764,8 +1785,8 @@ namespace StructureSystem.BusinessRules.Functions
         {
             bool result = false;
 
-            double a = (0.85 * wall.Dfc / wall.Fy) * (0.85 * 0.9 * 6000 / (wall.Fy + 6000)) * wall.bc * wall.Thickness;
-            if (wall.As > a)
+            double AsMax = (0.85 * wall.Dfc / wall.Fy) * (0.85 * 0.9 * 6000 / (wall.Fy + 6000)) * wall.bc * wall.Thickness;
+            if (wall.As  > AsMax)
                 result = true;
 
             return result;

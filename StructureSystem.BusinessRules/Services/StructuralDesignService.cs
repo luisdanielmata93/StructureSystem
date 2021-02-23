@@ -36,14 +36,14 @@ namespace StructureSystem.BusinessRules.Services
             {
                 var document = GetDocumentPath();
 
-                using (var data = UnitOfWork.Create())
-                {
-                    structure.Storeys = (List<Storey>)data.Repositories.DocumentDataContext.SeismicAnalysisData.Get(document);
-                }
+                //using (var data = UnitOfWork.Create())
+                //{
+                //    structure.Storeys = (List<Storey>)data.Repositories.DocumentDataContext.SeismicAnalysisData.Get(document);
+                //}
+                CalculateEstructuralDesign();
                 CalculateInitialData(ref structure);
                 CalculateComplexData(ref structure);
                 CalculateComplementData(ref structure);
-                CalculateEstructuralDesign(ref structure);
             }
             catch (Exception ex)
             {
@@ -253,7 +253,7 @@ namespace StructureSystem.BusinessRules.Services
             try
             {
                 XMLLoadAnalysisData entrepiso;
-                double sumVcy = 0, sumVcx = 0, sumPcy = 0, sumPcx = 0, PaH = 0, PaV = 0;
+                double sumVcy = 0, sumVcx = 0, sumPcy = 0, sumPcx = 0, PaH = 0, PaV = 0, CAUAx=0, CAUAy= 0, CASAx = 0, CASAy=0;
 
                 for (int i = Structure.Storeys.Count - 1; i >= 0; i--)
                 {
@@ -288,8 +288,16 @@ namespace StructureSystem.BusinessRules.Services
                     Structure.Storeys[i].MomentosTorsionantesX = Functions.Operations.CalcularMomentosTorsionantes(Structure.Storeys[i].ExcentricidadesDisenioEntrepisoY, Pcx[Structure.Storeys.Count - 1 - i]);
                     Structure.Storeys[i].MomentosTorsionantesY = Functions.Operations.CalcularMomentosTorsionantes(Structure.Storeys[i].ExcentricidadesDisenioEntrepisoX, Pcy[Structure.Storeys.Count - 1 - i]);
                     Structure.Storeys[i].RigidezTorsionalEntrepiso = Functions.Operations.CalcularRigidezTorsionalEntrepiso(Structure.Storeys[i], Structure.Storeys[i].CentroTorsionX, Structure.Storeys[i].CentroTorsionY);
-                    Structure.Storeys[i].MomentoVolteoEntrepisoX = Functions.Operations.CalcularMomentoVolteoEntrepiso(Structure.Storeys[i], Vcx[Structure.Storeys.Count - 1 - i]);
-                    Structure.Storeys[i].MomentoVolteoEntrepisoY = Functions.Operations.CalcularMomentoVolteoEntrepiso(Structure.Storeys[i], Vcy[Structure.Storeys.Count - 1 - i]);
+                    Structure.Storeys[i].MomentoVolteoEntrepisoX = Functions.Operations.CalcularMomentoVolteoEntrepiso(Structure.Storeys[i], Pcx[Structure.Storeys.Count - 1 - i]);
+                    Structure.Storeys[i].MomentoVolteoEntrepisoY = Functions.Operations.CalcularMomentoVolteoEntrepiso(Structure.Storeys[i], Pcy[Structure.Storeys.Count - 1 - i]);
+
+
+                    if(i < Structure.Storeys.Count - 1)
+                    {
+                        CAUAx += Structure.Storeys[i + 1].HorizontalWalls.First().CargaAxialMaxima;
+                        CASAx += Structure.Storeys[i + 1].HorizontalWalls.First().CargaAxialSismo;
+                    }
+
 
                     foreach (var wall in Structure.Storeys[i].HorizontalWalls)
                     {
@@ -302,9 +310,22 @@ namespace StructureSystem.BusinessRules.Services
                         wall.CortanteTotales = Functions.Operations.CalcularCortantesTotales(wall);
                         wall.MomentoVolteo = Functions.Operations.CalcularMomentoVolteo(wall, Structure.Storeys[i].RigidezEntrepisoHorizontal, Structure.Storeys[i].MomentoVolteoEntrepisoX);
 
-                        wall.CargaAxialMaxima = Functions.Operations.CalcularCargaAxialUltima(wall, entrepiso, Structure.Storeys[i].StoreyNumber, Structure, MaterialCollection);
-                        wall.CargaAxialSismo = Functions.Operations.CalcularCargaAxialDeSismo(wall, entrepiso, Structure.Storeys[i].StoreyNumber, Structure, MaterialCollection);
+
+                        wall.Peso = wall.Thickness / 100 * wall.Height / 100 * wall.Length / 100 * Convert.ToDouble(MaterialCollection.Single(mat => mat.Name == wall.Material).PV);
+
+                        wall.CargaAxialMaxima = Functions.Operations.CalcularCargaAxialUltima(wall, entrepiso, Structure.Storeys[i].StoreyNumber, CAUAx, Structure);
+                        wall.CargaAxialSismo = Functions.Operations.CalcularCargaAxialDeSismo(wall, entrepiso, Structure.Storeys[i].StoreyNumber, CASAx, Structure);
+                        
                     }
+
+
+
+                    if (i < Structure.Storeys.Count - 1)
+                    {
+                        CAUAy += Structure.Storeys[i + 1].VerticalWalls.First().CargaAxialMaxima;
+                        CASAy += Structure.Storeys[i + 1].VerticalWalls.First().CargaAxialSismo;
+                    }
+
                     foreach (var wall in Structure.Storeys[i].VerticalWalls)
                     {
                         wall.CortanteDirecto = Functions.Operations.CalcularFuerzasCortantesDirectas(wall, Vcy[Structure.Storeys.Count - 1 - i], Structure.Storeys[i].VerticalWalls.Sum(x => x.RigidezLateral));
@@ -315,9 +336,11 @@ namespace StructureSystem.BusinessRules.Services
                         wall.CortantePorTorsionY = Functions.Operations.CalcularCortanteTorsion(wall, Structure.Storeys[i].CentroTorsionX, Structure.Storeys[i].CentroTorsionY, Structure.Storeys[i].ExcentricidadesEstaticasX, Structure.Storeys[i].ExcentricidadesEstaticasY, Structure.Storeys[i].ExcentricidadesAccidentalesX, Structure.Storeys[i].ExcentricidadesAccidentalesY, Structure.Storeys[i].RigidezTorsionalEntrepiso, Pcx[Structure.Storeys.Count - 1 - i], Pcy[Structure.Storeys.Count - 1 - i], Enums.Coordenate.Y);
                         wall.CortanteTotales = Functions.Operations.CalcularCortantesTotales(wall);
                         wall.MomentoVolteo = Functions.Operations.CalcularMomentoVolteo(wall, Structure.Storeys[i].RigidezEntrepisoVertical, Structure.Storeys[i].MomentoVolteoEntrepisoY);
+                       
+                        wall.Peso = wall.Thickness / 100 * wall.Height / 100 * wall.Length / 100 * Convert.ToDouble(MaterialCollection.Single(mat => mat.Name == wall.Material).PV);
 
-                        wall.CargaAxialMaxima = Functions.Operations.CalcularCargaAxialUltima(wall, entrepiso, Structure.Storeys[i].StoreyNumber, Structure, MaterialCollection);
-                        wall.CargaAxialSismo = Functions.Operations.CalcularCargaAxialDeSismo(wall, entrepiso, Structure.Storeys[i].StoreyNumber, Structure, MaterialCollection);
+                        wall.CargaAxialMaxima = Functions.Operations.CalcularCargaAxialUltima(wall, entrepiso, Structure.Storeys[i].StoreyNumber, CAUAy, Structure);
+                        wall.CargaAxialSismo = Functions.Operations.CalcularCargaAxialDeSismo(wall, entrepiso, Structure.Storeys[i].StoreyNumber, CASAy, Structure);
 
                     }
                 }
@@ -332,97 +355,20 @@ namespace StructureSystem.BusinessRules.Services
 
 
         #region Información diseño estructural (7.n)
-        private void CalculateEstructuralDesign(ref Structure structure)
+        private void CalculateEstructuralDesign()
         {
             try
             {
-                XMLLoadAnalysisData entrepiso;
-                for (int i = structure.Storeys.Count - 1; i >= 0; i--)
+                XMLStructuralDesignData document = new XMLStructuralDesignData();
+                document.DocumentPath = GetDocumentPath();
+
+                document.Storeys = structure.Storeys;
+
+                using (var data = UnitOfWork.Create())
                 {
-                    entrepiso = GetEntrepisoPorNivel(structure.Storeys[i].StoreyNumber);
-
-                    foreach (var wall in structure.Storeys[i].HorizontalWalls)
-                    {
-                        wall.ExcentricidadDeCarga = Operations.CalcularExcentricidadDeCarga(wall);
-                        wall.FactorAlturaEfectiva = Operations.CalcularFactorDeAlturaEfectiva(wall);
-                        wall.FE = Operations.CalcularFactorReduccionExcentricidadEsbeltez(wall, entrepiso);
-                        //do
-                        //{
-                        wall.PR = Operations.CalcularResistenciaCompresionPura(wall, MaterialCollection.Single(x => x.Name == wall.Material));
-                        wall.Mo = Operations.CalcularResistenciaFlexionPura(wall);
-
-                        wall.P1X = Operations.CalcularP1X(wall);
-                        wall.P1Y = Operations.CalcularP1Y(wall);
-                        wall.P2X = Operations.CalcularP2X(wall);
-                        wall.P2Y = Operations.CalcularP2Y(wall);
-                        wall.P3X = Operations.CalcularP3X(wall);
-                        wall.P3Y = Operations.CalcularP3Y(wall);
-                        wall.P4X = Operations.CalcularP4X(wall);
-                        wall.P4Y = Operations.CalcularP4Y(wall);
-                        wall.P5X = Operations.CalcularP5X(wall);
-                        wall.P5Y = Operations.CalcularP5Y(wall);
-
-                        wall.TP1P2 = Operations.CalcularTP1P2(wall);
-                        wall.TP2P3 = Operations.CalcularTP2P3(wall);
-
-                        wall.ResMamposteriaCortante = Operations.CalcularResistenciaMamposteriaCortante(wall, MaterialCollection.Single(x => x.Name == wall.Material));
-                        wall.ResAceroRefuerzoHorizontalCortante = Operations.CalcularResistenciaAceroRefuerzoHorizontalCortante(wall, MaterialCollection.Single(x => x.Name == wall.Material));
-
-
-                        wall.ResistenciaTotalACortante = Operations.CalcularResistenciaTotalACortante(wall);
-                        //Si el muro es de concreto solo calculas esta... sino, calculas lo anterior y este no.
-                        wall.ResistenciaCortanteConcreto = Operations.CalcularResistenciaCortanteConcreto(wall);
-
-                        //    wall.As += 1;
-                        //    if (Operations.CalcularBc(wall))
-                        //        wall.bc += 5;
-
-                        //} while (wall.Conclusion.Equals("NO PASA"));
-
-
-
-                    }
-
-                    foreach (var wall in structure.Storeys[i].VerticalWalls)
-                    {
-                        wall.ExcentricidadDeCarga = Operations.CalcularExcentricidadDeCarga(wall);
-                        wall.FactorAlturaEfectiva = Operations.CalcularFactorDeAlturaEfectiva(wall);
-                        wall.FE = Operations.CalcularFactorReduccionExcentricidadEsbeltez(wall, entrepiso);
-                        //do
-                        //{
-                        wall.PR = Operations.CalcularResistenciaCompresionPura(wall, MaterialCollection.Single(x => x.Name == wall.Material));
-                        wall.Mo = Operations.CalcularResistenciaFlexionPura(wall);
-
-                        wall.P1X = Operations.CalcularP1X(wall);
-                        wall.P1Y = Operations.CalcularP1Y(wall);
-                        wall.P2X = Operations.CalcularP2X(wall);
-                        wall.P2Y = Operations.CalcularP2Y(wall);
-                        wall.P3X = Operations.CalcularP3X(wall);
-                        wall.P3Y = Operations.CalcularP3Y(wall);
-                        wall.P4X = Operations.CalcularP4X(wall);
-                        wall.P4Y = Operations.CalcularP4Y(wall);
-                        wall.P5X = Operations.CalcularP5X(wall);
-                        wall.P5Y = Operations.CalcularP5Y(wall);
-
-                        wall.TP1P2 = Operations.CalcularTP1P2(wall);
-                        wall.TP2P3 = Operations.CalcularTP2P3(wall);
-
-                        wall.ResMamposteriaCortante = Operations.CalcularResistenciaMamposteriaCortante(wall, MaterialCollection.Single(x => x.Name == wall.Material));
-                        wall.ResAceroRefuerzoHorizontalCortante = Operations.CalcularResistenciaAceroRefuerzoHorizontalCortante(wall, MaterialCollection.Single(x => x.Name == wall.Material));
-
-                        wall.ResistenciaTotalACortante = Operations.CalcularResistenciaTotalACortante(wall);
-
-                        //Si el muro es de concreto solo calculas esta... sino, calculas lo anterior y este no.
-                        wall.ResistenciaCortanteConcreto = Operations.CalcularResistenciaCortanteConcreto(wall);
-                    }
-
-
-                    string materialName = structure.Storeys[i].HorizontalWalls.FirstOrDefault().Material;
-                    structure.Storeys[i].EsfuerzoNormalPromedio = Operations.CalcularEsfuerzoNormalPromedioDeEntrepiso(structure.Storeys[i], MaterialCollection.Single(x => x.Name == materialName));
-                    structure.Storeys[i].CortanteResistenteEntrepisoMamposteria = Operations.CalcularCortanteResistenteEntrepisoMamposteria(structure.Storeys[i], MaterialCollection.Single(x => x.Name == materialName));
+                    structure.Storeys = (List<Storey>)data.Repositories.DocumentDataContext.StructuralDesignData.Get(document.DocumentPath);
 
                 }
-
 
             }
             catch (Exception ex)
@@ -439,23 +385,28 @@ namespace StructureSystem.BusinessRules.Services
             {
                 XMLLoadAnalysisData entrepiso;
 
-                structure.Storeys.Clear();
-                structure.Storeys = storeys;
-                for (int i = structure.Storeys.Count - 1; i >= 0; i--)
+                //structure.Storeys.Clear();
+                //structure.Storeys = storeys;
+
+                for (int i = storeys.Count - 1; i >= 0; i--)
                 {
-                    entrepiso = GetEntrepisoPorNivel(structure.Storeys[i].StoreyNumber);
+                    entrepiso = GetEntrepisoPorNivel(storeys[i].StoreyNumber);
 
                     //AQUI SE CALCULAN LOS NIVELES
 
-                    foreach (var wall in structure.Storeys[i].HorizontalWalls)
+                    foreach (var wall in storeys[i].HorizontalWalls)
                     {
+                        wall.As = 1;
+                        wall.bc = 15;
 
                         wall.ExcentricidadDeCarga = Operations.CalcularExcentricidadDeCarga(wall);
                         wall.FactorAlturaEfectiva = Operations.CalcularFactorDeAlturaEfectiva(wall);
+
                         wall.FE = Operations.CalcularFactorReduccionExcentricidadEsbeltez(wall, entrepiso);
-                        
-                        for (int index = 0; index < 100 && !Operations.ValidarGrafica(wall); index++)
+
+                        for (int index = 0; index < 100; index++)
                         {
+                           
                             wall.PR = Operations.CalcularResistenciaCompresionPura(wall, MaterialCollection.Single(x => x.Name == wall.Material));
                             wall.Mo = Operations.CalcularResistenciaFlexionPura(wall);
 
@@ -470,31 +421,40 @@ namespace StructureSystem.BusinessRules.Services
                             wall.P5X = Operations.CalcularP5X(wall);
                             wall.P5Y = Operations.CalcularP5Y(wall);
 
+                            if (Operations.ValidarGrafica(wall) && !Operations.CalcularBc(wall))
+                                break;
 
                             if (Operations.CalcularBc(wall))
                                 wall.bc += 5;
-                            wall.As += 1;
-                           
+                            else
+                                wall.As += 1;
+
 
                         }
 
                         wall.ResMamposteriaCortante = Operations.CalcularResistenciaMamposteriaCortante(wall, MaterialCollection.Single(x => x.Name == wall.Material));
                         wall.ResAceroRefuerzoHorizontalCortante = Operations.CalcularResistenciaAceroRefuerzoHorizontalCortante(wall, MaterialCollection.Single(x => x.Name == wall.Material));
                         wall.ResistenciaTotalACortante = Operations.CalcularResistenciaTotalACortante(wall);
+                       
 
                         //Si el muro es de concreto solo calculas esta... sino, calculas lo anterior y este no.
                         wall.ResistenciaCortanteConcreto = Operations.CalcularResistenciaCortanteConcreto(wall);
                         wall.Conclusion = Operations.CalcularConclusionPorCortante(wall);
 
                     }
-                    foreach (var wall in structure.Storeys[i].VerticalWalls)
+                    foreach (var wall in storeys[i].VerticalWalls)
                     {
+                        wall.As = 1;
+                        wall.bc = 15;
+
                         wall.ExcentricidadDeCarga = Operations.CalcularExcentricidadDeCarga(wall);
                         wall.FactorAlturaEfectiva = Operations.CalcularFactorDeAlturaEfectiva(wall);
                         wall.FE = Operations.CalcularFactorReduccionExcentricidadEsbeltez(wall, entrepiso);
 
-                        for (int index = 0; index < 100 && !Operations.ValidarGrafica(wall); index++)
+                        for (int index = 0; index < 100; index++)
                         {
+                           
+
                             wall.PR = Operations.CalcularResistenciaCompresionPura(wall, MaterialCollection.Single(x => x.Name == wall.Material));
                             wall.Mo = Operations.CalcularResistenciaFlexionPura(wall);
 
@@ -509,9 +469,18 @@ namespace StructureSystem.BusinessRules.Services
                             wall.P5X = Operations.CalcularP5X(wall);
                             wall.P5Y = Operations.CalcularP5Y(wall);
 
-                            wall.As += 1;
+                            if (Operations.ValidarGrafica(wall) && !Operations.CalcularBc(wall))
+                                break;
+
+
                             if (Operations.CalcularBc(wall))
                                 wall.bc += 5;
+                            else
+                                wall.As += 1;
+
+                          
+                          
+
                         }
 
 
@@ -527,100 +496,18 @@ namespace StructureSystem.BusinessRules.Services
                     } //Fin de calculo para muros verticales
                     //INICIA CALCULO PARA NIVELES (ENTREPISOS)
 
-                    string materialName = structure.Storeys[i].HorizontalWalls.FirstOrDefault().Material;
-                    structure.Storeys[i].EsfuerzoNormalPromedio = Operations.CalcularEsfuerzoNormalPromedioDeEntrepiso(structure.Storeys[i], MaterialCollection.Single(x => x.Name == materialName));
-                    structure.Storeys[i].CortanteResistenteEntrepisoMamposteria = Operations.CalcularCortanteResistenteEntrepisoMamposteria(structure.Storeys[i], MaterialCollection.Single(x => x.Name == materialName));
-                    structure.Storeys[i].CortanteResistenteEntrepisoConcreto = Operations.CalcularCortanteResistenteEntrepisoConcreto(structure.Storeys[i]);
-                    structure.Storeys[i].CortanteEntrepisoTotal = Operations.CalcularCortanteEntrepisoTotal(structure.Storeys[i]);
-                    structure.Storeys[i].ConclusionX = Operations.CalcularConclusionPorCortanteDeEntrepiso(Vcx[structure.Storeys.Count - 1 - i], structure.Storeys[i].CortanteEntrepisoTotal);
-                    structure.Storeys[i].ConclusionY = Operations.CalcularConclusionPorCortanteDeEntrepiso(Vcy[structure.Storeys.Count - 1 - i], structure.Storeys[i].CortanteEntrepisoTotal);
+                    string materialName = storeys[i].HorizontalWalls.FirstOrDefault().Material;
+                    storeys[i].EsfuerzoNormalPromedio = Operations.CalcularEsfuerzoNormalPromedioDeEntrepiso(storeys[i], MaterialCollection.Single(x => x.Name == materialName));
+                    storeys[i].CortanteResistenteEntrepisoMamposteria = Operations.CalcularCortanteResistenteEntrepisoMamposteria(storeys[i], MaterialCollection.Single(x => x.Name == materialName));
+                    storeys[i].CortanteResistenteEntrepisoConcreto = Operations.CalcularCortanteResistenteEntrepisoConcreto(storeys[i]);
+                    storeys[i].CortanteEntrepisoTotal = Operations.CalcularCortanteEntrepisoTotal(storeys[i]);
+                    storeys[i].ConclusionX = Operations.CalcularConclusionPorCortanteDeEntrepiso(Vcx[storeys.Count - 1 - i], storeys[i].CortanteEntrepisoTotal);
+                    storeys[i].ConclusionY = Operations.CalcularConclusionPorCortanteDeEntrepiso(Vcy[storeys.Count - 1 - i], storeys[i].CortanteEntrepisoTotal);
 
                 }
-
-                //XMLStructuralDesignData document = new XMLStructuralDesignData();
-                //document.DocumentPath = GetDocumentPath();
-
-                //using (var data = UnitOfWork.Create())
-                //{
-                //    data.Repositories.DocumentDataContext.StructuralDesignData.Create(document);
-                //}
-            }
-            catch (Exception ex)
-            {
-
-            }
-
-            return structure;
-        }
-
-
-
-        public Structure UpdateWall(Wall selectedWall)
-        {
-            try
-            {
-                XMLLoadAnalysisData entrepiso;
-
-                var SelectedStorey = structure.Storeys.Single(x => x.StoreyNumber == selectedWall.Storey);
-
-                entrepiso = GetEntrepisoPorNivel(SelectedStorey.StoreyNumber);
-
-
-                for (int index = 0; index < 100 && !Operations.ValidarGrafica(selectedWall); index++)
-                {
-                    selectedWall.ExcentricidadDeCarga = Operations.CalcularExcentricidadDeCarga(selectedWall);
-                    selectedWall.FactorAlturaEfectiva = Operations.CalcularFactorDeAlturaEfectiva(selectedWall);
-                    selectedWall.FE = Operations.CalcularFactorReduccionExcentricidadEsbeltez(selectedWall, entrepiso);
-
-                    selectedWall.PR = Operations.CalcularResistenciaCompresionPura(selectedWall, MaterialCollection.Single(x => x.Name == selectedWall.Material));
-                    selectedWall.Mo = Operations.CalcularResistenciaFlexionPura(selectedWall);
-
-                    selectedWall.P1X = Operations.CalcularP1X(selectedWall);
-                    selectedWall.P1Y = Operations.CalcularP1Y(selectedWall);
-                    selectedWall.P2X = Operations.CalcularP2X(selectedWall);
-                    selectedWall.P2Y = Operations.CalcularP2Y(selectedWall);
-                    selectedWall.P3X = Operations.CalcularP3X(selectedWall);
-                    selectedWall.P3Y = Operations.CalcularP3Y(selectedWall);
-                    selectedWall.P4X = Operations.CalcularP4X(selectedWall);
-                    selectedWall.P4Y = Operations.CalcularP4Y(selectedWall);
-                    selectedWall.P5X = Operations.CalcularP5X(selectedWall);
-                    selectedWall.P5Y = Operations.CalcularP5Y(selectedWall);
-
-                    selectedWall.As += 1;
-                    if (Operations.CalcularBc(selectedWall))
-                        selectedWall.bc += 5;
-
-                }
-
-
-
-                selectedWall.ResMamposteriaCortante = Operations.CalcularResistenciaMamposteriaCortante(selectedWall, MaterialCollection.Single(x => x.Name == selectedWall.Material));
-                selectedWall.ResAceroRefuerzoHorizontalCortante = Operations.CalcularResistenciaAceroRefuerzoHorizontalCortante(selectedWall, MaterialCollection.Single(x => x.Name == selectedWall.Material));
-                selectedWall.ResistenciaTotalACortante = Operations.CalcularResistenciaTotalACortante(selectedWall);
-
-                //Si el muro es de concreto solo calculas esta... sino, calculas lo anterior y este no.
-                selectedWall.ResistenciaCortanteConcreto = Operations.CalcularResistenciaCortanteConcreto(selectedWall);
-                selectedWall.Conclusion = Operations.CalcularConclusionPorCortante(selectedWall);
-
-
-
-                //INICIA CALCULO PARA NIVELES (ENTREPISOS)
-
-                string materialName =selectedWall.Material;
-                SelectedStorey.EsfuerzoNormalPromedio = Operations.CalcularEsfuerzoNormalPromedioDeEntrepiso(SelectedStorey, MaterialCollection.Single(x => x.Name == materialName));
-                SelectedStorey.CortanteResistenteEntrepisoMamposteria = Operations.CalcularCortanteResistenteEntrepisoMamposteria(SelectedStorey, MaterialCollection.Single(x => x.Name == materialName));
-                SelectedStorey.CortanteResistenteEntrepisoConcreto = Operations.CalcularCortanteResistenteEntrepisoConcreto(SelectedStorey);
-                SelectedStorey.CortanteEntrepisoTotal = Operations.CalcularCortanteEntrepisoTotal(SelectedStorey);
-               
-                double VcxR = (double)Vcx.Reverse().ToArray().GetValue(SelectedStorey.StoreyNumber);
-                double VcyR = (double)Vcy.Reverse().ToArray().GetValue(SelectedStorey.StoreyNumber);
-
-                SelectedStorey.ConclusionX = Operations.CalcularConclusionPorCortanteDeEntrepiso(VcxR, SelectedStorey.CortanteEntrepisoTotal);
-                SelectedStorey.ConclusionY = Operations.CalcularConclusionPorCortanteDeEntrepiso(VcyR, SelectedStorey.CortanteEntrepisoTotal);
-
-
 
                 XMLStructuralDesignData document = new XMLStructuralDesignData();
+                document.Storeys = storeys;
                 document.DocumentPath = GetDocumentPath();
 
                 using (var data = UnitOfWork.Create())
@@ -636,6 +523,7 @@ namespace StructureSystem.BusinessRules.Services
             return structure;
         }
 
+
         #endregion
 
         #region Graficacion
@@ -643,8 +531,8 @@ namespace StructureSystem.BusinessRules.Services
         {
             try
             {
-                if (Operations.ValidarGrafica(wall))
-                    Operations.Graficar(wall);
+                //if (Operations.ValidarGrafica(wall))
+                Operations.Graficar(wall);
 
             }
             catch (Exception ex)
