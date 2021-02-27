@@ -1045,7 +1045,7 @@ namespace StructureSystem.BusinessRules.Functions
 
             result = (wall.Thickness * Math.Pow(wall.Length, 3)) / 12;
 
-            return result;
+            return Double.IsNaN(result) ? 0 : Math.Round(result, 5);
         }
 
         public static double CalcularAreaLongitudinal(Wall wall)
@@ -1054,7 +1054,7 @@ namespace StructureSystem.BusinessRules.Functions
 
             result = wall.Thickness * wall.Length;
 
-            return result;
+            return Double.IsNaN(result) ? 0 : Math.Round(result, 5);
         }
 
         public static double CalcularRigidezLateral(Wall wall, Material material)
@@ -1069,7 +1069,7 @@ namespace StructureSystem.BusinessRules.Functions
 
             result = Math.Pow(((4 * Math.Pow(H, 3)) / (12 * E * I)) + ((0.2 * H) / (G * A)), -1);
 
-            return result;
+            return Double.IsNaN(result) ? 0 : Math.Round(result, 5);
         }
 
         public static double CalcularFuerzasCortantesDirectas(Wall wall, double Fc, double RlTotal)
@@ -1078,7 +1078,7 @@ namespace StructureSystem.BusinessRules.Functions
 
             result = (wall.RigidezLateral * Fc) / RlTotal;
 
-            return Math.Round(result, 5);
+            return Double.IsNaN(result) ? 0 : Math.Round(result, 5);
         }
 
         public static string CalcularClasificacionMuro(double CM, double CT, Wall wall)
@@ -1164,7 +1164,7 @@ namespace StructureSystem.BusinessRules.Functions
                     result = 1.5 * EE + EA;
             }
 
-            return Math.Round(result, 5);
+            return Double.IsNaN(result) ? 0 : Math.Round(result, 5);
         }
 
 
@@ -1243,14 +1243,14 @@ namespace StructureSystem.BusinessRules.Functions
                     }
                 }
             }
-            return Math.Round(result, 5);
+            return Double.IsNaN(result) ? 0 : Math.Round(result, 5);
         }
 
         public static double CalcularCortantesTotales(Wall wall)
         {
             double result = wall.CortanteDirecto + wall.CortantePorTorsionX + wall.CortantePorTorsionY;
 
-            return Math.Round(result, 5);
+            return Double.IsNaN(result) ? 0 : Math.Round(result, 5);
         }
 
         public static double CalcularMomentoVolteo(Wall wall, double RE, double MV)
@@ -1259,14 +1259,14 @@ namespace StructureSystem.BusinessRules.Functions
 
             result = MV * wall.RigidezLateral / RE;
 
-            return Math.Round(result, 5);
+            return Double.IsNaN(result) ? 0 : Math.Round(result, 5);
         }
 
 
         public static double CalcularCargaAxialUltima(Wall wall, XMLLoadAnalysisData entrepiso, int nivel, double CAU, Structure structure)
         {
             double result = 0, CM = 0, CV = 0, P = 0, A = 0;
-          
+
             #region Entrepisos
             if (entrepiso.LosaMacizaAzoteaP != null)
             {
@@ -1331,14 +1331,14 @@ namespace StructureSystem.BusinessRules.Functions
                 }
             }
 
-            return Math.Round(result, 5);
+            return Double.IsNaN(result) ? 0 : Math.Round(result, 5);
         }
 
 
         public static double CalcularCargaAxialDeSismo(Wall wall, XMLLoadAnalysisData entrepiso, int nivel, double CAU, Structure structure)
         {
             double result = 0, CM = 0, CV = 0, P = 0, A = 0;
-            
+
             #region entrepiso
             if (entrepiso.LosaMacizaAzoteaP != null)
             {
@@ -1399,18 +1399,18 @@ namespace StructureSystem.BusinessRules.Functions
                 }
                 else
                 {
-                    result = wall.Peso + (CM + CV) * wall.TributaryArea+ CAU;
+                    result = wall.Peso + (CM + CV) * wall.TributaryArea + CAU;
                 }
             }
 
-            return Math.Round(result, 5);
+            return Double.IsNaN(result) ? 0 : Math.Round(result, 5);
         }
 
         public static double CalcularExcentricidadDeCarga(Wall wall)
         {
 
             double result = (wall.Thickness / 2) - (wall.AnchoDeApoyo / 3);
-            return Math.Round(result, 5);
+            return Double.IsNaN(result) ? 0 : Math.Round(result, 5);
         }
 
         public static double CalcularFactorDeAlturaEfectiva(Wall wall)
@@ -1427,7 +1427,7 @@ namespace StructureSystem.BusinessRules.Functions
                     result = 1;
             }
 
-            return Math.Round(result, 5);
+            return Double.IsNaN(result) ? 0 : Math.Round(result, 5);
         }
 
         public static double CalcularFactorReduccionExcentricidadEsbeltez(Wall wall, XMLLoadAnalysisData entrepiso)
@@ -1500,7 +1500,7 @@ namespace StructureSystem.BusinessRules.Functions
                 double c = 1 - Math.Pow(b, 2);
                 result = a * c;
             }
-            return Math.Round(result, 5);
+            return Double.IsNaN(result) ? 0 : Math.Round(result, 5);
         }
 
         public static double CalcularResistenciaCompresionPura(Wall wall, Material material)
@@ -1508,7 +1508,7 @@ namespace StructureSystem.BusinessRules.Functions
 
             double result = 0.6 * wall.FE * (Convert.ToDouble(material.Dfm) * wall.Length * wall.Thickness + (wall.As * 2) * wall.Fy);
 
-            return result;
+            return Double.IsNaN(result) ? 0 : Math.Round(result, 5);
         }
 
 
@@ -1518,14 +1518,14 @@ namespace StructureSystem.BusinessRules.Functions
             double Dd = wall.Length - wall.bc;
             double result = wall.As * wall.Fy * Dd;
 
-            return result;
+            return Double.IsNaN(result) ? 0 : Math.Round(result, 5);
         }
 
         public static double CalcularP1X(Wall wall)
         {
             double result = 0;
 
-            return result;
+            return Double.IsNaN(result) ? 0 : Math.Round(result, 5);
         }
 
         public static double CalcularP1Y(Wall wall)
@@ -1533,7 +1533,7 @@ namespace StructureSystem.BusinessRules.Functions
 
             double result = -0.8 * wall.FE * wall.As * wall.Fy;
 
-            return result;
+            return Double.IsNaN(result) ? 0 : Math.Round(result, 5);
         }
 
 
@@ -1541,7 +1541,7 @@ namespace StructureSystem.BusinessRules.Functions
         {
             double result = wall.Mo * 0.8;
 
-            return result;
+            return Double.IsNaN(result) ? 0 : Math.Round(result, 5);
         }
 
 
@@ -1557,14 +1557,14 @@ namespace StructureSystem.BusinessRules.Functions
         {
             double d = wall.Length - (wall.bc / 2);
             double result = 0.8 * wall.Mo + 0.3 * (wall.PR / 3) * d;
-            return result;
+            return Double.IsNaN(result) ? 0 : Math.Round(result, 5);
         }
 
         public static double CalcularP3Y(Wall wall)
         {
 
             double result = wall.PR / 3;
-            return result;
+            return Double.IsNaN(result) ? 0 : Math.Round(result, 5);
         }
 
 
@@ -1572,13 +1572,13 @@ namespace StructureSystem.BusinessRules.Functions
         {
             double d = wall.Length - (wall.bc / 2);
             double result = (1.5 * 0.6 * wall.Mo + 0.15 * wall.PR * d) * 0.66666666;
-            return Math.Round(result, 3);
+            return Double.IsNaN(result) ? 0 : Math.Round(result, 5);
         }
 
         public static double CalcularP4Y(Wall wall)
         {
             double result = wall.PR / 3;
-            return result;
+            return Double.IsNaN(result) ? 0 : Math.Round(result, 5);
         }
 
         public static double CalcularP5X(Wall wall)
@@ -1590,36 +1590,10 @@ namespace StructureSystem.BusinessRules.Functions
         public static double CalcularP5Y(Wall wall)
         {
             double result = wall.PR;
-            return result;
+            return Double.IsNaN(result) ? 0 : Math.Round(result, 5);
         }
 
-        public static double CalcularTP1P2(Wall wall)
-        {
-            double result = 0;
 
-            return result;
-        }
-
-        public static double CalcularTP2P3(Wall wall)
-        {
-            double result = 0/*wall.P1X - (wall.P1X/wall.ResistenciaFlexionPura) * */;
-
-            return result;
-        }
-
-        public static double CalcularTP3P4(Wall wall)
-        {
-            double result = 0;
-
-            return result;
-        }
-
-        public static double CalcularTP4P5(Wall wall)
-        {
-            double result = 0;
-
-            return result;
-        }
 
         public static double CalcularResistenciaMamposteriaCortante(Wall wall, Material material)
         {
@@ -1641,7 +1615,7 @@ namespace StructureSystem.BusinessRules.Functions
             double result = Math.Max(a, b);
 
 
-            return Math.Round(result,5);
+            return Double.IsNaN(result) ? 0 : Math.Round(result, 5);
         }
 
         public static double CalcularResistenciaAceroRefuerzoHorizontalCortante(Wall wall, Material material)
@@ -1687,7 +1661,7 @@ namespace StructureSystem.BusinessRules.Functions
             double result = 0.7 * n * ph * fyh * wall.AreaLongitudinal;
 
 
-            return Math.Round(result,5);
+            return Double.IsNaN(result) ? 0 : Math.Round(result, 5);
         }
 
         public static double CalcularResistenciaTotalACortante(Wall wall)
@@ -1695,14 +1669,17 @@ namespace StructureSystem.BusinessRules.Functions
             double result = wall.ResMamposteriaCortante + wall.ResAceroRefuerzoHorizontalCortante;
 
 
-            return Math.Round(result,5);
+            return Double.IsNaN(result) ? 0 : Math.Round(result, 5);
         }
 
         public static double CalcularResistenciaCortanteConcreto(Wall wall)
         {
-            double result = 0;
+            double a = wall.Ash / (wall.Sh * wall.Thickness);
+            double Pm = Math.Max(a, 0.0025);
+            double result = 0.8 * (0.75 * (0.5 * Math.Sqrt(wall.Dfc) + Pm * wall.Fy) * wall.AreaLongitudinal);
 
-            return result;
+
+            return Double.IsNaN(result) ? 0 : Math.Round(result, 5);
         }
 
         public static string CalcularConclusionPorCortante(Wall wall)
@@ -1728,13 +1705,13 @@ namespace StructureSystem.BusinessRules.Functions
                 MWNumericArray Ya;
                 MWNumericArray Pa;
 
-                    double[] X = { wall.P1X, wall.P2X, wall.P3X, wall.P4X, wall.P5X };
-                    double[] Y = { wall.P1Y, wall.P2Y, wall.P3Y, wall.P4Y, wall.P5Y };
-                    double[,] P = { { wall.MomentoVolteo }, { wall.CargaAxialMaxima } };
-                    Xa = new MWNumericArray(X);
-                    Ya = new MWNumericArray(Y);
-                    Pa = new MWNumericArray(P);
-                
+                double[] X = { wall.P1X, wall.P2X, wall.P3X, wall.P4X, wall.P5X };
+                double[] Y = { wall.P1Y, wall.P2Y, wall.P3Y, wall.P4Y, wall.P5Y };
+                double[,] P = { { wall.MomentoVolteo }, { wall.CargaAxialMaxima } };
+                Xa = new MWNumericArray(X);
+                Ya = new MWNumericArray(Y);
+                Pa = new MWNumericArray(P);
+
                 string titulo = wall.WallNumber.ToString();
 
                 var IsValid = operations.isValidToPlot(Xa, Ya, Pa);
@@ -1786,7 +1763,7 @@ namespace StructureSystem.BusinessRules.Functions
             bool result = false;
 
             double AsMax = (0.85 * wall.Dfc / wall.Fy) * (0.85 * 0.9 * 6000 / (wall.Fy + 6000)) * wall.bc * wall.Thickness;
-            if (wall.As  > AsMax)
+            if (wall.As > AsMax)
                 result = true;
 
             return result;
@@ -2004,7 +1981,7 @@ namespace StructureSystem.BusinessRules.Functions
 
             result = a + b;
 
-            return Math.Round(result, 5);
+            return Double.IsNaN(result) ? 0 : Math.Round(result, 5);
         }
 
         public static double CalcularMomentoVolteoEntrepiso(Storey storey, double CE)
@@ -2017,7 +1994,7 @@ namespace StructureSystem.BusinessRules.Functions
 
             result = CE * Max;
 
-            return Math.Round(result, 5);
+            return Double.IsNaN(result) ? 0 : Math.Round(result, 5);
         }
 
 
@@ -2026,7 +2003,7 @@ namespace StructureSystem.BusinessRules.Functions
             string result = string.Empty;
 
 
-            if (V < VRT)
+            if ((V * 0.8) < VRT)
                 result = "SI PASA";
             else
                 result = "NO PASA";
@@ -2041,80 +2018,143 @@ namespace StructureSystem.BusinessRules.Functions
             double Dvm = Convert.ToDouble(material.Dvm);
             double result = Math.Max(P, 3.33 * Dvm);
 
-            return Math.Round(result, 5);
+            return Double.IsNaN(result) ? 0 : Math.Round(result, 5);
         }
 
-        public static double CalcularCortanteResistenteEntrepisoMamposteria(Storey storey, Material material)
+        public static double CalcularCortanteResistenteEntrepisoMamposteria(Storey storey, Material material, Enums.SideType side)
         {
             double Dvm = Convert.ToDouble(material.Dvm);
             double nMin = 0, phmin = 0;
             double n = 0, ph = 0, fyh = 0, k0 = 0, k1 = 0, fan = 0, ns = 0, ns1 = 0, Dfm = 0, Ab = 0, An = 0;
+            double result = 0;
 
-            for (int i = 0; i < storey.HorizontalWalls.Count; i++)
+            if (side.Equals(Enums.SideType.Horizontal))
             {
-                Wall wall = storey.HorizontalWalls[i];
-                fyh = wall.EsfuerzoDeFluenciaDelAceroRefuerzoHorizontal;
-                Dfm = Convert.ToDouble(material.Dfm);
-                An = Convert.ToDouble(material.An);
-                Ab = Convert.ToDouble(material.Ab);
+                for (int i = 0; i < storey.HorizontalWalls.Count; i++)
+                {
+                    Wall wall = storey.HorizontalWalls[i];
+                    fyh = wall.EsfuerzoDeFluenciaDelAceroRefuerzoHorizontal;
+                    Dfm = Convert.ToDouble(material.Dfm);
+                    An = Convert.ToDouble(material.An);
+                    Ab = Convert.ToDouble(material.Ab);
 
-                ph = wall.Ash / (wall.Sh * wall.Thickness);
+                    ph = wall.Ash / (wall.Sh * wall.Thickness);
 
-                if (i == 0 || ph < phmin)
-                    phmin = ph;
+                    if (i == 0 || ph < phmin)
+                        phmin = ph;
 
-                if (wall.Height / wall.Length <= 1)
-                    k0 = 1.3;
-                else if (wall.Height / wall.Length >= 1.5)
-                    k0 = 1;
-                else
-                    k0 = 1.9 - 0.6 * (wall.Height / wall.Length);
+                    if (wall.Height / wall.Length <= 1)
+                        k0 = 1.3;
+                    else if (wall.Height / wall.Length >= 1.5)
+                        k0 = 1;
+                    else
+                        k0 = 1.9 - 0.6 * (wall.Height / wall.Length);
 
-                fan = An / Ab;
+                    fan = An / Ab;
 
-                k1 = Math.Max((1 - 0.045 * ph * fyh), (1 - 0.1 * fan * Dfm * 0.045));
+                    k1 = Math.Max((1 - 0.045 * ph * fyh), (1 - 0.1 * fan * Dfm * 0.045));
 
-                if (Dfm >= 90)
-                    ns1 = 0.75;
-                else if (Dfm >= 60)
-                    ns1 = 0.55;
-                else
-                    ns1 = 0.15 + 0.00666666666666666666666666666667 * Dfm;
+                    if (Dfm >= 90)
+                        ns1 = 0.75;
+                    else if (Dfm >= 60)
+                        ns1 = 0.55;
+                    else
+                        ns1 = 0.15 + 0.00666666 * Dfm;
 
 
-                if ((ph * fyh) > (0.1 * fan * Dfm))
-                    ns = ns1;
-                else
-                    ns = ns1 * ((0.1 * fan * Dfm) / ph * fyh);
+                    if ((ph * fyh) > (0.1 * fan * Dfm))
+                        ns = ns1;
+                    else
+                        ns = ns1 * ((0.1 * fan * Dfm) / ph * fyh);
 
-                n = (wall.ResMamposteriaCortante / (0.7 * ph * fyh * wall.AreaLongitudinal)) * (k0 * k1 - 1) + ns;
+                    n = (wall.ResMamposteriaCortante / (0.7 * ph * fyh * wall.AreaLongitudinal)) * (k0 * k1 - 1) + ns;
 
-                if (i == 0 || n < nMin)
-                    nMin = n;
+                    if (i == 0 || n < nMin)
+                        nMin = n;
+                }
+
+                double SumAT = storey.HorizontalWalls.Sum(x => x.AreaLongitudinal);
+                double SumAT2 = storey.HorizontalWalls.Where(x => x.AceroDeRefuerzo).Sum(x => x.AreaLongitudinal);
+
+                result = (0.7 * 0.5 * Dvm + 0.3 * storey.EsfuerzoNormalPromedio) * SumAT + 0.7 * (nMin * phmin * fyh * SumAT2);
+            }
+            if (side.Equals(Enums.SideType.Vertical))
+            {
+                for (int i = 0; i < storey.VerticalWalls.Count; i++)
+                {
+                    Wall wall = storey.VerticalWalls[i];
+                    fyh = wall.EsfuerzoDeFluenciaDelAceroRefuerzoHorizontal;
+                    Dfm = Convert.ToDouble(material.Dfm);
+                    An = Convert.ToDouble(material.An);
+                    Ab = Convert.ToDouble(material.Ab);
+
+                    ph = wall.Ash / (wall.Sh * wall.Thickness);
+
+                    if (i == 0 || ph < phmin)
+                        phmin = ph;
+
+                    if (wall.Height / wall.Length <= 1)
+                        k0 = 1.3;
+                    else if (wall.Height / wall.Length >= 1.5)
+                        k0 = 1;
+                    else
+                        k0 = 1.9 - 0.6 * (wall.Height / wall.Length);
+
+                    fan = An / Ab;
+
+                    k1 = Math.Max((1 - 0.045 * ph * fyh), (1 - 0.1 * fan * Dfm * 0.045));
+
+                    if (Dfm >= 90)
+                        ns1 = 0.75;
+                    else if (Dfm >= 60)
+                        ns1 = 0.55;
+                    else
+                        ns1 = 0.15 + 0.00666666 * Dfm;
+
+
+                    if ((ph * fyh) > (0.1 * fan * Dfm))
+                        ns = ns1;
+                    else
+                        ns = ns1 * ((0.1 * fan * Dfm) / ph * fyh);
+
+                    n = (wall.ResMamposteriaCortante / (0.7 * ph * fyh * wall.AreaLongitudinal)) * (k0 * k1 - 1) + ns;
+
+                    if (i == 0 || n < nMin)
+                        nMin = n;
+                }
+
+                double SumAT = storey.VerticalWalls.Sum(x => x.AreaLongitudinal);
+                double SumAT2 = storey.VerticalWalls.Where(x => x.AceroDeRefuerzo).Sum(x => x.AreaLongitudinal);
+
+                result = (0.7 * 0.5 * Dvm + 0.3 * storey.EsfuerzoNormalPromedio) * SumAT + 0.7 * (nMin * phmin * fyh * SumAT2);
+
             }
 
-            double SumAT = storey.HorizontalWalls.Sum(x => x.AreaLongitudinal);
 
-            double result = (0.7 * 0.5 * Dvm + 0.3 * storey.EsfuerzoNormalPromedio) * SumAT + nMin * phmin * fyh * SumAT;
-
-
-
-            return Math.Round(result, 5);
+            return Double.IsNaN(result) ? 0 : Math.Round(result, 5);
         }
 
-        public static double CalcularCortanteResistenteEntrepisoConcreto(Storey storey)
+        public static double CalcularCortanteResistenteEntrepisoConcreto(Storey storey, Enums.SideType side)
         {
-            double result = storey.HorizontalWalls.Sum(x => x.ResistenciaCortanteConcreto);
+            double result = 0;
 
+            if (side.Equals(Enums.SideType.Horizontal))
+                result = storey.HorizontalWalls.Sum(x => x.ResistenciaCortanteConcreto);
+            if (side.Equals(Enums.SideType.Vertical))
+                result = storey.VerticalWalls.Sum(x => x.ResistenciaCortanteConcreto);
 
-            return Math.Round(result, 5);
+            return Double.IsNaN(result) ? 0 : Math.Round(result, 5);
         }
 
-        public static double CalcularCortanteEntrepisoTotal(Storey storey)
+        public static double CalcularCortanteEntrepisoTotal(Storey storey, Enums.SideType side)
         {
-            double result = storey.CortanteResistenteEntrepisoMamposteria + storey.CortanteResistenteEntrepisoConcreto;
+            double result = 0;
+            if (side.Equals(Enums.SideType.Horizontal))
+                result = storey.CortanteResistenteEntrepisoMamposteriaX + storey.CortanteResistenteEntrepisoConcretoX;
+            if (side.Equals(Enums.SideType.Vertical))
+                result = storey.CortanteResistenteEntrepisoMamposteriaY + storey.CortanteResistenteEntrepisoConcretoY;
 
-            return Math.Round(result, 5);
+            return Double.IsNaN(result) ? 0 : Math.Round(result, 5);
         }
 
         #endregion

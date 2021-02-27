@@ -21,6 +21,7 @@ namespace StructureSystem.Model
 
         #endregion
 
+
         #region Properties
         public int StoreyNumber { get; set; }
 
@@ -40,6 +41,19 @@ namespace StructureSystem.Model
             }
         }
 
+        private List<string> HorizontalHiddenColumns_;
+        public List<string> HorizontalHiddenColumns 
+        {
+            get
+            {
+                return HorizontalHiddenColumns_;
+            }
+            set
+            {
+                if (value != HorizontalHiddenColumns_)
+                    HorizontalHiddenColumns_ = value;   
+            }
+        }
 
         private List<Wall> VerticalWalls_;
         public List<Wall> VerticalWalls
@@ -54,6 +68,8 @@ namespace StructureSystem.Model
                     VerticalWalls_ = value;
             }
         }
+
+
 
         public double RigidezEntrepisoHorizontal { get; set; }
         public double RigidezEntrepisoVertical { get; set; }
@@ -106,46 +122,91 @@ namespace StructureSystem.Model
             }
         }
 
-        private double CortanteResistenteEntrepisoMamposteria_;
-        public double CortanteResistenteEntrepisoMamposteria
+        private double CortanteResistenteEntrepisoMamposteriaX_;
+        public double CortanteResistenteEntrepisoMamposteriaX
         {
             get
             {
-                return CortanteResistenteEntrepisoMamposteria_;
+                return CortanteResistenteEntrepisoMamposteriaX_;
             }
             set
             {
-                if (value != CortanteResistenteEntrepisoMamposteria_)
-                    CortanteResistenteEntrepisoMamposteria_ = value;
+                if (value != CortanteResistenteEntrepisoMamposteriaX_)
+                    CortanteResistenteEntrepisoMamposteriaX_ = value;
             }
         }
 
-        private double CortanteResistenteEntrepisoConcreto_;
-        public double CortanteResistenteEntrepisoConcreto
+        private double CortanteResistenteEntrepisoMamposteriaY_;
+        public double CortanteResistenteEntrepisoMamposteriaY
         {
             get
             {
-                return CortanteResistenteEntrepisoConcreto_;
+                return CortanteResistenteEntrepisoMamposteriaY_;
             }
             set
             {
-                if (value != CortanteResistenteEntrepisoConcreto_)
-                    CortanteResistenteEntrepisoConcreto_ = value;
+                if (value != CortanteResistenteEntrepisoMamposteriaY_)
+                    CortanteResistenteEntrepisoMamposteriaY_ = value;
             }
         }
 
 
-        private double CortanteEntrepisoTotal_;
-        public double CortanteEntrepisoTotal
+
+        private double CortanteResistenteEntrepisoConcretoX_;
+        public double CortanteResistenteEntrepisoConcretoX
         {
             get
             {
-                return CortanteEntrepisoTotal_;
+                return CortanteResistenteEntrepisoConcretoX_;
             }
             set
             {
-                if (value != CortanteEntrepisoTotal_)
-                    CortanteEntrepisoTotal_ = value;
+                if (value != CortanteResistenteEntrepisoConcretoX_)
+                    CortanteResistenteEntrepisoConcretoX_ = value;
+            }
+        }
+
+
+        private double CortanteResistenteEntrepisoConcretoY_;
+        public double CortanteResistenteEntrepisoConcretoY
+        {
+            get
+            {
+                return CortanteResistenteEntrepisoConcretoY_;
+            }
+            set
+            {
+                if (value != CortanteResistenteEntrepisoConcretoY_)
+                    CortanteResistenteEntrepisoConcretoY_ = value;
+            }
+        }
+
+
+        private double CortanteEntrepisoTotalX_;
+        public double CortanteEntrepisoTotalX
+        {
+            get
+            {
+                return CortanteEntrepisoTotalX_;
+            }
+            set
+            {
+                if (value != CortanteEntrepisoTotalX_)
+                    CortanteEntrepisoTotalX_ = value;
+            }
+        }
+
+        private double CortanteEntrepisoTotalY_;
+        public double CortanteEntrepisoTotalY
+        {
+            get
+            {
+                return CortanteEntrepisoTotalY_;
+            }
+            set
+            {
+                if (value != CortanteEntrepisoTotalY_)
+                    CortanteEntrepisoTotalY_ = value;
             }
         }
 

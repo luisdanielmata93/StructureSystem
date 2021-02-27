@@ -18,7 +18,9 @@ namespace StructureSystem.Model
             this.Tipos = new ObservableCollection<string> { "Interior", "Extremo" };
             this.Tipo = "Interior";
             this.Fy = 4200; //temp
-            this.EsfuerzoDeFluenciaDelAceroRefuerzoHorizontal = 6000; 
+            this.EsfuerzoDeFluenciaDelAceroRefuerzoHorizontal = 6000;
+
+
         }
 
         public int WallNumber { get; set; }
@@ -75,7 +77,6 @@ namespace StructureSystem.Model
                 {
                     ExcentricidadDeCarga_ = value;
                 }
-                // OnPropertyChanged("ExcentricidadDeCarga");
             }
         }
 
@@ -93,7 +94,6 @@ namespace StructureSystem.Model
                 {
                     AnchoDeApoyo_ = value;
                 }
-                //  OnPropertyChanged("AnchoDeApoyo");
             }
         }
 
@@ -123,7 +123,6 @@ namespace StructureSystem.Model
                 if (value != Tipo_)
                 {
                     Tipo_ = value;
-                    //OnPropertyChanged("Tipo");
                 }
             }
         }
@@ -211,7 +210,6 @@ namespace StructureSystem.Model
                 {
                     FE_ = value;
                 }
-                // OnPropertyChanged("FactorReduccionExcentricidadEsbeltez");
             }
         }
 
@@ -226,7 +224,6 @@ namespace StructureSystem.Model
             {
                 if (value != IsReadOnlyLCI_)
                     IsReadOnlyLCI_ = value;
-                //  OnPropertyChanged("IsReadOnlyLCI");
             }
         }
 
@@ -243,7 +240,6 @@ namespace StructureSystem.Model
                 {
                     LongClaroIzquierdo_ = value;
                 }
-                //    OnPropertyChanged("LongClaroIzquierdo");
             }
         }
 
@@ -259,7 +255,6 @@ namespace StructureSystem.Model
             {
                 if (value != IsReadOnlyLCD_)
                     IsReadOnlyLCD_ = value;
-                //   OnPropertyChanged("IsReadOnlyLCD");
             }
         }
 
@@ -276,7 +271,6 @@ namespace StructureSystem.Model
                 {
                     LongClaroDerecho_ = value;
                 }
-                //OnPropertyChanged("LongClaroDerecho");
             }
         }
 
@@ -293,7 +287,6 @@ namespace StructureSystem.Model
                 {
                     FactorAlturaEfectiva_ = value;
                 }
-                //   OnPropertyChanged("FactorAlturaEfectiva");
             }
         }
 
@@ -689,8 +682,33 @@ namespace StructureSystem.Model
             }
         }
 
+        private bool Concreto_;
+        public bool Concreto
+        {
+            get
+            {
+                return Concreto_;
+            }
+            set
+            {
+                if (value != Concreto_)
+                    Concreto_ = value;
+            }
+        }
 
-
+        private bool Mamposteria_;
+        public bool Mamposteria
+        {
+            get
+            {
+                return Mamposteria_;
+            }
+            set
+            {
+                if (value != Mamposteria_)
+                    Mamposteria_ = value;
+            }
+        }
 
         private string Conclusion_;
         public string Conclusion
@@ -705,17 +723,31 @@ namespace StructureSystem.Model
                     Conclusion_ = value;
             }
         }
+
         #endregion
 
-        //#region  Property changed
-        //public event PropertyChangedEventHandler PropertyChanged;
 
-        //[NotifyPropertyChangedInvocator]
-        //protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+
+        #region Metodos
+
+        //public void EsConcretos(ref Wall wall)
         //{
-        //    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        //    if (wall.Material.Equals("Concreto"))
+        //    {
+        //        wall.Fy = 4200;
+        //        wall.Concreto = true;
+        //        wall.Mamposteria = false;
+        //    }
+        //    else
+        //    {
+        //        wall.Concreto = false;
+        //        wall.Mamposteria = true;
+        //    }
+
         //}
-        //#endregion
+
+        //Predicate<Wall> EsConcreto = wall => wall.Material.Equals("Concreto") ? wall.Fy=4200
+        #endregion
 
     }//end of class
 }//end of namespace

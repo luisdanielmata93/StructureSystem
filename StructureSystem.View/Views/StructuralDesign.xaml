@@ -7,6 +7,7 @@
              xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
              xmlns:Dialog="clr-namespace:MahApps.Metro.Controls.Dialogs;assembly=MahApps.Metro"
              xmlns:Icons="http://metro.mahapps.com/winfx/xaml/iconpacks"
+             xmlns:custom ="clr-namespace:StructureSystem.View.Custom"
              Dialog:DialogParticipation.Register="{Binding}"
              mc:Ignorable="d"
              d:DesignHeight="450" d:DesignWidth="800">
@@ -59,7 +60,7 @@
                                                     <ColumnDefinition Width="30"/>
                                                     <ColumnDefinition Width="50"/>
                                                     <ColumnDefinition Width="10"/>
-                                                    <ColumnDefinition Width="120"/>
+                                                    <ColumnDefinition Width="135"/>
                                                     <ColumnDefinition Width="70"/>
                                                     <ColumnDefinition Width="10"/>
                                                     <ColumnDefinition Width="175"/>
@@ -68,23 +69,23 @@
                                                     <ColumnDefinition Width="170"/>
                                                     <ColumnDefinition Width="70"/>
                                                     <ColumnDefinition Width="10"/>
-                                                    <ColumnDefinition Width="120"/>
+                                                    <ColumnDefinition Width="135"/>
+                                                    <ColumnDefinition Width="70"/>
+                                                    <ColumnDefinition Width="10"/>
+                                                    <ColumnDefinition Width="100"/>
+                                                    <ColumnDefinition Width="70"/>
+                                                    <ColumnDefinition Width="10"/>
+                                                    <ColumnDefinition Width="170"/>
+                                                    <ColumnDefinition Width="70"/>
+                                                    <ColumnDefinition Width="10"/>
+                                                    <ColumnDefinition Width="170"/>
+                                                    <ColumnDefinition Width="70"/>
+                                                    <ColumnDefinition Width="10"/>
+                                                    <ColumnDefinition Width="170"/>
                                                     <ColumnDefinition Width="70"/>
                                                     <ColumnDefinition Width="10"/>
                                                     <ColumnDefinition Width="120"/>
                                                     <ColumnDefinition Width="70"/>
-                                                    <ColumnDefinition Width="10"/>
-                                                    <ColumnDefinition Width="120"/>
-                                                    <ColumnDefinition Width="70"/>
-                                                    <ColumnDefinition Width="10"/>
-                                                    <ColumnDefinition Width="60"/>
-                                                    <ColumnDefinition Width="60"/>
-                                                    <ColumnDefinition Width="10"/>
-                                                    <ColumnDefinition Width="60"/>
-                                                    <ColumnDefinition Width="60"/>
-                                                    <ColumnDefinition Width="10"/>
-                                                    <ColumnDefinition Width="80"/>
-                                                    <ColumnDefinition Width="60"/>
                                                     <ColumnDefinition Width="10"/>
                                                     <ColumnDefinition Width="80"/>
                                                     <ColumnDefinition Width="60"/>
@@ -112,16 +113,23 @@
                                                 <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding StoreyNumber, Mode=TwoWay}" TextAlignment="Left" Style="{StaticResource LittleHeader}"/>
                                                 <TextBlock Grid.Row="0" Grid.Column="3" Text="Esfuerzo normal promedio: " TextAlignment="Left" Style="{StaticResource LittleHeader}"/>
                                                 <TextBlock Grid.Row="0" Grid.Column="4" Text="{Binding EsfuerzoNormalPromedio, Mode=TwoWay}" TextAlignment="Left" Style="{StaticResource LittleHeader}"/>
-                                                <TextBlock Grid.Row="0" Grid.Column="6" Text="Cortante resistente (muro mamposteria): " TextAlignment="Left" Style="{StaticResource LittleHeader}"/>
-                                                <TextBlock Grid.Row="0" Grid.Column="7" Text="{Binding CortanteResistenteEntrepisoMamposteria, Mode=TwoWay}" TextAlignment="Left" Style="{StaticResource LittleHeader}"/>
-                                                <TextBlock Grid.Row="0" Grid.Column="9" Text="Cortante resistente (muro concreto): " TextAlignment="Left" Style="{StaticResource LittleHeader}"/>
-                                                <TextBlock Grid.Row="0" Grid.Column="10" Text="{Binding CortanteResistenteEntrepisoConcreto, Mode=TwoWay}" TextAlignment="Left" Style="{StaticResource LittleHeader}"/>
-                                                <TextBlock Grid.Row="0" Grid.Column="12" Text="Cortante de entrepiso Total: " TextAlignment="Left" Style="{StaticResource LittleHeader}"/>
-                                                <TextBlock Grid.Row="0" Grid.Column="13" Text="{Binding CortanteEntrepisoTotal, Mode=TwoWay}" TextAlignment="Left" Style="{StaticResource LittleHeader}"/>
+                                                <TextBlock Grid.Row="0" Grid.Column="6" Text="Cortante resistente mamposteria (X): " TextAlignment="Left" Style="{StaticResource LittleHeader}" />
+                                                <TextBlock Grid.Row="0" Grid.Column="7" Text="{Binding CortanteResistenteEntrepisoMamposteriaX, Mode=TwoWay}" TextAlignment="Left" Style="{StaticResource LittleHeader}"  />
+                                                <TextBlock Grid.Row="0" Grid.Column="9" Text="Cortante resistente de concreto (X): " TextAlignment="Left" Style="{StaticResource LittleHeader}" Visibility="{Binding Concreto, Mode=TwoWay}"/>
+                                                <TextBlock Grid.Row="0" Grid.Column="10" Text="{Binding CortanteResistenteEntrepisoConcretoX, Mode=TwoWay}" TextAlignment="Left" Style="{StaticResource LittleHeader}" Visibility="{Binding Concreto, Mode=TwoWay}"/>
+                                                <TextBlock Grid.Row="0" Grid.Column="12" Text="Cortante de entrepiso Total (X): " TextAlignment="Left" Style="{StaticResource LittleHeader}"/>
+                                                <TextBlock Grid.Row="0" Grid.Column="13" Text="{Binding CortanteEntrepisoTotalX, Mode=TwoWay}" TextAlignment="Left" Style="{StaticResource LittleHeader}"/>
                                                 <TextBlock Grid.Row="0" Grid.Column="15" Text="Revisión a cortante (X): " TextAlignment="Left" Style="{StaticResource LittleHeader}"/>
                                                 <TextBlock Grid.Row="0" Grid.Column="16" Text="{Binding ConclusionX, Mode=TwoWay}" TextAlignment="Left" Style="{StaticResource LittleHeader}"/>
-                                                <TextBlock Grid.Row="0" Grid.Column="18" Text="Revisión a cortante (Y): " TextAlignment="Left" Style="{StaticResource LittleHeader}"/>
-                                                <TextBlock Grid.Row="0" Grid.Column="19" Text="{Binding ConclusionY, Mode=TwoWay}" TextAlignment="Left" Style="{StaticResource LittleHeader}"/>
+
+                                                <TextBlock Grid.Row="0" Grid.Column="18" Text="Cortante resistente mamposteria (Y): " TextAlignment="Left" Style="{StaticResource LittleHeader}" />
+                                                <TextBlock Grid.Row="0" Grid.Column="19" Text="{Binding CortanteResistenteEntrepisoMamposteriaY, Mode=TwoWay}" TextAlignment="Left" Style="{StaticResource LittleHeader}"  />
+                                                <TextBlock Grid.Row="0" Grid.Column="21" Text="Cortante resistente de concreto (Y): " TextAlignment="Left" Style="{StaticResource LittleHeader}" Visibility="{Binding Concreto, Mode=TwoWay}"/>
+                                                <TextBlock Grid.Row="0" Grid.Column="22" Text="{Binding CortanteResistenteEntrepisoConcretoY, Mode=TwoWay}" TextAlignment="Left" Style="{StaticResource LittleHeader}" Visibility="{Binding Concreto, Mode=TwoWay}"/>
+                                                <TextBlock Grid.Row="0" Grid.Column="24" Text="Cortante de entrepiso Total (Y): " TextAlignment="Left" Style="{StaticResource LittleHeader}"/>
+                                                <TextBlock Grid.Row="0" Grid.Column="25" Text="{Binding CortanteEntrepisoTotalY, Mode=TwoWay}" TextAlignment="Left" Style="{StaticResource LittleHeader}"/>
+                                                <TextBlock Grid.Row="0" Grid.Column="27" Text="Revisión a cortante (Y): " TextAlignment="Left" Style="{StaticResource LittleHeader}"/>
+                                                <TextBlock Grid.Row="0" Grid.Column="28" Text="{Binding ConclusionY, Mode=TwoWay}" TextAlignment="Left" Style="{StaticResource LittleHeader}"/>
                                             </Grid>
                                         </DataTemplate>
                                     </DataGridTemplateColumn.CellTemplate>
@@ -132,11 +140,37 @@
                                     <Border BorderThickness="2,2,2,2" Background="MediumPurple" BorderBrush="Black" >
                                         <StackPanel>
                                             <TextBlock Text="INFORMACIÓN DE MUROS HORIZONTALES"/>
-                                            <DataGrid AutoGenerateColumns="False"  CanUserAddRows="False" ItemsSource="{Binding Path=HorizontalWalls, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  SelectedItem="{Binding DataContext.SelectedWall, Mode=TwoWay ,  UpdateSourceTrigger=PropertyChanged ,RelativeSource={RelativeSource AncestorType=UserControl}}" >
+                                            <DataGrid AutoGenerateColumns="False"  CanUserAddRows="False" ItemsSource="{Binding Path=HorizontalWalls, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"   SelectedItem="{Binding DataContext.SelectedWall, Mode=TwoWay ,  UpdateSourceTrigger=PropertyChanged ,RelativeSource={RelativeSource AncestorType=UserControl}}" >
                                                 <DataGrid.Columns>
                                                     <DataGridTextColumn Header="Muro" Binding="{Binding WallNumber}" IsReadOnly="True"  />
-                                                    <DataGridTextColumn Header="Ancho de apoyo" Binding="{Binding AnchoDeApoyo, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" />
-                                                    <DataGridTextColumn Header="Excentricidad de carga" Binding="{Binding ExcentricidadDeCarga, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" IsReadOnly="True"/>
+                                                    <DataGridTemplateColumn Header="Ancho de apoyo">
+                                                        <DataGridTemplateColumn.CellTemplate>
+                                                            <DataTemplate>
+                                                                <TextBox Text="{Binding AnchoDeApoyo, Mode=TwoWay,UpdateSourceTrigger=LostFocus}"  Visibility="{Binding Mamposteria}" Style="{StaticResource DataGridCustomCell}"/>
+                                                            </DataTemplate>
+                                                        </DataGridTemplateColumn.CellTemplate>
+                                                    </DataGridTemplateColumn>
+                                                    <DataGridTemplateColumn Header="Area de Acero de refuerzo">
+                                                        <DataGridTemplateColumn.CellTemplate>
+                                                            <DataTemplate>
+                                                                <TextBox Text="{Binding As, Mode=TwoWay}"  Visibility="{Binding Mamposteria}" Style="{StaticResource DataGridCustomCell}" IsReadOnly="True"/>
+                                                            </DataTemplate>
+                                                        </DataGridTemplateColumn.CellTemplate>
+                                                    </DataGridTemplateColumn>
+                                                    <DataGridTemplateColumn Header="Ancho de castillo">
+                                                        <DataGridTemplateColumn.CellTemplate>
+                                                            <DataTemplate>
+                                                                <TextBox Text="{Binding bc, Mode=TwoWay}"  Visibility="{Binding Mamposteria}" Style="{StaticResource DataGridCustomCell}" IsReadOnly="True"/>
+                                                            </DataTemplate>
+                                                        </DataGridTemplateColumn.CellTemplate>
+                                                    </DataGridTemplateColumn>
+                                                    <DataGridTemplateColumn Header="Excentricidad de carga">
+                                                        <DataGridTemplateColumn.CellTemplate>
+                                                            <DataTemplate>
+                                                                <TextBox Text="{Binding ExcentricidadDeCarga, Mode=TwoWay}"  Visibility="{Binding Mamposteria}" Style="{StaticResource DataGridCustomCell}" IsReadOnly="True"/>
+                                                            </DataTemplate>
+                                                        </DataGridTemplateColumn.CellTemplate>
+                                                    </DataGridTemplateColumn>
                                                     <DataGridTemplateColumn Header="Tipo de muro">
                                                         <DataGridTemplateColumn.CellTemplate>
                                                             <DataTemplate>
@@ -147,15 +181,116 @@
                                                             </DataTemplate>
                                                         </DataGridTemplateColumn.CellTemplate>
                                                     </DataGridTemplateColumn>
-                                                    <DataGridCheckBoxColumn Header="Restringido extremo superior/inferior"  Binding="{Binding Path=RestringidoSuperiorInferior, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-                                                    <DataGridTextColumn Header="Longitud claro Izquierdo"  Binding="{Binding LongClaroIzquierdo, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" />
-                                                    <DataGridTextColumn Header="Longitud claro Derecho"  Binding="{Binding LongClaroDerecho, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"/>
-                                                    <DataGridTextColumn Header="F.E.E."  Binding="{Binding FE,Mode=TwoWay,UpdateSourceTrigger=LostFocus}" IsReadOnly="True"/>
-                                                    <DataGridTextColumn Header="F. de altura efectiva"  Binding="{Binding FactorAlturaEfectiva, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" IsReadOnly="True" />
-                                                    <!--<DataGridTextColumn Header="Esfuerzo de fluencia (Acero de refuerzo)"  Binding="{Binding Fy, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"  />-->
-                                                    <DataGridTextColumn Header="Resistencia a la compresion pura"  Binding="{Binding PR, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" IsReadOnly="True" />
-                                                    <DataGridTextColumn Header=" Resistencia a flexión pura"  Binding="{Binding Mo, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" IsReadOnly="True"/>
+                                                    <DataGridCheckBoxColumn Header="Restringido extremo superior/inferior"   Binding="{Binding Path=RestringidoSuperiorInferior, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
+                                                    <DataGridTemplateColumn Header="Longitud claro Izquierdo">
+                                                        <DataGridTemplateColumn.CellTemplate>
+                                                            <DataTemplate>
+                                                                <TextBox Text="{Binding LongClaroIzquierdo, Mode=TwoWay,UpdateSourceTrigger=LostFocus}"  Visibility="{Binding Mamposteria}" Style="{StaticResource DataGridCustomCell}"/>
+                                                            </DataTemplate>
+                                                        </DataGridTemplateColumn.CellTemplate>
+                                                    </DataGridTemplateColumn>
+
+                                                    <DataGridTemplateColumn Header="Longitud claro Derecho">
+                                                        <DataGridTemplateColumn.CellTemplate>
+                                                            <DataTemplate>
+                                                                <TextBox Text="{Binding LongClaroDerecho, Mode=TwoWay,UpdateSourceTrigger=LostFocus}"  Visibility="{Binding Mamposteria}" Style="{StaticResource DataGridCustomCell}"/>
+                                                            </DataTemplate>
+                                                        </DataGridTemplateColumn.CellTemplate>
+                                                    </DataGridTemplateColumn>
+
+                                                    <DataGridTemplateColumn Header="F.E.E.">
+                                                        <DataGridTemplateColumn.CellTemplate>
+                                                            <DataTemplate>
+                                                                <TextBox Text="{Binding FE, Mode=TwoWay}"  Visibility="{Binding Mamposteria}" Style="{StaticResource DataGridCustomCell}" IsReadOnly="True"/>
+                                                            </DataTemplate>
+                                                        </DataGridTemplateColumn.CellTemplate>
+                                                    </DataGridTemplateColumn>
+
+                                                    <DataGridTemplateColumn Header="F. de altura efectiva">
+                                                        <DataGridTemplateColumn.CellTemplate>
+                                                            <DataTemplate>
+                                                                <TextBox Text="{Binding FactorAlturaEfectiva, Mode=TwoWay}"  Visibility="{Binding Mamposteria}" Style="{StaticResource DataGridCustomCell}" IsReadOnly="True"/>
+                                                            </DataTemplate>
+                                                        </DataGridTemplateColumn.CellTemplate>
+                                                    </DataGridTemplateColumn>
+
+                                                    <DataGridTemplateColumn Header="Resistencia a la compresion pura">
+                                                        <DataGridTemplateColumn.CellTemplate>
+                                                            <DataTemplate>
+                                                                <TextBox Text="{Binding PR, Mode=TwoWay}"  Visibility="{Binding Mamposteria}" Style="{StaticResource DataGridCustomCell}" IsReadOnly="True"/>
+                                                            </DataTemplate>
+                                                        </DataGridTemplateColumn.CellTemplate>
+                                                    </DataGridTemplateColumn>
+
+                                                    <DataGridTemplateColumn Header="Resistencia a flexión pura">
+                                                        <DataGridTemplateColumn.CellTemplate>
+                                                            <DataTemplate>
+                                                                <TextBox Text="{Binding Mo, Mode=TwoWay}"  Visibility="{Binding Mamposteria}" Style="{StaticResource DataGridCustomCell}" IsReadOnly="True"/>
+                                                            </DataTemplate>
+                                                        </DataGridTemplateColumn.CellTemplate>
+                                                    </DataGridTemplateColumn>
+
+                                                    <DataGridTemplateColumn Header="Resistencia de la mamposteria a cortante">
+                                                        <DataGridTemplateColumn.CellTemplate>
+                                                            <DataTemplate>
+                                                                <TextBox Text="{Binding ResMamposteriaCortante, Mode=TwoWay}"  Visibility="{Binding Mamposteria}" Style="{StaticResource DataGridCustomCell}" IsReadOnly="True"/>
+                                                            </DataTemplate>
+                                                        </DataGridTemplateColumn.CellTemplate>
+                                                    </DataGridTemplateColumn>
+
+                                                    <DataGridCheckBoxColumn Header="Acero de refuerzo"  Binding="{Binding Path=AceroDeRefuerzo, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+
+                                                    <DataGridTemplateColumn Header="A. de acero horizontal">
+                                                        <DataGridTemplateColumn.CellTemplate>
+                                                            <DataTemplate>
+                                                                <TextBox Text="{Binding Ash, Mode=TwoWay,UpdateSourceTrigger=LostFocus}" Style="{StaticResource DataGridCustomCell}" />
+                                                            </DataTemplate>
+                                                        </DataGridTemplateColumn.CellTemplate>
+                                                    </DataGridTemplateColumn>
+
+
+                                                    <DataGridTemplateColumn Header="Separación de acero horizontal">
+                                                        <DataGridTemplateColumn.CellTemplate>
+                                                            <DataTemplate>
+                                                                <TextBox Text="{Binding Sh, Mode=TwoWay,UpdateSourceTrigger=LostFocus}" Style="{StaticResource DataGridCustomCell}" />
+                                                            </DataTemplate>
+                                                        </DataGridTemplateColumn.CellTemplate>
+                                                    </DataGridTemplateColumn>
+
+                                                    <DataGridTemplateColumn Header="Esfuerzo de fluencia de acero horizontal">
+                                                        <DataGridTemplateColumn.CellTemplate>
+                                                            <DataTemplate>
+                                                                <TextBox Text="{Binding EsfuerzoDeFluenciaDelAceroRefuerzoHorizontal, Mode=TwoWay,UpdateSourceTrigger=LostFocus}" Style="{StaticResource DataGridCustomCell}" />
+                                                            </DataTemplate>
+                                                        </DataGridTemplateColumn.CellTemplate>
+                                                    </DataGridTemplateColumn>
+
+                                                    <DataGridTemplateColumn Header="Resistencia de acero de refuerzo horizontal">
+                                                        <DataGridTemplateColumn.CellTemplate>
+                                                            <DataTemplate>
+                                                                <TextBox Text="{Binding ResAceroRefuerzoHorizontalCortante, Mode=TwoWay,UpdateSourceTrigger=LostFocus}" Style="{StaticResource DataGridCustomCell}" IsReadOnly="True"/>
+                                                            </DataTemplate>
+                                                        </DataGridTemplateColumn.CellTemplate>
+                                                    </DataGridTemplateColumn>
+
+                                                    <DataGridTemplateColumn Header="Resistencia total a cortante del muro">
+                                                        <DataGridTemplateColumn.CellTemplate>
+                                                            <DataTemplate>
+                                                                <TextBox Text="{Binding ResistenciaTotalACortante, Mode=TwoWay}" Style="{StaticResource DataGridCustomCell}" IsReadOnly="True"/>
+                                                            </DataTemplate>
+                                                        </DataGridTemplateColumn.CellTemplate>
+                                                    </DataGridTemplateColumn>
+
+
+                                                    <DataGridTemplateColumn Header="Resistencia a cortante (muro de concreto)">
+                                                        <DataGridTemplateColumn.CellTemplate>
+                                                            <DataTemplate>
+                                                                <TextBox Text="{Binding ResistenciaCortanteConcreto, Mode=TwoWay}" Style="{StaticResource DataGridCustomCell}" IsReadOnly="True"/>
+                                                            </DataTemplate>
+                                                        </DataGridTemplateColumn.CellTemplate>
+                                                    </DataGridTemplateColumn>
+                                                    <!--<DataGridTextColumn Header="Esfuerzo de fluencia (Acero de refuerzo)"  Binding="{Binding Fy, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"  />-->
                                                     <!--<DataGridTextColumn Header="Pn1"  Binding="{Binding P1Y, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" IsReadOnly="True"/>
                                                     <DataGridTextColumn Header="Mn1"  Binding="{Binding P1X, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" IsReadOnly="True"/>
                                                     <DataGridTextColumn Header="Pn2"  Binding="{Binding P2Y, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" IsReadOnly="True"/>
@@ -166,18 +301,8 @@
                                                     <DataGridTextColumn Header="Mn4"  Binding="{Binding P4X, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" IsReadOnly="True"/>
                                                     <DataGridTextColumn Header="Pn5"  Binding="{Binding P5Y, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" IsReadOnly="True"/>
                                                     <DataGridTextColumn Header="Mn5"  Binding="{Binding P5X, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" IsReadOnly="True"/>-->
-                                                    
-                                                    <DataGridTextColumn Header="Resistencia de la mamposteria a cortante"  Binding="{Binding ResMamposteriaCortante, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" IsReadOnly="True"/>
-                                                    <DataGridCheckBoxColumn Header="Acero de refuerzo"  Binding="{Binding Path=AceroDeRefuerzo, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-                                                    <DataGridTextColumn Header="A. de acero horizontal"  Binding="{Binding Ash, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"/>
-                                                    <DataGridTextColumn Header="Separación de acero horizontal"  Binding="{Binding Sh, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"/>
-                                                    <DataGridTextColumn Header="Esfuerzo de fluencia de acero horizontal"  Binding="{Binding EsfuerzoDeFluenciaDelAceroRefuerzoHorizontal, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"/>
 
-                                                    <DataGridTextColumn Header="Resistencia de acero de refuerzo horizontal"  Binding="{Binding ResAceroRefuerzoHorizontalCortante, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" IsReadOnly="True"/>
-                                                    <DataGridTextColumn Header="Resistencia total a cortante del muro"  Binding="{Binding ResistenciaTotalACortante, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" IsReadOnly="True"/>
-                                                    <DataGridTextColumn Header="Resistencia a cortante (muro de concreto)"  Binding="{Binding ResistenciaCortanteConcreto, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" IsReadOnly="True"/>
-
-                                                    <DataGridTextColumn Header="Conclusión" Binding="{Binding Conclusion, Mode=TwoWay}" IsReadOnly="True" />
+                                                    <DataGridTextColumn  Header="Conclusión" Binding="{Binding Conclusion, Mode=TwoWay}" IsReadOnly="True" />
                                                 </DataGrid.Columns>
                                             </DataGrid>
 
@@ -186,6 +311,8 @@
                                                 <DataGrid.Columns>
                                                     <DataGridTextColumn Header="Muro" Binding="{Binding WallNumber}" IsReadOnly="True"  />
                                                     <DataGridTextColumn Header="Ancho de apoyo" Binding="{Binding AnchoDeApoyo, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" />
+                                                    <DataGridTextColumn Header="Area de Acero de refuerzo"  Binding="{Binding As, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" IsReadOnly="True" />
+                                                    <DataGridTextColumn Header="Ancho de castillo"  Binding="{Binding bc, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" IsReadOnly="True" />
                                                     <DataGridTextColumn Header="Excentricidad de carga" Binding="{Binding ExcentricidadDeCarga, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" IsReadOnly="True"/>
                                                     <DataGridTemplateColumn Header="Tipo de muro">
                                                         <DataGridTemplateColumn.CellTemplate>
@@ -197,7 +324,7 @@
                                                             </DataTemplate>
                                                         </DataGridTemplateColumn.CellTemplate>
                                                     </DataGridTemplateColumn>
-                                                    <DataGridCheckBoxColumn Header="Restringido extremo superior/inferior"  Binding="{Binding Path=RestringidoSuperiorInferior, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                                    <DataGridCheckBoxColumn Header="Restringido extremo superior/inferior"   Binding="{Binding Path=RestringidoSuperiorInferior, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                                                     <DataGridTextColumn Header="Longitud claro Izquierdo"  Binding="{Binding LongClaroIzquierdo, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" />
                                                     <DataGridTextColumn Header="Longitud claro Derecho"  Binding="{Binding LongClaroDerecho, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"/>
                                                     <DataGridTextColumn Header="F.E.E."  Binding="{Binding FE,Mode=TwoWay,UpdateSourceTrigger=LostFocus}" IsReadOnly="True"/>
@@ -205,7 +332,6 @@
                                                     <!--<DataGridTextColumn Header="Esfuerzo de fluencia (Acero de refuerzo)"  Binding="{Binding Fy, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"  />-->
                                                     <DataGridTextColumn Header="Resistencia a la compresion pura"  Binding="{Binding PR, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" IsReadOnly="True" />
                                                     <DataGridTextColumn Header=" Resistencia a flexión pura"  Binding="{Binding Mo, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" IsReadOnly="True"/>
-
                                                     <!--<DataGridTextColumn Header="Pn1"  Binding="{Binding P1Y, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" IsReadOnly="True"/>
                                                     <DataGridTextColumn Header="Mn1"  Binding="{Binding P1X, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" IsReadOnly="True"/>
                                                     <DataGridTextColumn Header="Pn2"  Binding="{Binding P2Y, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" IsReadOnly="True"/>
@@ -216,18 +342,19 @@
                                                     <DataGridTextColumn Header="Mn4"  Binding="{Binding P4X, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" IsReadOnly="True"/>
                                                     <DataGridTextColumn Header="Pn5"  Binding="{Binding P5Y, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" IsReadOnly="True"/>
                                                     <DataGridTextColumn Header="Mn5"  Binding="{Binding P5X, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" IsReadOnly="True"/>-->
+                                                    <DataGridTextColumn Header="Resistencia de la mamposteria a cortante"  Binding="{Binding ResMamposteriaCortante, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" IsReadOnly="True"  />
+                                                    <DataGridCheckBoxColumn Header="Acero de refuerzo"  Binding="{Binding Path=AceroDeRefuerzo, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  />
+                                                    <DataGridTextColumn Header="A. de acero horizontal"  Binding="{Binding Ash, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"  />
+                                                    <DataGridTextColumn Header="Separación de acero horizontal"  Binding="{Binding Sh, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"  />
+                                                    <DataGridTextColumn Header="Esfuerzo de fluencia de acero horizontal"  Binding="{Binding EsfuerzoDeFluenciaDelAceroRefuerzoHorizontal, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"  />
+                                                    <DataGridTextColumn Header="Resistencia de acero de refuerzo horizontal"  Binding="{Binding ResAceroRefuerzoHorizontalCortante, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" IsReadOnly="True"  />
+                                                    <DataGridTextColumn Header="Resistencia total a cortante del muro"  Binding="{Binding ResistenciaTotalACortante, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" IsReadOnly="True" Visibility="{Binding Mamposteria}" />
 
-                                                    <DataGridTextColumn Header="Resistencia de la mamposteria a cortante"  Binding="{Binding ResMamposteriaCortante, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" IsReadOnly="True"/>
-                                                    <DataGridCheckBoxColumn Header="Acero de refuerzo"  Binding="{Binding Path=AceroDeRefuerzo, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-                                                    <DataGridTextColumn Header="A. de acero horizontal"  Binding="{Binding Ash, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"/>
-                                                    <DataGridTextColumn Header="Separación de acero horizontal"  Binding="{Binding Sh, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"/>
-                                                    <DataGridTextColumn Header="Esfuerzo de fluencia de acero horizontal"  Binding="{Binding EsfuerzoDeFluenciaDelAceroRefuerzoHorizontal, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"/>
 
-                                                    <DataGridTextColumn Header="Resistencia de acero de refuerzo horizontal"  Binding="{Binding ResistenciaTotalACortante, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" IsReadOnly="True"/>
-                                                    <DataGridTextColumn Header="Resistencia total a cortante del muro"  Binding="{Binding ResistenciaTotalACortante, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" IsReadOnly="True"/>
-                                                    <DataGridTextColumn Header="Resistencia a cortante (muro de concreto)"  Binding="{Binding ResistenciaCortanteConcreto, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" IsReadOnly="True"/>
+                                                    <DataGridTextColumn Header="A. de acero (muro de concreto)"  Binding="{Binding AreaDeAceroMuroDeConcreto, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"  />
+                                                    <DataGridTextColumn Header="Resistencia a cortante (muro de concreto)"  Binding="{Binding ResistenciaCortanteConcreto, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" IsReadOnly="True" Visibility="{Binding Concreto, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
-                                                    <DataGridTextColumn Header="Conclusion" Binding="{Binding Conclusion, Mode=TwoWay}" IsReadOnly="True" />
+                                                    <DataGridTextColumn Header="Conclusión" Binding="{Binding Conclusion, Mode=TwoWay}" IsReadOnly="True" />
                                                 </DataGrid.Columns>
                                             </DataGrid>
                                         </StackPanel>

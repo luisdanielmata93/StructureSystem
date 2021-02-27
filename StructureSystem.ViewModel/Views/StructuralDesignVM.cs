@@ -73,6 +73,7 @@ namespace StructureSystem.ViewModel
             try
             {
                 this.Storeys = new ObservableCollection<Storey>((List<Storey>)DataService.GetStructure().Storeys);
+                
             }
             catch (Exception ex)
             {
@@ -129,8 +130,8 @@ namespace StructureSystem.ViewModel
             set
             {
                 if (value != _Storeys)
-                {
-                    _Storeys = value;
+                {                   
+                    _Storeys = value;                  
                     OnPropertyChanged("Storeys");
                 }
 

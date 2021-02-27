@@ -12,6 +12,10 @@ namespace StructureSystem.Data
 {
     public class StructuralDesignData : IStructuralDesignRepository
     {
+
+
+        Func<Wall, string> SetEsfuerzoDeFluenciaDefault = EF => (EF.Material.Equals("Concreto")) ? "4200" : "6000" ;
+       
         public bool Create(XMLStructuralDesignData model)
         {
             bool result = true;
@@ -40,10 +44,14 @@ namespace StructureSystem.Data
                 {
                     var stTemp = model.Storeys.Single(x => x.StoreyNumber == Convert.ToInt32((string)storey.Attribute("level").Value));
                     storey.SetAttributeValue("EsfuerzoNormalPromedio", stTemp.EsfuerzoNormalPromedio);
-                    storey.SetAttributeValue("CortanteResistenteEntrepisoMamposteria", stTemp.CortanteResistenteEntrepisoMamposteria);
-                    storey.SetAttributeValue("CortanteResistenteEntrepisoConcreto", stTemp.CortanteResistenteEntrepisoConcreto);
-                    storey.SetAttributeValue("CortanteEntrepisoTotal", stTemp.CortanteEntrepisoTotal);
+                    storey.SetAttributeValue("CortanteResistenteEntrepisoMamposteriaX", stTemp.CortanteResistenteEntrepisoMamposteriaX);
+                    storey.SetAttributeValue("CortanteResistenteEntrepisoConcretoX", stTemp.CortanteResistenteEntrepisoConcretoX);
+                    storey.SetAttributeValue("CortanteEntrepisoTotalX", stTemp.CortanteEntrepisoTotalX);
                     storey.SetAttributeValue("ConclusionX", stTemp.ConclusionX);
+
+                    storey.SetAttributeValue("CortanteResistenteEntrepisoMamposteriaY", stTemp.CortanteResistenteEntrepisoMamposteriaY);
+                    storey.SetAttributeValue("CortanteResistenteEntrepisoConcretoY", stTemp.CortanteResistenteEntrepisoConcretoY);
+                    storey.SetAttributeValue("CortanteEntrepisoTotalY", stTemp.CortanteEntrepisoTotalY);
                     storey.SetAttributeValue("ConclusionY", stTemp.ConclusionY);
 
                     foreach (var wall in storey.Elements("Wall"))
@@ -75,7 +83,7 @@ namespace StructureSystem.Data
                         wall.SetElementValue("AceroDeRefuerzo", wallTemp.AceroDeRefuerzo.ToString());
                         wall.SetElementValue("Ash", wallTemp.Ash.ToString());
                         wall.SetElementValue("Sh", wallTemp.Sh.ToString());
-                        wall.SetElementValue("EsfuerzoDeFluenciaDelAceroRefuerzoHorizontal", wallTemp.EsfuerzoDeFluenciaDelAceroRefuerzoHorizontal > 0 ? wallTemp.EsfuerzoDeFluenciaDelAceroRefuerzoHorizontal.ToString() : "6000");
+                        wall.SetElementValue("EsfuerzoDeFluenciaDelAceroRefuerzoHorizontal", wallTemp.EsfuerzoDeFluenciaDelAceroRefuerzoHorizontal > 0 ? wallTemp.EsfuerzoDeFluenciaDelAceroRefuerzoHorizontal.ToString() : SetEsfuerzoDeFluenciaDefault(wallTemp));
                         wall.SetElementValue("ResAceroRefuerzoHorizontalCortante", wallTemp.ResAceroRefuerzoHorizontalCortante.ToString());
                         wall.SetElementValue("ResistenciaTotalACortante", wallTemp.ResistenciaTotalACortante.ToString());
                         wall.SetElementValue("ResistenciaCortanteConcreto", wallTemp.ResistenciaCortanteConcreto.ToString());
@@ -91,10 +99,14 @@ namespace StructureSystem.Data
                 {
                     var stTemp = model.Storeys.Single(x => x.StoreyNumber == Convert.ToInt32((string)storey.Attribute("level").Value));
                     storey.SetAttributeValue("EsfuerzoNormalPromedio", stTemp.EsfuerzoNormalPromedio);
-                    storey.SetAttributeValue("CortanteResistenteEntrepisoMamposteria", stTemp.CortanteResistenteEntrepisoMamposteria);
-                    storey.SetAttributeValue("CortanteResistenteEntrepisoConcreto", stTemp.CortanteResistenteEntrepisoConcreto);
-                    storey.SetAttributeValue("CortanteEntrepisoTotal", stTemp.CortanteEntrepisoTotal);
+                    storey.SetAttributeValue("CortanteResistenteEntrepisoMamposteriaX", stTemp.CortanteResistenteEntrepisoMamposteriaX);
+                    storey.SetAttributeValue("CortanteResistenteEntrepisoConcretoX", stTemp.CortanteResistenteEntrepisoConcretoX);
+                    storey.SetAttributeValue("CortanteEntrepisoTotalX", stTemp.CortanteEntrepisoTotalX);
                     storey.SetAttributeValue("ConclusionX", stTemp.ConclusionX);
+
+                    storey.SetAttributeValue("CortanteResistenteEntrepisoMamposteriaY", stTemp.CortanteResistenteEntrepisoMamposteriaY);
+                    storey.SetAttributeValue("CortanteResistenteEntrepisoConcretoY", stTemp.CortanteResistenteEntrepisoConcretoY);
+                    storey.SetAttributeValue("CortanteEntrepisoTotalY", stTemp.CortanteEntrepisoTotalY);
                     storey.SetAttributeValue("ConclusionY", stTemp.ConclusionY);
 
                     foreach (var wall in storey.Elements("Wall"))
@@ -124,7 +136,7 @@ namespace StructureSystem.Data
                         wall.SetElementValue("AceroDeRefuerzo", wallTemp.AceroDeRefuerzo.ToString());
                         wall.SetElementValue("Ash", wallTemp.Ash.ToString());
                         wall.SetElementValue("Sh", wallTemp.Sh.ToString());
-                        wall.SetElementValue("EsfuerzoDeFluenciaDelAceroRefuerzoHorizontal", wallTemp.EsfuerzoDeFluenciaDelAceroRefuerzoHorizontal > 0 ? wallTemp.EsfuerzoDeFluenciaDelAceroRefuerzoHorizontal.ToString() : "6000");
+                        wall.SetElementValue("EsfuerzoDeFluenciaDelAceroRefuerzoHorizontal", wallTemp.EsfuerzoDeFluenciaDelAceroRefuerzoHorizontal > 0 ? wallTemp.EsfuerzoDeFluenciaDelAceroRefuerzoHorizontal.ToString() : SetEsfuerzoDeFluenciaDefault(wallTemp));
                         wall.SetElementValue("ResAceroRefuerzoHorizontalCortante", wallTemp.ResAceroRefuerzoHorizontalCortante.ToString());
                         wall.SetElementValue("ResistenciaTotalACortante", wallTemp.ResistenciaTotalACortante.ToString());
                         wall.SetElementValue("ResistenciaCortanteConcreto", wallTemp.ResistenciaCortanteConcreto.ToString());
@@ -164,6 +176,16 @@ namespace StructureSystem.Data
                 Storey st = new Storey();
 
                 st.StoreyNumber = Convert.ToInt32((string)storey.Attribute("level").Value);
+                st.EsfuerzoNormalPromedio = Convert.ToDouble((string)storey.Attribute("EsfuerzoNormalPromedio").Value);
+                st.CortanteResistenteEntrepisoMamposteriaX = Convert.ToDouble((string)storey.Attribute("CortanteResistenteEntrepisoMamposteriaX").Value);
+                st.CortanteResistenteEntrepisoConcretoX = Convert.ToDouble((string)storey.Attribute("CortanteResistenteEntrepisoConcretoX").Value);
+                st.CortanteEntrepisoTotalX = Convert.ToDouble((string)storey.Attribute("CortanteEntrepisoTotalX").Value);
+                st.ConclusionX = (string)storey.Attribute("ConclusionX").Value;
+
+                st.CortanteResistenteEntrepisoMamposteriaY = Convert.ToDouble((string)storey.Attribute("CortanteResistenteEntrepisoMamposteriaY").Value);
+                st.CortanteResistenteEntrepisoConcretoY = Convert.ToDouble((string)storey.Attribute("CortanteResistenteEntrepisoConcretoY").Value);
+                st.CortanteEntrepisoTotalY = Convert.ToDouble((string)storey.Attribute("CortanteEntrepisoTotalY").Value);
+                st.ConclusionY = (string)storey.Attribute("ConclusionY").Value;
 
                 foreach (var wall in storey.Elements("Wall"))
                 {
@@ -311,10 +333,14 @@ namespace StructureSystem.Data
                     var stTemp = model.Storeys.Single(x => x.StoreyNumber == Convert.ToInt32((string)storey.Attribute("level").Value));
 
                     storey.SetAttributeValue("EsfuerzoNormalPromedio", stTemp.EsfuerzoNormalPromedio);
-                    storey.SetAttributeValue("CortanteResistenteEntrepisoMamposteria", stTemp.CortanteResistenteEntrepisoMamposteria);
-                    storey.SetAttributeValue("CortanteResistenteEntrepisoConcreto", stTemp.CortanteResistenteEntrepisoConcreto);
-                    storey.SetAttributeValue("CortanteEntrepisoTotal", stTemp.CortanteEntrepisoTotal);
+                    storey.SetAttributeValue("CortanteResistenteEntrepisoMamposteriaX", stTemp.CortanteResistenteEntrepisoMamposteriaX);
+                    storey.SetAttributeValue("CortanteResistenteEntrepisoConcretoX", stTemp.CortanteResistenteEntrepisoConcretoX);
+                    storey.SetAttributeValue("CortanteEntrepisoTotalX", stTemp.CortanteEntrepisoTotalX);
                     storey.SetAttributeValue("ConclusionX", stTemp.ConclusionX);
+
+                    storey.SetAttributeValue("CortanteResistenteEntrepisoMamposteriaY", stTemp.CortanteResistenteEntrepisoMamposteriaY);
+                    storey.SetAttributeValue("CortanteResistenteEntrepisoConcretoY", stTemp.CortanteResistenteEntrepisoConcretoY);
+                    storey.SetAttributeValue("CortanteEntrepisoTotalY", stTemp.CortanteEntrepisoTotalY);
                     storey.SetAttributeValue("ConclusionY", stTemp.ConclusionY);
 
                     foreach (var wall in storey.Elements("Wall"))
@@ -346,7 +372,7 @@ namespace StructureSystem.Data
                         wall.SetElementValue("AceroDeRefuerzo", wallTemp.AceroDeRefuerzo.ToString());
                         wall.SetElementValue("Ash", wallTemp.Ash.ToString());
                         wall.SetElementValue("Sh", wallTemp.Sh.ToString());
-                        wall.SetElementValue("EsfuerzoDeFluenciaDelAceroRefuerzoHorizontal", wallTemp.EsfuerzoDeFluenciaDelAceroRefuerzoHorizontal > 0 ? wallTemp.EsfuerzoDeFluenciaDelAceroRefuerzoHorizontal.ToString() : "6000");
+                        wall.SetElementValue("EsfuerzoDeFluenciaDelAceroRefuerzoHorizontal", wallTemp.EsfuerzoDeFluenciaDelAceroRefuerzoHorizontal > 0 ? wallTemp.EsfuerzoDeFluenciaDelAceroRefuerzoHorizontal.ToString() : SetEsfuerzoDeFluenciaDefault(wallTemp));
                         wall.SetElementValue("ResAceroRefuerzoHorizontalCortante", wallTemp.ResAceroRefuerzoHorizontalCortante.ToString());
                         wall.SetElementValue("ResistenciaTotalACortante", wallTemp.ResistenciaTotalACortante.ToString());
                         wall.SetElementValue("ResistenciaCortanteConcreto", wallTemp.ResistenciaCortanteConcreto.ToString());
@@ -363,10 +389,14 @@ namespace StructureSystem.Data
                     var stTemp = model.Storeys.Single(x => x.StoreyNumber == Convert.ToInt32((string)storey.Attribute("level").Value));
 
                     storey.SetAttributeValue("EsfuerzoNormalPromedio", stTemp.EsfuerzoNormalPromedio);
-                    storey.SetAttributeValue("CortanteResistenteEntrepisoMamposteria", stTemp.CortanteResistenteEntrepisoMamposteria);
-                    storey.SetAttributeValue("CortanteResistenteEntrepisoConcreto", stTemp.CortanteResistenteEntrepisoConcreto);
-                    storey.SetAttributeValue("CortanteEntrepisoTotal", stTemp.CortanteEntrepisoTotal);
+                    storey.SetAttributeValue("CortanteResistenteEntrepisoMamposteriaX", stTemp.CortanteResistenteEntrepisoMamposteriaX);
+                    storey.SetAttributeValue("CortanteResistenteEntrepisoConcretoX", stTemp.CortanteResistenteEntrepisoConcretoX);
+                    storey.SetAttributeValue("CortanteEntrepisoTotalX", stTemp.CortanteEntrepisoTotalX);
                     storey.SetAttributeValue("ConclusionX", stTemp.ConclusionX);
+
+                    storey.SetAttributeValue("CortanteResistenteEntrepisoMamposteriaY", stTemp.CortanteResistenteEntrepisoMamposteriaY);
+                    storey.SetAttributeValue("CortanteResistenteEntrepisoConcretoY", stTemp.CortanteResistenteEntrepisoConcretoY);
+                    storey.SetAttributeValue("CortanteEntrepisoTotalY", stTemp.CortanteEntrepisoTotalY);
                     storey.SetAttributeValue("ConclusionY", stTemp.ConclusionY);
 
                     foreach (var wall in storey.Elements("Wall"))
@@ -396,7 +426,7 @@ namespace StructureSystem.Data
                         wall.SetElementValue("AceroDeRefuerzo", wallTemp.AceroDeRefuerzo.ToString());
                         wall.SetElementValue("Ash", wallTemp.Ash.ToString());
                         wall.SetElementValue("Sh", wallTemp.Sh.ToString());
-                        wall.SetElementValue("EsfuerzoDeFluenciaDelAceroRefuerzoHorizontal", wallTemp.EsfuerzoDeFluenciaDelAceroRefuerzoHorizontal > 0 ? wallTemp.EsfuerzoDeFluenciaDelAceroRefuerzoHorizontal.ToString() : "6000");
+                        wall.SetElementValue("EsfuerzoDeFluenciaDelAceroRefuerzoHorizontal", wallTemp.EsfuerzoDeFluenciaDelAceroRefuerzoHorizontal > 0 ? wallTemp.EsfuerzoDeFluenciaDelAceroRefuerzoHorizontal.ToString() : SetEsfuerzoDeFluenciaDefault(wallTemp));
                         wall.SetElementValue("ResAceroRefuerzoHorizontalCortante", wallTemp.ResAceroRefuerzoHorizontalCortante.ToString());
                         wall.SetElementValue("ResistenciaTotalACortante", wallTemp.ResistenciaTotalACortante.ToString());
                         wall.SetElementValue("ResistenciaCortanteConcreto", wallTemp.ResistenciaCortanteConcreto.ToString());
