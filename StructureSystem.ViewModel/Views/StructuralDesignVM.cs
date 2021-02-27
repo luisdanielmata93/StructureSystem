@@ -139,7 +139,6 @@ namespace StructureSystem.ViewModel
         }
 
 
-
         private readonly StructuralDesignService DataService = new StructuralDesignService();
         private NotificationViewModel notificationViewModel;
         private readonly PropertyChangedViewModel _mainViewModel;

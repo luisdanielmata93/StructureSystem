@@ -138,6 +138,25 @@ namespace StructureSystem.BusinessRules.Services
             return result;
         }
 
+        public OperationResult ExportDocument()
+        {
+            OperationResult result = new OperationResult();
+            try
+            {
+                ExportDocument doc = new ExportDocument();
+                doc.Export();
+
+                result.OperationSuccess("Exportación exitosa", Enums.ActionType.Get);
+
+            }
+            catch (Exception ex)
+            {
+                result.OperationError("Error al exportar documento", Enums.ActionType.Get, ex);
+
+            }
+            return result;
+        }
+
         public string GetDocumentPath()
         {
             return configData.GetElementByName("XMLpath");

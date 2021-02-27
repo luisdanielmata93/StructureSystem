@@ -14,6 +14,7 @@ using System.Configuration;
 using MahApps.Metro.Controls.Dialogs;
 using StructureSystem.BusinessRules.Services;
 
+
 namespace StructureSystem.ViewModel
 {
     public class DefinitionVM : PropertyChangedViewModel
@@ -129,7 +130,7 @@ namespace StructureSystem.ViewModel
 
         private void ExportPDF()
         {
-
+            DocumentData.ExportDocument();
         }
 
 

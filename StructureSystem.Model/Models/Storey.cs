@@ -20,7 +20,7 @@ namespace StructureSystem.Model
         }
 
         #endregion
-
+       
 
         #region Properties
         public int StoreyNumber { get; set; }

@@ -477,6 +477,10 @@ namespace StructureSystem.BusinessRules.Services
                         wall.FactorAlturaEfectiva = Operations.CalcularFactorDeAlturaEfectiva(wall);
                         wall.FE = Operations.CalcularFactorReduccionExcentricidadEsbeltez(wall, entrepiso);
 
+
+
+
+
                         for (int index = 0; index < 100; index++)
                         {
 
@@ -508,8 +512,6 @@ namespace StructureSystem.BusinessRules.Services
 
 
                         }
-
-
                         wall.ResMamposteriaCortante = Operations.CalcularResistenciaMamposteriaCortante(wall, MaterialCollection.Single(x => x.Name == wall.Material));
                         wall.ResAceroRefuerzoHorizontalCortante = Operations.CalcularResistenciaAceroRefuerzoHorizontalCortante(wall, MaterialCollection.Single(x => x.Name == wall.Material));
                         wall.ResistenciaTotalACortante = Operations.CalcularResistenciaTotalACortante(wall);

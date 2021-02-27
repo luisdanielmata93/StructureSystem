@@ -21,6 +21,7 @@ namespace StructureSystem.View.Views
         public StructuralDesign()
         {
             InitializeComponent();
+
         }
 
     }

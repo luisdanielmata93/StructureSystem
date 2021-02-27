@@ -11,7 +11,7 @@ using System.Runtime.CompilerServices;
 
 namespace StructureSystem.Model
 {
-    public class Wall //: INotifyPropertyChanged
+    public class Wall : INotifyPropertyChanged
     {
         public Wall()
         {
@@ -693,6 +693,7 @@ namespace StructureSystem.Model
             {
                 if (value != Concreto_)
                     Concreto_ = value;
+                OnPropertyChanged("Concreto");
             }
         }
 
@@ -707,6 +708,7 @@ namespace StructureSystem.Model
             {
                 if (value != Mamposteria_)
                     Mamposteria_ = value;
+                OnPropertyChanged("Mamposteria");
             }
         }
 
@@ -724,11 +726,12 @@ namespace StructureSystem.Model
             }
         }
 
-        #endregion
+       
+                #endregion
 
 
 
-        #region Metodos
+                #region Metodos
 
         //public void EsConcretos(ref Wall wall)
         //{
@@ -747,7 +750,13 @@ namespace StructureSystem.Model
         //}
 
         //Predicate<Wall> EsConcreto = wall => wall.Material.Equals("Concreto") ? wall.Fy=4200
-        #endregion
+                #endregion
+        [NotifyPropertyChangedInvocator]
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+        public event PropertyChangedEventHandler PropertyChanged;
 
     }//end of class
 }//end of namespace

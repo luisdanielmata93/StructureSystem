@@ -133,6 +133,8 @@
                 </Style.Triggers>
             </Style>
 
+          
+
             <ControlTemplate x:Key="NumericTextBox" TargetType="{x:Type TextBoxBase}">
                 <Border Background="{TemplateBinding Background}" 
                 x:Name="Bd" BorderBrush="LightSlateGray" Width="90"
