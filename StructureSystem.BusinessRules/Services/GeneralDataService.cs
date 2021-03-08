@@ -143,7 +143,7 @@ namespace StructureSystem.BusinessRules.Services
             OperationResult result = new OperationResult();
             try
             {
-                ExportDocument doc = new ExportDocument();
+                ExportDocumentService doc = new ExportDocumentService();
                 doc.Export();
 
                 result.OperationSuccess("Exportación exitosa", Enums.ActionType.Get);

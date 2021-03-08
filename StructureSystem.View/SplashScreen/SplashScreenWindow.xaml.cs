@@ -17,11 +17,16 @@ namespace StructureSystem.View.SplashScreenView
     /// <summary>
     /// Lógica de interacción para SplashScreenWindow.xaml
     /// </summary>
-    public partial class SplashScreenWindow : Window
+    public partial class SplashScreenWindow : Window, IDisposable
     {
         public SplashScreenWindow()
         {
             InitializeComponent();
+        }
+
+        public void Dispose()
+        {
+            this.Dispose();
         }
     }
 }

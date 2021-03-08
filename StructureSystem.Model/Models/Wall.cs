@@ -15,7 +15,7 @@ namespace StructureSystem.Model
     {
         public Wall()
         {
-            this.Tipos = new ObservableCollection<string> { "Interior", "Extremo" };
+            this.Tipos = new ObservableCollection<string> { "Interior", "Extremo" };            
             this.Tipo = "Interior";
             this.Fy = 4200; //temp
             this.EsfuerzoDeFluenciaDelAceroRefuerzoHorizontal = 6000;
@@ -25,7 +25,33 @@ namespace StructureSystem.Model
 
         public int WallNumber { get; set; }
         public int Storey { get; set; }
-        public string Material { get; set; }
+
+        private ObservableCollection<string> Materials_;
+        public ObservableCollection<string> Materials
+        {
+            get
+            {
+                return Materials_;
+            }
+            set
+            {
+                Materials_ = value;
+            }
+        }
+
+        private string Material_;
+        public string Material {
+            get
+            {
+                return Material_;
+            }
+            set
+            {
+                if (value != Material_)
+                    Material_ = value;
+            }
+        }
+        
         public double Length { get; set; }
         public double TributaryArea { get; set; }
         public double Thickness { get; set; }

@@ -24,6 +24,7 @@ namespace StructureSystem.Model
         private const string MessageCreate = "Información creada exitosamente.";
         private const string MessageDelete = "El registro se eliminó exitosamente.";
         private const string MessageOther = "Operación realizada exitosamente.";
+        private const string MessageExport = "Exportación realizada exitosamente.";
 
         public OperationResult()
         {
@@ -49,6 +50,13 @@ namespace StructureSystem.Model
             this.Error = true;
             this.Exception = Exception;
         }
+        public void OperationError(string messageError, ActionType action)
+        {
+            this.ErrorInformation = messageError;
+            this.NotificationType = NotificationType.Error;
+            this.ActionType = action;
+            this.Error = true;
+        }
 
         private string GetOperationMessage(ActionType action)
         {
@@ -69,6 +77,9 @@ namespace StructureSystem.Model
                     break;
                 case ActionType.NonAction:
                     result = MessageOther;
+                    break;
+                case ActionType.Export:
+                    result = MessageExport;
                     break;
                 default:
                     break;

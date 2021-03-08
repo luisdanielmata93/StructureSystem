@@ -19,34 +19,29 @@ namespace StructureSystem.View
     /// </summary>
     public partial class App : Application
     {
-        
-        protected override void OnStartup(StartupEventArgs e)
+        public App()
         {
-            base.OnStartup(e);
-
-
-            var splashScreen = new SplashScreenWindow();
-            this.MainWindow = splashScreen;
-            splashScreen.Show();
-
-            Task.Factory.StartNew(() =>
-            {
-                Thread.Sleep(5000);
-
-                this.Dispatcher.Invoke(() =>
-                {
-                    var mainWindow = new MainWindow();
-                    this.MainWindow = mainWindow;
-                    mainWindow.Show();
-
-                    splashScreen.Close();
-
-                });
-            });
-
-
+            Startup += App_Startup;
         }
 
-       
+        private async void App_Startup(object sender, StartupEventArgs e)
+        {
+            var main = new MainWindow();
+            var splash = new SplashScreenWindow();
+            splash.Show();
+
+            await InitializeAsync();
+
+            main.Show();
+            MainWindow = main;
+
+            splash.Close();
+        }
+
+        private Task InitializeAsync()
+        {
+            return Task.Delay(5000);
+        }
+
     }
 }

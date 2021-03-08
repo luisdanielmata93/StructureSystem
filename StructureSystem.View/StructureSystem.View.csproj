@@ -16,6 +16,7 @@
     <None Remove="Content\Images\edificios3.png" />
     <None Remove="Content\Images\error2.png" />
     <None Remove="Content\Images\estructura33.jpg" />
+    <None Remove="Content\Images\export-icon.png" />
     <None Remove="Content\Images\loadA1.gif" />
     <None Remove="Content\Images\losa_macisa_azotea.png" />
     <None Remove="Content\Images\losa_macisa_entrepiso.png" />
@@ -23,6 +24,7 @@
     <None Remove="Content\Images\losa_nervada_entrepiso.png" />
     <None Remove="Content\Images\losa_vigueta_bovedilla_azotea.png" />
     <None Remove="Content\Images\losa_vigueta_bovedilla_entrepiso.png" />
+    <None Remove="Content\Images\pdf-icon.png" />
     <None Remove="Content\Images\pisa.png" />
     <None Remove="Content\Images\SplashScreen.png" />
   </ItemGroup>
@@ -60,6 +62,7 @@
     <Resource Include="Content\Images\edificios2.png" />
     <Resource Include="Content\Images\edificios3.png" />
     <Resource Include="Content\Images\estructura33.jpg" />
+    <Resource Include="Content\Images\export-icon.png" />
     <Resource Include="Content\Images\loadA1.gif" />
     <Resource Include="Content\Images\losa_macisa_azotea.png" />
     <Resource Include="Content\Images\losa_macisa_entrepiso.png" />
@@ -67,6 +70,7 @@
     <Resource Include="Content\Images\losa_nervada_entrepiso.png" />
     <Resource Include="Content\Images\losa_vigueta_bovedilla_azotea.png" />
     <Resource Include="Content\Images\losa_vigueta_bovedilla_entrepiso.png" />
+    <Resource Include="Content\Images\pdf-icon.png" />
     <Resource Include="Content\Images\pisa.png" />
     <Resource Include="Content\Images\SplashScreen.png" />
   </ItemGroup>

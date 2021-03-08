@@ -32,8 +32,8 @@ namespace StructureSystem.ViewModel
             this._mainViewModel.ProcessCompleted += _mainViewModel_ProcessCompleted;
         }
 
-       
-        
+
+
         private void _mainViewModel_ProcessCompleted(object sender, bool e)
         {
             try
@@ -43,7 +43,7 @@ namespace StructureSystem.ViewModel
             catch (Exception ex)
             {
             }
-            
+
         }
 
 
@@ -94,7 +94,6 @@ namespace StructureSystem.ViewModel
             if (await this.Save(Storey))
                 notificationViewModel.ShowMessage("Inserción exitosa.");
 
-            //BORRAR CAMPOOOSSS
         }
 
         #endregion
@@ -149,12 +148,63 @@ namespace StructureSystem.ViewModel
         {
             bool result = (bool)DataService.IsSaved(Storey).Data;
             if (result)
+            {
                 IsAlert = "Hidden";
+            }
             else
+            {
                 IsAlert = "Visible";
+            }
 
             return result;
 
+        }
+
+        private void ShowSavedData()
+        {
+            XMLLoadAnalysisData initialData = (XMLLoadAnalysisData)this.DataService.GetSavedData(this.Storey).Data;
+            if (initialData.LosaMacizaAzoteaP != null)
+            {
+                this.TabIndex = 0;
+                this.FlooringMaterial = this.FlooringMaterials.Single(x => x.Id == 1);
+                this.LosaMacizaAzoteaP = initialData.LosaMacizaAzoteaP;
+            }
+            if (initialData.LosaMacizaEntrepisoP != null)
+            {
+                this.TabIndex = 1;
+                this.FlooringMaterial = this.FlooringMaterials.Single(x => x.Id == 1);
+                this.LosaMacizaEntrepisoP = initialData.LosaMacizaEntrepisoP;
+            }
+            if (initialData.LosaNervadaAzoteaP != null)
+            {
+                this.TabIndex = 2;
+                this.FlooringMaterial = this.FlooringMaterials.Single(x => x.Id == 2);
+                this.LosaNervadaAzoteaP = initialData.LosaNervadaAzoteaP;
+            }
+            if (initialData.LosaNervadaEntrepisoP != null)
+            {
+                this.TabIndex = 3;
+                this.FlooringMaterial = this.FlooringMaterials.Single(x => x.Id == 2);
+                this.LosaNervadaEntrepisoP = initialData.LosaNervadaEntrepisoP;
+            }
+            if (initialData.LosaViguetaBovedillaAzoteaP != null)
+            {
+                this.TabIndex = 4;
+                this.FlooringMaterial = this.FlooringMaterials.Single(x => x.Id == 3);
+                this.LosaViguetaBovedillaAzoteaP = initialData.LosaViguetaBovedillaAzoteaP;
+            }
+            if (initialData.LosaViguetaBovedillaEntrepisoP != null)
+            {
+                this.TabIndex = 5;
+                this.FlooringMaterial = this.FlooringMaterials.Single(x => x.Id == 3);
+                this.LosaViguetaBovedillaEntrepisoP = initialData.LosaViguetaBovedillaEntrepisoP;
+            }
+            if (initialData.LosaOtroTipoP != null)
+            {
+                this.TabIndex = 6;
+                this.FlooringMaterial = this.FlooringMaterials.Single(x => x.Id == 4);
+                this.LosaOtroTipoP = initialData.LosaOtroTipoP;
+            }
         }
 
         private void SetInitialData()
@@ -165,7 +215,7 @@ namespace StructureSystem.ViewModel
 
         }
 
-        private void SelectTabItem()
+        private async void SelectTabItem()
         {
 
             if (FlooringMaterial is null || FlooringMaterial.Id < 0)
@@ -179,14 +229,16 @@ namespace StructureSystem.ViewModel
                         this.HiddenTabs();
                         this.TabIndex = 0;
                         this.MaterialType = Enums.MaterialType.MacisaEntrepiso;
-                        this.LosaMacizaEntrepisoP = new LosaMacizaEntrepiso();
+                        if (this.LosaMacizaEntrepisoP is null)
+                            this.LosaMacizaEntrepisoP = new LosaMacizaEntrepiso();
                     }
                     else
                     {
                         this.HiddenTabs();
                         this.TabIndex = 1;
                         this.MaterialType = Enums.MaterialType.MacisaAzotea;
-                        this.LosaMacizaAzoteaP = new LosaMacizaAzotea();
+                        if (this.LosaMacizaAzoteaP is null)
+                            this.LosaMacizaAzoteaP = new LosaMacizaAzotea();
                     }
                     break;
                 case 2:
@@ -195,14 +247,16 @@ namespace StructureSystem.ViewModel
                         this.HiddenTabs();
                         this.TabIndex = 2;
                         this.MaterialType = Enums.MaterialType.NervadaEntrepiso;
-                        this.LosaNervadaEntrepisoP = new LosaNervadaEntrepiso();
+                        if (this.LosaNervadaEntrepisoP is null)
+                            this.LosaNervadaEntrepisoP = new LosaNervadaEntrepiso();
                     }
                     else
                     {
                         this.HiddenTabs();
                         this.TabIndex = 3;
                         this.MaterialType = Enums.MaterialType.NervadaAzotea;
-                        this.LosaNervadaAzoteaP = new LosaNervadaAzotea();
+                        if (this.LosaNervadaAzoteaP is null)
+                            this.LosaNervadaAzoteaP = new LosaNervadaAzotea();
                     }
                     break;
                 case 3:
@@ -211,7 +265,8 @@ namespace StructureSystem.ViewModel
                         this.HiddenTabs();
                         this.TabIndex = 4;
                         this.MaterialType = Enums.MaterialType.ViguetaBovedillaEntrepiso;
-                        this.LosaViguetaBovedillaEntrepisoP = new LosaViguetaBovedillaEntrepiso();
+                        if (this.LosaViguetaBovedillaEntrepisoP is null)
+                            this.LosaViguetaBovedillaEntrepisoP = new LosaViguetaBovedillaEntrepiso();
 
                     }
                     else
@@ -219,7 +274,8 @@ namespace StructureSystem.ViewModel
                         this.HiddenTabs();
                         this.TabIndex = 5;
                         this.MaterialType = Enums.MaterialType.ViguetaBovedillaAzotea;
-                        this.LosaViguetaBovedillaAzoteaP = new LosaViguetaBovedillaAzotea();
+                        if (this.LosaViguetaBovedillaAzoteaP is null)
+                            this.LosaViguetaBovedillaAzoteaP = new LosaViguetaBovedillaAzotea();
                     }
                     break;
                 case 4:
@@ -228,14 +284,16 @@ namespace StructureSystem.ViewModel
                         this.HiddenTabs();
                         this.TabIndex = 6;
                         this.MaterialType = Enums.MaterialType.Otra;
-                        this.LosaOtroTipoP = new LosaOtroTipo();
+                        if (this.LosaOtroTipoP is null)
+                            this.LosaOtroTipoP = new LosaOtroTipo();
                     }
                     else
                     {
                         this.HiddenTabs();
                         this.TabIndex = 6;
                         this.MaterialType = Enums.MaterialType.Otra;
-                        this.LosaOtroTipoP = new LosaOtroTipo();
+                        if (this.LosaOtroTipoP is null)
+                            this.LosaOtroTipoP = new LosaOtroTipo();
                     }
                     break;
                 default:
@@ -356,7 +414,10 @@ namespace StructureSystem.ViewModel
             set
             {
                 _Storey = value;
-                IsSaved();
+                IsStoreySelected = true;
+                if (IsSaved())
+                    ShowSavedData();
+
                 OnPropertyChanged("Storey");
             }
         }
@@ -516,6 +577,22 @@ namespace StructureSystem.ViewModel
         #endregion
 
         #region VisibleProperties
+
+        private bool _IsStoreySelected = false;
+        public bool IsStoreySelected
+        {
+            get
+            {
+                return _IsStoreySelected;
+            }
+            set
+            {
+                if (value != _IsStoreySelected)
+                    _IsStoreySelected = value;
+                OnPropertyChanged("IsStoreySelected");
+            }
+        }
+
         private string _LosaMacisaEntrepiso = "Hidden";
         public string LosaMacisaEntrepiso
         {
@@ -592,7 +669,6 @@ namespace StructureSystem.ViewModel
             set
             {
                 _Otra = value; OnPropertyChanged("Otra");
-                ;
             }
         }
         #endregion

@@ -11,6 +11,7 @@ using Microsoft.Win32;
 using Notifications.Wpf.Controls;
 using Notifications.Wpf;
 using System.Configuration;
+using MahApps.Metro.Controls;
 using MahApps.Metro.Controls.Dialogs;
 using StructureSystem.BusinessRules.Services;
 
@@ -50,7 +51,6 @@ namespace StructureSystem.ViewModel
 
         public ICommand SearchCommand { get; private set; }
         public ICommand SaveProjectCommand { get; private set; }
-        public ICommand ExportExcelCommand { get; private set; }
         public ICommand ExportPDFCommand { get; private set; }
         public ICommand ImportCommand { get; private set; }
 
@@ -61,10 +61,7 @@ namespace StructureSystem.ViewModel
 
         private void SetCommands()
         {
-            SearchCommand = new RelayCommand(o => Search(), o => CanSearch());
             SaveProjectCommand = new RelayCommand(o => NewProject(), o => CanSave());
-            ExportExcelCommand = new RelayCommand(o => ExportExcel(), o => CanSave());
-            ExportPDFCommand = new RelayCommand(o => ExportPDF(), o => CanSave());
             ImportCommand = new RelayCommand(o => ImportProject());
         }
 
@@ -73,7 +70,7 @@ namespace StructureSystem.ViewModel
         #region CommandMethods
 
 
-       
+
 
         public void ImportProject()
         {
@@ -82,14 +79,19 @@ namespace StructureSystem.ViewModel
             if (string.IsNullOrEmpty(SelectedPath))
                 return;
 
-            var InitialProjectData = DocumentData.ImportDocument(SelectedPath);
+            FooProgress(1);
 
-            this.notificationViewModel.ShowNotification(InitialProjectData);
+        }
+
+        private async Task<OperationResult> Import()
+        {
+            var InitialProjectData = DocumentData.ImportDocument(SelectedPath);
 
             SetImportData(InitialProjectData);
 
             this._mainViewModel.Start();
 
+            return InitialProjectData;
         }
 
         private void NewProject()
@@ -104,42 +106,73 @@ namespace StructureSystem.ViewModel
 
             this.IsAlert = "Hidden";
 
-            this._mainViewModel.Start();
-
         }
 
-        private async void UpdateProject()
+
+
+        private void UpdateProject()
         {
-            this.dialogCoordinator = new DialogCoordinator();
-            var result = await this.dialogCoordinator.ShowMessageAsync(this, string.Concat("Ya existe un proyecto con el nombre ", this.ProjectName, " \n ¿Desea actualizar el proyecto existente?"), "Se sobreescribirá la información guardada.", MessageDialogStyle.AffirmativeAndNegative);
-            if (result == MessageDialogResult.Affirmative)
+            FooProgress(2);
+        }
+
+        private async Task<bool> Update()
+        {
+            bool result = true;
+
+            if (await UpdateDialogValidation())
             {
                 var updateResult = DocumentData.UpdateDocument(this);
                 notificationViewModel.ShowNotification(updateResult);
-
                 this._mainViewModel.Start();
-
             }
+
+            return result;
         }
 
-
-        private void ExportExcel()
+        private async Task<bool> UpdateDialogValidation()
         {
-            OnPropertyChanged();
+            bool result = false;
+            this.dialogCoordinator = new DialogCoordinator();
+            var controller = await this.dialogCoordinator.ShowMessageAsync(this, string.Concat("Ya existe un proyecto con el nombre ", this.ProjectName, " \n ¿Desea actualizar el proyecto existente?"), "Se sobreescribirá la información guardada.", MessageDialogStyle.AffirmativeAndNegative);
+            if (controller == MessageDialogResult.Affirmative)
+                result = true;
+
+            return result;
         }
 
-        private void ExportPDF()
+      
+        public async void FooProgress(int Option)
         {
-            DocumentData.ExportDocument();
+            this.dialogCoordinator = new DialogCoordinator();
+            ProgressDialogController controller;
+            switch (Option)
+            {
+                case 1:
+                    controller = await this.dialogCoordinator.ShowProgressAsync(this, "Obteniendo información", "Se esta importando la información del proyecto, por favor espere...");
+
+                    controller.SetIndeterminate();
+
+                    var ImpResult = await Task.Run(Import);
+                    await controller.CloseAsync();
+
+                    this.notificationViewModel.ShowNotification(ImpResult);
+
+
+                    break;
+                case 2:
+                    controller = await this.dialogCoordinator.ShowProgressAsync(this, "Actualizando información", "Se esta actualizando la información del proyecto, por favor espere...");
+
+                    controller.SetIndeterminate();
+
+                    var UpdResult = await Task.Run(Update);
+                    await controller.CloseAsync();
+
+                    break;
+                default:
+                    break;
+            }
+
         }
-
-
-        private void Search()
-        {
-            //  var th = this.SearchText;
-
-        }
-
 
 
         #endregion
@@ -198,11 +231,6 @@ namespace StructureSystem.ViewModel
 
             return result;
 
-        }
-
-        private bool CanSearch()
-        {
-            return !string.IsNullOrEmpty(Address);
         }
 
         private bool CanSave()
@@ -424,8 +452,6 @@ namespace StructureSystem.ViewModel
         }
 
 
-
-
         private bool IsLoadProject_;
         public bool IsLoadProject
         {
@@ -443,6 +469,7 @@ namespace StructureSystem.ViewModel
 
             }
         }
+
         #endregion
 
     }//end of class

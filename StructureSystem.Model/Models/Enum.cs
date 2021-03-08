@@ -14,7 +14,8 @@ namespace StructureSystem.Model
             Update,
             Delete,
             Get,
-            NonAction
+            NonAction,
+            Export
 
         }
 

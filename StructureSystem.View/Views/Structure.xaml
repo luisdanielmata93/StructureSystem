@@ -73,7 +73,7 @@
                     <ScrollViewer  Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
                         <DataGrid CanUserAddRows="False" FontSize="17" Grid.Row="4" x:Name="WallData" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" ItemsSource="{Binding Path=Storeys ,Mode=TwoWay}"  AutoGenerateColumns="False" CanUserResizeColumns="True">
                             <DataGrid.Columns>
-                                <DataGridTemplateColumn Width="250" IsReadOnly="True" Header="NIVELES DE LA ESTRUCTURA">
+                                <DataGridTemplateColumn Width="250" IsReadOnly="True" Header="DETALLE DE LA ESTRUCTURA">
                                     <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate>
                                             <Grid HorizontalAlignment="Center">
@@ -98,7 +98,16 @@
                                             <DataGrid AutoGenerateColumns="False" CanUserAddRows="False" SelectedItem="{Binding SelectedWall,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding HorizontalWalls, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                                                 <DataGrid.Columns>
                                                     <DataGridTextColumn Header="Muro" Binding="{Binding WallNumber}" IsReadOnly="True"  />
-                                                    <DataGridTextColumn Header="Material" Binding="{Binding Material}"  />
+                                                    <DataGridTemplateColumn Header="Material">
+                                                        <DataGridTemplateColumn.CellTemplate>
+                                                            <DataTemplate>
+                                                                <ComboBox ItemsSource="{Binding Materials}"
+                                                                                      SelectedItem="{Binding Material, UpdateSourceTrigger=PropertyChanged}"
+                                                                                      IsSynchronizedWithCurrentItem="True">
+                                                                </ComboBox>
+                                                            </DataTemplate>
+                                                        </DataGridTemplateColumn.CellTemplate>
+                                                    </DataGridTemplateColumn>
                                                     <DataGridTextColumn Header="Longitud(m)"  Binding="{Binding Length, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat={}{0:n2}}" />
                                                     <DataGridTextColumn Header="Area tributaria(m2)"  Binding="{Binding TributaryArea, StringFormat={}{0:n2}}" />
                                                     <DataGridTextColumn Header="Espesor(m)"  Binding="{Binding Thickness,StringFormat={}{0:n2}}" />
@@ -132,7 +141,16 @@
                                             <DataGrid AutoGenerateColumns="False" CanUserAddRows="False" SelectedItem="{Binding SelectedWall,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"  ItemsSource="{Binding VerticalWalls, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" >
                                                 <DataGrid.Columns>
                                                     <DataGridTextColumn Header="Muro" Binding="{Binding WallNumber}" IsReadOnly="True" />
-                                                    <DataGridTextColumn Header="Material"  Binding="{Binding Material}" />
+                                                    <DataGridTemplateColumn Header="Material">
+                                                        <DataGridTemplateColumn.CellTemplate>
+                                                            <DataTemplate>
+                                                                <ComboBox ItemsSource="{Binding Materials}"
+                                                                                      SelectedItem="{Binding Material, UpdateSourceTrigger=PropertyChanged}"
+                                                                                      IsSynchronizedWithCurrentItem="True">
+                                                                </ComboBox>
+                                                            </DataTemplate>
+                                                        </DataGridTemplateColumn.CellTemplate>
+                                                    </DataGridTemplateColumn>
                                                     <DataGridTextColumn Header="Longitud(m)"  Binding="{Binding Length, StringFormat={}{0:n2}}" />
                                                     <DataGridTextColumn Header="Area tributaria(m2)"  Binding="{Binding TributaryArea, StringFormat={}{0:n2}}" />
                                                     <DataGridTextColumn Header="Espesor(m)"  Binding="{Binding Thickness, StringFormat={}{0:n2}}" />

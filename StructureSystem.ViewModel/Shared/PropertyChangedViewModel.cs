@@ -14,8 +14,8 @@ namespace StructureSystem.ViewModel.Shared
     {
         public event PropertyChangedEventHandler PropertyChanged;
         public event EventHandler<bool> ProcessCompleted;
-
-
+      
+        
         public void Start()
         {
             try

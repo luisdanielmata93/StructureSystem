@@ -19,8 +19,7 @@ namespace StructureSystem.ViewModel
 
         private HamburgerMenuItemCollection _menuItems;
         private HamburgerMenuItemCollection _menuOptionItems;
-
-
+       
         #endregion
 
 
@@ -94,6 +93,13 @@ namespace StructureSystem.ViewModel
                     Label = "Diseño estructural",
                     ToolTip = "Diseño estructural",
                     Tag = new StructuralDesignVM(this)
+                },
+                 new HamburgerMenuIconItem()
+                {
+                    Icon = new PackIconMaterial() {Kind = PackIconMaterialKind.FilePdf},
+                    Label = "Exportar documento",
+                    ToolTip = "Exportar documento",
+                    Tag = new ExportDocumentVM(this)
                 }
             };
 
@@ -108,11 +114,11 @@ namespace StructureSystem.ViewModel
                 }
             };
 
-           
+
 
         }
 
-      
+
         public HamburgerMenuItemCollection MenuItems
         {
             get { return _menuItems; }

@@ -143,6 +143,28 @@ namespace StructureSystem.BusinessRules.Services
             return result;
         }
 
+        public OperationResult GetSavedData(int Storey)
+        {
+            OperationResult result = new OperationResult();
+            try
+            {
+                XMLLoadAnalysisData model = new XMLLoadAnalysisData();
+                model.DocumentPath = this.GetDocumentPath();
+                model.Storey = Storey;
+                using(var data = UnitOfWork.Create())
+                {
+                    var info = data.Repositories.DocumentDataContext.LoadAnalysisData.Get(model);
+                    result.OperationSuccess(info, Enums.ActionType.Get);
+                }
+            }
+            catch (Exception ex)
+            {
+                result.OperationError("Error al obtener los entrepisos almacenados", Enums.ActionType.Get, ex);
+            }
+
+
+            return result;
+        }
 
         private string GetDocumentPath()
         {

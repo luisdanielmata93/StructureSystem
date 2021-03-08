@@ -27,6 +27,12 @@ namespace StructureSystem.BusinessRules.Services
                 using (var data = UnitOfWork.Create())
                 {
                     var info = data.Repositories.DocumentDataContext.StructureData.Get(document);
+
+                    info.ToList().ForEach(x => {
+                        x.HorizontalWalls.ForEach(wall =>{ wall.Materials = new System.Collections.ObjectModel.ObservableCollection<string>(this.configData.GetMaterialsCollection().Select(m=> m.Name)); });
+                        x.VerticalWalls.ForEach(wall => { wall.Materials = new System.Collections.ObjectModel.ObservableCollection<string>(this.configData.GetMaterialsCollection().Select(m => m.Name)); });
+                    });
+
                     result.OperationSuccess(info, Enums.ActionType.Create);
                 }
             }

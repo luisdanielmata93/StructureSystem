@@ -122,8 +122,8 @@ namespace StructureSystem.ViewModel
         {
 
             var dataTemp = structureData.GetStoreys();
-
-            this.Storeys = new ObservableCollection<Storey>((List<Storey>)dataTemp.Data);
+            var storeys = new ObservableCollection<Storey>((List<Storey>)dataTemp.Data);            
+            this.Storeys = storeys;
         }
 
         #endregion

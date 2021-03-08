@@ -108,7 +108,7 @@
     <Compile Include="Configuration\WebConfiguration.cs" />
     <Compile Include="Functions\Operations.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\ExportDocument.cs" />
+    <Compile Include="Services\ExportDocumentService.cs" />
     <Compile Include="Services\GeneralDataService.cs" />
     <Compile Include="Services\LoadAnalysisService.cs" />
     <Compile Include="Services\SeismicAnalysisService.cs" />

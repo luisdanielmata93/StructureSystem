@@ -33,7 +33,7 @@
             </Button>
         </mah:WindowCommands>
     </mah:MetroWindow.LeftWindowCommands>
-    <mah:MetroWindow.RightWindowCommands>
+    <!--<mah:MetroWindow.RightWindowCommands>
         <mah:WindowCommands>
             <Button Content="Configuración">
                 <Button.ContentTemplate>
@@ -51,7 +51,7 @@
                 </Button.ContentTemplate>
             </Button>
         </mah:WindowCommands>
-    </mah:MetroWindow.RightWindowCommands>
+    </mah:MetroWindow.RightWindowCommands>-->
     <Grid>
 
         <Grid.Resources>
@@ -103,9 +103,13 @@
             <DataTemplate DataType="{x:Type viewModels:StructuralDesignVM}">
                 <views:StructuralDesign DataContext="{Binding}" />
             </DataTemplate>
+            <DataTemplate DataType="{x:Type viewModels:ExportDocumentVM}">
+                <views:ExportDocument DataContext="{Binding}" />
+            </DataTemplate>
             
         </Grid.Resources>
 
+     
         <Grid Grid.Row="0"  Grid.Column="0" Panel.ZIndex="10">
             <notifications:NotificationArea x:Name="WindowArea" Position="TopRight" MaxItems="3"/>
         </Grid>

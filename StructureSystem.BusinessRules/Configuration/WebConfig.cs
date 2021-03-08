@@ -34,6 +34,24 @@ namespace StructureSystem.BusinessRules.Configuration
             return result;
         }
 
+        public bool SetPathToSave(string xmlPath)
+        {
+            try
+            {
+                var config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+                config.AppSettings.Settings.Remove("PathToSaveDocument");
+                config.AppSettings.Settings.Add("PathToSaveDocument", xmlPath);
+                config.Save(ConfigurationSaveMode.Modified);
+
+                ConfigurationManager.RefreshSection("appSettings");
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+      
         public bool SetLastDocument(string xmlPath)
         {
             try
@@ -149,5 +167,7 @@ namespace StructureSystem.BusinessRules.Configuration
 
             return flooringMaterials;
         }
+
+
     }//end of class
 }//end of namespace
